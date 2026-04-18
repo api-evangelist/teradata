@@ -1,0 +1,149 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: Teradata Query Service
+  description: >-
+    Shared capability for Teradata Query Service API providing SQL query
+    execution against Vantage systems.
+  tags:
+    - Teradata
+    - Query
+    - SQL
+    - Vantage
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      VANTAGE_USERNAME: VANTAGE_USERNAME
+      VANTAGE_PASSWORD: VANTAGE_PASSWORD
+
+capability:
+  consumes:
+    - type: http
+      namespace: query-service
+      baseUri: https://vantage.teradata.com/api/query/v1
+      description: "Teradata Query Service REST API."
+      authentication:
+        type: basic
+        username: "{{VANTAGE_USERNAME}}"
+        password: "{{VANTAGE_PASSWORD}}"
+      resources:
+        - name: systems
+          path: /systems
+          description: "Available Vantage systems."
+          operations:
+            - name: list-systems
+              method: GET
+              description: "List available Vantage systems."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: sessions
+          path: /sessions
+          description: "Query sessions."
+          operations:
+            - name: create-session
+              method: POST
+              description: "Create a new query session."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-session
+              method: GET
+              description: "Get session details."
+              inputParameters:
+                - name: sessionId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Session identifier."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: delete-session
+              method: DELETE
+              description: "Close a query session."
+              inputParameters:
+                - name: sessionId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Session identifier."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: queries
+          path: /queries
+          description: "SQL query execution."
+          operations:
+            - name: execute-query
+              method: POST
+              description: "Execute a SQL query."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-query-status
+              method: GET
+              description: "Get query status and results."
+              inputParameters:
+                - name: queryId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Query identifier."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: mcp
+      port: 9101
+      namespace: query-service-mcp
+      transport: http
+      tools:
+        - name: list-systems
+          description: "List available Vantage systems for query execution."
+          hints:
+            readOnly: true
+          call: "query-service.list-systems"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-session
+          description: "Create a new query session on a Vantage system."
+          hints:
+            readOnly: false
+          call: "query-service.create-session"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: execute-query
+          description: "Execute a SQL query against a Vantage system."
+          hints:
+            readOnly: false
+          call: "query-service.execute-query"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-query-status
+          description: "Get the status and results of a submitted query."
+          hints:
+            readOnly: true
+          call: "query-service.get-query-status"
+          outputParameters:
+            - type: object
+              mapping: "$."

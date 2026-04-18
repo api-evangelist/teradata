@@ -1,0 +1,225 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: Teradata QueryGrid Manager
+  description: >-
+    Shared capability for Teradata QueryGrid Manager API providing centralized
+    administration and monitoring of the data fabric.
+  tags:
+    - Teradata
+    - QueryGrid
+    - Data Fabric
+    - Configuration
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      QUERYGRID_USERNAME: QUERYGRID_USERNAME
+      QUERYGRID_PASSWORD: QUERYGRID_PASSWORD
+
+capability:
+  consumes:
+    - type: http
+      namespace: querygrid-manager
+      baseUri: https://querygrid.teradata.com/api/v1
+      description: "QueryGrid Manager REST API for data fabric administration."
+      authentication:
+        type: basic
+        username: "{{QUERYGRID_USERNAME}}"
+        password: "{{QUERYGRID_PASSWORD}}"
+      resources:
+        - name: monitoring
+          path: /
+          description: "Monitoring and status endpoints."
+          operations:
+            - name: get-api-info
+              method: GET
+              description: "Retrieve API version and status information."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: list-issues
+              method: GET
+              description: "Retrieve all current issues."
+              inputParameters:
+                - name: path
+                  in: path
+                  type: string
+                  required: true
+                  description: "Issues endpoint path."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: configuration
+          path: /config
+          description: "Configuration management endpoints."
+          operations:
+            - name: list-data-centers
+              method: GET
+              description: "Retrieve all configured data centers."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-data-center
+              method: POST
+              description: "Create a new data center configuration."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: list-systems
+              method: GET
+              description: "Retrieve all configured systems."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-system
+              method: POST
+              description: "Register a new system."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: list-bridges
+              method: GET
+              description: "Retrieve all configured bridges."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: list-connectors
+              method: GET
+              description: "Retrieve all configured connectors."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: list-links
+              method: GET
+              description: "Retrieve all configured links."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: list-fabrics
+              method: GET
+              description: "Retrieve all configured fabrics."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: list-networks
+              method: GET
+              description: "Retrieve all configured networks."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: operations
+          path: /operations
+          description: "Operational management endpoints."
+          operations:
+            - name: run-diagnostic-check
+              method: POST
+              description: "Execute a diagnostic check."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: auto-install-nodes
+              method: POST
+              description: "Trigger automated node installation."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: querygrid-manager-api
+      resources:
+        - path: /v1/api-info
+          name: api-info
+          description: "API information."
+          operations:
+            - method: GET
+              name: get-api-info
+              description: "Get API info."
+              call: "querygrid-manager.get-api-info"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: querygrid-manager-mcp
+      transport: http
+      tools:
+        - name: get-api-info
+          description: "Retrieve QueryGrid Manager API version and status."
+          hints:
+            readOnly: true
+          call: "querygrid-manager.get-api-info"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-issues
+          description: "List all current issues in the QueryGrid environment."
+          hints:
+            readOnly: true
+          call: "querygrid-manager.list-issues"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-data-centers
+          description: "List all configured data centers."
+          hints:
+            readOnly: true
+          call: "querygrid-manager.list-data-centers"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-systems
+          description: "List all configured systems."
+          hints:
+            readOnly: true
+          call: "querygrid-manager.list-systems"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-bridges
+          description: "List all configured bridges."
+          hints:
+            readOnly: true
+          call: "querygrid-manager.list-bridges"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: run-diagnostic-check
+          description: "Run a diagnostic check on systems."
+          hints:
+            readOnly: false
+          call: "querygrid-manager.run-diagnostic-check"
+          outputParameters:
+            - type: object
+              mapping: "$."

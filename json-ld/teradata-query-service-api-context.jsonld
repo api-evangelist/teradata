@@ -1,0 +1,26 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "td": "https://developer.teradata.com/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "QuerySystem": "td:QuerySystem",
+    "Session": "td:Session",
+    "QueryRequest": "td:QueryRequest",
+    "QueryResult": "td:QueryResult",
+    "name": { "@id": "schema:name", "@type": "xsd:string" },
+    "host": { "@id": "td:host", "@type": "xsd:string" },
+    "port": { "@id": "td:port", "@type": "xsd:integer" },
+    "status": { "@id": "td:status", "@type": "xsd:string" },
+    "sessionId": { "@id": "td:sessionId", "@type": "xsd:string" },
+    "system": { "@id": "td:system", "@type": "xsd:string" },
+    "database": { "@id": "td:database", "@type": "xsd:string" },
+    "createdAt": { "@id": "schema:dateCreated", "@type": "xsd:dateTime" },
+    "queryId": { "@id": "td:queryId", "@type": "xsd:string" },
+    "query": { "@id": "td:query", "@type": "xsd:string" },
+    "rowCount": { "@id": "td:rowCount", "@type": "xsd:integer" },
+    "columns": { "@id": "td:columns", "@container": "@set" },
+    "rows": { "@id": "td:rows", "@container": "@set" }
+  }
+}

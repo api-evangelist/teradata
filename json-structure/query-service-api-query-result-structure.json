@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/refs/heads/main/json-structure/query-service-api-query-result-structure.json",
+  "name": "QueryResult",
+  "description": "Query execution result.",
+  "type": "object",
+  "properties": {
+    "queryId": { "type": "string", "description": "Unique query identifier." },
+    "status": { "type": "string", "description": "Query execution status.", "enum": ["running", "completed", "failed", "cancelled"] },
+    "rowCount": { "type": "int32", "description": "Number of rows returned." },
+    "columns": { "type": "array", "items": { "type": "object" }, "description": "Column metadata." },
+    "rows": { "type": "array", "items": { "type": "array" }, "description": "Result rows." },
+    "errorMessage": { "type": "string", "description": "Error message if query failed." }
+  }
+}

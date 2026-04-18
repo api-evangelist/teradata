@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/refs/heads/main/json-schema/query-service-api-session-schema.json",
+  "title": "Session",
+  "description": "A query session.",
+  "type": "object",
+  "properties": {
+    "sessionId": { "type": "string", "description": "Unique session identifier." },
+    "system": { "type": "string", "description": "Connected system name." },
+    "database": { "type": "string", "description": "Default database." },
+    "status": { "type": "string", "description": "Session status.", "enum": ["active", "idle", "closed"] },
+    "createdAt": { "type": "string", "format": "date-time", "description": "Session creation time." }
+  }
+}

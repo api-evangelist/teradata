@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/refs/heads/main/json-schema/querygrid-manager-api-bridge-schema.json",
+  "title": "Bridge",
+  "description": "A bridge connecting two systems.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "Unique bridge identifier." },
+    "name": { "type": "string", "description": "Bridge name." },
+    "sourceSystemId": { "type": "string", "description": "Source system identifier." },
+    "targetSystemId": { "type": "string", "description": "Target system identifier." },
+    "status": { "type": "string", "description": "Bridge status." }
+  }
+}

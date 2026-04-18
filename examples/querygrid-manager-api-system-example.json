@@ -1,0 +1,8 @@
+{
+  "id": "sys-001",
+  "name": "vantage-prod",
+  "type": "teradata",
+  "dataCenterId": "dc-001",
+  "status": "active",
+  "hostname": "vantage01.example.com"
+}

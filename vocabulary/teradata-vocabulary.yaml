@@ -1,0 +1,232 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: Teradata
+  description: >-
+    Unified taxonomy mapping Teradata's operational API dimension and capability
+    workflow dimension across QueryGrid Manager and Query Service APIs.
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+operational:
+  apis:
+    - name: QueryGrid Manager API
+      namespace: querygrid-manager
+      version: "3.6"
+      baseUrl: https://querygrid.teradata.com/api/v1
+      status: active
+    - name: Query Service API
+      namespace: query-service
+      version: "1.0"
+      baseUrl: https://vantage.teradata.com/api/query/v1
+      status: active
+
+  resources:
+    - name: Data Centers
+      api: querygrid-manager
+      actions: [list, create]
+      description: Physical or logical data center configurations.
+    - name: Systems
+      api: querygrid-manager
+      actions: [list, create]
+      description: Registered database and analytics systems.
+    - name: Bridges
+      api: querygrid-manager
+      actions: [list, create]
+      description: Connections between systems for data transfer.
+    - name: Connectors
+      api: querygrid-manager
+      actions: [list, create]
+      description: System integration connectors.
+    - name: Links
+      api: querygrid-manager
+      actions: [list, create]
+      description: Links between connected systems via connectors.
+    - name: Fabrics
+      api: querygrid-manager
+      actions: [list, create]
+      description: Data fabric configurations spanning multiple systems.
+    - name: Networks
+      api: querygrid-manager
+      actions: [list, create]
+      description: Network configurations for QueryGrid communication.
+    - name: Nodes
+      api: querygrid-manager
+      actions: [list]
+      description: Individual compute nodes in the environment.
+    - name: Issues
+      api: querygrid-manager
+      actions: [list]
+      description: Detected issues and alerts.
+    - name: Sessions
+      api: query-service
+      actions: [create, get, delete]
+      description: Query execution sessions.
+    - name: Queries
+      api: query-service
+      actions: [execute, get, cancel]
+      description: SQL query executions and results.
+
+  actions:
+    - name: list
+      method: GET
+      pattern: read
+      description: Retrieve a collection of resources.
+    - name: create
+      method: POST
+      pattern: write
+      description: Create a new resource.
+    - name: get
+      method: GET
+      pattern: read
+      description: Retrieve a single resource by ID.
+    - name: delete
+      method: DELETE
+      pattern: destructive
+      description: Remove a resource.
+    - name: execute
+      method: POST
+      pattern: write
+      description: Execute a query or operation.
+    - name: cancel
+      method: DELETE
+      pattern: destructive
+      description: Cancel a running operation.
+
+  schemas:
+    core:
+      - name: System
+        properties: [id, name, type, dataCenterId, status, hostname]
+      - name: Node
+        properties: [id, name, hostname, systemId, status, softwareVersion]
+      - name: DataCenter
+        properties: [id, name, description, location]
+      - name: Bridge
+        properties: [id, name, sourceSystemId, targetSystemId, status]
+    query:
+      - name: Session
+        properties: [sessionId, system, database, status, createdAt]
+      - name: QueryResult
+        properties: [queryId, status, rowCount, columns, rows]
+
+  parameters:
+    identifiers:
+      - name: systemId
+        type: string
+        description: System identifier.
+      - name: sessionId
+        type: string
+        description: Session identifier.
+      - name: queryId
+        type: string
+        description: Query identifier.
+    filters:
+      - name: status
+        type: string
+        description: Filter by resource status.
+
+  enums:
+    system-types:
+      - teradata
+      - hadoop
+      - spark
+      - hive
+      - presto
+      - oracle
+    severity-levels:
+      - info
+      - warning
+      - error
+      - critical
+    query-statuses:
+      - running
+      - completed
+      - failed
+      - cancelled
+
+  authentication:
+    schemes:
+      - type: basic
+        apis: [querygrid-manager, query-service]
+        description: HTTP Basic authentication with system credentials.
+
+capability:
+  workflows:
+    - name: Data Fabric Management
+      file: capabilities/data-fabric-management.yaml
+      description: Manage QueryGrid data fabric infrastructure.
+      apis: [querygrid-manager, query-service]
+      toolCount: 7
+      personas: [Data Engineer, Platform Administrator]
+      domains: [Configuration, Monitoring]
+    - name: Query and Analytics
+      file: capabilities/query-and-analytics.yaml
+      description: Execute SQL queries and analytics.
+      apis: [query-service, querygrid-manager]
+      toolCount: 5
+      personas: [Data Analyst, Application Developer]
+      domains: [Query, Analytics]
+
+  personas:
+    - id: data-engineer
+      name: Data Engineer
+      description: Manages data fabric infrastructure and cross-system connectivity.
+      workflows: [Data Fabric Management]
+    - id: platform-admin
+      name: Platform Administrator
+      description: Administers QueryGrid systems, nodes, and software.
+      workflows: [Data Fabric Management]
+    - id: data-analyst
+      name: Data Analyst
+      description: Executes queries and analyzes data across Vantage systems.
+      workflows: [Query and Analytics]
+    - id: app-developer
+      name: Application Developer
+      description: Integrates applications with Teradata via REST APIs.
+      workflows: [Query and Analytics]
+
+  domains:
+    - name: Configuration
+      description: System and fabric configuration management.
+      resources: [Data Centers, Systems, Bridges, Connectors, Links, Fabrics, Networks]
+    - name: Monitoring
+      description: Health monitoring and issue detection.
+      resources: [Issues, Nodes]
+    - name: Query
+      description: SQL query execution and session management.
+      resources: [Sessions, Queries]
+
+  namespaces:
+    consumed:
+      - querygrid-manager
+      - query-service
+    rest:
+      - data-fabric-api
+      - query-analytics-api
+    mcp:
+      - data-fabric-mcp
+      - query-analytics-mcp
+
+  binds:
+    - QUERYGRID_USERNAME
+    - QUERYGRID_PASSWORD
+    - VANTAGE_USERNAME
+    - VANTAGE_PASSWORD
+
+crossReference:
+  - resource: Systems
+    operations: [listSystems, createSystem]
+    workflows: [Data Fabric Management]
+    personas: [Data Engineer, Platform Administrator]
+  - resource: Bridges
+    operations: [listBridges, createBridge]
+    workflows: [Data Fabric Management]
+    personas: [Data Engineer]
+  - resource: Sessions
+    operations: [createSession, getSession, deleteSession]
+    workflows: [Query and Analytics]
+    personas: [Data Analyst, Application Developer]
+  - resource: Queries
+    operations: [executeQuery, getQueryStatus, cancelQuery]
+    workflows: [Query and Analytics]
+    personas: [Data Analyst, Application Developer]

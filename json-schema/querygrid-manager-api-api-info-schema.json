@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/refs/heads/main/json-schema/querygrid-manager-api-api-info-schema.json",
+  "title": "ApiInfo",
+  "description": "QueryGrid Manager API information.",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "API version number."
+    },
+    "build": {
+      "type": "string",
+      "description": "Build version string."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current API status."
+    }
+  }
+}

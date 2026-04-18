@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/refs/heads/main/json-schema/querygrid-manager-api-issue-schema.json",
+  "title": "Issue",
+  "description": "An issue detected in the QueryGrid environment.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique issue identifier."
+    },
+    "severity": {
+      "type": "string",
+      "description": "Issue severity level.",
+      "enum": ["info", "warning", "error", "critical"]
+    },
+    "message": {
+      "type": "string",
+      "description": "Issue description message."
+    },
+    "source": {
+      "type": "string",
+      "description": "Source component of the issue."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Time when the issue was detected."
+    }
+  }
+}

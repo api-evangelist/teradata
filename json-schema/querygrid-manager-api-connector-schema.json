@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/refs/heads/main/json-schema/querygrid-manager-api-connector-schema.json",
+  "title": "Connector",
+  "description": "A connector for system integration.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "Unique connector identifier." },
+    "name": { "type": "string", "description": "Connector name." },
+    "type": { "type": "string", "description": "Connector type." },
+    "version": { "type": "string", "description": "Connector version." },
+    "status": { "type": "string", "description": "Connector status." }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "queryId": "qry-e5f6g7h8",
+  "status": "completed",
+  "rowCount": 10,
+  "columns": [
+    { "name": "customer_id", "type": "INTEGER" },
+    { "name": "event_type", "type": "VARCHAR" },
+    { "name": "event_time", "type": "TIMESTAMP" }
+  ],
+  "rows": [
+    [100001, "purchase", "2026-04-18T09:30:00Z"],
+    [100002, "login", "2026-04-18T09:31:00Z"]
+  ]
+}

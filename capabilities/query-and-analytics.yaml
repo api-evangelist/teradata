@@ -1,0 +1,118 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: Teradata Query and Analytics
+  description: >-
+    Workflow capability for executing SQL queries and analytics against Teradata
+    Vantage systems. Combines Query Service for SQL execution with QueryGrid for
+    cross-system query monitoring. Used by data analysts and application
+    developers.
+  tags:
+    - Teradata
+    - Query
+    - Analytics
+    - SQL
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      VANTAGE_USERNAME: VANTAGE_USERNAME
+      VANTAGE_PASSWORD: VANTAGE_PASSWORD
+      QUERYGRID_USERNAME: QUERYGRID_USERNAME
+      QUERYGRID_PASSWORD: QUERYGRID_PASSWORD
+
+capability:
+  consumes:
+    - import: query-service
+      location: ./shared/query-service.yaml
+    - import: querygrid-manager
+      location: ./shared/querygrid-manager.yaml
+
+  exposes:
+    - type: rest
+      port: 8081
+      namespace: query-analytics-api
+      description: "Unified REST API for Teradata query and analytics."
+      resources:
+        - path: /v1/systems
+          name: systems
+          description: "Available systems."
+          operations:
+            - method: GET
+              name: list-query-systems
+              description: "List available Vantage systems."
+              call: "query-service.list-systems"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/sessions
+          name: sessions
+          description: "Query sessions."
+          operations:
+            - method: POST
+              name: create-session
+              description: "Create a query session."
+              call: "query-service.create-session"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/queries
+          name: queries
+          description: "SQL queries."
+          operations:
+            - method: POST
+              name: execute-query
+              description: "Execute a SQL query."
+              call: "query-service.execute-query"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9081
+      namespace: query-analytics-mcp
+      transport: http
+      description: "MCP server for AI-assisted SQL query execution."
+      tools:
+        - name: list-query-systems
+          description: "List available Vantage systems for query execution."
+          hints:
+            readOnly: true
+          call: "query-service.list-systems"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-session
+          description: "Create a new query session on a Vantage system."
+          hints:
+            readOnly: false
+          call: "query-service.create-session"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: execute-query
+          description: "Execute a SQL query against Teradata Vantage."
+          hints:
+            readOnly: false
+          call: "query-service.execute-query"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-query-status
+          description: "Get the status and results of a submitted query."
+          hints:
+            readOnly: true
+          call: "query-service.get-query-status"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-querygrid-queries
+          description: "List cross-system query summaries from QueryGrid."
+          hints:
+            readOnly: true
+          call: "querygrid-manager.list-issues"
+          outputParameters:
+            - type: object
+              mapping: "$."

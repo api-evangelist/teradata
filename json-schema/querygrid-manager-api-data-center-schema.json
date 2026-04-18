@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/refs/heads/main/json-schema/querygrid-manager-api-data-center-schema.json",
+  "title": "DataCenter",
+  "description": "A data center configuration.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "Unique data center identifier." },
+    "name": { "type": "string", "description": "Data center name." },
+    "description": { "type": "string", "description": "Data center description." },
+    "location": { "type": "string", "description": "Physical location." }
+  }
+}

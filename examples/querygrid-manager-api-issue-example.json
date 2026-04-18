@@ -1,0 +1,7 @@
+{
+  "id": "100001",
+  "severity": "warning",
+  "message": "Bridge connection timeout detected on bridge-east-01",
+  "source": "bridge-east-01",
+  "timestamp": "2026-04-18T10:30:00Z"
+}

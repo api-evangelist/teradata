@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/refs/heads/main/json-schema/querygrid-manager-api-node-schema.json",
+  "title": "Node",
+  "description": "A node in the QueryGrid environment.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique node identifier."
+    },
+    "name": {
+      "type": "string",
+      "description": "Node name."
+    },
+    "hostname": {
+      "type": "string",
+      "description": "Node hostname."
+    },
+    "systemId": {
+      "type": "string",
+      "description": "Parent system identifier."
+    },
+    "status": {
+      "type": "string",
+      "description": "Node status.",
+      "enum": ["active", "inactive", "error"]
+    },
+    "softwareVersion": {
+      "type": "string",
+      "description": "Installed software version."
+    }
+  }
+}

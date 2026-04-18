@@ -1,0 +1,145 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: Teradata Data Fabric Management
+  description: >-
+    Workflow capability for managing Teradata's data fabric infrastructure.
+    Combines QueryGrid Manager for fabric configuration with Query Service for
+    validating cross-system connectivity. Used by data engineers and platform
+    administrators.
+  tags:
+    - Teradata
+    - Data Fabric
+    - Configuration
+    - Administration
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      QUERYGRID_USERNAME: QUERYGRID_USERNAME
+      QUERYGRID_PASSWORD: QUERYGRID_PASSWORD
+      VANTAGE_USERNAME: VANTAGE_USERNAME
+      VANTAGE_PASSWORD: VANTAGE_PASSWORD
+
+capability:
+  consumes:
+    - import: querygrid-manager
+      location: ./shared/querygrid-manager.yaml
+    - import: query-service
+      location: ./shared/query-service.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: data-fabric-api
+      description: "Unified REST API for Teradata data fabric management."
+      resources:
+        - path: /v1/data-centers
+          name: data-centers
+          description: "Data center management."
+          operations:
+            - method: GET
+              name: list-data-centers
+              description: "List all data centers."
+              call: "querygrid-manager.list-data-centers"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/systems
+          name: systems
+          description: "System management."
+          operations:
+            - method: GET
+              name: list-systems
+              description: "List all registered systems."
+              call: "querygrid-manager.list-systems"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/bridges
+          name: bridges
+          description: "Bridge management."
+          operations:
+            - method: GET
+              name: list-bridges
+              description: "List all bridges."
+              call: "querygrid-manager.list-bridges"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/issues
+          name: issues
+          description: "Issue monitoring."
+          operations:
+            - method: GET
+              name: list-issues
+              description: "List all current issues."
+              call: "querygrid-manager.list-issues"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9080
+      namespace: data-fabric-mcp
+      transport: http
+      description: "MCP server for AI-assisted data fabric management."
+      tools:
+        - name: list-data-centers
+          description: "List all configured data centers."
+          hints:
+            readOnly: true
+          call: "querygrid-manager.list-data-centers"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-systems
+          description: "List all registered systems in QueryGrid."
+          hints:
+            readOnly: true
+          call: "querygrid-manager.list-systems"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-bridges
+          description: "List all bridges connecting systems."
+          hints:
+            readOnly: true
+          call: "querygrid-manager.list-bridges"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-connectors
+          description: "List all connectors for system integration."
+          hints:
+            readOnly: true
+          call: "querygrid-manager.list-connectors"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-fabrics
+          description: "List all data fabric configurations."
+          hints:
+            readOnly: true
+          call: "querygrid-manager.list-fabrics"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-issues
+          description: "List all current issues in the QueryGrid environment."
+          hints:
+            readOnly: true
+          call: "querygrid-manager.list-issues"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: run-diagnostic-check
+          description: "Run a diagnostic check on QueryGrid systems."
+          hints:
+            readOnly: false
+          call: "querygrid-manager.run-diagnostic-check"
+          outputParameters:
+            - type: object
+              mapping: "$."

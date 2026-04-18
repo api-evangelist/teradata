@@ -1,0 +1,392 @@
+openapi: 3.0.3
+info:
+  title: Teradata Query Service API
+  description: >-
+    REST API for executing SQL queries against Teradata Vantage systems.
+    Provides HTTP-based access to run queries, retrieve results, and manage
+    sessions for application integration.
+  version: '1.0'
+  contact:
+    name: Teradata
+    url: https://www.teradata.com
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+  - url: https://vantage.teradata.com/api/query/v1
+    description: Teradata Query Service endpoint
+security:
+  - BasicAuth: []
+paths:
+  /systems:
+    get:
+      operationId: listQuerySystems
+      summary: Teradata List Query Systems
+      description: Retrieve available Vantage systems for query execution.
+      tags:
+        - Systems
+      responses:
+        '200':
+          description: List of systems retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QuerySystem'
+              examples:
+                ListQuerySystems200Example:
+                  summary: Default listQuerySystems 200 response
+                  x-microcks-default: true
+                  value:
+                    - name: vantage-prod
+                      host: vantage01.example.com
+                      port: 1025
+                      status: available
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /sessions:
+    post:
+      operationId: createSession
+      summary: Teradata Create Session
+      description: Create a new query session on a Vantage system.
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionRequest'
+            examples:
+              CreateSessionRequestExample:
+                summary: Default createSession request
+                x-microcks-default: true
+                value:
+                  system: vantage-prod
+                  username: app_user
+                  database: analytics_db
+      responses:
+        '201':
+          description: Session created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+              examples:
+                CreateSession201Example:
+                  summary: Default createSession 201 response
+                  x-microcks-default: true
+                  value:
+                    sessionId: sess-a1b2c3d4
+                    system: vantage-prod
+                    database: analytics_db
+                    status: active
+                    createdAt: '2026-04-18T10:00:00Z'
+        '400':
+          description: Invalid session request.
+        '401':
+          description: Authentication failed.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /sessions/{sessionId}:
+    get:
+      operationId: getSession
+      summary: Teradata Get Session
+      description: Retrieve details about a specific query session.
+      tags:
+        - Sessions
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          description: Session identifier.
+          schema:
+            type: string
+          example: sess-a1b2c3d4
+      responses:
+        '200':
+          description: Session details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        '404':
+          description: Session not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteSession
+      summary: Teradata Delete Session
+      description: Close and delete a query session.
+      tags:
+        - Sessions
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          description: Session identifier.
+          schema:
+            type: string
+          example: sess-a1b2c3d4
+      responses:
+        '204':
+          description: Session deleted successfully.
+        '404':
+          description: Session not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /queries:
+    post:
+      operationId: executeQuery
+      summary: Teradata Execute Query
+      description: Execute a SQL query against a Vantage system.
+      tags:
+        - Queries
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+            examples:
+              ExecuteQueryRequestExample:
+                summary: Default executeQuery request
+                x-microcks-default: true
+                value:
+                  sessionId: sess-a1b2c3d4
+                  query: SELECT TOP 10 * FROM analytics_db.customer_events
+                  format: json
+                  maxRows: 1000
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResult'
+              examples:
+                ExecuteQuery200Example:
+                  summary: Default executeQuery 200 response
+                  x-microcks-default: true
+                  value:
+                    queryId: qry-e5f6g7h8
+                    status: completed
+                    rowCount: 10
+                    columns:
+                      - name: customer_id
+                        type: INTEGER
+                      - name: event_type
+                        type: VARCHAR
+                      - name: event_time
+                        type: TIMESTAMP
+                    rows:
+                      - - 100001
+                        - purchase
+                        - '2026-04-18T09:30:00Z'
+        '400':
+          description: Invalid query syntax.
+        '401':
+          description: Authentication failed.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /queries/{queryId}:
+    get:
+      operationId: getQueryStatus
+      summary: Teradata Get Query Status
+      description: Retrieve the status and results of a previously submitted query.
+      tags:
+        - Queries
+      parameters:
+        - name: queryId
+          in: path
+          required: true
+          description: Query identifier.
+          schema:
+            type: string
+          example: qry-e5f6g7h8
+      responses:
+        '200':
+          description: Query status retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResult'
+        '404':
+          description: Query not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: cancelQuery
+      summary: Teradata Cancel Query
+      description: Cancel a running query.
+      tags:
+        - Queries
+      parameters:
+        - name: queryId
+          in: path
+          required: true
+          description: Query identifier.
+          schema:
+            type: string
+          example: qry-e5f6g7h8
+      responses:
+        '204':
+          description: Query cancelled successfully.
+        '404':
+          description: Query not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication with Vantage credentials.
+  schemas:
+    QuerySystem:
+      type: object
+      description: A Vantage system available for queries.
+      properties:
+        name:
+          type: string
+          description: System name.
+          example: vantage-prod
+        host:
+          type: string
+          description: System hostname.
+          example: vantage01.example.com
+        port:
+          type: integer
+          description: Connection port.
+          example: 1025
+        status:
+          type: string
+          description: System availability status.
+          enum:
+            - available
+            - unavailable
+            - maintenance
+          example: available
+    SessionRequest:
+      type: object
+      description: Request to create a query session.
+      properties:
+        system:
+          type: string
+          description: Target system name.
+          example: vantage-prod
+        username:
+          type: string
+          description: Database username.
+          example: app_user
+        database:
+          type: string
+          description: Default database.
+          example: analytics_db
+      required:
+        - system
+        - username
+    Session:
+      type: object
+      description: A query session.
+      properties:
+        sessionId:
+          type: string
+          description: Unique session identifier.
+          example: sess-a1b2c3d4
+        system:
+          type: string
+          description: Connected system name.
+          example: vantage-prod
+        database:
+          type: string
+          description: Default database.
+          example: analytics_db
+        status:
+          type: string
+          description: Session status.
+          enum:
+            - active
+            - idle
+            - closed
+          example: active
+        createdAt:
+          type: string
+          format: date-time
+          description: Session creation time.
+          example: '2026-04-18T10:00:00Z'
+    QueryRequest:
+      type: object
+      description: Request to execute a SQL query.
+      properties:
+        sessionId:
+          type: string
+          description: Session identifier for query execution.
+          example: sess-a1b2c3d4
+        query:
+          type: string
+          description: SQL query to execute.
+          example: SELECT TOP 10 * FROM analytics_db.customer_events
+        format:
+          type: string
+          description: Result format.
+          enum:
+            - json
+            - csv
+          example: json
+        maxRows:
+          type: integer
+          description: Maximum number of rows to return.
+          example: 1000
+      required:
+        - sessionId
+        - query
+    QueryResult:
+      type: object
+      description: Query execution result.
+      properties:
+        queryId:
+          type: string
+          description: Unique query identifier.
+          example: qry-e5f6g7h8
+        status:
+          type: string
+          description: Query execution status.
+          enum:
+            - running
+            - completed
+            - failed
+            - cancelled
+          example: completed
+        rowCount:
+          type: integer
+          description: Number of rows returned.
+          example: 10
+        columns:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Column name.
+              type:
+                type: string
+                description: Column data type.
+          description: Column metadata.
+        rows:
+          type: array
+          items:
+            type: array
+            items: {}
+          description: Result rows as arrays of values.
+        errorMessage:
+          type: string
+          description: Error message if query failed.

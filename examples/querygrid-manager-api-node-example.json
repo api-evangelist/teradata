@@ -1,0 +1,8 @@
+{
+  "id": "600001",
+  "name": "node-east-01",
+  "hostname": "node01.example.com",
+  "systemId": "sys-001",
+  "status": "active",
+  "softwareVersion": "03.06.00.01"
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/refs/heads/main/json-schema/querygrid-manager-api-system-schema.json",
+  "title": "System",
+  "description": "A system registered in QueryGrid.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique system identifier."
+    },
+    "name": {
+      "type": "string",
+      "description": "System name."
+    },
+    "type": {
+      "type": "string",
+      "description": "System type.",
+      "enum": ["teradata", "hadoop", "spark", "hive", "presto", "oracle"]
+    },
+    "dataCenterId": {
+      "type": "string",
+      "description": "Parent data center identifier."
+    },
+    "status": {
+      "type": "string",
+      "description": "System status."
+    },
+    "hostname": {
+      "type": "string",
+      "description": "System hostname."
+    }
+  }
+}
