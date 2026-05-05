@@ -1,0 +1,13 @@
+{
+  "repo": "teradata",
+  "feeds": [
+    {
+      "source": "https://www.teradata.com/blog",
+      "feed_url": "https://www.teradata.com/rss/news",
+      "saved": 10,
+      "title": "Teradata News"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:37:28Z"
+}
