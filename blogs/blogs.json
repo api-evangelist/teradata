@@ -3,11 +3,12 @@
   "feeds": [
     {
       "source": "https://www.teradata.com/blog",
-      "feed_url": "https://www.teradata.com/rss/news",
-      "saved": 10,
-      "title": "Teradata News"
+      "feed_url": "",
+      "title": "",
+      "saved": 0,
+      "error": "no_feed"
     }
   ],
   "post_count": 10,
-  "fetched": "2026-05-03T23:37:28Z"
+  "fetched": "2026-05-09T20:17:51Z"
 }
