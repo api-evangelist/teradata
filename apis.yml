@@ -201,6 +201,10 @@ common:
   - type: NaftikoCapability
     url: capabilities/query-and-analytics.yaml
     title: Query and Analytics
+  - type: Integrations
+    url: https://www.teradata.com/partners
+integrations:
+  - name: Partner with us today
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
