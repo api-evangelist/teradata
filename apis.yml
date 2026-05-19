@@ -19,7 +19,7 @@ tags:
   - SQL
 url: https://www.teradata.com
 created: '2026-04-18'
-modified: '2026-04-18'
+modified: '2026-05-19'
 specificationVersion: '0.19'
 position: Consumer
 access: 3rd-Party
@@ -203,6 +203,9 @@ common:
     title: Query and Analytics
   - type: Integrations
     url: https://www.teradata.com/partners
+  - name: MCP Server
+    url: https://github.com/Teradata/teradata-mcp-server
+    type: MCPServer
 integrations:
   - name: Partner with us today
 maintainers:
