@@ -1,0 +1,71 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Teradata QueryGrid Manager API — Users
+  description: 'Teradata QueryGrid Manager API — Users. 1 operations. Lead operation: Teradata List Users. Self-contained
+    Naftiko capability covering one Teradata business surface.'
+  tags:
+  - Teradata
+  - Users
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TERADATA_API_KEY: TERADATA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: querygrid-manager-users
+    baseUri: https://querygrid.teradata.com/api/v1
+    description: Teradata QueryGrid Manager API — Users business capability. Self-contained, no shared references.
+    resources:
+    - name: users
+      path: /users
+      operations:
+      - name: listusers
+        method: GET
+        description: Teradata List Users
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.TERADATA_USER}}'
+      password: '{{env.TERADATA_PASS}}'
+  exposes:
+  - type: rest
+    namespace: querygrid-manager-users-rest
+    port: 8080
+    description: REST adapter for Teradata QueryGrid Manager API — Users. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/users
+      name: users
+      description: REST surface for users.
+      operations:
+      - method: GET
+        name: listusers
+        description: Teradata List Users
+        call: querygrid-manager-users.listusers
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: querygrid-manager-users-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Teradata QueryGrid Manager API — Users. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: teradata-list-users
+      description: Teradata List Users
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: querygrid-manager-users.listusers
+      outputParameters:
+      - type: object
+        mapping: $.

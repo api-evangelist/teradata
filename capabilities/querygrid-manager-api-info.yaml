@@ -1,0 +1,71 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Teradata QueryGrid Manager API — API Info
+  description: 'Teradata QueryGrid Manager API — API Info. 1 operations. Lead operation: Teradata Get API Info. Self-contained
+    Naftiko capability covering one Teradata business surface.'
+  tags:
+  - Teradata
+  - API Info
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TERADATA_API_KEY: TERADATA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: querygrid-manager-api-info
+    baseUri: https://querygrid.teradata.com/api/v1
+    description: Teradata QueryGrid Manager API — API Info business capability. Self-contained, no shared references.
+    resources:
+    - name: root
+      path: /
+      operations:
+      - name: getapiinfo
+        method: GET
+        description: Teradata Get API Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.TERADATA_USER}}'
+      password: '{{env.TERADATA_PASS}}'
+  exposes:
+  - type: rest
+    namespace: querygrid-manager-api-info-rest
+    port: 8080
+    description: REST adapter for Teradata QueryGrid Manager API — API Info. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1
+      name: root
+      description: REST surface for root.
+      operations:
+      - method: GET
+        name: getapiinfo
+        description: Teradata Get API Info
+        call: querygrid-manager-api-info.getapiinfo
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: querygrid-manager-api-info-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Teradata QueryGrid Manager API — API Info. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: teradata-get-api-info
+      description: Teradata Get API Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: querygrid-manager-api-info.getapiinfo
+      outputParameters:
+      - type: object
+        mapping: $.

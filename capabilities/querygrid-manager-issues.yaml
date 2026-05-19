@@ -1,0 +1,71 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Teradata QueryGrid Manager API — Issues
+  description: 'Teradata QueryGrid Manager API — Issues. 1 operations. Lead operation: Teradata List Issues. Self-contained
+    Naftiko capability covering one Teradata business surface.'
+  tags:
+  - Teradata
+  - Issues
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TERADATA_API_KEY: TERADATA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: querygrid-manager-issues
+    baseUri: https://querygrid.teradata.com/api/v1
+    description: Teradata QueryGrid Manager API — Issues business capability. Self-contained, no shared references.
+    resources:
+    - name: issues
+      path: /issues
+      operations:
+      - name: listissues
+        method: GET
+        description: Teradata List Issues
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.TERADATA_USER}}'
+      password: '{{env.TERADATA_PASS}}'
+  exposes:
+  - type: rest
+    namespace: querygrid-manager-issues-rest
+    port: 8080
+    description: REST adapter for Teradata QueryGrid Manager API — Issues. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/issues
+      name: issues
+      description: REST surface for issues.
+      operations:
+      - method: GET
+        name: listissues
+        description: Teradata List Issues
+        call: querygrid-manager-issues.listissues
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: querygrid-manager-issues-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Teradata QueryGrid Manager API — Issues. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: teradata-list-issues
+      description: Teradata List Issues
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: querygrid-manager-issues.listissues
+      outputParameters:
+      - type: object
+        mapping: $.

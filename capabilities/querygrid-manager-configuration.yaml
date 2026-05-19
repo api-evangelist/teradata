@@ -1,0 +1,575 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Teradata QueryGrid Manager API — Configuration
+  description: 'Teradata QueryGrid Manager API — Configuration. 16 operations. Lead operation: Teradata List Bridges. Self-contained
+    Naftiko capability covering one Teradata business surface.'
+  tags:
+  - Teradata
+  - Configuration
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TERADATA_API_KEY: TERADATA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: querygrid-manager-configuration
+    baseUri: https://querygrid.teradata.com/api/v1
+    description: Teradata QueryGrid Manager API — Configuration business capability. Self-contained, no shared references.
+    resources:
+    - name: config-bridges
+      path: /config/bridges
+      operations:
+      - name: listbridges
+        method: GET
+        description: Teradata List Bridges
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createbridge
+        method: POST
+        description: Teradata Create Bridge
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: config-comm-policies
+      path: /config/comm-policies
+      operations:
+      - name: listcommpolicies
+        method: GET
+        description: Teradata List Communication Policies
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createcommpolicy
+        method: POST
+        description: Teradata Create Communication Policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: config-connectors
+      path: /config/connectors
+      operations:
+      - name: listconnectors
+        method: GET
+        description: Teradata List Connectors
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createconnector
+        method: POST
+        description: Teradata Create Connector
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: config-datacenters
+      path: /config/datacenters
+      operations:
+      - name: listdatacenters
+        method: GET
+        description: Teradata List Data Centers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createdatacenter
+        method: POST
+        description: Teradata Create Data Center
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: config-fabrics
+      path: /config/fabrics
+      operations:
+      - name: listfabrics
+        method: GET
+        description: Teradata List Fabrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createfabric
+        method: POST
+        description: Teradata Create Fabric
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: config-links
+      path: /config/links
+      operations:
+      - name: listlinks
+        method: GET
+        description: Teradata List Links
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createlink
+        method: POST
+        description: Teradata Create Link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: config-networks
+      path: /config/networks
+      operations:
+      - name: listnetworks
+        method: GET
+        description: Teradata List Networks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createnetwork
+        method: POST
+        description: Teradata Create Network
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: config-systems
+      path: /config/systems
+      operations:
+      - name: listsystems
+        method: GET
+        description: Teradata List Systems
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createsystem
+        method: POST
+        description: Teradata Create System
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: basic
+      username: '{{env.TERADATA_USER}}'
+      password: '{{env.TERADATA_PASS}}'
+  exposes:
+  - type: rest
+    namespace: querygrid-manager-configuration-rest
+    port: 8080
+    description: REST adapter for Teradata QueryGrid Manager API — Configuration. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/config/bridges
+      name: config-bridges
+      description: REST surface for config-bridges.
+      operations:
+      - method: GET
+        name: listbridges
+        description: Teradata List Bridges
+        call: querygrid-manager-configuration.listbridges
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createbridge
+        description: Teradata Create Bridge
+        call: querygrid-manager-configuration.createbridge
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/config/comm-policies
+      name: config-comm-policies
+      description: REST surface for config-comm-policies.
+      operations:
+      - method: GET
+        name: listcommpolicies
+        description: Teradata List Communication Policies
+        call: querygrid-manager-configuration.listcommpolicies
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcommpolicy
+        description: Teradata Create Communication Policy
+        call: querygrid-manager-configuration.createcommpolicy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/config/connectors
+      name: config-connectors
+      description: REST surface for config-connectors.
+      operations:
+      - method: GET
+        name: listconnectors
+        description: Teradata List Connectors
+        call: querygrid-manager-configuration.listconnectors
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createconnector
+        description: Teradata Create Connector
+        call: querygrid-manager-configuration.createconnector
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/config/datacenters
+      name: config-datacenters
+      description: REST surface for config-datacenters.
+      operations:
+      - method: GET
+        name: listdatacenters
+        description: Teradata List Data Centers
+        call: querygrid-manager-configuration.listdatacenters
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createdatacenter
+        description: Teradata Create Data Center
+        call: querygrid-manager-configuration.createdatacenter
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/config/fabrics
+      name: config-fabrics
+      description: REST surface for config-fabrics.
+      operations:
+      - method: GET
+        name: listfabrics
+        description: Teradata List Fabrics
+        call: querygrid-manager-configuration.listfabrics
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createfabric
+        description: Teradata Create Fabric
+        call: querygrid-manager-configuration.createfabric
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/config/links
+      name: config-links
+      description: REST surface for config-links.
+      operations:
+      - method: GET
+        name: listlinks
+        description: Teradata List Links
+        call: querygrid-manager-configuration.listlinks
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createlink
+        description: Teradata Create Link
+        call: querygrid-manager-configuration.createlink
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/config/networks
+      name: config-networks
+      description: REST surface for config-networks.
+      operations:
+      - method: GET
+        name: listnetworks
+        description: Teradata List Networks
+        call: querygrid-manager-configuration.listnetworks
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createnetwork
+        description: Teradata Create Network
+        call: querygrid-manager-configuration.createnetwork
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/config/systems
+      name: config-systems
+      description: REST surface for config-systems.
+      operations:
+      - method: GET
+        name: listsystems
+        description: Teradata List Systems
+        call: querygrid-manager-configuration.listsystems
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createsystem
+        description: Teradata Create System
+        call: querygrid-manager-configuration.createsystem
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: querygrid-manager-configuration-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Teradata QueryGrid Manager API — Configuration. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: teradata-list-bridges
+      description: Teradata List Bridges
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: querygrid-manager-configuration.listbridges
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: teradata-create-bridge
+      description: Teradata Create Bridge
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: querygrid-manager-configuration.createbridge
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: teradata-list-communication-policies
+      description: Teradata List Communication Policies
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: querygrid-manager-configuration.listcommpolicies
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: teradata-create-communication-policy
+      description: Teradata Create Communication Policy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: querygrid-manager-configuration.createcommpolicy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: teradata-list-connectors
+      description: Teradata List Connectors
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: querygrid-manager-configuration.listconnectors
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: teradata-create-connector
+      description: Teradata Create Connector
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: querygrid-manager-configuration.createconnector
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: teradata-list-data-centers
+      description: Teradata List Data Centers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: querygrid-manager-configuration.listdatacenters
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: teradata-create-data-center
+      description: Teradata Create Data Center
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: querygrid-manager-configuration.createdatacenter
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: teradata-list-fabrics
+      description: Teradata List Fabrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: querygrid-manager-configuration.listfabrics
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: teradata-create-fabric
+      description: Teradata Create Fabric
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: querygrid-manager-configuration.createfabric
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: teradata-list-links
+      description: Teradata List Links
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: querygrid-manager-configuration.listlinks
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: teradata-create-link
+      description: Teradata Create Link
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: querygrid-manager-configuration.createlink
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: teradata-list-networks
+      description: Teradata List Networks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: querygrid-manager-configuration.listnetworks
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: teradata-create-network
+      description: Teradata Create Network
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: querygrid-manager-configuration.createnetwork
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: teradata-list-systems
+      description: Teradata List Systems
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: querygrid-manager-configuration.listsystems
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: teradata-create-system
+      description: Teradata Create System
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: querygrid-manager-configuration.createsystem
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
