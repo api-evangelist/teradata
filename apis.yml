@@ -184,6 +184,8 @@ common:
   - name: MCP Server
     url: https://github.com/Teradata/teradata-mcp-server
     type: MCPServer
+  - type: LLMsTxt
+    url: https://docs.teradata.com/llms.txt
 integrations:
   - name: Partner with us today
 maintainers:
