@@ -2,12 +2,20 @@
   "repo": "teradata",
   "feeds": [
     {
-      "source": "https://www.teradata.com/blog",
+      "source": "https://www.teradata.com/rss/news",
       "feed_url": "https://www.teradata.com/rss/news",
-      "title": "Teradata News",
-      "saved": 47
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://support.teradata.com",
+      "feed_url": "https://support.teradata.com",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "post_count": 57,
-  "fetched": "2026-05-17T20:48:52Z"
+  "post_count": 59,
+  "fetched": "2026-06-01T23:35:02Z"
 }
