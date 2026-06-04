@@ -1,0 +1,85 @@
+arazzo: 1.0.1
+info:
+  title: Teradata Session Lifecycle
+  summary: Create a query session, verify it is active, then close it.
+  description: >-
+    A minimal session-management pattern for the Teradata Query Service. The
+    workflow opens a query session, reads back its details to confirm it is
+    active, and then deletes the session. It is useful as a connectivity check
+    or as a building block for higher-level query flows. Each step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: queryServiceApi
+  url: ../openapi/teradata-query-service-api.yaml
+  type: openapi
+workflows:
+- workflowId: session-lifecycle
+  summary: Create a session, confirm it is active by reading it back, then delete it.
+  description: >-
+    Opens a query session for the supplied user and system, retrieves the
+    session to verify its active status, and deletes it to release resources.
+  inputs:
+    type: object
+    required:
+    - system
+    - username
+    properties:
+      system:
+        type: string
+        description: Target Vantage system name.
+      username:
+        type: string
+        description: Database username used to open the session.
+      database:
+        type: string
+        description: Default database for the session.
+  steps:
+  - stepId: openSession
+    description: Create a query session for the supplied user and system.
+    operationId: createSession
+    requestBody:
+      contentType: application/json
+      payload:
+        system: $inputs.system
+        username: $inputs.username
+        database: $inputs.database
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sessionId: $response.body#/sessionId
+      createdStatus: $response.body#/status
+  - stepId: verifySession
+    description: >-
+      Read the session details back to confirm it exists and is reported as
+      active before any work is performed.
+    operationId: getSession
+    parameters:
+    - name: sessionId
+      in: path
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.status == "active"
+      type: jsonpath
+    outputs:
+      status: $response.body#/status
+      system: $response.body#/system
+      database: $response.body#/database
+  - stepId: closeSession
+    description: Close and delete the verified session.
+    operationId: deleteSession
+    parameters:
+    - name: sessionId
+      in: path
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 204
+    outputs:
+      closed: $statusCode
+  outputs:
+    sessionId: $steps.openSession.outputs.sessionId
+    verifiedStatus: $steps.verifySession.outputs.status
+    closed: $steps.closeSession.outputs.closed

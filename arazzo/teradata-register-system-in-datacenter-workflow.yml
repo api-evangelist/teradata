@@ -1,0 +1,103 @@
+arazzo: 1.0.1
+info:
+  title: Teradata Register a System in a New Data Center
+  summary: Create a data center, register a system inside it, then bridge it to an existing system.
+  description: >-
+    Onboards a new QueryGrid system from scratch. The workflow creates a data
+    center, registers a system that belongs to it, and then builds a bridge that
+    connects the new system to an existing one so the two can exchange data.
+    Each step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: queryGridManagerApi
+  url: ../openapi/teradata-querygrid-manager-api.yaml
+  type: openapi
+workflows:
+- workflowId: register-system-in-datacenter
+  summary: Create a data center, register a system in it, then bridge it to an existing system.
+  description: >-
+    Creates a data center, registers a system whose dataCenterId points at it,
+    and creates a bridge from the new system to the supplied target system.
+  inputs:
+    type: object
+    required:
+    - dataCenterName
+    - location
+    - systemName
+    - systemType
+    - bridgeName
+    - targetSystemId
+    properties:
+      dataCenterName:
+        type: string
+        description: Name of the data center to create.
+      dataCenterDescription:
+        type: string
+        description: Description of the data center.
+      location:
+        type: string
+        description: Physical location of the data center.
+      systemName:
+        type: string
+        description: Name of the system to register.
+      systemType:
+        type: string
+        description: System type (teradata, hadoop, spark, hive, presto, oracle).
+      systemHostname:
+        type: string
+        description: Hostname of the system.
+      bridgeName:
+        type: string
+        description: Name for the bridge between the two systems.
+      targetSystemId:
+        type: string
+        description: Identifier of the existing target system to bridge to.
+  steps:
+  - stepId: createDataCenter
+    description: Create the data center that will host the new system.
+    operationId: createDataCenter
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.dataCenterName
+        description: $inputs.dataCenterDescription
+        location: $inputs.location
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      dataCenterId: $response.body#/id
+  - stepId: createSystem
+    description: Register the system as a member of the new data center.
+    operationId: createSystem
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.systemName
+        type: $inputs.systemType
+        dataCenterId: $steps.createDataCenter.outputs.dataCenterId
+        hostname: $inputs.systemHostname
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      systemId: $response.body#/id
+  - stepId: createBridge
+    description: >-
+      Build a bridge from the newly registered system to the supplied target
+      system so the two can exchange data.
+    operationId: createBridge
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.bridgeName
+        sourceSystemId: $steps.createSystem.outputs.systemId
+        targetSystemId: $inputs.targetSystemId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      bridgeId: $response.body#/id
+      bridgeStatus: $response.body#/status
+  outputs:
+    dataCenterId: $steps.createDataCenter.outputs.dataCenterId
+    systemId: $steps.createSystem.outputs.systemId
+    bridgeId: $steps.createBridge.outputs.bridgeId

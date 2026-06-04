@@ -1,0 +1,90 @@
+arazzo: 1.0.1
+info:
+  title: Teradata Run a Connectivity Diagnostic
+  summary: List configured systems, run a connectivity diagnostic, then branch on the result.
+  description: >-
+    Checks that a QueryGrid source system can reach its target systems. The
+    workflow lists the configured systems for context, runs a connectivity
+    diagnostic check from the source against a set of targets, and branches on
+    whether the check passed or surfaced problems. Each step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: queryGridManagerApi
+  url: ../openapi/teradata-querygrid-manager-api.yaml
+  type: openapi
+workflows:
+- workflowId: run-connectivity-diagnostic
+  summary: Run a connectivity diagnostic from a source system and branch on pass or fail.
+  description: >-
+    Lists configured systems, runs a connectivity diagnostic check from the
+    source system against the supplied targets, and routes to a passed or
+    review terminal step based on the reported status.
+  inputs:
+    type: object
+    required:
+    - systemId
+    - targetSystems
+    properties:
+      systemId:
+        type: string
+        description: Identifier of the source system to diagnose.
+      targetSystems:
+        type: array
+        description: Identifiers of the target systems to check connectivity against.
+        items:
+          type: string
+  steps:
+  - stepId: listSystems
+    description: Retrieve the configured systems for context before running the check.
+    operationId: listSystems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      systems: $response.body
+  - stepId: runDiagnostic
+    description: >-
+      Run a connectivity diagnostic from the source system against the supplied
+      target systems and branch on the overall status.
+    operationId: runDiagnosticCheck
+    requestBody:
+      contentType: application/json
+      payload:
+        systemId: $inputs.systemId
+        checkType: connectivity
+        targetSystems: $inputs.targetSystems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      checkId: $response.body#/checkId
+      status: $response.body#/status
+      results: $response.body#/results
+    onSuccess:
+    - name: passed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "passed"
+        type: jsonpath
+    - name: needsReview
+      type: goto
+      stepId: reviewIssues
+      criteria:
+      - context: $response.body
+        condition: $.status != "passed"
+        type: jsonpath
+  - stepId: reviewIssues
+    description: >-
+      When the diagnostic did not pass, list the current environment issues to
+      help diagnose the connectivity problem.
+    operationId: listIssues
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      issues: $response.body
+  outputs:
+    checkId: $steps.runDiagnostic.outputs.checkId
+    status: $steps.runDiagnostic.outputs.status
+    results: $steps.runDiagnostic.outputs.results
+    issues: $steps.reviewIssues.outputs.issues

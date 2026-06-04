@@ -1,0 +1,108 @@
+arazzo: 1.0.1
+info:
+  title: Teradata Cancel a Running Query
+  summary: Submit a query, check whether it is still running, and cancel it if so.
+  description: >-
+    A guard pattern for runaway Teradata queries. The workflow opens a session,
+    submits a SQL statement, inspects the query status, and branches: if the
+    query is still running it issues a cancel, and if it already finished it
+    ends without cancelling. Each step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: queryServiceApi
+  url: ../openapi/teradata-query-service-api.yaml
+  type: openapi
+workflows:
+- workflowId: cancel-running-query
+  summary: Submit a query and cancel it if it is still running, otherwise end.
+  description: >-
+    Opens a session, submits the SQL statement, retrieves the query status, and
+    cancels the query only when it is still in the running state.
+  inputs:
+    type: object
+    required:
+    - system
+    - username
+    - query
+    properties:
+      system:
+        type: string
+        description: Target Vantage system name.
+      username:
+        type: string
+        description: Database username used to open the session.
+      database:
+        type: string
+        description: Default database for the session.
+      query:
+        type: string
+        description: SQL statement to execute.
+  steps:
+  - stepId: openSession
+    description: Create a query session against the requested system.
+    operationId: createSession
+    requestBody:
+      contentType: application/json
+      payload:
+        system: $inputs.system
+        username: $inputs.username
+        database: $inputs.database
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sessionId: $response.body#/sessionId
+  - stepId: submitQuery
+    description: Submit the SQL statement and capture the query identifier.
+    operationId: executeQuery
+    requestBody:
+      contentType: application/json
+      payload:
+        sessionId: $steps.openSession.outputs.sessionId
+        query: $inputs.query
+        format: json
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      queryId: $response.body#/queryId
+  - stepId: checkStatus
+    description: >-
+      Retrieve the query status and branch on whether it is still running.
+    operationId: getQueryStatus
+    parameters:
+    - name: queryId
+      in: path
+      value: $steps.submitQuery.outputs.queryId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      queryStatus: $response.body#/status
+    onSuccess:
+    - name: needsCancel
+      type: goto
+      stepId: cancelQuery
+      criteria:
+      - context: $response.body
+        condition: $.status == "running"
+        type: jsonpath
+    - name: alreadyDone
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status != "running"
+        type: jsonpath
+  - stepId: cancelQuery
+    description: Cancel the still-running query to free Vantage resources.
+    operationId: cancelQuery
+    parameters:
+    - name: queryId
+      in: path
+      value: $steps.submitQuery.outputs.queryId
+    successCriteria:
+    - condition: $statusCode == 204
+    outputs:
+      cancelled: $statusCode
+  outputs:
+    queryId: $steps.submitQuery.outputs.queryId
+    finalStatus: $steps.checkStatus.outputs.queryStatus
+    cancelled: $steps.cancelQuery.outputs.cancelled

@@ -1,0 +1,149 @@
+arazzo: 1.0.1
+info:
+  title: Teradata Submit Query and Poll for Results
+  summary: Submit a SQL query, poll its status until it completes, then branch on success or failure.
+  description: >-
+    A submit-then-poll pattern for long-running Teradata queries. The workflow
+    opens a session, submits the SQL statement, and then repeatedly retrieves
+    the query status until it leaves the running state. When the query finishes
+    it branches: a completed query returns the result rows while a failed query
+    surfaces the error. Each step spells out its request inline so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: queryServiceApi
+  url: ../openapi/teradata-query-service-api.yaml
+  type: openapi
+workflows:
+- workflowId: poll-query-results
+  summary: Submit a query and poll its status until it completes, then branch on the outcome.
+  description: >-
+    Opens a session, submits the SQL statement, polls getQueryStatus on a loop
+    while the query is still running, and routes to a completed or failed
+    terminal step based on the final status.
+  inputs:
+    type: object
+    required:
+    - system
+    - username
+    - query
+    properties:
+      system:
+        type: string
+        description: Target Vantage system name.
+      username:
+        type: string
+        description: Database username used to open the session.
+      database:
+        type: string
+        description: Default database for the session.
+      query:
+        type: string
+        description: SQL statement to execute.
+      maxRows:
+        type: integer
+        description: Maximum number of rows to return.
+  steps:
+  - stepId: openSession
+    description: Create a query session against the requested system.
+    operationId: createSession
+    requestBody:
+      contentType: application/json
+      payload:
+        system: $inputs.system
+        username: $inputs.username
+        database: $inputs.database
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sessionId: $response.body#/sessionId
+  - stepId: submitQuery
+    description: >-
+      Submit the SQL statement for execution and capture the query identifier so
+      its status can be polled.
+    operationId: executeQuery
+    requestBody:
+      contentType: application/json
+      payload:
+        sessionId: $steps.openSession.outputs.sessionId
+        query: $inputs.query
+        format: json
+        maxRows: $inputs.maxRows
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      queryId: $response.body#/queryId
+      submitStatus: $response.body#/status
+  - stepId: checkStatus
+    description: >-
+      Retrieve the current status of the submitted query. While the status is
+      still running the step loops back on itself; once the query is no longer
+      running it routes to the completed or failed terminal step.
+    operationId: getQueryStatus
+    parameters:
+    - name: queryId
+      in: path
+      value: $steps.submitQuery.outputs.queryId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      queryStatus: $response.body#/status
+      rowCount: $response.body#/rowCount
+      rows: $response.body#/rows
+      errorMessage: $response.body#/errorMessage
+    onSuccess:
+    - name: stillRunning
+      type: goto
+      stepId: checkStatus
+      criteria:
+      - context: $response.body
+        condition: $.status == "running"
+        type: jsonpath
+    - name: queryCompleted
+      type: goto
+      stepId: returnResults
+      criteria:
+      - context: $response.body
+        condition: $.status == "completed"
+        type: jsonpath
+    - name: queryFailed
+      type: goto
+      stepId: reportFailure
+      criteria:
+      - context: $response.body
+        condition: $.status == "failed"
+        type: jsonpath
+  - stepId: returnResults
+    description: >-
+      Re-read the finished query to return the final result rows once it has
+      completed successfully.
+    operationId: getQueryStatus
+    parameters:
+    - name: queryId
+      in: path
+      value: $steps.submitQuery.outputs.queryId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      rowCount: $response.body#/rowCount
+      rows: $response.body#/rows
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: reportFailure
+    description: >-
+      Re-read the failed query to surface the error message for the caller.
+    operationId: getQueryStatus
+    parameters:
+    - name: queryId
+      in: path
+      value: $steps.submitQuery.outputs.queryId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      errorMessage: $response.body#/errorMessage
+  outputs:
+    queryId: $steps.submitQuery.outputs.queryId
+    finalStatus: $steps.checkStatus.outputs.queryStatus
+    rows: $steps.returnResults.outputs.rows
+    errorMessage: $steps.reportFailure.outputs.errorMessage

@@ -1,0 +1,109 @@
+arazzo: 1.0.1
+info:
+  title: Teradata Provision a Cross-System Link
+  summary: Register a system, create a connector for it, then link it into a fabric.
+  description: >-
+    Builds the QueryGrid plumbing that lets two systems exchange data. The
+    workflow registers a new system, creates a connector that QueryGrid uses to
+    talk to it, and then creates a link that joins that connector to an existing
+    target connector inside a fabric. Each step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: queryGridManagerApi
+  url: ../openapi/teradata-querygrid-manager-api.yaml
+  type: openapi
+workflows:
+- workflowId: provision-cross-system-link
+  summary: Register a system, create its connector, and link it to a target connector in a fabric.
+  description: >-
+    Creates a system, creates a connector, and creates a link that joins the new
+    connector to an existing target connector within the supplied fabric.
+  inputs:
+    type: object
+    required:
+    - systemName
+    - systemType
+    - dataCenterId
+    - connectorName
+    - connectorType
+    - linkName
+    - targetConnectorId
+    - fabricId
+    properties:
+      systemName:
+        type: string
+        description: Name of the system to register (e.g. hadoop-lake).
+      systemType:
+        type: string
+        description: System type (teradata, hadoop, spark, hive, presto, oracle).
+      dataCenterId:
+        type: string
+        description: Parent data center identifier for the system.
+      systemHostname:
+        type: string
+        description: Hostname of the system.
+      connectorName:
+        type: string
+        description: Name for the new connector.
+      connectorType:
+        type: string
+        description: Connector type (e.g. tdch).
+      linkName:
+        type: string
+        description: Name for the new link.
+      targetConnectorId:
+        type: string
+        description: Identifier of the existing target connector to link to.
+      fabricId:
+        type: string
+        description: Identifier of the fabric the link belongs to.
+  steps:
+  - stepId: createSystem
+    description: Register the new system in QueryGrid.
+    operationId: createSystem
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.systemName
+        type: $inputs.systemType
+        dataCenterId: $inputs.dataCenterId
+        hostname: $inputs.systemHostname
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      systemId: $response.body#/id
+  - stepId: createConnector
+    description: Create a connector that QueryGrid uses to communicate with the system.
+    operationId: createConnector
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.connectorName
+        type: $inputs.connectorType
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      connectorId: $response.body#/id
+  - stepId: createLink
+    description: >-
+      Create a link joining the new connector to the supplied target connector
+      inside the named fabric.
+    operationId: createLink
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.linkName
+        sourceConnectorId: $steps.createConnector.outputs.connectorId
+        targetConnectorId: $inputs.targetConnectorId
+        fabricId: $inputs.fabricId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      linkId: $response.body#/id
+      linkStatus: $response.body#/status
+  outputs:
+    systemId: $steps.createSystem.outputs.systemId
+    connectorId: $steps.createConnector.outputs.connectorId
+    linkId: $steps.createLink.outputs.linkId

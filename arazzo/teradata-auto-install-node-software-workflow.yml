@@ -1,0 +1,78 @@
+arazzo: 1.0.1
+info:
+  title: Teradata Auto-Install Node Software
+  summary: Pick a software version, trigger an automated node install, then verify the nodes.
+  description: >-
+    Rolls a software version out across the nodes of a QueryGrid system. The
+    workflow lists the available software packages, triggers an automated node
+    installation for the requested version, and then lists the system's nodes to
+    confirm their installed software. Each step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: queryGridManagerApi
+  url: ../openapi/teradata-querygrid-manager-api.yaml
+  type: openapi
+workflows:
+- workflowId: auto-install-node-software
+  summary: Trigger an automated node software install for a system, then verify the nodes.
+  description: >-
+    Lists available software packages, triggers auto installation of the
+    requested version on the target system, and lists that system's nodes to
+    confirm the rollout.
+  inputs:
+    type: object
+    required:
+    - systemId
+    - softwareVersion
+    properties:
+      systemId:
+        type: string
+        description: Identifier of the system whose nodes should be updated.
+      softwareVersion:
+        type: string
+        description: Software version to install (e.g. 03.06.00.01).
+  steps:
+  - stepId: listSoftware
+    description: >-
+      Retrieve the available software packages so the caller can confirm the
+      requested version is offered before triggering the install.
+    operationId: listSoftware
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      software: $response.body
+  - stepId: triggerInstall
+    description: >-
+      Trigger the automated installation of the requested software version on
+      the target system's nodes.
+    operationId: autoInstallNodes
+    requestBody:
+      contentType: application/json
+      payload:
+        systemId: $inputs.systemId
+        softwareVersion: $inputs.softwareVersion
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jobId: $response.body#/jobId
+      jobStatus: $response.body#/status
+      nodesAffected: $response.body#/nodesAffected
+  - stepId: verifyNodes
+    description: >-
+      List the nodes belonging to the target system to confirm their installed
+      software version after the rollout.
+    operationId: listNodes
+    parameters:
+    - name: systemId
+      in: query
+      value: $inputs.systemId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      nodes: $response.body
+  outputs:
+    jobId: $steps.triggerInstall.outputs.jobId
+    nodesAffected: $steps.triggerInstall.outputs.nodesAffected
+    nodes: $steps.verifyNodes.outputs.nodes

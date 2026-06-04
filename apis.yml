@@ -81,6 +81,42 @@ apis:
     - type: NaftikoCapability
       url: capabilities/query-service-systems.yaml
 common:
+  - type: ArazzoWorkflows
+    url: arazzo/
+    workflows:
+    - url: arazzo/teradata-auto-install-node-software-workflow.yml
+      name: Teradata Auto-Install Node Software
+      summary: Pick a software version, trigger an automated node install, then verify the nodes.
+    - url: arazzo/teradata-build-data-fabric-workflow.yml
+      name: Teradata Build a Data Fabric
+      summary: Create a data fabric, attach a network, and apply a communication policy.
+    - url: arazzo/teradata-cancel-running-query-workflow.yml
+      name: Teradata Cancel a Running Query
+      summary: Submit a query, check whether it is still running, and cancel it if so.
+    - url: arazzo/teradata-import-and-verify-system-workflow.yml
+      name: Teradata Import and Verify a Remote System
+      summary: Import a system from a remote QueryGrid manager, confirm it landed, and diagnose its connectivity.
+    - url: arazzo/teradata-poll-query-results-workflow.yml
+      name: Teradata Submit Query and Poll for Results
+      summary: Submit a SQL query, poll its status until it completes, then branch on success or failure.
+    - url: arazzo/teradata-provision-cross-system-link-workflow.yml
+      name: Teradata Provision a Cross-System Link
+      summary: Register a system, create a connector for it, then link it into a fabric.
+    - url: arazzo/teradata-register-system-in-datacenter-workflow.yml
+      name: Teradata Register a System in a New Data Center
+      summary: Create a data center, register a system inside it, then bridge it to an existing system.
+    - url: arazzo/teradata-review-environment-health-workflow.yml
+      name: Teradata Review QueryGrid Environment Health
+      summary: Confirm the manager API is running, list open issues, and branch to inspect managers when issues exist.
+    - url: arazzo/teradata-run-connectivity-diagnostic-workflow.yml
+      name: Teradata Run a Connectivity Diagnostic
+      summary: List configured systems, run a connectivity diagnostic, then branch on the result.
+    - url: arazzo/teradata-run-query-session-workflow.yml
+      name: Teradata Run Query in a Session
+      summary: Pick an available Vantage system, open a session, run a SQL query, and close the session.
+    - url: arazzo/teradata-session-lifecycle-workflow.yml
+      name: Teradata Session Lifecycle
+      summary: Create a query session, verify it is active, then close it.
   - type: LinkedIn
     url: https://www.linkedin.com/company/teradata
   - type: Portal

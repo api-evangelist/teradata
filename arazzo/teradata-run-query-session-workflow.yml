@@ -1,0 +1,108 @@
+arazzo: 1.0.1
+info:
+  title: Teradata Run Query in a Session
+  summary: Pick an available Vantage system, open a session, run a SQL query, and close the session.
+  description: >-
+    The canonical Teradata Query Service pattern for application integration.
+    The workflow first discovers which Vantage systems are available for query
+    execution, opens a new query session against the requested system, executes
+    a SQL statement inside that session, and then closes the session to release
+    resources. Each step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: queryServiceApi
+  url: ../openapi/teradata-query-service-api.yaml
+  type: openapi
+workflows:
+- workflowId: run-query-session
+  summary: Open a session on a Vantage system, run one SQL query, then close the session.
+  description: >-
+    Lists the query systems to confirm the target is available, creates a
+    session for the supplied user and database, executes the SQL statement, and
+    deletes the session when finished.
+  inputs:
+    type: object
+    required:
+    - system
+    - username
+    - query
+    properties:
+      system:
+        type: string
+        description: Target Vantage system name (e.g. vantage-prod).
+      username:
+        type: string
+        description: Database username used to open the session.
+      database:
+        type: string
+        description: Default database for the session.
+      query:
+        type: string
+        description: SQL statement to execute.
+      maxRows:
+        type: integer
+        description: Maximum number of rows to return.
+  steps:
+  - stepId: listSystems
+    description: >-
+      Retrieve the Vantage systems available for query execution so the caller
+      can confirm the requested system is reachable before opening a session.
+    operationId: listQuerySystems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      systems: $response.body
+  - stepId: openSession
+    description: >-
+      Create a new query session against the requested system for the supplied
+      user and default database.
+    operationId: createSession
+    requestBody:
+      contentType: application/json
+      payload:
+        system: $inputs.system
+        username: $inputs.username
+        database: $inputs.database
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sessionId: $response.body#/sessionId
+      sessionStatus: $response.body#/status
+  - stepId: runQuery
+    description: >-
+      Execute the supplied SQL statement inside the open session and capture the
+      query identifier, status, and returned rows.
+    operationId: executeQuery
+    requestBody:
+      contentType: application/json
+      payload:
+        sessionId: $steps.openSession.outputs.sessionId
+        query: $inputs.query
+        format: json
+        maxRows: $inputs.maxRows
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      queryId: $response.body#/queryId
+      queryStatus: $response.body#/status
+      rowCount: $response.body#/rowCount
+      rows: $response.body#/rows
+  - stepId: closeSession
+    description: >-
+      Close and delete the query session to release Vantage resources once the
+      query has run.
+    operationId: deleteSession
+    parameters:
+    - name: sessionId
+      in: path
+      value: $steps.openSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 204
+    outputs:
+      closed: $statusCode
+  outputs:
+    sessionId: $steps.openSession.outputs.sessionId
+    queryId: $steps.runQuery.outputs.queryId
+    rowCount: $steps.runQuery.outputs.rowCount
+    rows: $steps.runQuery.outputs.rows

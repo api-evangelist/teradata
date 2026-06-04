@@ -1,0 +1,104 @@
+arazzo: 1.0.1
+info:
+  title: Teradata Build a Data Fabric
+  summary: Create a data fabric, attach a network, and apply a communication policy.
+  description: >-
+    Stands up the foundational QueryGrid fabric that cross-system analytics run
+    on. The workflow creates a data fabric, creates the network it communicates
+    over, and creates a communication policy that governs encryption,
+    compression, and bandwidth for traffic on the fabric. Each step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: queryGridManagerApi
+  url: ../openapi/teradata-querygrid-manager-api.yaml
+  type: openapi
+workflows:
+- workflowId: build-data-fabric
+  summary: Create a fabric, a network for it, and a communication policy in one pass.
+  description: >-
+    Creates a data fabric, creates the network it runs over, and creates a
+    communication policy defining encryption, compression, and bandwidth limits.
+  inputs:
+    type: object
+    required:
+    - fabricName
+    - networkName
+    - subnet
+    - policyName
+    properties:
+      fabricName:
+        type: string
+        description: Name of the data fabric to create.
+      fabricDescription:
+        type: string
+        description: Description of the data fabric.
+      networkName:
+        type: string
+        description: Name of the network to create.
+      subnet:
+        type: string
+        description: Network subnet in CIDR notation (e.g. 10.0.0.0/16).
+      networkDescription:
+        type: string
+        description: Description of the network.
+      policyName:
+        type: string
+        description: Name of the communication policy to create.
+      encryption:
+        type: boolean
+        description: Whether encryption is enabled on the fabric traffic.
+      compression:
+        type: boolean
+        description: Whether compression is enabled on the fabric traffic.
+      maxBandwidth:
+        type: integer
+        description: Maximum bandwidth in Mbps.
+  steps:
+  - stepId: createFabric
+    description: Create the data fabric that cross-system analytics will run on.
+    operationId: createFabric
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.fabricName
+        description: $inputs.fabricDescription
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      fabricId: $response.body#/id
+      fabricStatus: $response.body#/status
+  - stepId: createNetwork
+    description: Create the network the fabric communicates over.
+    operationId: createNetwork
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.networkName
+        subnet: $inputs.subnet
+        description: $inputs.networkDescription
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      networkId: $response.body#/id
+  - stepId: createCommPolicy
+    description: >-
+      Create a communication policy governing encryption, compression, and
+      bandwidth for traffic on the fabric.
+    operationId: createCommPolicy
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.policyName
+        encryption: $inputs.encryption
+        compression: $inputs.compression
+        maxBandwidth: $inputs.maxBandwidth
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      policyId: $response.body#/id
+  outputs:
+    fabricId: $steps.createFabric.outputs.fabricId
+    networkId: $steps.createNetwork.outputs.networkId
+    policyId: $steps.createCommPolicy.outputs.policyId

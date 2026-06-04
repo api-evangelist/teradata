@@ -1,0 +1,86 @@
+arazzo: 1.0.1
+info:
+  title: Teradata Import and Verify a Remote System
+  summary: Import a system from a remote QueryGrid manager, confirm it landed, and diagnose its connectivity.
+  description: >-
+    Migrates a system definition between QueryGrid environments and proves it
+    works. The workflow imports a named system from a remote QueryGrid Manager,
+    lists the local systems to confirm the import landed, and then runs a
+    connectivity diagnostic against the imported system. Each step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: queryGridManagerApi
+  url: ../openapi/teradata-querygrid-manager-api.yaml
+  type: openapi
+workflows:
+- workflowId: import-and-verify-system
+  summary: Import a remote system, verify it via the systems list, then diagnose its connectivity.
+  description: >-
+    Imports a system from a remote QueryGrid Manager, lists local systems to
+    confirm the import, and runs a connectivity diagnostic against the imported
+    system identifier.
+  inputs:
+    type: object
+    required:
+    - sourceManagerUrl
+    - systemName
+    properties:
+      sourceManagerUrl:
+        type: string
+        description: URL of the source QueryGrid Manager to import from.
+      systemName:
+        type: string
+        description: Name of the system to import.
+      targetSystems:
+        type: array
+        description: Target systems to check connectivity against after import.
+        items:
+          type: string
+  steps:
+  - stepId: importSystem
+    description: >-
+      Import the named system configuration from the remote QueryGrid Manager
+      and capture the resulting local system identifier.
+    operationId: importSystem
+    requestBody:
+      contentType: application/json
+      payload:
+        sourceManagerUrl: $inputs.sourceManagerUrl
+        systemName: $inputs.systemName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      importId: $response.body#/importId
+      importStatus: $response.body#/status
+      systemId: $response.body#/systemId
+  - stepId: verifySystem
+    description: >-
+      List the local systems to confirm the imported system is now present in
+      this QueryGrid environment.
+    operationId: listSystems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      systems: $response.body
+  - stepId: diagnoseSystem
+    description: >-
+      Run a connectivity diagnostic against the imported system to confirm it
+      can reach the supplied target systems.
+    operationId: runDiagnosticCheck
+    requestBody:
+      contentType: application/json
+      payload:
+        systemId: $steps.importSystem.outputs.systemId
+        checkType: connectivity
+        targetSystems: $inputs.targetSystems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      checkId: $response.body#/checkId
+      status: $response.body#/status
+  outputs:
+    importId: $steps.importSystem.outputs.importId
+    systemId: $steps.importSystem.outputs.systemId
+    diagnosticStatus: $steps.diagnoseSystem.outputs.status

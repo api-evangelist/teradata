@@ -1,0 +1,73 @@
+arazzo: 1.0.1
+info:
+  title: Teradata Review QueryGrid Environment Health
+  summary: Confirm the manager API is running, list open issues, and branch to inspect managers when issues exist.
+  description: >-
+    A lightweight health sweep of a QueryGrid environment. The workflow confirms
+    the QueryGrid Manager API is running, lists the open issues, and branches: if
+    any issues are present it lists the manager instances so an operator can see
+    which managers may be affected, otherwise it ends clean. Each step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: queryGridManagerApi
+  url: ../openapi/teradata-querygrid-manager-api.yaml
+  type: openapi
+workflows:
+- workflowId: review-environment-health
+  summary: Check the API status, list issues, and inspect managers only when issues exist.
+  description: >-
+    Reads the API info to confirm the manager is running, lists current issues,
+    and routes to a manager-listing step when one or more issues are reported.
+  inputs:
+    type: object
+    properties:
+      placeholder:
+        type: string
+        description: Unused placeholder; this read-only health sweep takes no required inputs.
+  steps:
+  - stepId: checkApi
+    description: Confirm the QueryGrid Manager API is reachable and running.
+    operationId: getApiInfo
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      version: $response.body#/version
+      status: $response.body#/status
+  - stepId: listIssues
+    description: >-
+      Retrieve the current issues across the environment and branch on whether
+      any are present.
+    operationId: listIssues
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      issues: $response.body
+    onSuccess:
+    - name: issuesPresent
+      type: goto
+      stepId: inspectManagers
+      criteria:
+      - context: $response.body
+        condition: $.length > 0
+        type: jsonpath
+    - name: allClear
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.length == 0
+        type: jsonpath
+  - stepId: inspectManagers
+    description: >-
+      List the QueryGrid Manager instances so an operator can see which managers
+      may be affected by the reported issues.
+    operationId: listManagers
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      managers: $response.body
+  outputs:
+    apiStatus: $steps.checkApi.outputs.status
+    issues: $steps.listIssues.outputs.issues
+    managers: $steps.inspectManagers.outputs.managers
