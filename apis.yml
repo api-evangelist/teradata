@@ -15,6 +15,7 @@ tags:
   - Enterprise
   - Machine Learning
   - SQL
+  - Fortune 1000
 url: https://www.teradata.com
 created: '2026-04-18'
 modified: '2026-05-19'
@@ -81,6 +82,8 @@ apis:
     - type: NaftikoCapability
       url: capabilities/query-service-systems.yaml
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/teradata/overview
   - type: ArazzoWorkflows
     url: arazzo/
     workflows:
