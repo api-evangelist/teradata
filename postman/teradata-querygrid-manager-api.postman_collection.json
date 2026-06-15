@@ -1,0 +1,3011 @@
+{
+  "info": {
+    "_postman_id": "fc8f5c48-5708-4476-b599-1168d1dd7ae8",
+    "name": "Teradata QueryGrid Manager API",
+    "description": "REST API for centralized administration and monitoring of Teradata QueryGrid, the data fabric that enables seamless cross-system analytics. Manage data centers, systems, bridges, connectors, links, fabrics, networks, and node configurations.\n\nContact Support:\n Name: Teradata",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:19:12.000Z",
+    "updatedAt": "2026-06-05T15:19:12.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-fc8f5c48-5708-4476-b599-1168d1dd7ae8"
+  },
+  "item": [
+    {
+      "name": "/",
+      "item": [
+        {
+          "name": "Teradata Get API Info",
+          "id": "67fffa9d-4554-4e9e-b18a-7a9aabb9ed76",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ]
+            },
+            "description": "Retrieve API version and status information."
+          },
+          "response": [
+            {
+              "id": "3fca1add-c14b-40f6-8209-c598dde56146",
+              "name": "API information retrieved successfully.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"version\": \"<string>\",\n  \"build\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-3fca1add-c14b-40f6-8209-c598dde56146"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:12.000Z",
+          "updatedAt": "2026-06-05T15:19:12.000Z",
+          "uid": "35240-67fffa9d-4554-4e9e-b18a-7a9aabb9ed76"
+        }
+      ],
+      "id": "4cf79d04-e904-4ce0-8fce-93dfbbd86cdd",
+      "createdAt": "2026-06-05T15:19:12.000Z",
+      "updatedAt": "2026-06-05T15:19:12.000Z",
+      "uid": "35240-4cf79d04-e904-4ce0-8fce-93dfbbd86cdd"
+    },
+    {
+      "name": "issues",
+      "item": [
+        {
+          "name": "Teradata List Issues",
+          "id": "38847b8b-e427-49e3-9f0b-f3fbc6deca70",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/issues",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "issues"
+              ]
+            },
+            "description": "Retrieve all current issues across the QueryGrid environment."
+          },
+          "response": [
+            {
+              "id": "a34df079-12ae-4382-8d22-e0a1e11cc7c0",
+              "name": "List of issues retrieved successfully.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/issues",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "issues"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"severity\": \"error\",\n    \"message\": \"<string>\",\n    \"source\": \"<string>\",\n    \"timestamp\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"severity\": \"info\",\n    \"message\": \"<string>\",\n    \"source\": \"<string>\",\n    \"timestamp\": \"<dateTime>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-a34df079-12ae-4382-8d22-e0a1e11cc7c0"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:12.000Z",
+          "updatedAt": "2026-06-05T15:19:12.000Z",
+          "uid": "35240-38847b8b-e427-49e3-9f0b-f3fbc6deca70"
+        }
+      ],
+      "id": "7f9e8141-7905-44e0-ac57-4cd5195ae4bb",
+      "createdAt": "2026-06-05T15:19:12.000Z",
+      "updatedAt": "2026-06-05T15:19:12.000Z",
+      "uid": "35240-7f9e8141-7905-44e0-ac57-4cd5195ae4bb"
+    },
+    {
+      "name": "managers",
+      "item": [
+        {
+          "name": "Teradata List Managers",
+          "id": "9757a8c1-aed7-4a9f-8791-b4866b25bd27",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/managers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "managers"
+              ]
+            },
+            "description": "Retrieve all QueryGrid Manager instances."
+          },
+          "response": [
+            {
+              "id": "4fda1f09-2caa-406f-a14f-5c496dc0a6b5",
+              "name": "List of managers retrieved successfully.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/managers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "managers"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"hostname\": \"<string>\",\n    \"status\": \"<string>\",\n    \"version\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"hostname\": \"<string>\",\n    \"status\": \"<string>\",\n    \"version\": \"<string>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-4fda1f09-2caa-406f-a14f-5c496dc0a6b5"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:12.000Z",
+          "updatedAt": "2026-06-05T15:19:12.000Z",
+          "uid": "35240-9757a8c1-aed7-4a9f-8791-b4866b25bd27"
+        }
+      ],
+      "id": "893b851b-ce4d-4158-87ee-09d23f179c14",
+      "createdAt": "2026-06-05T15:19:12.000Z",
+      "updatedAt": "2026-06-05T15:19:12.000Z",
+      "uid": "35240-893b851b-ce4d-4158-87ee-09d23f179c14"
+    },
+    {
+      "name": "nodes",
+      "item": [
+        {
+          "name": "Teradata List Nodes",
+          "id": "c9bdc411-cb85-4d6f-ac42-e532c0ba26bb",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/nodes?systemId=<string>&status=error",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "nodes"
+              ],
+              "query": [
+                {
+                  "description": "Filter nodes by system identifier.",
+                  "key": "systemId",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter nodes by status.",
+                  "key": "status",
+                  "value": "error"
+                }
+              ]
+            },
+            "description": "Retrieve all nodes with optional filtering by system and status."
+          },
+          "response": [
+            {
+              "id": "4ab89867-a1eb-4546-90cd-54c80b33805b",
+              "name": "List of nodes retrieved successfully.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/nodes?systemId=<string>&status=error",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "nodes"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter nodes by system identifier.",
+                      "key": "systemId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter nodes by status.",
+                      "key": "status",
+                      "value": "error"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"hostname\": \"<string>\",\n    \"systemId\": \"<string>\",\n    \"status\": \"error\",\n    \"softwareVersion\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"hostname\": \"<string>\",\n    \"systemId\": \"<string>\",\n    \"status\": \"inactive\",\n    \"softwareVersion\": \"<string>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-4ab89867-a1eb-4546-90cd-54c80b33805b"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:12.000Z",
+          "updatedAt": "2026-06-05T15:19:12.000Z",
+          "uid": "35240-c9bdc411-cb85-4d6f-ac42-e532c0ba26bb"
+        }
+      ],
+      "id": "b0fbb332-9106-4eb3-82ce-bea8408a9dc3",
+      "createdAt": "2026-06-05T15:19:12.000Z",
+      "updatedAt": "2026-06-05T15:19:12.000Z",
+      "uid": "35240-b0fbb332-9106-4eb3-82ce-bea8408a9dc3"
+    },
+    {
+      "name": "queries",
+      "item": [
+        {
+          "name": "Teradata List Queries",
+          "id": "c8c54af2-e8d4-4d7e-af7f-8dfb0e1ae9e8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/queries",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "queries"
+              ]
+            },
+            "description": "Retrieve query summaries across connected systems."
+          },
+          "response": [
+            {
+              "id": "4d7d84ff-158f-419d-9a08-012bdd84ceb8",
+              "name": "List of query summaries retrieved successfully.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/queries",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "queries"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"status\": \"failed\",\n    \"startTime\": \"<dateTime>\",\n    \"endTime\": \"<dateTime>\",\n    \"sourceSystem\": \"<string>\",\n    \"targetSystem\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"status\": \"running\",\n    \"startTime\": \"<dateTime>\",\n    \"endTime\": \"<dateTime>\",\n    \"sourceSystem\": \"<string>\",\n    \"targetSystem\": \"<string>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-4d7d84ff-158f-419d-9a08-012bdd84ceb8"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:12.000Z",
+          "updatedAt": "2026-06-05T15:19:12.000Z",
+          "uid": "35240-c8c54af2-e8d4-4d7e-af7f-8dfb0e1ae9e8"
+        }
+      ],
+      "id": "bad9ad25-f95b-4b2e-bbd5-180566691018",
+      "createdAt": "2026-06-05T15:19:12.000Z",
+      "updatedAt": "2026-06-05T15:19:12.000Z",
+      "uid": "35240-bad9ad25-f95b-4b2e-bbd5-180566691018"
+    },
+    {
+      "name": "software",
+      "item": [
+        {
+          "name": "Teradata List Software",
+          "id": "0f5089bc-8d88-48a0-a26d-51b062c2e9bd",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/software",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "software"
+              ]
+            },
+            "description": "Retrieve available software packages and JDBC drivers."
+          },
+          "response": [
+            {
+              "id": "a3b6b4d4-71ca-4e56-a593-09064533b036",
+              "name": "List of software packages retrieved successfully.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/software",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "software"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"name\": \"<string>\",\n    \"version\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"version\": \"<string>\",\n    \"type\": \"<string>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-a3b6b4d4-71ca-4e56-a593-09064533b036"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:12.000Z",
+          "updatedAt": "2026-06-05T15:19:12.000Z",
+          "uid": "35240-0f5089bc-8d88-48a0-a26d-51b062c2e9bd"
+        }
+      ],
+      "id": "95f6b2c0-30ec-4a4f-b236-5e7b22673e1b",
+      "createdAt": "2026-06-05T15:19:12.000Z",
+      "updatedAt": "2026-06-05T15:19:12.000Z",
+      "uid": "35240-95f6b2c0-30ec-4a4f-b236-5e7b22673e1b"
+    },
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "Teradata List Users",
+          "id": "dcd762ef-3fba-480f-9213-dbef13216c65",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            },
+            "description": "Retrieve all QueryGrid users and their role mappings."
+          },
+          "response": [
+            {
+              "id": "0344b9e1-4319-4559-b13c-4decdd463e42",
+              "name": "List of users retrieved successfully.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"username\": \"<string>\",\n    \"roles\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  {\n    \"username\": \"<string>\",\n    \"roles\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n]",
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-0344b9e1-4319-4559-b13c-4decdd463e42"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:12.000Z",
+          "updatedAt": "2026-06-05T15:19:12.000Z",
+          "uid": "35240-dcd762ef-3fba-480f-9213-dbef13216c65"
+        }
+      ],
+      "id": "81902a0f-3bcc-4334-b36d-ba3726fa34ee",
+      "createdAt": "2026-06-05T15:19:12.000Z",
+      "updatedAt": "2026-06-05T15:19:12.000Z",
+      "uid": "35240-81902a0f-3bcc-4334-b36d-ba3726fa34ee"
+    },
+    {
+      "name": "config",
+      "item": [
+        {
+          "name": "datacenters",
+          "item": [
+            {
+              "name": "Teradata List Data Centers",
+              "id": "6f21580f-3633-488b-a37d-8d4eeb2425b1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/config/datacenters",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "datacenters"
+                  ]
+                },
+                "description": "Retrieve all configured data centers."
+              },
+              "response": [
+                {
+                  "id": "fdd8fa7c-bfd6-4739-ab4b-fb33de3ce6d7",
+                  "name": "List of data centers retrieved successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/config/datacenters",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "datacenters"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"location\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"location\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-fdd8fa7c-bfd6-4739-ab4b-fb33de3ce6d7"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-6f21580f-3633-488b-a37d-8d4eeb2425b1"
+            },
+            {
+              "name": "Teradata Create Data Center",
+              "id": "e63d2e97-f89c-4c09-89b1-4971930c3747",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/config/datacenters",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "datacenters"
+                  ]
+                },
+                "description": "Create a new data center configuration."
+              },
+              "response": [
+                {
+                  "id": "70180108-5d89-4549-929c-16031dbc4ee6",
+                  "name": "Data center created successfully.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/datacenters",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "datacenters"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-70180108-5d89-4549-929c-16031dbc4ee6"
+                },
+                {
+                  "id": "bd980083-c96f-4402-b013-bd93afdaf8d6",
+                  "name": "Invalid data center configuration.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/datacenters",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "datacenters"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-bd980083-c96f-4402-b013-bd93afdaf8d6"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-e63d2e97-f89c-4c09-89b1-4971930c3747"
+            }
+          ],
+          "id": "00a02257-a95c-4179-a656-41b524924fcc",
+          "createdAt": "2026-06-05T15:19:12.000Z",
+          "updatedAt": "2026-06-05T15:19:12.000Z",
+          "uid": "35240-00a02257-a95c-4179-a656-41b524924fcc"
+        },
+        {
+          "name": "systems",
+          "item": [
+            {
+              "name": "Teradata List Systems",
+              "id": "76d4238e-8fbc-4822-a3d7-f7d78a1b3262",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/config/systems",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "systems"
+                  ]
+                },
+                "description": "Retrieve all configured systems."
+              },
+              "response": [
+                {
+                  "id": "f6000b38-7692-483c-8053-99fe6d4c9cfb",
+                  "name": "List of systems retrieved successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/config/systems",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "systems"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"teradata\",\n    \"dataCenterId\": \"<string>\",\n    \"status\": \"<string>\",\n    \"hostname\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"oracle\",\n    \"dataCenterId\": \"<string>\",\n    \"status\": \"<string>\",\n    \"hostname\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-f6000b38-7692-483c-8053-99fe6d4c9cfb"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-76d4238e-8fbc-4822-a3d7-f7d78a1b3262"
+            },
+            {
+              "name": "Teradata Create System",
+              "id": "c69360de-a604-42b0-89e9-f962be45f799",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"presto\",\n  \"dataCenterId\": \"<string>\",\n  \"status\": \"<string>\",\n  \"hostname\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/config/systems",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "systems"
+                  ]
+                },
+                "description": "Register a new system in QueryGrid."
+              },
+              "response": [
+                {
+                  "id": "fa83cb29-6b56-40ba-8908-ff2c59cb10c6",
+                  "name": "System created successfully.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"presto\",\n  \"dataCenterId\": \"<string>\",\n  \"status\": \"<string>\",\n  \"hostname\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/systems",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "systems"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"presto\",\n  \"dataCenterId\": \"<string>\",\n  \"status\": \"<string>\",\n  \"hostname\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-fa83cb29-6b56-40ba-8908-ff2c59cb10c6"
+                },
+                {
+                  "id": "c05cf691-7687-4897-a71f-0d67878cf4f8",
+                  "name": "Invalid system configuration.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"presto\",\n  \"dataCenterId\": \"<string>\",\n  \"status\": \"<string>\",\n  \"hostname\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/systems",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "systems"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-c05cf691-7687-4897-a71f-0d67878cf4f8"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-c69360de-a604-42b0-89e9-f962be45f799"
+            }
+          ],
+          "id": "1b2c5a2c-f9e8-4114-907a-fb58a501583e",
+          "createdAt": "2026-06-05T15:19:12.000Z",
+          "updatedAt": "2026-06-05T15:19:12.000Z",
+          "uid": "35240-1b2c5a2c-f9e8-4114-907a-fb58a501583e"
+        },
+        {
+          "name": "bridges",
+          "item": [
+            {
+              "name": "Teradata List Bridges",
+              "id": "3b90d1ad-589e-4d9e-b1ec-2514485a7192",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/config/bridges",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "bridges"
+                  ]
+                },
+                "description": "Retrieve all configured bridges."
+              },
+              "response": [
+                {
+                  "id": "9fda6a08-81a0-4eb5-8d40-4a63685f5255",
+                  "name": "List of bridges retrieved successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/config/bridges",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "bridges"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"sourceSystemId\": \"<string>\",\n    \"targetSystemId\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"sourceSystemId\": \"<string>\",\n    \"targetSystemId\": \"<string>\",\n    \"status\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-9fda6a08-81a0-4eb5-8d40-4a63685f5255"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-3b90d1ad-589e-4d9e-b1ec-2514485a7192"
+            },
+            {
+              "name": "Teradata Create Bridge",
+              "id": "27c36582-f063-4bb2-8fea-d3d37436ed3b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"sourceSystemId\": \"<string>\",\n  \"targetSystemId\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/config/bridges",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "bridges"
+                  ]
+                },
+                "description": "Create a new bridge between systems."
+              },
+              "response": [
+                {
+                  "id": "9b62a79b-db28-4fa5-a878-53d8291c06ed",
+                  "name": "Bridge created successfully.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"sourceSystemId\": \"<string>\",\n  \"targetSystemId\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/bridges",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "bridges"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"sourceSystemId\": \"<string>\",\n  \"targetSystemId\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-9b62a79b-db28-4fa5-a878-53d8291c06ed"
+                },
+                {
+                  "id": "8df81669-1e31-443b-bf4f-35664efbe63f",
+                  "name": "Invalid bridge configuration.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"sourceSystemId\": \"<string>\",\n  \"targetSystemId\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/bridges",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "bridges"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-8df81669-1e31-443b-bf4f-35664efbe63f"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-27c36582-f063-4bb2-8fea-d3d37436ed3b"
+            }
+          ],
+          "id": "0bf4e009-1411-4e0a-b26b-089b6659ffe5",
+          "createdAt": "2026-06-05T15:19:12.000Z",
+          "updatedAt": "2026-06-05T15:19:12.000Z",
+          "uid": "35240-0bf4e009-1411-4e0a-b26b-089b6659ffe5"
+        },
+        {
+          "name": "connectors",
+          "item": [
+            {
+              "name": "Teradata List Connectors",
+              "id": "089c9d23-8518-46a3-8532-a5432623cb8e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/config/connectors",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "connectors"
+                  ]
+                },
+                "description": "Retrieve all configured connectors."
+              },
+              "response": [
+                {
+                  "id": "54bbe047-c5aa-475e-8b87-aebaf426577e",
+                  "name": "List of connectors retrieved successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/config/connectors",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "connectors"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"version\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"version\": \"<string>\",\n    \"status\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-54bbe047-c5aa-475e-8b87-aebaf426577e"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-089c9d23-8518-46a3-8532-a5432623cb8e"
+            },
+            {
+              "name": "Teradata Create Connector",
+              "id": "1320ba73-3d22-4cd6-905e-dfefa10f7383",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"version\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/config/connectors",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "connectors"
+                  ]
+                },
+                "description": "Create a new connector for system integration."
+              },
+              "response": [
+                {
+                  "id": "ef51e6de-738b-47ae-980a-d0040b391e7d",
+                  "name": "Connector created successfully.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"version\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/connectors",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "connectors"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"version\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-ef51e6de-738b-47ae-980a-d0040b391e7d"
+                },
+                {
+                  "id": "036fb041-2dbd-4d2b-8a95-32bca3379906",
+                  "name": "Invalid connector configuration.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"version\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/connectors",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "connectors"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-036fb041-2dbd-4d2b-8a95-32bca3379906"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-1320ba73-3d22-4cd6-905e-dfefa10f7383"
+            }
+          ],
+          "id": "44c223a2-22de-490c-94c6-09f770321dcb",
+          "createdAt": "2026-06-05T15:19:12.000Z",
+          "updatedAt": "2026-06-05T15:19:12.000Z",
+          "uid": "35240-44c223a2-22de-490c-94c6-09f770321dcb"
+        },
+        {
+          "name": "links",
+          "item": [
+            {
+              "name": "Teradata List Links",
+              "id": "65c5a0cd-6daf-4bd6-95ac-302804f06df9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/config/links",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "links"
+                  ]
+                },
+                "description": "Retrieve all configured links between systems."
+              },
+              "response": [
+                {
+                  "id": "13388256-5e0d-46f4-a9e4-69afde63bdb8",
+                  "name": "List of links retrieved successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/config/links",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "links"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"sourceConnectorId\": \"<string>\",\n    \"targetConnectorId\": \"<string>\",\n    \"fabricId\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"sourceConnectorId\": \"<string>\",\n    \"targetConnectorId\": \"<string>\",\n    \"fabricId\": \"<string>\",\n    \"status\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-13388256-5e0d-46f4-a9e4-69afde63bdb8"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-65c5a0cd-6daf-4bd6-95ac-302804f06df9"
+            },
+            {
+              "name": "Teradata Create Link",
+              "id": "0643da06-1fcc-49e2-bfa9-9af45ad539dc",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"sourceConnectorId\": \"<string>\",\n  \"targetConnectorId\": \"<string>\",\n  \"fabricId\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/config/links",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "links"
+                  ]
+                },
+                "description": "Create a new link between connected systems."
+              },
+              "response": [
+                {
+                  "id": "b263d8ed-000e-49d4-95fe-992df9be3c4b",
+                  "name": "Link created successfully.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"sourceConnectorId\": \"<string>\",\n  \"targetConnectorId\": \"<string>\",\n  \"fabricId\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/links",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "links"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"sourceConnectorId\": \"<string>\",\n  \"targetConnectorId\": \"<string>\",\n  \"fabricId\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-b263d8ed-000e-49d4-95fe-992df9be3c4b"
+                },
+                {
+                  "id": "d5704fed-abaf-4b7d-aa56-fa625416e50a",
+                  "name": "Invalid link configuration.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"sourceConnectorId\": \"<string>\",\n  \"targetConnectorId\": \"<string>\",\n  \"fabricId\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/links",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "links"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-d5704fed-abaf-4b7d-aa56-fa625416e50a"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-0643da06-1fcc-49e2-bfa9-9af45ad539dc"
+            }
+          ],
+          "id": "8e9796fd-7586-4128-9028-39f485454f2a",
+          "createdAt": "2026-06-05T15:19:12.000Z",
+          "updatedAt": "2026-06-05T15:19:12.000Z",
+          "uid": "35240-8e9796fd-7586-4128-9028-39f485454f2a"
+        },
+        {
+          "name": "fabrics",
+          "item": [
+            {
+              "name": "Teradata List Fabrics",
+              "id": "6a0693d5-5e9e-4797-9bd4-a1797712d686",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/config/fabrics",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "fabrics"
+                  ]
+                },
+                "description": "Retrieve all configured fabrics."
+              },
+              "response": [
+                {
+                  "id": "07cd4806-d6ee-46cd-b289-1b22b152af05",
+                  "name": "List of fabrics retrieved successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/config/fabrics",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "fabrics"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"status\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-07cd4806-d6ee-46cd-b289-1b22b152af05"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-6a0693d5-5e9e-4797-9bd4-a1797712d686"
+            },
+            {
+              "name": "Teradata Create Fabric",
+              "id": "daacaf23-7cc6-416c-9115-ef216ce115ca",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/config/fabrics",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "fabrics"
+                  ]
+                },
+                "description": "Create a new data fabric configuration."
+              },
+              "response": [
+                {
+                  "id": "59e2b10d-dd8a-4891-b6b2-c36ec69bc368",
+                  "name": "Fabric created successfully.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/fabrics",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "fabrics"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-59e2b10d-dd8a-4891-b6b2-c36ec69bc368"
+                },
+                {
+                  "id": "acb616f6-2ba3-4478-87bb-20fff9e6c604",
+                  "name": "Invalid fabric configuration.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/fabrics",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "fabrics"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-acb616f6-2ba3-4478-87bb-20fff9e6c604"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-daacaf23-7cc6-416c-9115-ef216ce115ca"
+            }
+          ],
+          "id": "313616e8-8f1b-4471-96c3-d21c587c35c9",
+          "createdAt": "2026-06-05T15:19:12.000Z",
+          "updatedAt": "2026-06-05T15:19:12.000Z",
+          "uid": "35240-313616e8-8f1b-4471-96c3-d21c587c35c9"
+        },
+        {
+          "name": "networks",
+          "item": [
+            {
+              "name": "Teradata List Networks",
+              "id": "3ba763a4-e0e1-4ec7-a7ce-e6935f5200aa",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/config/networks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "networks"
+                  ]
+                },
+                "description": "Retrieve all configured networks."
+              },
+              "response": [
+                {
+                  "id": "97ec0987-95c9-462f-99cc-c9b5b3484424",
+                  "name": "List of networks retrieved successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/config/networks",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "networks"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"subnet\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"subnet\": \"<string>\",\n    \"description\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-97ec0987-95c9-462f-99cc-c9b5b3484424"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-3ba763a4-e0e1-4ec7-a7ce-e6935f5200aa"
+            },
+            {
+              "name": "Teradata Create Network",
+              "id": "2a0f3baa-8950-49c8-970a-fc91d9a4caf1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"subnet\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/config/networks",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "networks"
+                  ]
+                },
+                "description": "Create a new network configuration."
+              },
+              "response": [
+                {
+                  "id": "b32d8a24-98fb-4418-9103-2419935e44db",
+                  "name": "Network created successfully.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"subnet\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/networks",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "networks"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"subnet\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-b32d8a24-98fb-4418-9103-2419935e44db"
+                },
+                {
+                  "id": "36a1f8d1-b830-4cfd-b7e7-f983da9b2573",
+                  "name": "Invalid network configuration.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"subnet\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/networks",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "networks"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-36a1f8d1-b830-4cfd-b7e7-f983da9b2573"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-2a0f3baa-8950-49c8-970a-fc91d9a4caf1"
+            }
+          ],
+          "id": "34c9f94d-b80d-44e0-9fb8-f6cfd3ec48cc",
+          "createdAt": "2026-06-05T15:19:12.000Z",
+          "updatedAt": "2026-06-05T15:19:12.000Z",
+          "uid": "35240-34c9f94d-b80d-44e0-9fb8-f6cfd3ec48cc"
+        },
+        {
+          "name": "comm-policies",
+          "item": [
+            {
+              "name": "Teradata List Communication Policies",
+              "id": "391f9075-7796-4e7b-b088-432bbed13331",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/config/comm-policies",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "comm-policies"
+                  ]
+                },
+                "description": "Retrieve all configured communication policies."
+              },
+              "response": [
+                {
+                  "id": "759132f6-a87e-4a80-8d81-4f6fe4485eb2",
+                  "name": "List of communication policies retrieved successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/config/comm-policies",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "comm-policies"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"encryption\": \"<boolean>\",\n    \"compression\": \"<boolean>\",\n    \"maxBandwidth\": \"<integer>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"encryption\": \"<boolean>\",\n    \"compression\": \"<boolean>\",\n    \"maxBandwidth\": \"<integer>\"\n  }\n]",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-759132f6-a87e-4a80-8d81-4f6fe4485eb2"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-391f9075-7796-4e7b-b088-432bbed13331"
+            },
+            {
+              "name": "Teradata Create Communication Policy",
+              "id": "1388aedd-5f4c-43bc-b23b-fc054b75ad30",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"encryption\": \"<boolean>\",\n  \"compression\": \"<boolean>\",\n  \"maxBandwidth\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/config/comm-policies",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "config",
+                    "comm-policies"
+                  ]
+                },
+                "description": "Create a new communication policy."
+              },
+              "response": [
+                {
+                  "id": "edc9aaaa-d47d-4ebb-bd50-09019d78bba2",
+                  "name": "Communication policy created successfully.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"encryption\": \"<boolean>\",\n  \"compression\": \"<boolean>\",\n  \"maxBandwidth\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/comm-policies",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "comm-policies"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"encryption\": \"<boolean>\",\n  \"compression\": \"<boolean>\",\n  \"maxBandwidth\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-edc9aaaa-d47d-4ebb-bd50-09019d78bba2"
+                },
+                {
+                  "id": "3c16789b-5f8d-4526-a282-73c13912a1f0",
+                  "name": "Invalid communication policy configuration.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"encryption\": \"<boolean>\",\n  \"compression\": \"<boolean>\",\n  \"maxBandwidth\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/config/comm-policies",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        "comm-policies"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-3c16789b-5f8d-4526-a282-73c13912a1f0"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-1388aedd-5f4c-43bc-b23b-fc054b75ad30"
+            }
+          ],
+          "id": "9bf50205-dad3-4760-8d7e-721389bb1f0c",
+          "createdAt": "2026-06-05T15:19:12.000Z",
+          "updatedAt": "2026-06-05T15:19:12.000Z",
+          "uid": "35240-9bf50205-dad3-4760-8d7e-721389bb1f0c"
+        }
+      ],
+      "id": "cefcb2de-00a8-4e92-8dda-81e6aa9c9fce",
+      "createdAt": "2026-06-05T15:19:12.000Z",
+      "updatedAt": "2026-06-05T15:19:12.000Z",
+      "uid": "35240-cefcb2de-00a8-4e92-8dda-81e6aa9c9fce"
+    },
+    {
+      "name": "operations",
+      "item": [
+        {
+          "name": "diagnostic-check",
+          "item": [
+            {
+              "name": "Teradata Run Diagnostic Check",
+              "id": "5584379f-144d-46ca-8a15-a3e9fcb6879d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"systemId\": \"<string>\",\n  \"checkType\": \"performance\",\n  \"targetSystems\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/operations/diagnostic-check",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "operations",
+                    "diagnostic-check"
+                  ]
+                },
+                "description": "Execute a diagnostic check on specified systems and components."
+              },
+              "response": [
+                {
+                  "id": "b613903a-e81f-4fd5-8e18-76098544f9ce",
+                  "name": "Diagnostic check completed successfully.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"systemId\": \"<string>\",\n  \"checkType\": \"performance\",\n  \"targetSystems\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/operations/diagnostic-check",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "operations",
+                        "diagnostic-check"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"checkId\": \"<string>\",\n  \"status\": \"<string>\",\n  \"results\": [\n    {\n      \"target\": \"<string>\",\n      \"status\": \"<string>\",\n      \"latencyMs\": \"<integer>\"\n    },\n    {\n      \"target\": \"<string>\",\n      \"status\": \"<string>\",\n      \"latencyMs\": \"<integer>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-b613903a-e81f-4fd5-8e18-76098544f9ce"
+                },
+                {
+                  "id": "a03d87f6-d420-4878-9eeb-3b519988fd85",
+                  "name": "Invalid diagnostic check request.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"systemId\": \"<string>\",\n  \"checkType\": \"performance\",\n  \"targetSystems\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/operations/diagnostic-check",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "operations",
+                        "diagnostic-check"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-a03d87f6-d420-4878-9eeb-3b519988fd85"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-5584379f-144d-46ca-8a15-a3e9fcb6879d"
+            }
+          ],
+          "id": "f27880e4-6b77-44ab-b2bd-bc95c74fa5f8",
+          "createdAt": "2026-06-05T15:19:12.000Z",
+          "updatedAt": "2026-06-05T15:19:12.000Z",
+          "uid": "35240-f27880e4-6b77-44ab-b2bd-bc95c74fa5f8"
+        },
+        {
+          "name": "nodes-auto-install",
+          "item": [
+            {
+              "name": "Teradata Auto Install Nodes",
+              "id": "584b560a-c911-4d33-9f20-ce8924dad9c5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"systemId\": \"<string>\",\n  \"softwareVersion\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/operations/nodes-auto-install",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "operations",
+                    "nodes-auto-install"
+                  ]
+                },
+                "description": "Trigger automated node software installation."
+              },
+              "response": [
+                {
+                  "id": "b90d5526-6569-48c5-b5fb-51a5ffd07a84",
+                  "name": "Auto installation initiated successfully.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"systemId\": \"<string>\",\n  \"softwareVersion\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/operations/nodes-auto-install",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "operations",
+                        "nodes-auto-install"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"jobId\": \"<string>\",\n  \"status\": \"<string>\",\n  \"nodesAffected\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-b90d5526-6569-48c5-b5fb-51a5ffd07a84"
+                },
+                {
+                  "id": "431a5e17-8ac3-4caa-ae58-f08588b5d90f",
+                  "name": "Invalid auto install request.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"systemId\": \"<string>\",\n  \"softwareVersion\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/operations/nodes-auto-install",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "operations",
+                        "nodes-auto-install"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-431a5e17-8ac3-4caa-ae58-f08588b5d90f"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-584b560a-c911-4d33-9f20-ce8924dad9c5"
+            }
+          ],
+          "id": "36a9a999-7d30-4231-8320-64d2693f1a1d",
+          "createdAt": "2026-06-05T15:19:12.000Z",
+          "updatedAt": "2026-06-05T15:19:12.000Z",
+          "uid": "35240-36a9a999-7d30-4231-8320-64d2693f1a1d"
+        },
+        {
+          "name": "import-system",
+          "item": [
+            {
+              "name": "Teradata Import System",
+              "id": "d09e2e8a-97bf-4491-a21d-9040a3138fa2",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceManagerUrl\": \"<string>\",\n  \"systemName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/operations/import-system",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "operations",
+                    "import-system"
+                  ]
+                },
+                "description": "Import a system configuration from another QueryGrid environment."
+              },
+              "response": [
+                {
+                  "id": "b37a1573-22db-4c3a-9399-f636ae684088",
+                  "name": "System imported successfully.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"sourceManagerUrl\": \"<string>\",\n  \"systemName\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/operations/import-system",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "operations",
+                        "import-system"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"importId\": \"<string>\",\n  \"status\": \"<string>\",\n  \"systemId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-b37a1573-22db-4c3a-9399-f636ae684088"
+                },
+                {
+                  "id": "6ad52f5b-cb5d-4c6d-a61f-4a0613a3560a",
+                  "name": "Invalid import request.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"sourceManagerUrl\": \"<string>\",\n  \"systemName\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/operations/import-system",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "operations",
+                        "import-system"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:12.000Z",
+                  "updatedAt": "2026-06-05T15:19:12.000Z",
+                  "uid": "35240-6ad52f5b-cb5d-4c6d-a61f-4a0613a3560a"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:12.000Z",
+              "updatedAt": "2026-06-05T15:19:12.000Z",
+              "uid": "35240-d09e2e8a-97bf-4491-a21d-9040a3138fa2"
+            }
+          ],
+          "id": "8726b5fb-f24f-4dd4-88d5-2796c77aa6b9",
+          "createdAt": "2026-06-05T15:19:12.000Z",
+          "updatedAt": "2026-06-05T15:19:12.000Z",
+          "uid": "35240-8726b5fb-f24f-4dd4-88d5-2796c77aa6b9"
+        }
+      ],
+      "id": "eb0f4623-d631-4814-8c1f-719debb1fe84",
+      "createdAt": "2026-06-05T15:19:12.000Z",
+      "updatedAt": "2026-06-05T15:19:12.000Z",
+      "uid": "35240-eb0f4623-d631-4814-8c1f-719debb1fe84"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://querygrid.teradata.com/api/v1"
+    }
+  ]
+}

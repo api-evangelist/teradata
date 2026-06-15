@@ -1,0 +1,1023 @@
+{
+  "info": {
+    "_postman_id": "dec95a7a-8473-4b34-a4c2-2e20442db936",
+    "name": "Teradata Query Service API",
+    "description": "REST API for executing SQL queries against Teradata Vantage systems. Provides HTTP-based access to run queries, retrieve results, and manage sessions for application integration.\n\nContact Support:\n Name: Teradata",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:19:13.000Z",
+    "updatedAt": "2026-06-05T15:19:13.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-dec95a7a-8473-4b34-a4c2-2e20442db936"
+  },
+  "item": [
+    {
+      "name": "systems",
+      "item": [
+        {
+          "name": "Teradata List Query Systems",
+          "id": "d23473aa-20f3-440e-a0eb-cee08e10a953",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/systems",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "systems"
+              ]
+            },
+            "description": "Retrieve available Vantage systems for query execution."
+          },
+          "response": [
+            {
+              "id": "b3b79abc-ae09-4968-ab3a-34f191e00d21",
+              "name": "List of systems retrieved successfully.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/systems",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "systems"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"status\": \"maintenance\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"status\": \"available\"\n  }\n]",
+              "createdAt": "2026-06-05T15:19:14.000Z",
+              "updatedAt": "2026-06-05T15:19:14.000Z",
+              "uid": "35240-b3b79abc-ae09-4968-ab3a-34f191e00d21"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:13.000Z",
+          "updatedAt": "2026-06-05T15:19:13.000Z",
+          "uid": "35240-d23473aa-20f3-440e-a0eb-cee08e10a953"
+        }
+      ],
+      "id": "b78ca628-43f7-4654-be1c-758149f7e031",
+      "createdAt": "2026-06-05T15:19:13.000Z",
+      "updatedAt": "2026-06-05T15:19:13.000Z",
+      "uid": "35240-b78ca628-43f7-4654-be1c-758149f7e031"
+    },
+    {
+      "name": "sessions",
+      "item": [
+        {
+          "name": "{sessionId}",
+          "item": [
+            {
+              "name": "Teradata Get Session",
+              "id": "d95d6b55-b331-4f97-9c3e-96075934e344",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/sessions/:sessionId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sessions",
+                    ":sessionId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "c03d3f1d-e126-4d35-bfc0-1ef32abb7920",
+                      "key": "sessionId",
+                      "value": "<string>",
+                      "description": "(Required) Session identifier."
+                    }
+                  ]
+                },
+                "description": "Retrieve details about a specific query session."
+              },
+              "response": [
+                {
+                  "id": "9cb4b8db-6f0d-42eb-92b3-ea3e72b3c950",
+                  "name": "Session details retrieved successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sessions/:sessionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sessions",
+                        ":sessionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "sessionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"sessionId\": \"<string>\",\n  \"system\": \"<string>\",\n  \"database\": \"<string>\",\n  \"status\": \"idle\",\n  \"createdAt\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-9cb4b8db-6f0d-42eb-92b3-ea3e72b3c950"
+                },
+                {
+                  "id": "3e256099-5164-4db1-a0bc-8850a750b40d",
+                  "name": "Session not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sessions/:sessionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sessions",
+                        ":sessionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "sessionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-3e256099-5164-4db1-a0bc-8850a750b40d"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:13.000Z",
+              "updatedAt": "2026-06-05T15:19:13.000Z",
+              "uid": "35240-d95d6b55-b331-4f97-9c3e-96075934e344"
+            },
+            {
+              "name": "Teradata Delete Session",
+              "id": "f7b0dbe9-0ba3-4bce-a846-3e2558188ebb",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/sessions/:sessionId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sessions",
+                    ":sessionId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "025d91cb-90c2-4ec9-b121-fc0d811074ce",
+                      "key": "sessionId",
+                      "value": "<string>",
+                      "description": "(Required) Session identifier."
+                    }
+                  ]
+                },
+                "description": "Close and delete a query session."
+              },
+              "response": [
+                {
+                  "id": "4e8da4ed-08b9-4e98-a171-31804bde5d77",
+                  "name": "Session deleted successfully.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sessions/:sessionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sessions",
+                        ":sessionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "sessionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-4e8da4ed-08b9-4e98-a171-31804bde5d77"
+                },
+                {
+                  "id": "d7092a1f-940a-4ac8-b9c5-12963742c15a",
+                  "name": "Session not found.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sessions/:sessionId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sessions",
+                        ":sessionId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "sessionId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-d7092a1f-940a-4ac8-b9c5-12963742c15a"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:13.000Z",
+              "updatedAt": "2026-06-05T15:19:13.000Z",
+              "uid": "35240-f7b0dbe9-0ba3-4bce-a846-3e2558188ebb"
+            }
+          ],
+          "id": "e0d294c7-ffc5-48b2-a857-14f3268f1ae5",
+          "createdAt": "2026-06-05T15:19:13.000Z",
+          "updatedAt": "2026-06-05T15:19:13.000Z",
+          "uid": "35240-e0d294c7-ffc5-48b2-a857-14f3268f1ae5"
+        },
+        {
+          "name": "Teradata Create Session",
+          "id": "9f3a54e3-f217-49e0-ad56-ff613de4480a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"system\": \"<string>\",\n  \"username\": \"<string>\",\n  \"database\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/sessions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sessions"
+              ]
+            },
+            "description": "Create a new query session on a Vantage system."
+          },
+          "response": [
+            {
+              "id": "bd67bb52-7ab8-427e-9cca-705d92bdbfb2",
+              "name": "Session created successfully.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"system\": \"<string>\",\n  \"username\": \"<string>\",\n  \"database\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/sessions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sessions"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"sessionId\": \"<string>\",\n  \"system\": \"<string>\",\n  \"database\": \"<string>\",\n  \"status\": \"idle\",\n  \"createdAt\": \"<dateTime>\"\n}",
+              "createdAt": "2026-06-05T15:19:14.000Z",
+              "updatedAt": "2026-06-05T15:19:14.000Z",
+              "uid": "35240-bd67bb52-7ab8-427e-9cca-705d92bdbfb2"
+            },
+            {
+              "id": "eb1a53b2-3e72-4831-9e12-8212c9ce1c40",
+              "name": "Invalid session request.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"system\": \"<string>\",\n  \"username\": \"<string>\",\n  \"database\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/sessions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sessions"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:19:14.000Z",
+              "updatedAt": "2026-06-05T15:19:14.000Z",
+              "uid": "35240-eb1a53b2-3e72-4831-9e12-8212c9ce1c40"
+            },
+            {
+              "id": "a5bd9ff7-dd81-4555-a95a-32a7cd256335",
+              "name": "Authentication failed.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"system\": \"<string>\",\n  \"username\": \"<string>\",\n  \"database\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/sessions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sessions"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:19:14.000Z",
+              "updatedAt": "2026-06-05T15:19:14.000Z",
+              "uid": "35240-a5bd9ff7-dd81-4555-a95a-32a7cd256335"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:13.000Z",
+          "updatedAt": "2026-06-05T15:19:13.000Z",
+          "uid": "35240-9f3a54e3-f217-49e0-ad56-ff613de4480a"
+        }
+      ],
+      "id": "b14f358d-ea8e-42be-a11a-b0760ec00b6c",
+      "createdAt": "2026-06-05T15:19:13.000Z",
+      "updatedAt": "2026-06-05T15:19:13.000Z",
+      "uid": "35240-b14f358d-ea8e-42be-a11a-b0760ec00b6c"
+    },
+    {
+      "name": "queries",
+      "item": [
+        {
+          "name": "{queryId}",
+          "item": [
+            {
+              "name": "Teradata Get Query Status",
+              "id": "300d87a3-9b5b-4c9e-af18-1e1e573b54fc",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/queries/:queryId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "queries",
+                    ":queryId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "42af43c8-6fd4-4c42-bb6a-78247d92e142",
+                      "key": "queryId",
+                      "value": "<string>",
+                      "description": "(Required) Query identifier."
+                    }
+                  ]
+                },
+                "description": "Retrieve the status and results of a previously submitted query."
+              },
+              "response": [
+                {
+                  "id": "194a1262-ab0a-4d0d-8614-02260bdd3acc",
+                  "name": "Query status retrieved successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/queries/:queryId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "queries",
+                        ":queryId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "queryId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"queryId\": \"<string>\",\n  \"status\": \"running\",\n  \"rowCount\": \"<integer>\",\n  \"columns\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"rows\": [\n    [],\n    []\n  ],\n  \"errorMessage\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-194a1262-ab0a-4d0d-8614-02260bdd3acc"
+                },
+                {
+                  "id": "ef4fa7b8-f5d9-4a75-9869-00e980bf35c1",
+                  "name": "Query not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/queries/:queryId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "queries",
+                        ":queryId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "queryId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-ef4fa7b8-f5d9-4a75-9869-00e980bf35c1"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:13.000Z",
+              "updatedAt": "2026-06-05T15:19:13.000Z",
+              "uid": "35240-300d87a3-9b5b-4c9e-af18-1e1e573b54fc"
+            },
+            {
+              "name": "Teradata Cancel Query",
+              "id": "f313f08f-ccda-4086-be98-be87ee11e5f5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/queries/:queryId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "queries",
+                    ":queryId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "599f5050-f4ec-405a-80be-6464a63083b7",
+                      "key": "queryId",
+                      "value": "<string>",
+                      "description": "(Required) Query identifier."
+                    }
+                  ]
+                },
+                "description": "Cancel a running query."
+              },
+              "response": [
+                {
+                  "id": "8a05d13f-e270-4c04-80a7-473eb2de9804",
+                  "name": "Query cancelled successfully.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/queries/:queryId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "queries",
+                        ":queryId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "queryId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-8a05d13f-e270-4c04-80a7-473eb2de9804"
+                },
+                {
+                  "id": "42ffb429-3281-4592-9b14-7b65f4a1713f",
+                  "name": "Query not found.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/queries/:queryId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "queries",
+                        ":queryId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "queryId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:19:14.000Z",
+                  "updatedAt": "2026-06-05T15:19:14.000Z",
+                  "uid": "35240-42ffb429-3281-4592-9b14-7b65f4a1713f"
+                }
+              ],
+              "createdAt": "2026-06-05T15:19:13.000Z",
+              "updatedAt": "2026-06-05T15:19:13.000Z",
+              "uid": "35240-f313f08f-ccda-4086-be98-be87ee11e5f5"
+            }
+          ],
+          "id": "cb5c8459-c487-4a5b-9cd4-cf9d46957c0f",
+          "createdAt": "2026-06-05T15:19:13.000Z",
+          "updatedAt": "2026-06-05T15:19:13.000Z",
+          "uid": "35240-cb5c8459-c487-4a5b-9cd4-cf9d46957c0f"
+        },
+        {
+          "name": "Teradata Execute Query",
+          "id": "8c145e5f-d317-46b7-b82a-da89e6af00a8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sessionId\": \"<string>\",\n  \"query\": \"<string>\",\n  \"format\": \"csv\",\n  \"maxRows\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/queries",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "queries"
+              ]
+            },
+            "description": "Execute a SQL query against a Vantage system."
+          },
+          "response": [
+            {
+              "id": "e3907f0c-a900-4e09-8d57-0f0d81b7c4fe",
+              "name": "Query executed successfully.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sessionId\": \"<string>\",\n  \"query\": \"<string>\",\n  \"format\": \"csv\",\n  \"maxRows\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/queries",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "queries"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"queryId\": \"<string>\",\n  \"status\": \"running\",\n  \"rowCount\": \"<integer>\",\n  \"columns\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"rows\": [\n    [],\n    []\n  ],\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:19:14.000Z",
+              "updatedAt": "2026-06-05T15:19:14.000Z",
+              "uid": "35240-e3907f0c-a900-4e09-8d57-0f0d81b7c4fe"
+            },
+            {
+              "id": "63789c0b-3e1e-4f73-b24c-8ca2a58b7c25",
+              "name": "Invalid query syntax.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sessionId\": \"<string>\",\n  \"query\": \"<string>\",\n  \"format\": \"csv\",\n  \"maxRows\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/queries",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "queries"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:19:14.000Z",
+              "updatedAt": "2026-06-05T15:19:14.000Z",
+              "uid": "35240-63789c0b-3e1e-4f73-b24c-8ca2a58b7c25"
+            },
+            {
+              "id": "8f77df30-aa6c-4412-91fa-ef8f1b3d478c",
+              "name": "Authentication failed.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sessionId\": \"<string>\",\n  \"query\": \"<string>\",\n  \"format\": \"csv\",\n  \"maxRows\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/queries",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "queries"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-06-05T15:19:14.000Z",
+              "updatedAt": "2026-06-05T15:19:14.000Z",
+              "uid": "35240-8f77df30-aa6c-4412-91fa-ef8f1b3d478c"
+            }
+          ],
+          "createdAt": "2026-06-05T15:19:13.000Z",
+          "updatedAt": "2026-06-05T15:19:13.000Z",
+          "uid": "35240-8c145e5f-d317-46b7-b82a-da89e6af00a8"
+        }
+      ],
+      "id": "406e766f-05c9-4074-80ef-cb052852617e",
+      "createdAt": "2026-06-05T15:19:13.000Z",
+      "updatedAt": "2026-06-05T15:19:13.000Z",
+      "uid": "35240-406e766f-05c9-4074-80ef-cb052852617e"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://vantage.teradata.com/api/query/v1"
+    }
+  ]
+}
