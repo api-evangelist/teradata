@@ -41,23 +41,23 @@ apis:
       url: https://github.com/Teradata/querygrid-apidocs
     - type: OpenAPI
       url: openapi/teradata-querygrid-manager-api.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/querygrid-manager-api-info.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/querygrid-manager-configuration.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/querygrid-manager-issues.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/querygrid-manager-managers.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/querygrid-manager-nodes.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/querygrid-manager-operations.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/querygrid-manager-queries.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/querygrid-manager-software.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/querygrid-manager-users.yaml
   - aid: teradata:query-service-api
     name: Teradata Query Service API
@@ -75,51 +75,48 @@ apis:
       url: https://docs.teradata.com
     - type: OpenAPI
       url: openapi/teradata-query-service-api.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/query-service-queries.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/query-service-sessions.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/query-service-systems.yaml
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/teradata/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-    - url: arazzo/teradata-auto-install-node-software-workflow.yml
-      name: Teradata Auto-Install Node Software
-      summary: Pick a software version, trigger an automated node install, then verify the nodes.
-    - url: arazzo/teradata-build-data-fabric-workflow.yml
-      name: Teradata Build a Data Fabric
-      summary: Create a data fabric, attach a network, and apply a communication policy.
-    - url: arazzo/teradata-cancel-running-query-workflow.yml
-      name: Teradata Cancel a Running Query
-      summary: Submit a query, check whether it is still running, and cancel it if so.
-    - url: arazzo/teradata-import-and-verify-system-workflow.yml
-      name: Teradata Import and Verify a Remote System
-      summary: Import a system from a remote QueryGrid manager, confirm it landed, and diagnose its connectivity.
-    - url: arazzo/teradata-poll-query-results-workflow.yml
-      name: Teradata Submit Query and Poll for Results
-      summary: Submit a SQL query, poll its status until it completes, then branch on success or failure.
-    - url: arazzo/teradata-provision-cross-system-link-workflow.yml
-      name: Teradata Provision a Cross-System Link
-      summary: Register a system, create a connector for it, then link it into a fabric.
-    - url: arazzo/teradata-register-system-in-datacenter-workflow.yml
-      name: Teradata Register a System in a New Data Center
-      summary: Create a data center, register a system inside it, then bridge it to an existing system.
-    - url: arazzo/teradata-review-environment-health-workflow.yml
-      name: Teradata Review QueryGrid Environment Health
-      summary: Confirm the manager API is running, list open issues, and branch to inspect managers when issues exist.
-    - url: arazzo/teradata-run-connectivity-diagnostic-workflow.yml
-      name: Teradata Run a Connectivity Diagnostic
-      summary: List configured systems, run a connectivity diagnostic, then branch on the result.
-    - url: arazzo/teradata-run-query-session-workflow.yml
-      name: Teradata Run Query in a Session
-      summary: Pick an available Vantage system, open a session, run a SQL query, and close the session.
-    - url: arazzo/teradata-session-lifecycle-workflow.yml
-      name: Teradata Session Lifecycle
-      summary: Create a query session, verify it is active, then close it.
+  - type: Arazzo
+    url: arazzo/teradata-auto-install-node-software-workflow.yml
+    name: Teradata Auto-Install Node Software
+  - type: Arazzo
+    url: arazzo/teradata-build-data-fabric-workflow.yml
+    name: Teradata Build a Data Fabric
+  - type: Arazzo
+    url: arazzo/teradata-cancel-running-query-workflow.yml
+    name: Teradata Cancel a Running Query
+  - type: Arazzo
+    url: arazzo/teradata-import-and-verify-system-workflow.yml
+    name: Teradata Import and Verify a Remote System
+  - type: Arazzo
+    url: arazzo/teradata-poll-query-results-workflow.yml
+    name: Teradata Submit Query and Poll for Results
+  - type: Arazzo
+    url: arazzo/teradata-provision-cross-system-link-workflow.yml
+    name: Teradata Provision a Cross-System Link
+  - type: Arazzo
+    url: arazzo/teradata-register-system-in-datacenter-workflow.yml
+    name: Teradata Register a System in a New Data Center
+  - type: Arazzo
+    url: arazzo/teradata-review-environment-health-workflow.yml
+    name: Teradata Review QueryGrid Environment Health
+  - type: Arazzo
+    url: arazzo/teradata-run-connectivity-diagnostic-workflow.yml
+    name: Teradata Run a Connectivity Diagnostic
+  - type: Arazzo
+    url: arazzo/teradata-run-query-session-workflow.yml
+    name: Teradata Run Query in a Session
+  - type: Arazzo
+    url: arazzo/teradata-session-lifecycle-workflow.yml
+    name: Teradata Session Lifecycle
   - type: LinkedIn
     url: https://www.linkedin.com/company/teradata
   - type: Portal
@@ -140,22 +137,22 @@ common:
     url: https://www.teradata.com/Legal/Terms-of-Use
   - type: PrivacyPolicy
     url: https://www.teradata.com/Legal/Privacy
-  - type: SDK
+  - type: SDKs
     url: https://pypi.org/project/teradatasql/
     title: Python SQL Driver
-  - type: SDK
+  - type: SDKs
     url: https://www.npmjs.com/package/teradatasql
     title: Node.js SQL Driver
-  - type: SDK
+  - type: SDKs
     url: https://github.com/Teradata/r-driver
     title: R SQL Driver
-  - type: SDK
+  - type: SDKs
     url: https://github.com/Teradata/teradatarustapi
     title: Rust API
-  - type: SDK
+  - type: SDKs
     url: https://github.com/Teradata/gosql-driver
     title: Go SQL Driver
-  - type: SDK
+  - type: SDKs
     url: https://github.com/Teradata/jdbc-driver
     title: JDBC Driver
   - type: CLI
@@ -223,7 +220,7 @@ common:
   - name: MCP Server
     url: https://github.com/Teradata/teradata-mcp-server
     type: MCPServer
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://docs.teradata.com/llms.txt
 integrations:
   - name: Partner with us today
