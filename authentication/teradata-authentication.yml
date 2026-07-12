@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/teradata-query-service-api.yaml, openapi/teradata-querygrid-manager-api.yaml
+summary:
+  types:
+  - http
+schemes:
+- name: BasicAuth
+  type: http
+  scheme: basic
+  description: HTTP Basic authentication with Vantage credentials.
+  sources:
+  - openapi/teradata-query-service-api.yaml
+  - openapi/teradata-querygrid-manager-api.yaml
