@@ -82,6 +82,8 @@ apis:
     - type: X-NaftikoCapability
       url: capabilities/query-service-systems.yaml
 common:
+  - type: AgenticAccess
+    url: agentic-access/teradata-agentic-access.yml
   - type: DomainSecurity
     url: security/teradata-domain-security.yml
   - type: Authentication
