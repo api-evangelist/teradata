@@ -1,0 +1,66 @@
+openapi: 3.0.3
+info:
+  title: Teradata Query Service API Info API
+  description: REST API for executing SQL queries against Teradata Vantage systems. Provides HTTP-based access to run queries, retrieve results, and manage sessions for application integration.
+  version: '1.0'
+  contact:
+    name: Teradata
+    url: https://www.teradata.com
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://vantage.teradata.com/api/query/v1
+  description: Teradata Query Service endpoint
+security:
+- BasicAuth: []
+tags:
+- name: API Info
+paths:
+  /:
+    get:
+      operationId: getApiInfo
+      summary: Teradata Get API Info
+      description: Retrieve API version and status information.
+      tags:
+      - API Info
+      responses:
+        '200':
+          description: API information retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiInfo'
+              examples:
+                GetApiInfo200Example:
+                  summary: Default getApiInfo 200 response
+                  x-microcks-default: true
+                  value:
+                    version: '3.6'
+                    build: 03.06.00.01
+                    status: running
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ApiInfo:
+      type: object
+      description: QueryGrid Manager API information.
+      properties:
+        version:
+          type: string
+          description: API version number.
+          example: '3.6'
+        build:
+          type: string
+          description: Build version string.
+          example: 03.06.00.01
+        status:
+          type: string
+          description: Current API status.
+          example: running
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication with Vantage credentials.

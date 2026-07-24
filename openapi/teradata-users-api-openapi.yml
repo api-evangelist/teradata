@@ -1,0 +1,60 @@
+openapi: 3.0.3
+info:
+  title: Teradata Query Service API Info Users API
+  description: REST API for executing SQL queries against Teradata Vantage systems. Provides HTTP-based access to run queries, retrieve results, and manage sessions for application integration.
+  version: '1.0'
+  contact:
+    name: Teradata
+    url: https://www.teradata.com
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://vantage.teradata.com/api/query/v1
+  description: Teradata Query Service endpoint
+security:
+- BasicAuth: []
+tags:
+- name: Users
+paths:
+  /users:
+    get:
+      operationId: listUsers
+      summary: Teradata List Users
+      description: Retrieve all QueryGrid users and their role mappings.
+      tags:
+      - Users
+      responses:
+        '200':
+          description: List of users retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    User:
+      type: object
+      description: A QueryGrid user with role mappings.
+      properties:
+        username:
+          type: string
+          description: Username.
+          example: admin
+        roles:
+          type: array
+          items:
+            type: string
+          description: Assigned roles.
+          example:
+          - admin
+          - operator
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication with Vantage credentials.

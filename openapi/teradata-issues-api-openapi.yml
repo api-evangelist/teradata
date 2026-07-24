@@ -1,0 +1,84 @@
+openapi: 3.0.3
+info:
+  title: Teradata Query Service API Info Issues API
+  description: REST API for executing SQL queries against Teradata Vantage systems. Provides HTTP-based access to run queries, retrieve results, and manage sessions for application integration.
+  version: '1.0'
+  contact:
+    name: Teradata
+    url: https://www.teradata.com
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://vantage.teradata.com/api/query/v1
+  description: Teradata Query Service endpoint
+security:
+- BasicAuth: []
+tags:
+- name: Issues
+paths:
+  /issues:
+    get:
+      operationId: listIssues
+      summary: Teradata List Issues
+      description: Retrieve all current issues across the QueryGrid environment.
+      tags:
+      - Issues
+      responses:
+        '200':
+          description: List of issues retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Issue'
+              examples:
+                ListIssues200Example:
+                  summary: Default listIssues 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: '100001'
+                    severity: warning
+                    message: Bridge connection timeout detected
+                    source: bridge-east-01
+                    timestamp: '2026-04-18T10:30:00Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Issue:
+      type: object
+      description: An issue detected in the QueryGrid environment.
+      properties:
+        id:
+          type: string
+          description: Unique issue identifier.
+          example: '100001'
+        severity:
+          type: string
+          description: Issue severity level.
+          enum:
+          - info
+          - warning
+          - error
+          - critical
+          example: warning
+        message:
+          type: string
+          description: Issue description message.
+          example: Bridge connection timeout detected
+        source:
+          type: string
+          description: Source component of the issue.
+          example: bridge-east-01
+        timestamp:
+          type: string
+          format: date-time
+          description: Time when the issue was detected.
+          example: '2026-04-18T10:30:00Z'
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication with Vantage credentials.

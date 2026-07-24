@@ -1,0 +1,104 @@
+openapi: 3.0.3
+info:
+  title: Teradata Query Service API Info Nodes API
+  description: REST API for executing SQL queries against Teradata Vantage systems. Provides HTTP-based access to run queries, retrieve results, and manage sessions for application integration.
+  version: '1.0'
+  contact:
+    name: Teradata
+    url: https://www.teradata.com
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://vantage.teradata.com/api/query/v1
+  description: Teradata Query Service endpoint
+security:
+- BasicAuth: []
+tags:
+- name: Nodes
+paths:
+  /nodes:
+    get:
+      operationId: listNodes
+      summary: Teradata List Nodes
+      description: Retrieve all nodes with optional filtering by system and status.
+      tags:
+      - Nodes
+      parameters:
+      - name: systemId
+        in: query
+        description: Filter nodes by system identifier.
+        schema:
+          type: string
+        example: sys-001
+      - name: status
+        in: query
+        description: Filter nodes by status.
+        schema:
+          type: string
+          enum:
+          - active
+          - inactive
+          - error
+        example: active
+      responses:
+        '200':
+          description: List of nodes retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Node'
+              examples:
+                ListNodes200Example:
+                  summary: Default listNodes 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: '600001'
+                    name: node-east-01
+                    hostname: node01.example.com
+                    systemId: sys-001
+                    status: active
+                    softwareVersion: 03.06.00.01
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Node:
+      type: object
+      description: A node in the QueryGrid environment.
+      properties:
+        id:
+          type: string
+          description: Unique node identifier.
+          example: '600001'
+        name:
+          type: string
+          description: Node name.
+          example: node-east-01
+        hostname:
+          type: string
+          description: Node hostname.
+          example: node01.example.com
+        systemId:
+          type: string
+          description: Parent system identifier.
+          example: sys-001
+        status:
+          type: string
+          description: Node status.
+          enum:
+          - active
+          - inactive
+          - error
+          example: active
+        softwareVersion:
+          type: string
+          description: Installed software version.
+          example: 03.06.00.01
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication with Vantage credentials.

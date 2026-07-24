@@ -1,0 +1,68 @@
+openapi: 3.0.3
+info:
+  title: Teradata Query Service API Info Software API
+  description: REST API for executing SQL queries against Teradata Vantage systems. Provides HTTP-based access to run queries, retrieve results, and manage sessions for application integration.
+  version: '1.0'
+  contact:
+    name: Teradata
+    url: https://www.teradata.com
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://vantage.teradata.com/api/query/v1
+  description: Teradata Query Service endpoint
+security:
+- BasicAuth: []
+tags:
+- name: Software
+paths:
+  /software:
+    get:
+      operationId: listSoftware
+      summary: Teradata List Software
+      description: Retrieve available software packages and JDBC drivers.
+      tags:
+      - Software
+      responses:
+        '200':
+          description: List of software packages retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Software'
+              examples:
+                ListSoftware200Example:
+                  summary: Default listSoftware 200 response
+                  x-microcks-default: true
+                  value:
+                  - name: querygrid-tdplugin
+                    version: 03.06.00.01
+                    type: plugin
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Software:
+      type: object
+      description: A software package available for installation.
+      properties:
+        name:
+          type: string
+          description: Software package name.
+          example: querygrid-tdplugin
+        version:
+          type: string
+          description: Package version.
+          example: 03.06.00.01
+        type:
+          type: string
+          description: Package type.
+          example: plugin
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication with Vantage credentials.

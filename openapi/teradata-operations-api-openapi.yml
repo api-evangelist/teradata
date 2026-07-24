@@ -1,0 +1,217 @@
+openapi: 3.0.3
+info:
+  title: Teradata Query Service API Info Operations API
+  description: REST API for executing SQL queries against Teradata Vantage systems. Provides HTTP-based access to run queries, retrieve results, and manage sessions for application integration.
+  version: '1.0'
+  contact:
+    name: Teradata
+    url: https://www.teradata.com
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://vantage.teradata.com/api/query/v1
+  description: Teradata Query Service endpoint
+security:
+- BasicAuth: []
+tags:
+- name: Operations
+paths:
+  /operations/diagnostic-check:
+    post:
+      operationId: runDiagnosticCheck
+      summary: Teradata Run Diagnostic Check
+      description: Execute a diagnostic check on specified systems and components.
+      tags:
+      - Operations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiagnosticCheckRequest'
+            examples:
+              RunDiagnosticCheckRequestExample:
+                summary: Default runDiagnosticCheck request
+                x-microcks-default: true
+                value:
+                  systemId: sys-001
+                  checkType: connectivity
+                  targetSystems:
+                  - sys-002
+                  - sys-003
+      responses:
+        '200':
+          description: Diagnostic check completed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiagnosticCheckResponse'
+        '400':
+          description: Invalid diagnostic check request.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /operations/nodes-auto-install:
+    post:
+      operationId: autoInstallNodes
+      summary: Teradata Auto Install Nodes
+      description: Trigger automated node software installation.
+      tags:
+      - Operations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutoInstallRequest'
+      responses:
+        '200':
+          description: Auto installation initiated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutoInstallResponse'
+        '400':
+          description: Invalid auto install request.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /operations/import-system:
+    post:
+      operationId: importSystem
+      summary: Teradata Import System
+      description: Import a system configuration from another QueryGrid environment.
+      tags:
+      - Operations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportSystemRequest'
+      responses:
+        '200':
+          description: System imported successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportSystemResponse'
+        '400':
+          description: Invalid import request.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    AutoInstallRequest:
+      type: object
+      description: Request for automated node installation.
+      properties:
+        systemId:
+          type: string
+          description: Target system for auto install.
+          example: sys-001
+        softwareVersion:
+          type: string
+          description: Software version to install.
+          example: 03.06.00.01
+    ImportSystemRequest:
+      type: object
+      description: Request to import a system configuration.
+      properties:
+        sourceManagerUrl:
+          type: string
+          description: URL of the source QueryGrid Manager.
+          example: https://qgm-remote.example.com/api/v1
+        systemName:
+          type: string
+          description: Name of the system to import.
+          example: remote-vantage
+    ImportSystemResponse:
+      type: object
+      description: Response from system import operation.
+      properties:
+        importId:
+          type: string
+          description: Import operation identifier.
+          example: imp-001
+        status:
+          type: string
+          description: Import status.
+          example: completed
+        systemId:
+          type: string
+          description: Identifier of the imported system.
+          example: sys-010
+    DiagnosticCheckRequest:
+      type: object
+      description: Request to run a diagnostic check.
+      properties:
+        systemId:
+          type: string
+          description: System to diagnose.
+          example: sys-001
+        checkType:
+          type: string
+          description: Type of diagnostic check.
+          enum:
+          - connectivity
+          - performance
+          - configuration
+          example: connectivity
+        targetSystems:
+          type: array
+          items:
+            type: string
+          description: Target systems to check connectivity against.
+          example:
+          - sys-002
+          - sys-003
+    AutoInstallResponse:
+      type: object
+      description: Response from auto install operation.
+      properties:
+        jobId:
+          type: string
+          description: Installation job identifier.
+          example: job-001
+        status:
+          type: string
+          description: Job status.
+          example: initiated
+        nodesAffected:
+          type: integer
+          description: Number of nodes to be updated.
+          example: 5
+    DiagnosticCheckResponse:
+      type: object
+      description: Response from a diagnostic check.
+      properties:
+        checkId:
+          type: string
+          description: Unique check identifier.
+          example: chk-001
+        status:
+          type: string
+          description: Overall check status.
+          example: passed
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              target:
+                type: string
+                description: Target system checked.
+              status:
+                type: string
+                description: Check result status.
+              latencyMs:
+                type: integer
+                description: Latency in milliseconds.
+          description: Individual check results.
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication with Vantage credentials.

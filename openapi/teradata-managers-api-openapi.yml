@@ -1,0 +1,78 @@
+openapi: 3.0.3
+info:
+  title: Teradata Query Service API Info Managers API
+  description: REST API for executing SQL queries against Teradata Vantage systems. Provides HTTP-based access to run queries, retrieve results, and manage sessions for application integration.
+  version: '1.0'
+  contact:
+    name: Teradata
+    url: https://www.teradata.com
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://vantage.teradata.com/api/query/v1
+  description: Teradata Query Service endpoint
+security:
+- BasicAuth: []
+tags:
+- name: Managers
+paths:
+  /managers:
+    get:
+      operationId: listManagers
+      summary: Teradata List Managers
+      description: Retrieve all QueryGrid Manager instances.
+      tags:
+      - Managers
+      responses:
+        '200':
+          description: List of managers retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Manager'
+              examples:
+                ListManagers200Example:
+                  summary: Default listManagers 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: '500001'
+                    name: qgm-primary
+                    hostname: qgm01.example.com
+                    status: active
+                    version: '03.06'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Manager:
+      type: object
+      description: A QueryGrid Manager instance.
+      properties:
+        id:
+          type: string
+          description: Unique manager identifier.
+          example: '500001'
+        name:
+          type: string
+          description: Manager instance name.
+          example: qgm-primary
+        hostname:
+          type: string
+          description: Manager hostname.
+          example: qgm01.example.com
+        status:
+          type: string
+          description: Manager status.
+          example: active
+        version:
+          type: string
+          description: Software version.
+          example: '03.06'
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication with Vantage credentials.

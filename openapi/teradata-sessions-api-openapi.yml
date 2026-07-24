@@ -1,0 +1,167 @@
+openapi: 3.0.3
+info:
+  title: Teradata Query Service API Info Sessions API
+  description: REST API for executing SQL queries against Teradata Vantage systems. Provides HTTP-based access to run queries, retrieve results, and manage sessions for application integration.
+  version: '1.0'
+  contact:
+    name: Teradata
+    url: https://www.teradata.com
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://vantage.teradata.com/api/query/v1
+  description: Teradata Query Service endpoint
+security:
+- BasicAuth: []
+tags:
+- name: Sessions
+paths:
+  /sessions:
+    post:
+      operationId: createSession
+      summary: Teradata Create Session
+      description: Create a new query session on a Vantage system.
+      tags:
+      - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionRequest'
+            examples:
+              CreateSessionRequestExample:
+                summary: Default createSession request
+                x-microcks-default: true
+                value:
+                  system: vantage-prod
+                  username: app_user
+                  database: analytics_db
+      responses:
+        '201':
+          description: Session created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+              examples:
+                CreateSession201Example:
+                  summary: Default createSession 201 response
+                  x-microcks-default: true
+                  value:
+                    sessionId: sess-a1b2c3d4
+                    system: vantage-prod
+                    database: analytics_db
+                    status: active
+                    createdAt: '2026-04-18T10:00:00Z'
+        '400':
+          description: Invalid session request.
+        '401':
+          description: Authentication failed.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /sessions/{sessionId}:
+    get:
+      operationId: getSession
+      summary: Teradata Get Session
+      description: Retrieve details about a specific query session.
+      tags:
+      - Sessions
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        description: Session identifier.
+        schema:
+          type: string
+        example: sess-a1b2c3d4
+      responses:
+        '200':
+          description: Session details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        '404':
+          description: Session not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteSession
+      summary: Teradata Delete Session
+      description: Close and delete a query session.
+      tags:
+      - Sessions
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        description: Session identifier.
+        schema:
+          type: string
+        example: sess-a1b2c3d4
+      responses:
+        '204':
+          description: Session deleted successfully.
+        '404':
+          description: Session not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Session:
+      type: object
+      description: A query session.
+      properties:
+        sessionId:
+          type: string
+          description: Unique session identifier.
+          example: sess-a1b2c3d4
+        system:
+          type: string
+          description: Connected system name.
+          example: vantage-prod
+        database:
+          type: string
+          description: Default database.
+          example: analytics_db
+        status:
+          type: string
+          description: Session status.
+          enum:
+          - active
+          - idle
+          - closed
+          example: active
+        createdAt:
+          type: string
+          format: date-time
+          description: Session creation time.
+          example: '2026-04-18T10:00:00Z'
+    SessionRequest:
+      type: object
+      description: Request to create a query session.
+      properties:
+        system:
+          type: string
+          description: Target system name.
+          example: vantage-prod
+        username:
+          type: string
+          description: Database username.
+          example: app_user
+        database:
+          type: string
+          description: Default database.
+          example: analytics_db
+      required:
+      - system
+      - username
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication with Vantage credentials.

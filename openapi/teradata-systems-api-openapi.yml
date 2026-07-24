@@ -1,0 +1,77 @@
+openapi: 3.0.3
+info:
+  title: Teradata Query Service API Info Systems API
+  description: REST API for executing SQL queries against Teradata Vantage systems. Provides HTTP-based access to run queries, retrieve results, and manage sessions for application integration.
+  version: '1.0'
+  contact:
+    name: Teradata
+    url: https://www.teradata.com
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://vantage.teradata.com/api/query/v1
+  description: Teradata Query Service endpoint
+security:
+- BasicAuth: []
+tags:
+- name: Systems
+paths:
+  /systems:
+    get:
+      operationId: listQuerySystems
+      summary: Teradata List Query Systems
+      description: Retrieve available Vantage systems for query execution.
+      tags:
+      - Systems
+      responses:
+        '200':
+          description: List of systems retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QuerySystem'
+              examples:
+                ListQuerySystems200Example:
+                  summary: Default listQuerySystems 200 response
+                  x-microcks-default: true
+                  value:
+                  - name: vantage-prod
+                    host: vantage01.example.com
+                    port: 1025
+                    status: available
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    QuerySystem:
+      type: object
+      description: A Vantage system available for queries.
+      properties:
+        name:
+          type: string
+          description: System name.
+          example: vantage-prod
+        host:
+          type: string
+          description: System hostname.
+          example: vantage01.example.com
+        port:
+          type: integer
+          description: Connection port.
+          example: 1025
+        status:
+          type: string
+          description: System availability status.
+          enum:
+          - available
+          - unavailable
+          - maintenance
+          example: available
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication with Vantage credentials.

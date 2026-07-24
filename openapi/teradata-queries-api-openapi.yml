@@ -1,0 +1,261 @@
+openapi: 3.0.3
+info:
+  title: Teradata Query Service API Info Queries API
+  description: REST API for executing SQL queries against Teradata Vantage systems. Provides HTTP-based access to run queries, retrieve results, and manage sessions for application integration.
+  version: '1.0'
+  contact:
+    name: Teradata
+    url: https://www.teradata.com
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+- url: https://vantage.teradata.com/api/query/v1
+  description: Teradata Query Service endpoint
+security:
+- BasicAuth: []
+tags:
+- name: Queries
+paths:
+  /queries:
+    post:
+      operationId: executeQuery
+      summary: Teradata Execute Query
+      description: Execute a SQL query against a Vantage system.
+      tags:
+      - Queries
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+            examples:
+              ExecuteQueryRequestExample:
+                summary: Default executeQuery request
+                x-microcks-default: true
+                value:
+                  sessionId: sess-a1b2c3d4
+                  query: SELECT TOP 10 * FROM analytics_db.customer_events
+                  format: json
+                  maxRows: 1000
+      responses:
+        '200':
+          description: Query executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResult'
+              examples:
+                ExecuteQuery200Example:
+                  summary: Default executeQuery 200 response
+                  x-microcks-default: true
+                  value:
+                    queryId: qry-e5f6g7h8
+                    status: completed
+                    rowCount: 10
+                    columns:
+                    - name: customer_id
+                      type: INTEGER
+                    - name: event_type
+                      type: VARCHAR
+                    - name: event_time
+                      type: TIMESTAMP
+                    rows:
+                    - - 100001
+                      - purchase
+                      - '2026-04-18T09:30:00Z'
+        '400':
+          description: Invalid query syntax.
+        '401':
+          description: Authentication failed.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    get:
+      operationId: listQueries
+      summary: Teradata List Queries
+      description: Retrieve query summaries across connected systems.
+      tags:
+      - Queries
+      responses:
+        '200':
+          description: List of query summaries retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QuerySummary'
+              examples:
+                ListQueries200Example:
+                  summary: Default listQueries 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: '700001'
+                    status: completed
+                    startTime: '2026-04-18T09:00:00Z'
+                    endTime: '2026-04-18T09:02:30Z'
+                    sourceSystem: vantage-prod
+                    targetSystem: hadoop-lake
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /queries/{queryId}:
+    get:
+      operationId: getQueryStatus
+      summary: Teradata Get Query Status
+      description: Retrieve the status and results of a previously submitted query.
+      tags:
+      - Queries
+      parameters:
+      - name: queryId
+        in: path
+        required: true
+        description: Query identifier.
+        schema:
+          type: string
+        example: qry-e5f6g7h8
+      responses:
+        '200':
+          description: Query status retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResult'
+        '404':
+          description: Query not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: cancelQuery
+      summary: Teradata Cancel Query
+      description: Cancel a running query.
+      tags:
+      - Queries
+      parameters:
+      - name: queryId
+        in: path
+        required: true
+        description: Query identifier.
+        schema:
+          type: string
+        example: qry-e5f6g7h8
+      responses:
+        '204':
+          description: Query cancelled successfully.
+        '404':
+          description: Query not found.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    QueryResult:
+      type: object
+      description: Query execution result.
+      properties:
+        queryId:
+          type: string
+          description: Unique query identifier.
+          example: qry-e5f6g7h8
+        status:
+          type: string
+          description: Query execution status.
+          enum:
+          - running
+          - completed
+          - failed
+          - cancelled
+          example: completed
+        rowCount:
+          type: integer
+          description: Number of rows returned.
+          example: 10
+        columns:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Column name.
+              type:
+                type: string
+                description: Column data type.
+          description: Column metadata.
+        rows:
+          type: array
+          items:
+            type: array
+            items: {}
+          description: Result rows as arrays of values.
+        errorMessage:
+          type: string
+          description: Error message if query failed.
+    QuerySummary:
+      type: object
+      description: Summary of a cross-system query execution.
+      properties:
+        id:
+          type: string
+          description: Unique query identifier.
+          example: '700001'
+        status:
+          type: string
+          description: Query execution status.
+          enum:
+          - running
+          - completed
+          - failed
+          - cancelled
+          example: completed
+        startTime:
+          type: string
+          format: date-time
+          description: Query start time.
+          example: '2026-04-18T09:00:00Z'
+        endTime:
+          type: string
+          format: date-time
+          description: Query end time.
+          example: '2026-04-18T09:02:30Z'
+        sourceSystem:
+          type: string
+          description: Source system name.
+          example: vantage-prod
+        targetSystem:
+          type: string
+          description: Target system name.
+          example: hadoop-lake
+    QueryRequest:
+      type: object
+      description: Request to execute a SQL query.
+      properties:
+        sessionId:
+          type: string
+          description: Session identifier for query execution.
+          example: sess-a1b2c3d4
+        query:
+          type: string
+          description: SQL query to execute.
+          example: SELECT TOP 10 * FROM analytics_db.customer_events
+        format:
+          type: string
+          description: Result format.
+          enum:
+          - json
+          - csv
+          example: json
+        maxRows:
+          type: integer
+          description: Maximum number of rows to return.
+          example: 1000
+      required:
+      - sessionId
+      - query
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication with Vantage credentials.
