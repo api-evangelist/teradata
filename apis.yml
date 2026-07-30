@@ -5,7 +5,20 @@ description: Teradata provides enterprise analytics and data management solution
   scale. Teradata offers REST APIs for managing QueryGrid data fabric connections, running SQL queries, and administering
   platform resources.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/teradata.png
 tags:
   - Analytics
   - Cloud
@@ -23,64 +36,424 @@ specificationVersion: '0.19'
 position: Consumer
 access: 3rd-Party
 apis:
-  - aid: teradata:querygrid-manager-api
-    name: Teradata QueryGrid Manager API
-    description: REST API for centralized administration and monitoring of Teradata QueryGrid, the data fabric that enables
-      seamless cross-system analytics. Manage data centers, systems, bridges, connectors, links, fabrics, networks, and node
-      configurations. Perform diagnostic checks, software installations, and query monitoring across connected systems.
-    humanURL: https://github.com/Teradata/querygrid-apidocs
-    baseURL: https://querygrid.teradata.com/api/v1
-    tags:
-    - Configuration
-    - Data Fabric
-    - Diagnostics
-    - Monitoring
-    - QueryGrid
-    properties:
-    - type: Documentation
-      url: https://github.com/Teradata/querygrid-apidocs
-    - type: OpenAPI
-      url: openapi/teradata-querygrid-manager-api.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/querygrid-manager-api-info.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/querygrid-manager-configuration.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/querygrid-manager-issues.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/querygrid-manager-managers.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/querygrid-manager-nodes.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/querygrid-manager-operations.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/querygrid-manager-queries.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/querygrid-manager-software.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/querygrid-manager-users.yaml
-  - aid: teradata:query-service-api
-    name: Teradata Query Service API
-    description: REST API for executing SQL queries against Teradata Vantage systems. Provides HTTP-based access to run queries,
-      retrieve results, and manage sessions for application integration and browser-based query tools.
-    humanURL: https://docs.teradata.com
-    baseURL: https://vantage.teradata.com/api/query/v1
-    tags:
-    - Query
-    - REST
-    - SQL
-    - Vantage
-    properties:
-    - type: Documentation
-      url: https://docs.teradata.com
-    - type: OpenAPI
-      url: openapi/teradata-query-service-api.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/query-service-queries.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/query-service-sessions.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/query-service-systems.yaml
+- aid: teradata:teradata-api-info-api
+  name: Teradata API Info API
+  description: The API Info API from Teradata — 1 operation(s) for api info.
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - API Info
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-api-info-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Teradata/querygrid-apidocs
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-api-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-configuration.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-issues.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-managers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-nodes.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-operations.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-software.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-users.yaml
+  - type: Documentation
+    url: https://docs.teradata.com
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-systems.yaml
+- aid: teradata:teradata-configuration-api
+  name: Teradata Configuration API
+  description: The Configuration API from Teradata — 8 operation(s) for configuration.
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Teradata/querygrid-apidocs
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-api-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-configuration.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-issues.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-managers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-nodes.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-operations.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-software.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-users.yaml
+  - type: Documentation
+    url: https://docs.teradata.com
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-systems.yaml
+- aid: teradata:teradata-issues-api
+  name: Teradata Issues API
+  description: The Issues API from Teradata — 1 operation(s) for issues.
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Issues
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-issues-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Teradata/querygrid-apidocs
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-api-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-configuration.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-issues.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-managers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-nodes.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-operations.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-software.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-users.yaml
+  - type: Documentation
+    url: https://docs.teradata.com
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-systems.yaml
+- aid: teradata:teradata-managers-api
+  name: Teradata Managers API
+  description: The Managers API from Teradata — 1 operation(s) for managers.
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Managers
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-managers-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Teradata/querygrid-apidocs
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-api-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-configuration.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-issues.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-managers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-nodes.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-operations.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-software.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-users.yaml
+  - type: Documentation
+    url: https://docs.teradata.com
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-systems.yaml
+- aid: teradata:teradata-nodes-api
+  name: Teradata Nodes API
+  description: The Nodes API from Teradata — 1 operation(s) for nodes.
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Nodes
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-nodes-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Teradata/querygrid-apidocs
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-api-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-configuration.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-issues.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-managers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-nodes.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-operations.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-software.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-users.yaml
+  - type: Documentation
+    url: https://docs.teradata.com
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-systems.yaml
+- aid: teradata:teradata-operations-api
+  name: Teradata Operations API
+  description: The Operations API from Teradata — 3 operation(s) for operations.
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Operations
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-operations-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Teradata/querygrid-apidocs
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-api-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-configuration.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-issues.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-managers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-nodes.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-operations.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-software.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-users.yaml
+  - type: Documentation
+    url: https://docs.teradata.com
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-systems.yaml
+- aid: teradata:teradata-queries-api
+  name: Teradata Queries API
+  description: The Queries API from Teradata — 2 operation(s) for queries.
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Queries
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-queries-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Teradata/querygrid-apidocs
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-api-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-configuration.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-issues.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-managers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-nodes.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-operations.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-software.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-users.yaml
+  - type: Documentation
+    url: https://docs.teradata.com
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-systems.yaml
+- aid: teradata:teradata-sessions-api
+  name: Teradata Sessions API
+  description: The Sessions API from Teradata — 2 operation(s) for sessions.
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-sessions-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Teradata/querygrid-apidocs
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-api-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-configuration.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-issues.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-managers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-nodes.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-operations.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-software.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-users.yaml
+  - type: Documentation
+    url: https://docs.teradata.com
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-systems.yaml
+- aid: teradata:teradata-software-api
+  name: Teradata Software API
+  description: The Software API from Teradata — 1 operation(s) for software.
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Software
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-software-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Teradata/querygrid-apidocs
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-api-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-configuration.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-issues.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-managers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-nodes.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-operations.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-software.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-users.yaml
+  - type: Documentation
+    url: https://docs.teradata.com
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-systems.yaml
+- aid: teradata:teradata-systems-api
+  name: Teradata Systems API
+  description: The Systems API from Teradata — 1 operation(s) for systems.
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Systems
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-systems-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Teradata/querygrid-apidocs
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-api-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-configuration.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-issues.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-managers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-nodes.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-operations.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-software.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-users.yaml
+  - type: Documentation
+    url: https://docs.teradata.com
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-systems.yaml
+- aid: teradata:teradata-users-api
+  name: Teradata Users API
+  description: The Users API from Teradata — 1 operation(s) for users.
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-users-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/Teradata/querygrid-apidocs
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-api-info.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-configuration.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-issues.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-managers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-nodes.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-operations.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-software.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/querygrid-manager-users.yaml
+  - type: Documentation
+    url: https://docs.teradata.com
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-queries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-sessions.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/query-service-systems.yaml
 common:
   - type: AgenticAccess
     url: agentic-access/teradata-agentic-access.yml
