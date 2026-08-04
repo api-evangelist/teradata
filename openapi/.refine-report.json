@@ -1,0 +1,34 @@
+{
+  "provider": "teradata",
+  "sources": [
+    "teradata-api-info-api-openapi.yml",
+    "teradata-configuration-api-openapi.yml",
+    "teradata-issues-api-openapi.yml",
+    "teradata-managers-api-openapi.yml",
+    "teradata-nodes-api-openapi.yml",
+    "teradata-operations-api-openapi.yml",
+    "teradata-queries-api-openapi.yml",
+    "teradata-sessions-api-openapi.yml",
+    "teradata-software-api-openapi.yml",
+    "teradata-systems-api-openapi.yml",
+    "teradata-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "teradata-api-info-api-openapi.yml",
+    "teradata-configuration-api-openapi.yml",
+    "teradata-issues-api-openapi.yml",
+    "teradata-managers-api-openapi.yml",
+    "teradata-nodes-api-openapi.yml",
+    "teradata-operations-api-openapi.yml",
+    "teradata-queries-api-openapi.yml",
+    "teradata-sessions-api-openapi.yml",
+    "teradata-software-api-openapi.yml",
+    "teradata-systems-api-openapi.yml",
+    "teradata-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

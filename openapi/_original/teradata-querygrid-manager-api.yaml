@@ -1,0 +1,1141 @@
+openapi: 3.0.3
+info:
+  title: Teradata QueryGrid Manager API
+  description: >-
+    REST API for centralized administration and monitoring of Teradata
+    QueryGrid, the data fabric that enables seamless cross-system analytics.
+    Manage data centers, systems, bridges, connectors, links, fabrics, networks,
+    and node configurations.
+  version: '3.6'
+  contact:
+    name: Teradata
+    url: https://www.teradata.com
+  x-generated-from: documentation
+  x-last-validated: '2026-04-18'
+servers:
+  - url: https://querygrid.teradata.com/api/v1
+    description: Default QueryGrid Manager endpoint
+security:
+  - BasicAuth: []
+paths:
+  /:
+    get:
+      operationId: getApiInfo
+      summary: Teradata Get API Info
+      description: Retrieve API version and status information.
+      tags:
+        - API Info
+      responses:
+        '200':
+          description: API information retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiInfo'
+              examples:
+                GetApiInfo200Example:
+                  summary: Default getApiInfo 200 response
+                  x-microcks-default: true
+                  value:
+                    version: '3.6'
+                    build: '03.06.00.01'
+                    status: running
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /issues:
+    get:
+      operationId: listIssues
+      summary: Teradata List Issues
+      description: Retrieve all current issues across the QueryGrid environment.
+      tags:
+        - Issues
+      responses:
+        '200':
+          description: List of issues retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Issue'
+              examples:
+                ListIssues200Example:
+                  summary: Default listIssues 200 response
+                  x-microcks-default: true
+                  value:
+                    - id: '100001'
+                      severity: warning
+                      message: Bridge connection timeout detected
+                      source: bridge-east-01
+                      timestamp: '2026-04-18T10:30:00Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /managers:
+    get:
+      operationId: listManagers
+      summary: Teradata List Managers
+      description: Retrieve all QueryGrid Manager instances.
+      tags:
+        - Managers
+      responses:
+        '200':
+          description: List of managers retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Manager'
+              examples:
+                ListManagers200Example:
+                  summary: Default listManagers 200 response
+                  x-microcks-default: true
+                  value:
+                    - id: '500001'
+                      name: qgm-primary
+                      hostname: qgm01.example.com
+                      status: active
+                      version: '03.06'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /nodes:
+    get:
+      operationId: listNodes
+      summary: Teradata List Nodes
+      description: Retrieve all nodes with optional filtering by system and status.
+      tags:
+        - Nodes
+      parameters:
+        - name: systemId
+          in: query
+          description: Filter nodes by system identifier.
+          schema:
+            type: string
+          example: sys-001
+        - name: status
+          in: query
+          description: Filter nodes by status.
+          schema:
+            type: string
+            enum:
+              - active
+              - inactive
+              - error
+          example: active
+      responses:
+        '200':
+          description: List of nodes retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Node'
+              examples:
+                ListNodes200Example:
+                  summary: Default listNodes 200 response
+                  x-microcks-default: true
+                  value:
+                    - id: '600001'
+                      name: node-east-01
+                      hostname: node01.example.com
+                      systemId: sys-001
+                      status: active
+                      softwareVersion: '03.06.00.01'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /queries:
+    get:
+      operationId: listQueries
+      summary: Teradata List Queries
+      description: Retrieve query summaries across connected systems.
+      tags:
+        - Queries
+      responses:
+        '200':
+          description: List of query summaries retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QuerySummary'
+              examples:
+                ListQueries200Example:
+                  summary: Default listQueries 200 response
+                  x-microcks-default: true
+                  value:
+                    - id: '700001'
+                      status: completed
+                      startTime: '2026-04-18T09:00:00Z'
+                      endTime: '2026-04-18T09:02:30Z'
+                      sourceSystem: vantage-prod
+                      targetSystem: hadoop-lake
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /software:
+    get:
+      operationId: listSoftware
+      summary: Teradata List Software
+      description: Retrieve available software packages and JDBC drivers.
+      tags:
+        - Software
+      responses:
+        '200':
+          description: List of software packages retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Software'
+              examples:
+                ListSoftware200Example:
+                  summary: Default listSoftware 200 response
+                  x-microcks-default: true
+                  value:
+                    - name: querygrid-tdplugin
+                      version: '03.06.00.01'
+                      type: plugin
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /users:
+    get:
+      operationId: listUsers
+      summary: Teradata List Users
+      description: Retrieve all QueryGrid users and their role mappings.
+      tags:
+        - Users
+      responses:
+        '200':
+          description: List of users retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /config/datacenters:
+    get:
+      operationId: listDataCenters
+      summary: Teradata List Data Centers
+      description: Retrieve all configured data centers.
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: List of data centers retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataCenter'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createDataCenter
+      summary: Teradata Create Data Center
+      description: Create a new data center configuration.
+      tags:
+        - Configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataCenter'
+            examples:
+              CreateDataCenterRequestExample:
+                summary: Default createDataCenter request
+                x-microcks-default: true
+                value:
+                  name: dc-east-01
+                  description: East coast primary data center
+                  location: US-East
+      responses:
+        '201':
+          description: Data center created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataCenter'
+        '400':
+          description: Invalid data center configuration.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /config/systems:
+    get:
+      operationId: listSystems
+      summary: Teradata List Systems
+      description: Retrieve all configured systems.
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: List of systems retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/System'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createSystem
+      summary: Teradata Create System
+      description: Register a new system in QueryGrid.
+      tags:
+        - Configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/System'
+      responses:
+        '201':
+          description: System created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/System'
+        '400':
+          description: Invalid system configuration.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /config/bridges:
+    get:
+      operationId: listBridges
+      summary: Teradata List Bridges
+      description: Retrieve all configured bridges.
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: List of bridges retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bridge'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createBridge
+      summary: Teradata Create Bridge
+      description: Create a new bridge between systems.
+      tags:
+        - Configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bridge'
+      responses:
+        '201':
+          description: Bridge created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bridge'
+        '400':
+          description: Invalid bridge configuration.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /config/connectors:
+    get:
+      operationId: listConnectors
+      summary: Teradata List Connectors
+      description: Retrieve all configured connectors.
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: List of connectors retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Connector'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createConnector
+      summary: Teradata Create Connector
+      description: Create a new connector for system integration.
+      tags:
+        - Configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Connector'
+      responses:
+        '201':
+          description: Connector created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connector'
+        '400':
+          description: Invalid connector configuration.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /config/links:
+    get:
+      operationId: listLinks
+      summary: Teradata List Links
+      description: Retrieve all configured links between systems.
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: List of links retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Link'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createLink
+      summary: Teradata Create Link
+      description: Create a new link between connected systems.
+      tags:
+        - Configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Link'
+      responses:
+        '201':
+          description: Link created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Link'
+        '400':
+          description: Invalid link configuration.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /config/fabrics:
+    get:
+      operationId: listFabrics
+      summary: Teradata List Fabrics
+      description: Retrieve all configured fabrics.
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: List of fabrics retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fabric'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createFabric
+      summary: Teradata Create Fabric
+      description: Create a new data fabric configuration.
+      tags:
+        - Configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Fabric'
+      responses:
+        '201':
+          description: Fabric created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fabric'
+        '400':
+          description: Invalid fabric configuration.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /config/networks:
+    get:
+      operationId: listNetworks
+      summary: Teradata List Networks
+      description: Retrieve all configured networks.
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: List of networks retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Network'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createNetwork
+      summary: Teradata Create Network
+      description: Create a new network configuration.
+      tags:
+        - Configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Network'
+      responses:
+        '201':
+          description: Network created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Network'
+        '400':
+          description: Invalid network configuration.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /config/comm-policies:
+    get:
+      operationId: listCommPolicies
+      summary: Teradata List Communication Policies
+      description: Retrieve all configured communication policies.
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: List of communication policies retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommPolicy'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createCommPolicy
+      summary: Teradata Create Communication Policy
+      description: Create a new communication policy.
+      tags:
+        - Configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommPolicy'
+      responses:
+        '201':
+          description: Communication policy created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommPolicy'
+        '400':
+          description: Invalid communication policy configuration.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /operations/diagnostic-check:
+    post:
+      operationId: runDiagnosticCheck
+      summary: Teradata Run Diagnostic Check
+      description: Execute a diagnostic check on specified systems and components.
+      tags:
+        - Operations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiagnosticCheckRequest'
+            examples:
+              RunDiagnosticCheckRequestExample:
+                summary: Default runDiagnosticCheck request
+                x-microcks-default: true
+                value:
+                  systemId: sys-001
+                  checkType: connectivity
+                  targetSystems:
+                    - sys-002
+                    - sys-003
+      responses:
+        '200':
+          description: Diagnostic check completed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiagnosticCheckResponse'
+        '400':
+          description: Invalid diagnostic check request.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /operations/nodes-auto-install:
+    post:
+      operationId: autoInstallNodes
+      summary: Teradata Auto Install Nodes
+      description: Trigger automated node software installation.
+      tags:
+        - Operations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutoInstallRequest'
+      responses:
+        '200':
+          description: Auto installation initiated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutoInstallResponse'
+        '400':
+          description: Invalid auto install request.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /operations/import-system:
+    post:
+      operationId: importSystem
+      summary: Teradata Import System
+      description: Import a system configuration from another QueryGrid environment.
+      tags:
+        - Operations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportSystemRequest'
+      responses:
+        '200':
+          description: System imported successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportSystemResponse'
+        '400':
+          description: Invalid import request.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication with QueryGrid Manager credentials.
+  schemas:
+    ApiInfo:
+      type: object
+      description: QueryGrid Manager API information.
+      properties:
+        version:
+          type: string
+          description: API version number.
+          example: '3.6'
+        build:
+          type: string
+          description: Build version string.
+          example: '03.06.00.01'
+        status:
+          type: string
+          description: Current API status.
+          example: running
+    Issue:
+      type: object
+      description: An issue detected in the QueryGrid environment.
+      properties:
+        id:
+          type: string
+          description: Unique issue identifier.
+          example: '100001'
+        severity:
+          type: string
+          description: Issue severity level.
+          enum:
+            - info
+            - warning
+            - error
+            - critical
+          example: warning
+        message:
+          type: string
+          description: Issue description message.
+          example: Bridge connection timeout detected
+        source:
+          type: string
+          description: Source component of the issue.
+          example: bridge-east-01
+        timestamp:
+          type: string
+          format: date-time
+          description: Time when the issue was detected.
+          example: '2026-04-18T10:30:00Z'
+    Manager:
+      type: object
+      description: A QueryGrid Manager instance.
+      properties:
+        id:
+          type: string
+          description: Unique manager identifier.
+          example: '500001'
+        name:
+          type: string
+          description: Manager instance name.
+          example: qgm-primary
+        hostname:
+          type: string
+          description: Manager hostname.
+          example: qgm01.example.com
+        status:
+          type: string
+          description: Manager status.
+          example: active
+        version:
+          type: string
+          description: Software version.
+          example: '03.06'
+    Node:
+      type: object
+      description: A node in the QueryGrid environment.
+      properties:
+        id:
+          type: string
+          description: Unique node identifier.
+          example: '600001'
+        name:
+          type: string
+          description: Node name.
+          example: node-east-01
+        hostname:
+          type: string
+          description: Node hostname.
+          example: node01.example.com
+        systemId:
+          type: string
+          description: Parent system identifier.
+          example: sys-001
+        status:
+          type: string
+          description: Node status.
+          enum:
+            - active
+            - inactive
+            - error
+          example: active
+        softwareVersion:
+          type: string
+          description: Installed software version.
+          example: '03.06.00.01'
+    QuerySummary:
+      type: object
+      description: Summary of a cross-system query execution.
+      properties:
+        id:
+          type: string
+          description: Unique query identifier.
+          example: '700001'
+        status:
+          type: string
+          description: Query execution status.
+          enum:
+            - running
+            - completed
+            - failed
+            - cancelled
+          example: completed
+        startTime:
+          type: string
+          format: date-time
+          description: Query start time.
+          example: '2026-04-18T09:00:00Z'
+        endTime:
+          type: string
+          format: date-time
+          description: Query end time.
+          example: '2026-04-18T09:02:30Z'
+        sourceSystem:
+          type: string
+          description: Source system name.
+          example: vantage-prod
+        targetSystem:
+          type: string
+          description: Target system name.
+          example: hadoop-lake
+    Software:
+      type: object
+      description: A software package available for installation.
+      properties:
+        name:
+          type: string
+          description: Software package name.
+          example: querygrid-tdplugin
+        version:
+          type: string
+          description: Package version.
+          example: '03.06.00.01'
+        type:
+          type: string
+          description: Package type.
+          example: plugin
+    User:
+      type: object
+      description: A QueryGrid user with role mappings.
+      properties:
+        username:
+          type: string
+          description: Username.
+          example: admin
+        roles:
+          type: array
+          items:
+            type: string
+          description: Assigned roles.
+          example:
+            - admin
+            - operator
+    DataCenter:
+      type: object
+      description: A data center configuration.
+      properties:
+        id:
+          type: string
+          description: Unique data center identifier.
+          example: dc-001
+        name:
+          type: string
+          description: Data center name.
+          example: dc-east-01
+        description:
+          type: string
+          description: Data center description.
+          example: East coast primary data center
+        location:
+          type: string
+          description: Physical location.
+          example: US-East
+    System:
+      type: object
+      description: A system registered in QueryGrid.
+      properties:
+        id:
+          type: string
+          description: Unique system identifier.
+          example: sys-001
+        name:
+          type: string
+          description: System name.
+          example: vantage-prod
+        type:
+          type: string
+          description: System type.
+          enum:
+            - teradata
+            - hadoop
+            - spark
+            - hive
+            - presto
+            - oracle
+          example: teradata
+        dataCenterId:
+          type: string
+          description: Parent data center identifier.
+          example: dc-001
+        status:
+          type: string
+          description: System status.
+          example: active
+        hostname:
+          type: string
+          description: System hostname.
+          example: vantage01.example.com
+    Bridge:
+      type: object
+      description: A bridge connecting two systems.
+      properties:
+        id:
+          type: string
+          description: Unique bridge identifier.
+          example: brg-001
+        name:
+          type: string
+          description: Bridge name.
+          example: bridge-east-01
+        sourceSystemId:
+          type: string
+          description: Source system identifier.
+          example: sys-001
+        targetSystemId:
+          type: string
+          description: Target system identifier.
+          example: sys-002
+        status:
+          type: string
+          description: Bridge status.
+          example: active
+    Connector:
+      type: object
+      description: A connector for system integration.
+      properties:
+        id:
+          type: string
+          description: Unique connector identifier.
+          example: conn-001
+        name:
+          type: string
+          description: Connector name.
+          example: tdch-connector
+        type:
+          type: string
+          description: Connector type.
+          example: tdch
+        version:
+          type: string
+          description: Connector version.
+          example: '1.5.0'
+        status:
+          type: string
+          description: Connector status.
+          example: active
+    Link:
+      type: object
+      description: A link between connected systems.
+      properties:
+        id:
+          type: string
+          description: Unique link identifier.
+          example: lnk-001
+        name:
+          type: string
+          description: Link name.
+          example: vantage-to-hadoop
+        sourceConnectorId:
+          type: string
+          description: Source connector identifier.
+          example: conn-001
+        targetConnectorId:
+          type: string
+          description: Target connector identifier.
+          example: conn-002
+        fabricId:
+          type: string
+          description: Parent fabric identifier.
+          example: fab-001
+        status:
+          type: string
+          description: Link status.
+          example: active
+    Fabric:
+      type: object
+      description: A data fabric configuration.
+      properties:
+        id:
+          type: string
+          description: Unique fabric identifier.
+          example: fab-001
+        name:
+          type: string
+          description: Fabric name.
+          example: enterprise-fabric
+        description:
+          type: string
+          description: Fabric description.
+          example: Enterprise data fabric for cross-system analytics
+        status:
+          type: string
+          description: Fabric status.
+          example: active
+    Network:
+      type: object
+      description: A network configuration.
+      properties:
+        id:
+          type: string
+          description: Unique network identifier.
+          example: net-001
+        name:
+          type: string
+          description: Network name.
+          example: internal-network
+        subnet:
+          type: string
+          description: Network subnet.
+          example: 10.0.0.0/16
+        description:
+          type: string
+          description: Network description.
+          example: Internal QueryGrid network
+    CommPolicy:
+      type: object
+      description: A communication policy configuration.
+      properties:
+        id:
+          type: string
+          description: Unique policy identifier.
+          example: cp-001
+        name:
+          type: string
+          description: Policy name.
+          example: default-comm-policy
+        encryption:
+          type: boolean
+          description: Whether encryption is enabled.
+          example: true
+        compression:
+          type: boolean
+          description: Whether compression is enabled.
+          example: true
+        maxBandwidth:
+          type: integer
+          description: Maximum bandwidth in Mbps.
+          example: 1000
+    DiagnosticCheckRequest:
+      type: object
+      description: Request to run a diagnostic check.
+      properties:
+        systemId:
+          type: string
+          description: System to diagnose.
+          example: sys-001
+        checkType:
+          type: string
+          description: Type of diagnostic check.
+          enum:
+            - connectivity
+            - performance
+            - configuration
+          example: connectivity
+        targetSystems:
+          type: array
+          items:
+            type: string
+          description: Target systems to check connectivity against.
+          example:
+            - sys-002
+            - sys-003
+    DiagnosticCheckResponse:
+      type: object
+      description: Response from a diagnostic check.
+      properties:
+        checkId:
+          type: string
+          description: Unique check identifier.
+          example: chk-001
+        status:
+          type: string
+          description: Overall check status.
+          example: passed
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              target:
+                type: string
+                description: Target system checked.
+              status:
+                type: string
+                description: Check result status.
+              latencyMs:
+                type: integer
+                description: Latency in milliseconds.
+          description: Individual check results.
+    AutoInstallRequest:
+      type: object
+      description: Request for automated node installation.
+      properties:
+        systemId:
+          type: string
+          description: Target system for auto install.
+          example: sys-001
+        softwareVersion:
+          type: string
+          description: Software version to install.
+          example: '03.06.00.01'
+    AutoInstallResponse:
+      type: object
+      description: Response from auto install operation.
+      properties:
+        jobId:
+          type: string
+          description: Installation job identifier.
+          example: job-001
+        status:
+          type: string
+          description: Job status.
+          example: initiated
+        nodesAffected:
+          type: integer
+          description: Number of nodes to be updated.
+          example: 5
+    ImportSystemRequest:
+      type: object
+      description: Request to import a system configuration.
+      properties:
+        sourceManagerUrl:
+          type: string
+          description: URL of the source QueryGrid Manager.
+          example: https://qgm-remote.example.com/api/v1
+        systemName:
+          type: string
+          description: Name of the system to import.
+          example: remote-vantage
+    ImportSystemResponse:
+      type: object
+      description: Response from system import operation.
+      properties:
+        importId:
+          type: string
+          description: Import operation identifier.
+          example: imp-001
+        status:
+          type: string
+          description: Import status.
+          example: completed
+        systemId:
+          type: string
+          description: Identifier of the imported system.
+          example: sys-010
