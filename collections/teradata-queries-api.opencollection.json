@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Teradata Query Service API Info Queries API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Queries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Teradata List Queries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vantage.teradata.com/api/query/v1/queries"
+          },
+          "docs": "Retrieve query summaries across connected systems."
+        },
+        {
+          "info": {
+            "name": "Teradata Execute Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vantage.teradata.com/api/query/v1/queries",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute a SQL query against a Vantage system."
+        },
+        {
+          "info": {
+            "name": "Teradata Get Query Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vantage.teradata.com/api/query/v1/queries/:queryId",
+            "params": [
+              {
+                "name": "queryId",
+                "value": "qry-e5f6g7h8",
+                "type": "path",
+                "description": "Query identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve the status and results of a previously submitted query."
+        },
+        {
+          "info": {
+            "name": "Teradata Cancel Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vantage.teradata.com/api/query/v1/queries/:queryId",
+            "params": [
+              {
+                "name": "queryId",
+                "value": "qry-e5f6g7h8",
+                "type": "path",
+                "description": "Query identifier."
+              }
+            ]
+          },
+          "docs": "Cancel a running query."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

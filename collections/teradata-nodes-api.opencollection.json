@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Teradata Query Service API Info Nodes API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Nodes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Teradata List Nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vantage.teradata.com/api/query/v1/nodes",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "sys-001",
+                "type": "query",
+                "description": "Filter nodes by system identifier."
+              },
+              {
+                "name": "status",
+                "value": "active",
+                "type": "query",
+                "description": "Filter nodes by status."
+              }
+            ]
+          },
+          "docs": "Retrieve all nodes with optional filtering by system and status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

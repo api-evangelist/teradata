@@ -1,0 +1,492 @@
+{
+  "item": [
+    {
+      "id": "d128180b-9832-4279-8e2b-15a4c465892f",
+      "name": "Operations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "493cfb6e-ca77-442a-8848-edfae6bdc029",
+          "name": "Teradata Run Diagnostic Check",
+          "request": {
+            "name": "Teradata Run Diagnostic Check",
+            "description": {
+              "content": "Execute a diagnostic check on specified systems and components.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operations",
+                "diagnostic-check"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"systemId\": \"<string>\",\n  \"checkType\": \"<string>\",\n  \"targetSystems\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3a65488f-a32e-46c3-bbe3-27259d48cd66",
+              "name": "Diagnostic check completed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "diagnostic-check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"systemId\": \"sys-001\",\n  \"checkType\": \"connectivity\",\n  \"targetSystems\": [\n    \"sys-002\",\n    \"sys-003\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"checkId\": \"chk-001\",\n  \"status\": \"passed\",\n  \"results\": [\n    {\n      \"target\": \"string\",\n      \"status\": \"string\",\n      \"latencyMs\": 7237\n    },\n    {\n      \"target\": \"string\",\n      \"status\": \"string\",\n      \"latencyMs\": 7991\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d5c1266-0339-4204-8b98-1a1e936893fb",
+              "name": "Invalid diagnostic check request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "diagnostic-check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"systemId\": \"sys-001\",\n  \"checkType\": \"connectivity\",\n  \"targetSystems\": [\n    \"sys-002\",\n    \"sys-003\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f684c1f2-c256-45e5-807e-18cf07bf12b2",
+          "name": "Teradata Auto Install Nodes",
+          "request": {
+            "name": "Teradata Auto Install Nodes",
+            "description": {
+              "content": "Trigger automated node software installation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operations",
+                "nodes-auto-install"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"systemId\": \"<string>\",\n  \"softwareVersion\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2975eced-9c4a-42c9-9b7d-b9f9aaa0201c",
+              "name": "Auto installation initiated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "nodes-auto-install"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"systemId\": \"sys-001\",\n  \"softwareVersion\": \"03.06.00.01\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jobId\": \"job-001\",\n  \"status\": \"initiated\",\n  \"nodesAffected\": 5\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b433919-872e-4adf-9b69-65c8352af1f4",
+              "name": "Invalid auto install request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "nodes-auto-install"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"systemId\": \"sys-001\",\n  \"softwareVersion\": \"03.06.00.01\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c18777c9-772c-47b4-8384-a9869e6fef62",
+          "name": "Teradata Import System",
+          "request": {
+            "name": "Teradata Import System",
+            "description": {
+              "content": "Import a system configuration from another QueryGrid environment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operations",
+                "import-system"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sourceManagerUrl\": \"<string>\",\n  \"systemName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c78f9fd3-a068-476b-ba54-1678d2802340",
+              "name": "System imported successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "import-system"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceManagerUrl\": \"https://qgm-remote.example.com/api/v1\",\n  \"systemName\": \"remote-vantage\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"importId\": \"imp-001\",\n  \"status\": \"completed\",\n  \"systemId\": \"sys-010\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78dca763-ee0c-4bf5-aa2d-6e53f76876d1",
+              "name": "Invalid import request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    "import-system"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sourceManagerUrl\": \"https://qgm-remote.example.com/api/v1\",\n  \"systemName\": \"remote-vantage\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://vantage.teradata.com/api/query/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e45d7497-0733-4ccd-9cb9-de556ad32f3a",
+    "name": "Teradata Query Service API Info Operations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for executing SQL queries against Teradata Vantage systems. Provides HTTP-based access to run queries, retrieve results, and manage sessions for application integration.\n\nContact Support:\n Name: Teradata",
+      "type": "text/plain"
+    }
+  }
+}

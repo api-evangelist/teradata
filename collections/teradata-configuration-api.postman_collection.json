@@ -1,0 +1,1877 @@
+{
+  "item": [
+    {
+      "id": "7bedc012-882c-4038-8254-b304035b4269",
+      "name": "Configuration",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "47c3449b-54c1-4442-a0a3-8c17bacd6409",
+          "name": "Teradata List Data Centers",
+          "request": {
+            "name": "Teradata List Data Centers",
+            "description": {
+              "content": "Retrieve all configured data centers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "datacenters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "95dcdf8b-247d-476f-b9cb-6447fd6ea6ce",
+              "name": "List of data centers retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "datacenters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"dc-001\",\n    \"name\": \"dc-east-01\",\n    \"description\": \"East coast primary data center\",\n    \"location\": \"US-East\"\n  },\n  {\n    \"id\": \"dc-001\",\n    \"name\": \"dc-east-01\",\n    \"description\": \"East coast primary data center\",\n    \"location\": \"US-East\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "822e18f8-90b5-4ff6-8f07-5585230180da",
+          "name": "Teradata Create Data Center",
+          "request": {
+            "name": "Teradata Create Data Center",
+            "description": {
+              "content": "Create a new data center configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "datacenters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"location\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8c9dd542-2272-438f-93b5-2c0061f59da2",
+              "name": "Data center created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "datacenters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"dc-east-01\",\n  \"description\": \"East coast primary data center\",\n  \"location\": \"US-East\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"dc-001\",\n  \"name\": \"dc-east-01\",\n  \"description\": \"East coast primary data center\",\n  \"location\": \"US-East\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3863d8bd-b511-42f7-90bf-09772b76fa70",
+              "name": "Invalid data center configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "datacenters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"dc-east-01\",\n  \"description\": \"East coast primary data center\",\n  \"location\": \"US-East\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f9d4ebc-7083-4637-9da3-b083d805483e",
+          "name": "Teradata List Systems",
+          "request": {
+            "name": "Teradata List Systems",
+            "description": {
+              "content": "Retrieve all configured systems.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "systems"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "72e87662-5ec7-4a2a-aad5-d90c04b4c45c",
+              "name": "List of systems retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "systems"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"sys-001\",\n    \"name\": \"vantage-prod\",\n    \"type\": \"teradata\",\n    \"dataCenterId\": \"dc-001\",\n    \"status\": \"active\",\n    \"hostname\": \"vantage01.example.com\"\n  },\n  {\n    \"id\": \"sys-001\",\n    \"name\": \"vantage-prod\",\n    \"type\": \"teradata\",\n    \"dataCenterId\": \"dc-001\",\n    \"status\": \"active\",\n    \"hostname\": \"vantage01.example.com\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "281a9996-736d-4453-9246-e1fbcad78cbd",
+          "name": "Teradata Create System",
+          "request": {
+            "name": "Teradata Create System",
+            "description": {
+              "content": "Register a new system in QueryGrid.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "systems"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"dataCenterId\": \"<string>\",\n  \"status\": \"<string>\",\n  \"hostname\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dd8176e8-f0c0-4964-88c8-59a4ea15c77d",
+              "name": "System created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "systems"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"sys-001\",\n  \"name\": \"vantage-prod\",\n  \"type\": \"teradata\",\n  \"dataCenterId\": \"dc-001\",\n  \"status\": \"active\",\n  \"hostname\": \"vantage01.example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"sys-001\",\n  \"name\": \"vantage-prod\",\n  \"type\": \"teradata\",\n  \"dataCenterId\": \"dc-001\",\n  \"status\": \"active\",\n  \"hostname\": \"vantage01.example.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cacd7c26-5f0e-4d01-9b0c-c9e5eb92ca9b",
+              "name": "Invalid system configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "systems"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"sys-001\",\n  \"name\": \"vantage-prod\",\n  \"type\": \"teradata\",\n  \"dataCenterId\": \"dc-001\",\n  \"status\": \"active\",\n  \"hostname\": \"vantage01.example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ffbe2681-4d58-4512-b14f-8091a14bd96c",
+          "name": "Teradata List Bridges",
+          "request": {
+            "name": "Teradata List Bridges",
+            "description": {
+              "content": "Retrieve all configured bridges.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "bridges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "23cd59e2-4508-4b81-bcb1-a594a6c6b20c",
+              "name": "List of bridges retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "bridges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"brg-001\",\n    \"name\": \"bridge-east-01\",\n    \"sourceSystemId\": \"sys-001\",\n    \"targetSystemId\": \"sys-002\",\n    \"status\": \"active\"\n  },\n  {\n    \"id\": \"brg-001\",\n    \"name\": \"bridge-east-01\",\n    \"sourceSystemId\": \"sys-001\",\n    \"targetSystemId\": \"sys-002\",\n    \"status\": \"active\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c49986d1-884b-44f2-8f2a-2ec8cbf11961",
+          "name": "Teradata Create Bridge",
+          "request": {
+            "name": "Teradata Create Bridge",
+            "description": {
+              "content": "Create a new bridge between systems.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "bridges"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"sourceSystemId\": \"<string>\",\n  \"targetSystemId\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "21cb8bbf-5120-499f-8624-27bacea3ddd4",
+              "name": "Bridge created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "bridges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"brg-001\",\n  \"name\": \"bridge-east-01\",\n  \"sourceSystemId\": \"sys-001\",\n  \"targetSystemId\": \"sys-002\",\n  \"status\": \"active\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"brg-001\",\n  \"name\": \"bridge-east-01\",\n  \"sourceSystemId\": \"sys-001\",\n  \"targetSystemId\": \"sys-002\",\n  \"status\": \"active\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3dfd4d37-4d20-403e-a99f-b246f5edaf84",
+              "name": "Invalid bridge configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "bridges"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"brg-001\",\n  \"name\": \"bridge-east-01\",\n  \"sourceSystemId\": \"sys-001\",\n  \"targetSystemId\": \"sys-002\",\n  \"status\": \"active\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "13f90b58-c798-44e2-8731-62d469bc1dd9",
+          "name": "Teradata List Connectors",
+          "request": {
+            "name": "Teradata List Connectors",
+            "description": {
+              "content": "Retrieve all configured connectors.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "connectors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0c493275-6d03-4298-aa6d-f5aac4aa0884",
+              "name": "List of connectors retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "connectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"conn-001\",\n    \"name\": \"tdch-connector\",\n    \"type\": \"tdch\",\n    \"version\": \"1.5.0\",\n    \"status\": \"active\"\n  },\n  {\n    \"id\": \"conn-001\",\n    \"name\": \"tdch-connector\",\n    \"type\": \"tdch\",\n    \"version\": \"1.5.0\",\n    \"status\": \"active\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8282aaa-5372-4293-a799-e718157ae73c",
+          "name": "Teradata Create Connector",
+          "request": {
+            "name": "Teradata Create Connector",
+            "description": {
+              "content": "Create a new connector for system integration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "connectors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"version\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "090a6bc2-0566-4601-89f9-747377dd6f7b",
+              "name": "Connector created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "connectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"conn-001\",\n  \"name\": \"tdch-connector\",\n  \"type\": \"tdch\",\n  \"version\": \"1.5.0\",\n  \"status\": \"active\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"conn-001\",\n  \"name\": \"tdch-connector\",\n  \"type\": \"tdch\",\n  \"version\": \"1.5.0\",\n  \"status\": \"active\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82ef81b3-b8e6-40fa-89f1-e70db2414f7d",
+              "name": "Invalid connector configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "connectors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"conn-001\",\n  \"name\": \"tdch-connector\",\n  \"type\": \"tdch\",\n  \"version\": \"1.5.0\",\n  \"status\": \"active\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c7d02640-fa43-413b-8bd8-57fbd0b43df0",
+          "name": "Teradata List Links",
+          "request": {
+            "name": "Teradata List Links",
+            "description": {
+              "content": "Retrieve all configured links between systems.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "links"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "50f59889-deca-4a11-a09e-d01b05e5d332",
+              "name": "List of links retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"lnk-001\",\n    \"name\": \"vantage-to-hadoop\",\n    \"sourceConnectorId\": \"conn-001\",\n    \"targetConnectorId\": \"conn-002\",\n    \"fabricId\": \"fab-001\",\n    \"status\": \"active\"\n  },\n  {\n    \"id\": \"lnk-001\",\n    \"name\": \"vantage-to-hadoop\",\n    \"sourceConnectorId\": \"conn-001\",\n    \"targetConnectorId\": \"conn-002\",\n    \"fabricId\": \"fab-001\",\n    \"status\": \"active\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "85c2c638-8ac8-4e65-bc98-8585e1506834",
+          "name": "Teradata Create Link",
+          "request": {
+            "name": "Teradata Create Link",
+            "description": {
+              "content": "Create a new link between connected systems.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "links"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"sourceConnectorId\": \"<string>\",\n  \"targetConnectorId\": \"<string>\",\n  \"fabricId\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9df2a1be-d713-42de-8bde-4242199d6d2b",
+              "name": "Link created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"lnk-001\",\n  \"name\": \"vantage-to-hadoop\",\n  \"sourceConnectorId\": \"conn-001\",\n  \"targetConnectorId\": \"conn-002\",\n  \"fabricId\": \"fab-001\",\n  \"status\": \"active\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"lnk-001\",\n  \"name\": \"vantage-to-hadoop\",\n  \"sourceConnectorId\": \"conn-001\",\n  \"targetConnectorId\": \"conn-002\",\n  \"fabricId\": \"fab-001\",\n  \"status\": \"active\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ecd46b51-2226-4c13-843c-5db047d2ee92",
+              "name": "Invalid link configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"lnk-001\",\n  \"name\": \"vantage-to-hadoop\",\n  \"sourceConnectorId\": \"conn-001\",\n  \"targetConnectorId\": \"conn-002\",\n  \"fabricId\": \"fab-001\",\n  \"status\": \"active\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2fd53fd0-66e8-4c35-a6b7-367165004fb8",
+          "name": "Teradata List Fabrics",
+          "request": {
+            "name": "Teradata List Fabrics",
+            "description": {
+              "content": "Retrieve all configured fabrics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "fabrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7fa05574-a586-4fd9-9152-d5f78cb5c967",
+              "name": "List of fabrics retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "fabrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"fab-001\",\n    \"name\": \"enterprise-fabric\",\n    \"description\": \"Enterprise data fabric for cross-system analytics\",\n    \"status\": \"active\"\n  },\n  {\n    \"id\": \"fab-001\",\n    \"name\": \"enterprise-fabric\",\n    \"description\": \"Enterprise data fabric for cross-system analytics\",\n    \"status\": \"active\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5684264d-e591-44af-b400-d542e5fedded",
+          "name": "Teradata Create Fabric",
+          "request": {
+            "name": "Teradata Create Fabric",
+            "description": {
+              "content": "Create a new data fabric configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "fabrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dbf25e75-e1ce-44f7-8a0a-b2c2478da23b",
+              "name": "Fabric created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "fabrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"fab-001\",\n  \"name\": \"enterprise-fabric\",\n  \"description\": \"Enterprise data fabric for cross-system analytics\",\n  \"status\": \"active\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"fab-001\",\n  \"name\": \"enterprise-fabric\",\n  \"description\": \"Enterprise data fabric for cross-system analytics\",\n  \"status\": \"active\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74e34262-8646-44d5-b112-5791aa6672cb",
+              "name": "Invalid fabric configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "fabrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"fab-001\",\n  \"name\": \"enterprise-fabric\",\n  \"description\": \"Enterprise data fabric for cross-system analytics\",\n  \"status\": \"active\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "383c7670-175d-4581-a11e-7a5f188b60ea",
+          "name": "Teradata List Networks",
+          "request": {
+            "name": "Teradata List Networks",
+            "description": {
+              "content": "Retrieve all configured networks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "networks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a411a85d-ce92-4abb-97dd-ea24ab681cd3",
+              "name": "List of networks retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"net-001\",\n    \"name\": \"internal-network\",\n    \"subnet\": \"10.0.0.0/16\",\n    \"description\": \"Internal QueryGrid network\"\n  },\n  {\n    \"id\": \"net-001\",\n    \"name\": \"internal-network\",\n    \"subnet\": \"10.0.0.0/16\",\n    \"description\": \"Internal QueryGrid network\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf8319ab-f55a-4a32-b4f9-4c1c5c43fd23",
+          "name": "Teradata Create Network",
+          "request": {
+            "name": "Teradata Create Network",
+            "description": {
+              "content": "Create a new network configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "networks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"subnet\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "22196de9-718b-4227-ba4d-177d7fa589b9",
+              "name": "Network created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"net-001\",\n  \"name\": \"internal-network\",\n  \"subnet\": \"10.0.0.0/16\",\n  \"description\": \"Internal QueryGrid network\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"net-001\",\n  \"name\": \"internal-network\",\n  \"subnet\": \"10.0.0.0/16\",\n  \"description\": \"Internal QueryGrid network\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ba26b4ea-b750-4307-aac6-7da1e9f248dc",
+              "name": "Invalid network configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"net-001\",\n  \"name\": \"internal-network\",\n  \"subnet\": \"10.0.0.0/16\",\n  \"description\": \"Internal QueryGrid network\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dcfe5e45-9bb1-4007-bdd3-b7cd260f47af",
+          "name": "Teradata List Communication Policies",
+          "request": {
+            "name": "Teradata List Communication Policies",
+            "description": {
+              "content": "Retrieve all configured communication policies.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "comm-policies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "867ddb52-ab8a-4585-ab61-6eda9f668825",
+              "name": "List of communication policies retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "comm-policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"cp-001\",\n    \"name\": \"default-comm-policy\",\n    \"encryption\": true,\n    \"compression\": true,\n    \"maxBandwidth\": 1000\n  },\n  {\n    \"id\": \"cp-001\",\n    \"name\": \"default-comm-policy\",\n    \"encryption\": true,\n    \"compression\": true,\n    \"maxBandwidth\": 1000\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d28a68b-a010-4efe-bda1-f78a8433e243",
+          "name": "Teradata Create Communication Policy",
+          "request": {
+            "name": "Teradata Create Communication Policy",
+            "description": {
+              "content": "Create a new communication policy.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "config",
+                "comm-policies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"encryption\": \"<boolean>\",\n  \"compression\": \"<boolean>\",\n  \"maxBandwidth\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0ed7d623-e54f-4741-b1b9-7045fb666715",
+              "name": "Communication policy created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "comm-policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"cp-001\",\n  \"name\": \"default-comm-policy\",\n  \"encryption\": true,\n  \"compression\": true,\n  \"maxBandwidth\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"cp-001\",\n  \"name\": \"default-comm-policy\",\n  \"encryption\": true,\n  \"compression\": true,\n  \"maxBandwidth\": 1000\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6fd1de6-2afd-48de-99d6-f1bdb47dd7d1",
+              "name": "Invalid communication policy configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "config",
+                    "comm-policies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"cp-001\",\n  \"name\": \"default-comm-policy\",\n  \"encryption\": true,\n  \"compression\": true,\n  \"maxBandwidth\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://vantage.teradata.com/api/query/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "21d191fe-4170-43bc-838e-b3c8fc180de8",
+    "name": "Teradata Query Service API Info Configuration API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for executing SQL queries against Teradata Vantage systems. Provides HTTP-based access to run queries, retrieve results, and manage sessions for application integration.\n\nContact Support:\n Name: Teradata",
+      "type": "text/plain"
+    }
+  }
+}

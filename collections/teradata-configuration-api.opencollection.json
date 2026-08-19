@@ -1,0 +1,233 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Teradata Query Service API Info Configuration API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Teradata List Data Centers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vantage.teradata.com/api/query/v1/config/datacenters"
+          },
+          "docs": "Retrieve all configured data centers."
+        },
+        {
+          "info": {
+            "name": "Teradata Create Data Center",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vantage.teradata.com/api/query/v1/config/datacenters",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new data center configuration."
+        },
+        {
+          "info": {
+            "name": "Teradata List Systems",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vantage.teradata.com/api/query/v1/config/systems"
+          },
+          "docs": "Retrieve all configured systems."
+        },
+        {
+          "info": {
+            "name": "Teradata Create System",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vantage.teradata.com/api/query/v1/config/systems",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a new system in QueryGrid."
+        },
+        {
+          "info": {
+            "name": "Teradata List Bridges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vantage.teradata.com/api/query/v1/config/bridges"
+          },
+          "docs": "Retrieve all configured bridges."
+        },
+        {
+          "info": {
+            "name": "Teradata Create Bridge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vantage.teradata.com/api/query/v1/config/bridges",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new bridge between systems."
+        },
+        {
+          "info": {
+            "name": "Teradata List Connectors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vantage.teradata.com/api/query/v1/config/connectors"
+          },
+          "docs": "Retrieve all configured connectors."
+        },
+        {
+          "info": {
+            "name": "Teradata Create Connector",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vantage.teradata.com/api/query/v1/config/connectors",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new connector for system integration."
+        },
+        {
+          "info": {
+            "name": "Teradata List Links",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vantage.teradata.com/api/query/v1/config/links"
+          },
+          "docs": "Retrieve all configured links between systems."
+        },
+        {
+          "info": {
+            "name": "Teradata Create Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vantage.teradata.com/api/query/v1/config/links",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new link between connected systems."
+        },
+        {
+          "info": {
+            "name": "Teradata List Fabrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vantage.teradata.com/api/query/v1/config/fabrics"
+          },
+          "docs": "Retrieve all configured fabrics."
+        },
+        {
+          "info": {
+            "name": "Teradata Create Fabric",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vantage.teradata.com/api/query/v1/config/fabrics",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new data fabric configuration."
+        },
+        {
+          "info": {
+            "name": "Teradata List Networks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vantage.teradata.com/api/query/v1/config/networks"
+          },
+          "docs": "Retrieve all configured networks."
+        },
+        {
+          "info": {
+            "name": "Teradata Create Network",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vantage.teradata.com/api/query/v1/config/networks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new network configuration."
+        },
+        {
+          "info": {
+            "name": "Teradata List Communication Policies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vantage.teradata.com/api/query/v1/config/comm-policies"
+          },
+          "docs": "Retrieve all configured communication policies."
+        },
+        {
+          "info": {
+            "name": "Teradata Create Communication Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vantage.teradata.com/api/query/v1/config/comm-policies",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new communication policy."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

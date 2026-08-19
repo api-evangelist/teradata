@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Teradata Query Service API Info Sessions API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Teradata Create Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vantage.teradata.com/api/query/v1/sessions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new query session on a Vantage system."
+        },
+        {
+          "info": {
+            "name": "Teradata Get Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vantage.teradata.com/api/query/v1/sessions/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "sess-a1b2c3d4",
+                "type": "path",
+                "description": "Session identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve details about a specific query session."
+        },
+        {
+          "info": {
+            "name": "Teradata Delete Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vantage.teradata.com/api/query/v1/sessions/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "sess-a1b2c3d4",
+                "type": "path",
+                "description": "Session identifier."
+              }
+            ]
+          },
+          "docs": "Close and delete a query session."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

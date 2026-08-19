@@ -1,0 +1,123 @@
+{
+  "item": [
+    {
+      "id": "06723855-2f9e-4cad-b2cd-fb313680b894",
+      "name": "Managers",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5c414940-41d5-4443-93a8-91be3c8e5892",
+          "name": "Teradata List Managers",
+          "request": {
+            "name": "Teradata List Managers",
+            "description": {
+              "content": "Retrieve all QueryGrid Manager instances.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "managers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d97c0c1e-a8c8-4982-9b27-85999c907336",
+              "name": "List of managers retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "managers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"500001\",\n    \"name\": \"qgm-primary\",\n    \"hostname\": \"qgm01.example.com\",\n    \"status\": \"active\",\n    \"version\": \"03.06\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://vantage.teradata.com/api/query/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f00e68b5-3eba-4775-816b-3578b3f51c70",
+    "name": "Teradata Query Service API Info Managers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for executing SQL queries against Teradata Vantage systems. Provides HTTP-based access to run queries, retrieve results, and manage sessions for application integration.\n\nContact Support:\n Name: Teradata",
+      "type": "text/plain"
+    }
+  }
+}

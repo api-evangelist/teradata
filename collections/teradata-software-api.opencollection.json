@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Teradata Query Service API Info Software API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Software",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Teradata List Software",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vantage.teradata.com/api/query/v1/software"
+          },
+          "docs": "Retrieve available software packages and JDBC drivers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

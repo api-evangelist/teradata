@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Teradata Query Service API Info Operations API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Teradata Run Diagnostic Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vantage.teradata.com/api/query/v1/operations/diagnostic-check",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute a diagnostic check on specified systems and components."
+        },
+        {
+          "info": {
+            "name": "Teradata Auto Install Nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vantage.teradata.com/api/query/v1/operations/nodes-auto-install",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Trigger automated node software installation."
+        },
+        {
+          "info": {
+            "name": "Teradata Import System",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vantage.teradata.com/api/query/v1/operations/import-system",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Import a system configuration from another QueryGrid environment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

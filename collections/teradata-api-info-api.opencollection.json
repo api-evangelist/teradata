@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Teradata Query Service API Info API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "API Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Teradata Get API Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vantage.teradata.com/api/query/v1/"
+          },
+          "docs": "Retrieve API version and status information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
