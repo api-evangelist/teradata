@@ -26,6 +26,16 @@ tags:
   - Data Warehousing
   - Database
   - Enterprise
+  - Machine-Learning
+  - SQL
+  - Fortune 1000
+tags_raw:
+  - Analytics
+  - Cloud
+  - Data Management
+  - Data Warehousing
+  - Database
+  - Enterprise
   - Machine Learning
   - SQL
   - Fortune 1000
@@ -111,7 +121,8 @@ apis:
   description: The Operations API from Teradata — 3 operation(s) for operations.
   humanURL: https://github.com/Teradata/querygrid-apidocs
   baseURL: https://querygrid.teradata.com/api/v1
-  tags:
+  tags: []
+  tags_raw:
   - Operations
   properties:
   - type: OpenAPI
@@ -126,6 +137,8 @@ apis:
   humanURL: https://github.com/Teradata/querygrid-apidocs
   baseURL: https://querygrid.teradata.com/api/v1
   tags:
+  - Query
+  tags_raw:
   - Queries
   properties:
   - type: OpenAPI
@@ -182,6 +195,8 @@ apis:
   humanURL: https://github.com/Teradata/querygrid-apidocs
   baseURL: https://querygrid.teradata.com/api/v1
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
