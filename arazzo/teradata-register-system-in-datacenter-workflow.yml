@@ -10,8 +10,8 @@ info:
     without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: queryGridManagerApi
-  url: ../openapi/teradata-querygrid-manager-api.yaml
+- name: configurationApi
+  url: ../openapi/teradata-configuration-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: register-system-in-datacenter

@@ -11,8 +11,14 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: queryGridManagerApi
-  url: ../openapi/teradata-querygrid-manager-api.yaml
+- name: apiInfoApi
+  url: ../openapi/teradata-api-info-api-openapi.yml
+  type: openapi
+- name: issuesApi
+  url: ../openapi/teradata-issues-api-openapi.yml
+  type: openapi
+- name: managersApi
+  url: ../openapi/teradata-managers-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: review-environment-health

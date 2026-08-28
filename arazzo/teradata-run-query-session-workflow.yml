@@ -11,8 +11,14 @@ info:
     and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: queryServiceApi
-  url: ../openapi/teradata-query-service-api.yaml
+- name: queriesApi
+  url: ../openapi/teradata-queries-api-openapi.yml
+  type: openapi
+- name: sessionsApi
+  url: ../openapi/teradata-sessions-api-openapi.yml
+  type: openapi
+- name: systemsApi
+  url: ../openapi/teradata-systems-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: run-query-session

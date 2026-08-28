@@ -11,8 +11,14 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: queryGridManagerApi
-  url: ../openapi/teradata-querygrid-manager-api.yaml
+- name: nodesApi
+  url: ../openapi/teradata-nodes-api-openapi.yml
+  type: openapi
+- name: operationsApi
+  url: ../openapi/teradata-operations-api-openapi.yml
+  type: openapi
+- name: softwareApi
+  url: ../openapi/teradata-software-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: auto-install-node-software
