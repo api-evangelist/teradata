@@ -1,16 +1,16 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Teradata Query Service API Info Configuration API
-  description: REST API for executing SQL queries against Teradata Vantage systems. Provides HTTP-based access to run queries, retrieve results, and manage sessions for application integration.
-  version: '1.0'
+  title: Teradata QueryGrid Manager Configuration API
+  description: REST API for centralized administration and monitoring of Teradata QueryGrid, the data fabric that enables seamless cross-system analytics. Manage data centers, systems, bridges, connectors, links, fabrics, networks, and node configurations.
+  version: '3.6'
   contact:
     name: Teradata
     url: https://www.teradata.com
   x-generated-from: documentation
   x-last-validated: '2026-04-18'
 servers:
-- url: https://vantage.teradata.com/api/query/v1
-  description: Teradata Query Service endpoint
+- url: https://querygrid.teradata.com/api/v1
+  description: Default QueryGrid Manager endpoint
 security:
 - BasicAuth: []
 tags:
@@ -370,6 +370,85 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Bridge:
+      type: object
+      description: A bridge connecting two systems.
+      properties:
+        id:
+          type: string
+          description: Unique bridge identifier.
+          example: brg-001
+        name:
+          type: string
+          description: Bridge name.
+          example: bridge-east-01
+        sourceSystemId:
+          type: string
+          description: Source system identifier.
+          example: sys-001
+        targetSystemId:
+          type: string
+          description: Target system identifier.
+          example: sys-002
+        status:
+          type: string
+          description: Bridge status.
+          example: active
+    System:
+      type: object
+      description: A system registered in QueryGrid.
+      properties:
+        id:
+          type: string
+          description: Unique system identifier.
+          example: sys-001
+        name:
+          type: string
+          description: System name.
+          example: vantage-prod
+        type:
+          type: string
+          description: System type.
+          enum:
+          - teradata
+          - hadoop
+          - spark
+          - hive
+          - presto
+          - oracle
+          example: teradata
+        dataCenterId:
+          type: string
+          description: Parent data center identifier.
+          example: dc-001
+        status:
+          type: string
+          description: System status.
+          example: active
+        hostname:
+          type: string
+          description: System hostname.
+          example: vantage01.example.com
+    Network:
+      type: object
+      description: A network configuration.
+      properties:
+        id:
+          type: string
+          description: Unique network identifier.
+          example: net-001
+        name:
+          type: string
+          description: Network name.
+          example: internal-network
+        subnet:
+          type: string
+          description: Network subnet.
+          example: 10.0.0.0/16
+        description:
+          type: string
+          description: Network description.
+          example: Internal QueryGrid network
     CommPolicy:
       type: object
       description: A communication policy configuration.
@@ -414,6 +493,30 @@ components:
           type: string
           description: Fabric status.
           example: active
+    Connector:
+      type: object
+      description: A connector for system integration.
+      properties:
+        id:
+          type: string
+          description: Unique connector identifier.
+          example: conn-001
+        name:
+          type: string
+          description: Connector name.
+          example: tdch-connector
+        type:
+          type: string
+          description: Connector type.
+          example: tdch
+        version:
+          type: string
+          description: Connector version.
+          example: 1.5.0
+        status:
+          type: string
+          description: Connector status.
+          example: active
     DataCenter:
       type: object
       description: A data center configuration.
@@ -434,85 +537,6 @@ components:
           type: string
           description: Physical location.
           example: US-East
-    Network:
-      type: object
-      description: A network configuration.
-      properties:
-        id:
-          type: string
-          description: Unique network identifier.
-          example: net-001
-        name:
-          type: string
-          description: Network name.
-          example: internal-network
-        subnet:
-          type: string
-          description: Network subnet.
-          example: 10.0.0.0/16
-        description:
-          type: string
-          description: Network description.
-          example: Internal QueryGrid network
-    System:
-      type: object
-      description: A system registered in QueryGrid.
-      properties:
-        id:
-          type: string
-          description: Unique system identifier.
-          example: sys-001
-        name:
-          type: string
-          description: System name.
-          example: vantage-prod
-        type:
-          type: string
-          description: System type.
-          enum:
-          - teradata
-          - hadoop
-          - spark
-          - hive
-          - presto
-          - oracle
-          example: teradata
-        dataCenterId:
-          type: string
-          description: Parent data center identifier.
-          example: dc-001
-        status:
-          type: string
-          description: System status.
-          example: active
-        hostname:
-          type: string
-          description: System hostname.
-          example: vantage01.example.com
-    Bridge:
-      type: object
-      description: A bridge connecting two systems.
-      properties:
-        id:
-          type: string
-          description: Unique bridge identifier.
-          example: brg-001
-        name:
-          type: string
-          description: Bridge name.
-          example: bridge-east-01
-        sourceSystemId:
-          type: string
-          description: Source system identifier.
-          example: sys-001
-        targetSystemId:
-          type: string
-          description: Target system identifier.
-          example: sys-002
-        status:
-          type: string
-          description: Bridge status.
-          example: active
     Link:
       type: object
       description: A link between connected systems.
@@ -541,32 +565,8 @@ components:
           type: string
           description: Link status.
           example: active
-    Connector:
-      type: object
-      description: A connector for system integration.
-      properties:
-        id:
-          type: string
-          description: Unique connector identifier.
-          example: conn-001
-        name:
-          type: string
-          description: Connector name.
-          example: tdch-connector
-        type:
-          type: string
-          description: Connector type.
-          example: tdch
-        version:
-          type: string
-          description: Connector version.
-          example: 1.5.0
-        status:
-          type: string
-          description: Connector status.
-          example: active
   securitySchemes:
     BasicAuth:
       type: http
       scheme: basic
-      description: HTTP Basic authentication with Vantage credentials.
+      description: HTTP Basic authentication with QueryGrid Manager credentials.

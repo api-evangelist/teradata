@@ -1,16 +1,18 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Teradata Query Service API Info Queries API
-  description: REST API for executing SQL queries against Teradata Vantage systems. Provides HTTP-based access to run queries, retrieve results, and manage sessions for application integration.
-  version: '1.0'
+  title: Teradata Queries API
   contact:
     name: Teradata
     url: https://www.teradata.com
   x-generated-from: documentation
   x-last-validated: '2026-04-18'
+  version: '1.0'
+  description: 'Operations tagged Queries across 2 of this provider''s published API definitions: teradata-query-service-api.yaml, teradata-querygrid-manager-api.yaml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://vantage.teradata.com/api/query/v1
   description: Teradata Query Service endpoint
+- url: https://querygrid.teradata.com/api/v1
+  description: Default QueryGrid Manager endpoint
 security:
 - BasicAuth: []
 tags:
@@ -100,6 +102,9 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://vantage.teradata.com/api/query/v1
+      description: Teradata Query Service endpoint
   /queries/{queryId}:
     get:
       operationId: getQueryStatus
@@ -149,8 +154,37 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://vantage.teradata.com/api/query/v1
+      description: Teradata Query Service endpoint
 components:
   schemas:
+    QueryRequest:
+      type: object
+      description: Request to execute a SQL query.
+      properties:
+        sessionId:
+          type: string
+          description: Session identifier for query execution.
+          example: sess-a1b2c3d4
+        query:
+          type: string
+          description: SQL query to execute.
+          example: SELECT TOP 10 * FROM analytics_db.customer_events
+        format:
+          type: string
+          description: Result format.
+          enum:
+          - json
+          - csv
+          example: json
+        maxRows:
+          type: integer
+          description: Maximum number of rows to return.
+          example: 1000
+      required:
+      - sessionId
+      - query
     QueryResult:
       type: object
       description: Query execution result.
@@ -228,34 +262,11 @@ components:
           type: string
           description: Target system name.
           example: hadoop-lake
-    QueryRequest:
-      type: object
-      description: Request to execute a SQL query.
-      properties:
-        sessionId:
-          type: string
-          description: Session identifier for query execution.
-          example: sess-a1b2c3d4
-        query:
-          type: string
-          description: SQL query to execute.
-          example: SELECT TOP 10 * FROM analytics_db.customer_events
-        format:
-          type: string
-          description: Result format.
-          enum:
-          - json
-          - csv
-          example: json
-        maxRows:
-          type: integer
-          description: Maximum number of rows to return.
-          example: 1000
-      required:
-      - sessionId
-      - query
   securitySchemes:
     BasicAuth:
       type: http
       scheme: basic
       description: HTTP Basic authentication with Vantage credentials.
+x-refined-from:
+- teradata-query-service-api.yaml
+- teradata-querygrid-manager-api.yaml

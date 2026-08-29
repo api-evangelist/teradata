@@ -1,34 +1,54 @@
 {
   "provider": "teradata",
   "sources": [
-    "teradata-api-info-api-openapi.yml",
-    "teradata-configuration-api-openapi.yml",
-    "teradata-issues-api-openapi.yml",
-    "teradata-managers-api-openapi.yml",
-    "teradata-nodes-api-openapi.yml",
-    "teradata-operations-api-openapi.yml",
-    "teradata-queries-api-openapi.yml",
-    "teradata-sessions-api-openapi.yml",
-    "teradata-software-api-openapi.yml",
-    "teradata-systems-api-openapi.yml",
-    "teradata-users-api-openapi.yml"
+    "_original/teradata-query-service-api.yaml",
+    "_original/teradata-querygrid-manager-api.yaml"
   ],
   "outputs": [
+    "teradata-queries-api-openapi.yml",
+    "teradata-sessions-api-openapi.yml",
+    "teradata-systems-api-openapi.yml",
     "teradata-api-info-api-openapi.yml",
     "teradata-configuration-api-openapi.yml",
     "teradata-issues-api-openapi.yml",
     "teradata-managers-api-openapi.yml",
     "teradata-nodes-api-openapi.yml",
     "teradata-operations-api-openapi.yml",
-    "teradata-queries-api-openapi.yml",
-    "teradata-sessions-api-openapi.yml",
     "teradata-software-api-openapi.yml",
-    "teradata-systems-api-openapi.yml",
     "teradata-users-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "teradata-query-service-api.yaml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "teradata-query-service-api.yaml: declared missing tag: Queries",
+    "teradata-query-service-api.yaml: declared missing tag: Sessions",
+    "teradata-query-service-api.yaml: declared missing tag: Systems",
+    "teradata-querygrid-manager-api.yaml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "teradata-querygrid-manager-api.yaml: declared missing tag: API Info",
+    "teradata-querygrid-manager-api.yaml: declared missing tag: Configuration",
+    "teradata-querygrid-manager-api.yaml: declared missing tag: Issues",
+    "teradata-querygrid-manager-api.yaml: declared missing tag: Managers",
+    "teradata-querygrid-manager-api.yaml: declared missing tag: Nodes",
+    "teradata-querygrid-manager-api.yaml: declared missing tag: Operations",
+    "teradata-querygrid-manager-api.yaml: declared missing tag: Queries",
+    "teradata-querygrid-manager-api.yaml: declared missing tag: Software",
+    "teradata-querygrid-manager-api.yaml: declared missing tag: Users",
+    "tag 'Queries' spans 2 source specs (teradata-query-service-api.yaml, teradata-querygrid-manager-api.yaml): per-path servers applied"
+  ],
+  "skipped": [
+    "teradata-api-info-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "teradata-configuration-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "teradata-issues-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "teradata-managers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "teradata-nodes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "teradata-operations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "teradata-queries-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "teradata-sessions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "teradata-software-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "teradata-systems-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "teradata-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

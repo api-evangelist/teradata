@@ -1,16 +1,16 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Teradata Query Service API Info Managers API
-  description: REST API for executing SQL queries against Teradata Vantage systems. Provides HTTP-based access to run queries, retrieve results, and manage sessions for application integration.
-  version: '1.0'
+  title: Teradata QueryGrid Manager Managers API
+  description: REST API for centralized administration and monitoring of Teradata QueryGrid, the data fabric that enables seamless cross-system analytics. Manage data centers, systems, bridges, connectors, links, fabrics, networks, and node configurations.
+  version: '3.6'
   contact:
     name: Teradata
     url: https://www.teradata.com
   x-generated-from: documentation
   x-last-validated: '2026-04-18'
 servers:
-- url: https://vantage.teradata.com/api/query/v1
-  description: Teradata Query Service endpoint
+- url: https://querygrid.teradata.com/api/v1
+  description: Default QueryGrid Manager endpoint
 security:
 - BasicAuth: []
 tags:
@@ -75,4 +75,4 @@ components:
     BasicAuth:
       type: http
       scheme: basic
-      description: HTTP Basic authentication with Vantage credentials.
+      description: HTTP Basic authentication with QueryGrid Manager credentials.
