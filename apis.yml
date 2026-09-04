@@ -24,11 +24,12 @@ accessModel:
   try_now: true
   public: false
   label: Freemium · Self-serve signup
-  confidence: high
+  confidence: medium
   source:
   - plans
   - authentication
-  generated: '2026-07-22'
+  - security
+  generated: '2026-09-03'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/teradata.png
 tags:
@@ -55,7 +56,7 @@ url: https://www.teradata.com
 created: '2026-04-18'
 modified: '2026-05-19'
 specificationVersion: '0.23'
-position: Consumer
+position: Consuming
 access: 3rd-Party
 apis:
 - aid: teradata:teradata-api-info-api
