@@ -219,6 +219,8 @@ apis:
   - type: Documentation
     url: https://docs.teradata.com
 common:
+  - type: Website
+    url: https://www.teradata.com/
   - type: AgenticAccess
     url: agentic-access/teradata-agentic-access.yml
   - type: DomainSecurity
