@@ -121,6 +121,8 @@ apis:
   humanURL: https://github.com/Teradata/querygrid-apidocs
   baseURL: https://querygrid.teradata.com/api/v1
   tags:
+  - Node
+  tags_raw:
   - Nodes
   properties:
   - type: OpenAPI
