@@ -1,7 +1,9 @@
 ---
 title: Teradata Announces 2026 First Quarter Earnings Release Date
 url: https://www.teradata.com/press-releases/2026/teradata-announces-2026-first-quarter-earnings-release-date
-date: '2026-04-14'
+published: ''
+date_basis: harvested
+harvested: '2026-04-14'
 author: ''
 feed_url: https://www.teradata.com/rss/news
 ---

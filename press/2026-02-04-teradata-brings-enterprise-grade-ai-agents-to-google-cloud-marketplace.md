@@ -1,7 +1,9 @@
 ---
 title: Teradata Brings Enterprise-Grade AI Agents to Google Cloud Marketplace
 url: https://www.teradata.com/press-releases/2026/teradata-brings-enterprise-grade-ai-agents
-date: '2026-02-04'
+published: ''
+date_basis: harvested
+harvested: '2026-02-04'
 author: ''
 feed_url: https://www.teradata.com/rss/news
 ---

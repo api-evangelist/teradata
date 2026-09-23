@@ -1,7 +1,9 @@
 ---
 title: Teradata Delivers Autonomous Knowledge and Data Sovereignty Without Compromise
 url: https://www.teradata.com/press-releases/2026/autonomous-knowledge-and-data-sovereignty
-date: '2026-05-19'
+published: ''
+date_basis: harvested
+harvested: '2026-05-19'
 author: ''
 feed_url: https://www.teradata.com/rss/news
 ---

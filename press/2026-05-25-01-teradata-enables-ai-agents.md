@@ -1,7 +1,9 @@
 ---
 title: Teradata Enables AI Agents
 url: https://www.teradata.com/press-releases/2026/teradata-enables-ai-agents
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Teradata" press release artificial intelligence'
 position: 1
 source: serpapi-google

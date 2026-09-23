@@ -159,32 +159,6 @@ paths:
       description: Teradata Query Service endpoint
 components:
   schemas:
-    QueryRequest:
-      type: object
-      description: Request to execute a SQL query.
-      properties:
-        sessionId:
-          type: string
-          description: Session identifier for query execution.
-          example: sess-a1b2c3d4
-        query:
-          type: string
-          description: SQL query to execute.
-          example: SELECT TOP 10 * FROM analytics_db.customer_events
-        format:
-          type: string
-          description: Result format.
-          enum:
-          - json
-          - csv
-          example: json
-        maxRows:
-          type: integer
-          description: Maximum number of rows to return.
-          example: 1000
-      required:
-      - sessionId
-      - query
     QueryResult:
       type: object
       description: Query execution result.
@@ -227,6 +201,32 @@ components:
         errorMessage:
           type: string
           description: Error message if query failed.
+    QueryRequest:
+      type: object
+      description: Request to execute a SQL query.
+      properties:
+        sessionId:
+          type: string
+          description: Session identifier for query execution.
+          example: sess-a1b2c3d4
+        query:
+          type: string
+          description: SQL query to execute.
+          example: SELECT TOP 10 * FROM analytics_db.customer_events
+        format:
+          type: string
+          description: Result format.
+          enum:
+          - json
+          - csv
+          example: json
+        maxRows:
+          type: integer
+          description: Maximum number of rows to return.
+          example: 1000
+      required:
+      - sessionId
+      - query
     QuerySummary:
       type: object
       description: Summary of a cross-system query execution.

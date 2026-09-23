@@ -1,7 +1,9 @@
 ---
 title: Teradata launches AI Factory
 url: https://www.teradata.com/press-releases/2025/teradata-launches-ai-factory
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Teradata" press release artificial intelligence'
 position: 3
 source: serpapi-google

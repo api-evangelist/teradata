@@ -2,7 +2,9 @@
 title: Teradata Launches Analyst Agent on Microsoft Marketplace   for AI-Assisted
   Business Decision-Making
 url: https://www.teradata.com/press-releases/2026/analyst-agent-on-microsoft-marketplace
-date: '2026-04-14'
+published: ''
+date_basis: harvested
+harvested: '2026-04-14'
 author: ''
 feed_url: https://www.teradata.com/rss/news
 ---

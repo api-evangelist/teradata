@@ -394,6 +394,142 @@ components:
           type: string
           description: Bridge status.
           example: active
+    DataCenter:
+      type: object
+      description: A data center configuration.
+      properties:
+        id:
+          type: string
+          description: Unique data center identifier.
+          example: dc-001
+        name:
+          type: string
+          description: Data center name.
+          example: dc-east-01
+        description:
+          type: string
+          description: Data center description.
+          example: East coast primary data center
+        location:
+          type: string
+          description: Physical location.
+          example: US-East
+    Fabric:
+      type: object
+      description: A data fabric configuration.
+      properties:
+        id:
+          type: string
+          description: Unique fabric identifier.
+          example: fab-001
+        name:
+          type: string
+          description: Fabric name.
+          example: enterprise-fabric
+        description:
+          type: string
+          description: Fabric description.
+          example: Enterprise data fabric for cross-system analytics
+        status:
+          type: string
+          description: Fabric status.
+          example: active
+    Network:
+      type: object
+      description: A network configuration.
+      properties:
+        id:
+          type: string
+          description: Unique network identifier.
+          example: net-001
+        name:
+          type: string
+          description: Network name.
+          example: internal-network
+        subnet:
+          type: string
+          description: Network subnet.
+          example: 10.0.0.0/16
+        description:
+          type: string
+          description: Network description.
+          example: Internal QueryGrid network
+    Link:
+      type: object
+      description: A link between connected systems.
+      properties:
+        id:
+          type: string
+          description: Unique link identifier.
+          example: lnk-001
+        name:
+          type: string
+          description: Link name.
+          example: vantage-to-hadoop
+        sourceConnectorId:
+          type: string
+          description: Source connector identifier.
+          example: conn-001
+        targetConnectorId:
+          type: string
+          description: Target connector identifier.
+          example: conn-002
+        fabricId:
+          type: string
+          description: Parent fabric identifier.
+          example: fab-001
+        status:
+          type: string
+          description: Link status.
+          example: active
+    CommPolicy:
+      type: object
+      description: A communication policy configuration.
+      properties:
+        id:
+          type: string
+          description: Unique policy identifier.
+          example: cp-001
+        name:
+          type: string
+          description: Policy name.
+          example: default-comm-policy
+        encryption:
+          type: boolean
+          description: Whether encryption is enabled.
+          example: true
+        compression:
+          type: boolean
+          description: Whether compression is enabled.
+          example: true
+        maxBandwidth:
+          type: integer
+          description: Maximum bandwidth in Mbps.
+          example: 1000
+    Connector:
+      type: object
+      description: A connector for system integration.
+      properties:
+        id:
+          type: string
+          description: Unique connector identifier.
+          example: conn-001
+        name:
+          type: string
+          description: Connector name.
+          example: tdch-connector
+        type:
+          type: string
+          description: Connector type.
+          example: tdch
+        version:
+          type: string
+          description: Connector version.
+          example: 1.5.0
+        status:
+          type: string
+          description: Connector status.
+          example: active
     System:
       type: object
       description: A system registered in QueryGrid.
@@ -429,142 +565,6 @@ components:
           type: string
           description: System hostname.
           example: vantage01.example.com
-    Network:
-      type: object
-      description: A network configuration.
-      properties:
-        id:
-          type: string
-          description: Unique network identifier.
-          example: net-001
-        name:
-          type: string
-          description: Network name.
-          example: internal-network
-        subnet:
-          type: string
-          description: Network subnet.
-          example: 10.0.0.0/16
-        description:
-          type: string
-          description: Network description.
-          example: Internal QueryGrid network
-    CommPolicy:
-      type: object
-      description: A communication policy configuration.
-      properties:
-        id:
-          type: string
-          description: Unique policy identifier.
-          example: cp-001
-        name:
-          type: string
-          description: Policy name.
-          example: default-comm-policy
-        encryption:
-          type: boolean
-          description: Whether encryption is enabled.
-          example: true
-        compression:
-          type: boolean
-          description: Whether compression is enabled.
-          example: true
-        maxBandwidth:
-          type: integer
-          description: Maximum bandwidth in Mbps.
-          example: 1000
-    Fabric:
-      type: object
-      description: A data fabric configuration.
-      properties:
-        id:
-          type: string
-          description: Unique fabric identifier.
-          example: fab-001
-        name:
-          type: string
-          description: Fabric name.
-          example: enterprise-fabric
-        description:
-          type: string
-          description: Fabric description.
-          example: Enterprise data fabric for cross-system analytics
-        status:
-          type: string
-          description: Fabric status.
-          example: active
-    Connector:
-      type: object
-      description: A connector for system integration.
-      properties:
-        id:
-          type: string
-          description: Unique connector identifier.
-          example: conn-001
-        name:
-          type: string
-          description: Connector name.
-          example: tdch-connector
-        type:
-          type: string
-          description: Connector type.
-          example: tdch
-        version:
-          type: string
-          description: Connector version.
-          example: 1.5.0
-        status:
-          type: string
-          description: Connector status.
-          example: active
-    DataCenter:
-      type: object
-      description: A data center configuration.
-      properties:
-        id:
-          type: string
-          description: Unique data center identifier.
-          example: dc-001
-        name:
-          type: string
-          description: Data center name.
-          example: dc-east-01
-        description:
-          type: string
-          description: Data center description.
-          example: East coast primary data center
-        location:
-          type: string
-          description: Physical location.
-          example: US-East
-    Link:
-      type: object
-      description: A link between connected systems.
-      properties:
-        id:
-          type: string
-          description: Unique link identifier.
-          example: lnk-001
-        name:
-          type: string
-          description: Link name.
-          example: vantage-to-hadoop
-        sourceConnectorId:
-          type: string
-          description: Source connector identifier.
-          example: conn-001
-        targetConnectorId:
-          type: string
-          description: Target connector identifier.
-          example: conn-002
-        fabricId:
-          type: string
-          description: Parent fabric identifier.
-          example: fab-001
-        status:
-          type: string
-          description: Link status.
-          example: active
   securitySchemes:
     BasicAuth:
       type: http

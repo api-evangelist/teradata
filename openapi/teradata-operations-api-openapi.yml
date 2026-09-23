@@ -119,46 +119,18 @@ components:
           type: string
           description: Identifier of the imported system.
           example: sys-010
-    DiagnosticCheckRequest:
+    ImportSystemRequest:
       type: object
-      description: Request to run a diagnostic check.
+      description: Request to import a system configuration.
       properties:
-        systemId:
+        sourceManagerUrl:
           type: string
-          description: System to diagnose.
-          example: sys-001
-        checkType:
+          description: URL of the source QueryGrid Manager.
+          example: https://qgm-remote.example.com/api/v1
+        systemName:
           type: string
-          description: Type of diagnostic check.
-          enum:
-          - connectivity
-          - performance
-          - configuration
-          example: connectivity
-        targetSystems:
-          type: array
-          items:
-            type: string
-          description: Target systems to check connectivity against.
-          example:
-          - sys-002
-          - sys-003
-    AutoInstallResponse:
-      type: object
-      description: Response from auto install operation.
-      properties:
-        jobId:
-          type: string
-          description: Installation job identifier.
-          example: job-001
-        status:
-          type: string
-          description: Job status.
-          example: initiated
-        nodesAffected:
-          type: integer
-          description: Number of nodes to be updated.
-          example: 5
+          description: Name of the system to import.
+          example: remote-vantage
     AutoInstallRequest:
       type: object
       description: Request for automated node installation.
@@ -198,18 +170,46 @@ components:
                 type: integer
                 description: Latency in milliseconds.
           description: Individual check results.
-    ImportSystemRequest:
+    AutoInstallResponse:
       type: object
-      description: Request to import a system configuration.
+      description: Response from auto install operation.
       properties:
-        sourceManagerUrl:
+        jobId:
           type: string
-          description: URL of the source QueryGrid Manager.
-          example: https://qgm-remote.example.com/api/v1
-        systemName:
+          description: Installation job identifier.
+          example: job-001
+        status:
           type: string
-          description: Name of the system to import.
-          example: remote-vantage
+          description: Job status.
+          example: initiated
+        nodesAffected:
+          type: integer
+          description: Number of nodes to be updated.
+          example: 5
+    DiagnosticCheckRequest:
+      type: object
+      description: Request to run a diagnostic check.
+      properties:
+        systemId:
+          type: string
+          description: System to diagnose.
+          example: sys-001
+        checkType:
+          type: string
+          description: Type of diagnostic check.
+          enum:
+          - connectivity
+          - performance
+          - configuration
+          example: connectivity
+        targetSystems:
+          type: array
+          items:
+            type: string
+          description: Target systems to check connectivity against.
+          example:
+          - sys-002
+          - sys-003
   securitySchemes:
     BasicAuth:
       type: http

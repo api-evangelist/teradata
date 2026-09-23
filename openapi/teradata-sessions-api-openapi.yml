@@ -112,6 +112,25 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    SessionRequest:
+      type: object
+      description: Request to create a query session.
+      properties:
+        system:
+          type: string
+          description: Target system name.
+          example: vantage-prod
+        username:
+          type: string
+          description: Database username.
+          example: app_user
+        database:
+          type: string
+          description: Default database.
+          example: analytics_db
+      required:
+      - system
+      - username
     Session:
       type: object
       description: A query session.
@@ -141,25 +160,6 @@ components:
           format: date-time
           description: Session creation time.
           example: '2026-04-18T10:00:00Z'
-    SessionRequest:
-      type: object
-      description: Request to create a query session.
-      properties:
-        system:
-          type: string
-          description: Target system name.
-          example: vantage-prod
-        username:
-          type: string
-          description: Database username.
-          example: app_user
-        database:
-          type: string
-          description: Default database.
-          example: analytics_db
-      required:
-      - system
-      - username
   securitySchemes:
     BasicAuth:
       type: http
