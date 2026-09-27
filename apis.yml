@@ -39,7 +39,7 @@ tags:
   - Data Warehousing
   - Database
   - Enterprise
-  - Machine-Learning
+  - Machine Learning
   - SQL
   - Fortune 1000
 tags_raw:
@@ -52,6 +52,7 @@ tags_raw:
   - Machine Learning
   - SQL
   - Fortune 1000
+  - Machine-Learning
 url: https://www.teradata.com
 created: '2026-04-18'
 modified: '2026-05-19'

@@ -103,34 +103,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ImportSystemResponse:
-      type: object
-      description: Response from system import operation.
-      properties:
-        importId:
-          type: string
-          description: Import operation identifier.
-          example: imp-001
-        status:
-          type: string
-          description: Import status.
-          example: completed
-        systemId:
-          type: string
-          description: Identifier of the imported system.
-          example: sys-010
-    ImportSystemRequest:
-      type: object
-      description: Request to import a system configuration.
-      properties:
-        sourceManagerUrl:
-          type: string
-          description: URL of the source QueryGrid Manager.
-          example: https://qgm-remote.example.com/api/v1
-        systemName:
-          type: string
-          description: Name of the system to import.
-          example: remote-vantage
     AutoInstallRequest:
       type: object
       description: Request for automated node installation.
@@ -186,6 +158,22 @@ components:
           type: integer
           description: Number of nodes to be updated.
           example: 5
+    ImportSystemResponse:
+      type: object
+      description: Response from system import operation.
+      properties:
+        importId:
+          type: string
+          description: Import operation identifier.
+          example: imp-001
+        status:
+          type: string
+          description: Import status.
+          example: completed
+        systemId:
+          type: string
+          description: Identifier of the imported system.
+          example: sys-010
     DiagnosticCheckRequest:
       type: object
       description: Request to run a diagnostic check.
@@ -210,6 +198,18 @@ components:
           example:
           - sys-002
           - sys-003
+    ImportSystemRequest:
+      type: object
+      description: Request to import a system configuration.
+      properties:
+        sourceManagerUrl:
+          type: string
+          description: URL of the source QueryGrid Manager.
+          example: https://qgm-remote.example.com/api/v1
+        systemName:
+          type: string
+          description: Name of the system to import.
+          example: remote-vantage
   securitySchemes:
     BasicAuth:
       type: http
