@@ -103,45 +103,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    AutoInstallRequest:
-      type: object
-      description: Request for automated node installation.
-      properties:
-        systemId:
-          type: string
-          description: Target system for auto install.
-          example: sys-001
-        softwareVersion:
-          type: string
-          description: Software version to install.
-          example: 03.06.00.01
-    DiagnosticCheckResponse:
-      type: object
-      description: Response from a diagnostic check.
-      properties:
-        checkId:
-          type: string
-          description: Unique check identifier.
-          example: chk-001
-        status:
-          type: string
-          description: Overall check status.
-          example: passed
-        results:
-          type: array
-          items:
-            type: object
-            properties:
-              target:
-                type: string
-                description: Target system checked.
-              status:
-                type: string
-                description: Check result status.
-              latencyMs:
-                type: integer
-                description: Latency in milliseconds.
-          description: Individual check results.
     AutoInstallResponse:
       type: object
       description: Response from auto install operation.
@@ -158,6 +119,18 @@ components:
           type: integer
           description: Number of nodes to be updated.
           example: 5
+    AutoInstallRequest:
+      type: object
+      description: Request for automated node installation.
+      properties:
+        systemId:
+          type: string
+          description: Target system for auto install.
+          example: sys-001
+        softwareVersion:
+          type: string
+          description: Software version to install.
+          example: 03.06.00.01
     ImportSystemResponse:
       type: object
       description: Response from system import operation.
@@ -210,6 +183,33 @@ components:
           type: string
           description: Name of the system to import.
           example: remote-vantage
+    DiagnosticCheckResponse:
+      type: object
+      description: Response from a diagnostic check.
+      properties:
+        checkId:
+          type: string
+          description: Unique check identifier.
+          example: chk-001
+        status:
+          type: string
+          description: Overall check status.
+          example: passed
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              target:
+                type: string
+                description: Target system checked.
+              status:
+                type: string
+                description: Check result status.
+              latencyMs:
+                type: integer
+                description: Latency in milliseconds.
+          description: Individual check results.
   securitySchemes:
     BasicAuth:
       type: http
