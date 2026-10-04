@@ -1,0 +1,50 @@
+generated: '2026-10-04'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/tdqg-manager-api.yml
+- openapi/teradata-api-info-api-openapi.yml
+- openapi/teradata-configuration-api-openapi.yml
+- openapi/teradata-issues-api-openapi.yml
+- openapi/teradata-managers-api-openapi.yml
+- openapi/teradata-nodes-api-openapi.yml
+- openapi/teradata-operations-api-openapi.yml
+- openapi/teradata-queries-api-openapi.yml
+- openapi/teradata-sessions-api-openapi.yml
+- openapi/teradata-software-api-openapi.yml
+- openapi/teradata-systems-api-openapi.yml
+- openapi/teradata-users-api-openapi.yml
+format: custom
+envelope:
+  media_type: application/json
+  schema: not-found-config-version
+coverage:
+  operations: 320
+  statuses_declared: 4
+problems:
+- status: 400
+  title: Bad Request
+  description: Bad Request
+  operations: 81
+  media_types:
+  - application/json
+  schema: bad-request
+- status: 401
+  title: Unauthorized
+  description: Authentication failed.
+  operations: 2
+  media_types: []
+  schema: null
+- status: 404
+  title: Not Found
+  description: Not Found
+  operations: 156
+  media_types:
+  - application/json
+  schema: not-found-config-version
+- status: 507
+  title: Insufficient Storage
+  description: QueryGrid Manager is running low on disk space.
+  operations: 10
+  media_types: []
+  schema: null

@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/main/json-schema/teradata-post-link-schema.json",
+  "title": "post-link",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/teradata-api-info-api-openapi.yml#/components/schemas/post-link",
+  "properties": {
+    "name": {
+      "description": "The name of the link.",
+      "type": "string"
+    },
+    "description": {
+      "description": "A description of the link.",
+      "type": "string"
+    },
+    "fabricId": {
+      "description": "The ID of the fabric the link belongs to.",
+      "type": "string"
+    },
+    "initiatorConnectorId": {
+      "description": "The ID of the initiating connector.",
+      "type": "string"
+    },
+    "initiatorProperties": {
+      "description": "The initiating connector properties to set or override.",
+      "type": "object"
+    },
+    "overridableInitiatorPropertyNames": {
+      "description": "The initiator connector properties which can be overridden by the user.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "initiatorNetworkId": {
+      "description": "The network to use on the initiating system. null value implies use any available route.",
+      "type": "string"
+    },
+    "initiatorThreadsPerQuery": {
+      "description": "The number of threads to use per query by the initiator",
+      "type": "number"
+    },
+    "targetConnectorId": {
+      "description": "The ID of the initiating connector.",
+      "type": "string"
+    },
+    "targetProperties": {
+      "description": "The target connector properties to set or override.",
+      "type": "object"
+    },
+    "overridableTargetPropertyNames": {
+      "description": "The target connector properties which can be overridden by the user.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "targetNetworkId": {
+      "description": "The network to use on the target system. null value implies use any available route.",
+      "type": "string"
+    },
+    "targetThreadsPerQuery": {
+      "description": "The number of threads to use per query by the initiator",
+      "type": "number"
+    },
+    "commPolicyId": {
+      "description": "The ID of the communication policy to use for communication with first bridge or target.",
+      "type": "string"
+    },
+    "userMappingId": {
+      "description": "The user mapping to apply. null value implies no user mapping.",
+      "type": "string"
+    },
+    "usersToTroubleshoot": {
+      "description": "The database users to set specific log levels on.",
+      "type": "object"
+    },
+    "enableAcks": {
+      "description": "Enable sending acknowledgments for data blocks to enable ability to recover from transient network failures.",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "bridges": {
+      "items": {
+        "$ref": "#/$defs/link-bridge"
+      },
+      "type": "array"
+    },
+    "tags": {
+      "description": "Optional string key/value pairs for associating some context with the link.",
+      "type": "object"
+    }
+  },
+  "type": "object",
+  "$defs": {
+    "link-bridge": {
+      "properties": {
+        "bridgeId": {
+          "description": "The ID of the bridge.",
+          "type": "string"
+        },
+        "initiatorNetworkId": {
+          "description": "The ID of the network for the initiating side of bridge, else NULL for Any.",
+          "type": "string"
+        },
+        "targetNetworkId": {
+          "description": "The ID of the network for the target side of bridge 1, else NULL for Any.",
+          "type": "string"
+        },
+        "commPolicyId": {
+          "description": "The ID of the communication policy to use between the next bridge or target.",
+          "type": "string"
+        },
+        "threadsPerQuery": {
+          "description": "The number of threads to use per query by the bridge",
+          "type": "number"
+        }
+      },
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/main/json-schema/teradata-diagnostic-check-response-schema.json",
+  "title": "DiagnosticCheckResponse",
+  "description": "Response from a diagnostic check.",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/teradata-operations-api-openapi.yml#/components/schemas/DiagnosticCheckResponse",
+  "type": "object",
+  "properties": {
+    "checkId": {
+      "type": "string",
+      "description": "Unique check identifier."
+    },
+    "status": {
+      "type": "string",
+      "description": "Overall check status."
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "target": {
+            "type": "string",
+            "description": "Target system checked."
+          },
+          "status": {
+            "type": "string",
+            "description": "Check result status."
+          },
+          "latencyMs": {
+            "type": "integer",
+            "description": "Latency in milliseconds."
+          }
+        }
+      },
+      "description": "Individual check results."
+    }
+  }
+}

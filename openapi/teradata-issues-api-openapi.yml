@@ -1,16 +1,20 @@
 openapi: 3.2.0
 info:
-  title: Teradata QueryGrid Manager Issues API
-  description: REST API for centralized administration and monitoring of Teradata QueryGrid, the data fabric that enables seamless cross-system analytics. Manage data centers, systems, bridges, connectors, links, fabrics, networks, and node configurations.
-  version: '3.6'
-  contact:
-    name: Teradata
-    url: https://www.teradata.com
-  x-generated-from: documentation
-  x-last-validated: '2026-04-18'
+  title: Teradata Issues API
+  x-refined-note:
+  - x-generated-from differs across the merged source definitions and was not carried
+  - x-last-validated differs across the merged source definitions and was not carried
+  version: '1.0'
+  description: 'Operations tagged Issues across 2 of this provider''s published API definitions: teradata-querygrid-manager-api.yaml, tdqg-manager-api.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://querygrid.teradata.com/api/v1
   description: Default QueryGrid Manager endpoint
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
 security:
 - BasicAuth: []
 tags:
@@ -45,6 +49,85 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    post:
+      description: Create or update an issue in QueryGrid Manager
+      operationId: createOrUpdateIssue
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-issue'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/issue'
+          description: Successful Operation
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+      summary: Create or update an issue
+      tags:
+      - Issues
+    servers:
+    - url: https://querygrid.teradata.com/api/v1
+      description: Default QueryGrid Manager endpoint
+  /issues/{id}:
+    delete:
+      description: Delete a single issue based on the Id supplied
+      parameters:
+      - description: Id of issue that needs to be deleted.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Issue deleted
+      summary: Delete issue using Id
+      tags:
+      - Issues
+      operationId: deleteIssuesById
+      x-operation-id-source: derived
+    get:
+      description: Get the issue using the Id
+      parameters:
+      - description: Id of issue to get
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/issue'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-entity'
+          description: No issue found with the specified Id
+      summary: Find issue by Id
+      tags:
+      - Issues
+      operationId: getIssuesById
+      x-operation-id-source: derived
+    servers:
+    - description: Default API endpoint
+      url: /api/v1
+    - description: Querygrid Prefix API endpoint
+      url: /querygrid/api/v1
+    - description: Streaming Prefix API endpoint
+      url: /querygrid-streaming/api/v1
 components:
   schemas:
     Issue:
@@ -77,8 +160,228 @@ components:
           format: date-time
           description: Time when the issue was detected.
           example: '2026-04-18T10:30:00Z'
+    post-issue:
+      properties:
+        problemType:
+          description: Type of the issue
+          enum:
+          - SUCCESSFUL_QGM_UPGRADE
+          type: string
+        componentType:
+          description: Type of the component having the issue
+          enum:
+          - MANAGER
+          type: string
+        messageParams:
+          description: The parameters to the issue message
+          example:
+          - '02.19'
+          - '02.20'
+          items:
+            type: string
+          type: array
+      type: object
+    not-found-entity:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <entity type> with id=15fd2337-980b-4d0f-951e-e6c848a81b5d found.
+        path:
+          description: The path of the API called
+          example: /api/v1/<type>/15fd2337-980b-4d0f-951e-e6c848a81b5d
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<entity type>
+          - 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          items:
+            type: string
+          type: array
+      type: object
+    bad-request:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 400
+        error:
+          description: The error description
+          example: Bad Request
+        message:
+          description: The error message
+          example: '[name must not be blank]'
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>
+      type: object
+    issue:
+      example:
+        severity: CRITICAL
+        componentType: SYSTEM
+        componentId: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+        configVersion: ACTIVE
+        dataCenterName: DataCenter1
+        subjectParams:
+        - system1
+        - 4
+        messageParams:
+        - system1
+        - 4
+        messageLabel: issue.system.NODES_OFFLINE.message
+        nodeIds:
+        - 0bfe8c3c-2d52-4818-872b-babafbd252cc
+        - 538f5fcd-b283-4081-a2ab-05d8a222e2b8
+        createTime: 2000-01-23 04:56:07+00:00
+        subcomponentId: 4b6efbe1-b5ee-4466-bcb1-a0c5cbcbda3d
+        reporterId: ac9cb7e4-3578-4499-814b-e871f8d9c3cf
+        id: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+        lastModified: 2000-01-23 04:56:07+00:00
+        componentName: System1
+        subjectLabel: issue.system.NODES_OFFLINE.subject
+        problemType: NODES_OFFLINE
+      properties:
+        id:
+          description: Id of the issue
+          example: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          type: string
+        lastModified:
+          description: The last time this object was modified
+          format: date-time
+          type: string
+        createTime:
+          description: The time the issue was created.
+          format: date-time
+          type: string
+        componentType:
+          description: The type of component the issue applies to (e.g. SYSTEM or MANAGER).
+          enum:
+          - SYSTEM
+          - MANAGER
+          - SOFTWARE
+          example: SYSTEM
+          type: string
+        componentId:
+          description: Id of the component the issue is associated with
+          example: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          type: string
+        componentName:
+          description: Id of the component the issue is associated with
+          example: System1
+          type: string
+        dataCenterName:
+          description: The name of the data center the component is located in.
+          example: DataCenter1
+          type: string
+        problemType:
+          description: The reason for the issue.
+          enum:
+          - NODES_MISSING
+          - NODES_OFFLINE
+          - NODES_WRONG_TIME
+          - NODES_WRONG_VERSION
+          - FABRIC_OFFLINE
+          - DRIVERS_OFFLINE
+          - FABRIC_HEARTBEAT_MISSING
+          - CONNECTOR_MISSING
+          - MANAGER_OFFLINE
+          - MANAGER_WRONG_TIME
+          - MANAGER_BACKUP_FAILED
+          - MANAGER_DISK_SPACE_LOW
+          - MANAGER_VERSION_MISMATCH
+          - LINK_MISSING
+          - NODES_NETWORK_MISMATCH
+          - FABRIC_RESTART
+          - DRIVER_RESTART
+          - LINK_NAME_CONFLICT
+          - FABRIC_PORT_CONFLICT
+          - USAGE_REPORT_FAILURE
+          - PRIMARY_CLUSTER_INCONSISTENT
+          - PROXY_ERROR
+          - AUTO_NODE_DELETE
+          - CERTIFICATE_AUTHORITY_EXPIRING
+          - SERVER_CERTIFICATE_EXPIRING
+          - CUSTOM_CERTIFICATE_EXPIRING
+          - CLOUD_INSTALL_CHECKUP_FAILED
+          - OVERRIDE_PORT_ERROR
+          - SUCCESSFUL_MANAGER_UPGRADE
+          - NODE_LOGS_BACKUP_FAILED
+          - UNBUNDLED_JDBCDRIVER_SOFTWARE
+          example: NODES_OFFLINE
+          type: string
+        severity:
+          description: The severity for the issue.
+          enum:
+          - WARNING
+          - CRITICAL
+          example: CRITICAL
+          type: string
+        subjectLabel:
+          description: The language independent label to use to lookup the language specific issue subject.
+          example: issue.system.NODES_OFFLINE.subject
+          type: string
+        subjectParams:
+          description: The parameters to the issue subject
+          example:
+          - system1
+          - 4
+          items:
+            type: string
+          type: array
+        messageLabel:
+          description: The language independent label to use to lookup the language specific issue message.
+          example: issue.system.NODES_OFFLINE.message
+          type: string
+        messageParams:
+          description: The parameters to the issue message
+          example:
+          - system1
+          - 4
+          items:
+            type: string
+          type: array
+        configVersion:
+          description: The logical version of the component (e.g. ACTIVE, PENDING, PREVIOUS) the issue applies to, null if not applicable.
+          enum:
+          - ACTIVE
+          - PENDING
+          - PREVIOUS
+          type: string
+        reporterId:
+          description: The ID of the manager that reporte the issue.
+          example: ac9cb7e4-3578-4499-814b-e871f8d9c3cf
+          type: string
+        subcomponentId:
+          description: The ID of the subcomponent the issue applies to (e.g. Fabric, Connector, Link, etc.)
+          example: 4b6efbe1-b5ee-4466-bcb1-a0c5cbcbda3d
+          type: string
+        nodeIds:
+          description: The node IDs the issue applies to (null if not appliable)
+          example:
+          - 0bfe8c3c-2d52-4818-872b-babafbd252cc
+          - 538f5fcd-b283-4081-a2ab-05d8a222e2b8
+          items:
+            type: string
+          type: array
+      type: object
   securitySchemes:
     BasicAuth:
       type: http
       scheme: basic
       description: HTTP Basic authentication with QueryGrid Manager credentials.
+x-refined-from:
+- teradata-querygrid-manager-api.yaml
+- tdqg-manager-api.yml

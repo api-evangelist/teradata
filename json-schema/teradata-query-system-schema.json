@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/main/json-schema/teradata-query-system-schema.json",
+  "title": "QuerySystem",
+  "description": "A Vantage system available for queries.",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/teradata-systems-api-openapi.yml#/components/schemas/QuerySystem",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "System name."
+    },
+    "host": {
+      "type": "string",
+      "description": "System hostname."
+    },
+    "port": {
+      "type": "integer",
+      "description": "Connection port."
+    },
+    "status": {
+      "type": "string",
+      "description": "System availability status.",
+      "enum": [
+        "available",
+        "unavailable",
+        "maintenance"
+      ]
+    }
+  }
+}

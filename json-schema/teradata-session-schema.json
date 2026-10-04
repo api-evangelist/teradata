@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/main/json-schema/teradata-session-schema.json",
+  "title": "Session",
+  "description": "A query session.",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/teradata-sessions-api-openapi.yml#/components/schemas/Session",
+  "type": "object",
+  "properties": {
+    "sessionId": {
+      "type": "string",
+      "description": "Unique session identifier."
+    },
+    "system": {
+      "type": "string",
+      "description": "Connected system name."
+    },
+    "database": {
+      "type": "string",
+      "description": "Default database."
+    },
+    "status": {
+      "type": "string",
+      "description": "Session status.",
+      "enum": [
+        "active",
+        "idle",
+        "closed"
+      ]
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Session creation time."
+    }
+  }
+}

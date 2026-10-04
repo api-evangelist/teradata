@@ -1,10 +1,13 @@
 aid: teradata
+
 name: Teradata
-description: Teradata provides enterprise analytics and data management solutions. The Teradata VantageCloud platform delivers
-  connected multi-cloud data analytics with capabilities for data warehousing, advanced analytics, and machine learning at
-  scale. Teradata offers REST APIs for managing QueryGrid data fabric connections, running SQL queries, and administering
-  platform resources.
+
+description: Teradata provides enterprise analytics and data management solutions. The Teradata VantageCloud platform delivers connected multi-cloud
+  data analytics with capabilities for data warehousing, advanced analytics, and machine learning at scale. Teradata offers REST APIs for managing
+  QueryGrid data fabric connections, running SQL queries, and administering platform resources.
+
 type: Index
+
 deliveryModel:
   model: saas
   open_source: false
@@ -17,6 +20,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -31,34 +35,243 @@ accessModel:
   - security
   generated: '2026-09-03'
   method: derived
+
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/teradata.png
+
 tags:
-  - Analytics
-  - Cloud
-  - Data Management
-  - Data Warehousing
-  - Database
-  - Enterprise
-  - Machine Learning
-  - SQL
-  - Fortune 1000
+- Analytics
+- Cloud
+- Data Management
+- Data Warehousing
+- Database
+- Enterprise
+- Machine Learning
+- SQL
+- Fortune 1000
+
 tags_raw:
-  - Analytics
-  - Cloud
-  - Data Management
-  - Data Warehousing
-  - Database
-  - Enterprise
-  - Machine Learning
-  - SQL
-  - Fortune 1000
-  - Machine-Learning
+- Analytics
+- Cloud
+- Data Management
+- Data Warehousing
+- Database
+- Enterprise
+- Machine Learning
+- SQL
+- Fortune 1000
+- Machine-Learning
+
 url: https://www.teradata.com
+
 created: '2026-04-18'
+
 modified: '2026-05-19'
+
 specificationVersion: '0.23'
+
 position: Consuming
+
 access: 3rd-Party
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+
+common:
+- type: FinOps
+  url: finops/teradata-finops.yml
+- type: RateLimits
+  url: rate-limits/teradata-rate-limits.yml
+- type: Plans
+  url: plans/teradata-plans-pricing.yml
+- type: Spectral
+  url: rules/teradata-spectral-rules.yml
+- type: Spectral
+  url: rules/teradata-rules.yml
+- type: Spectral
+  url: rules/teradata-jsonschema-spectral-rules.yml
+- type: JSONLD
+  url: json-ld/teradata-querygrid-manager-api-context.jsonld
+- type: JSONLD
+  url: json-ld/teradata-query-service-api-context.jsonld
+- type: JSONLD
+  url: json-ld/teradata-context.jsonld
+- type: Vocabulary
+  url: vocabulary/teradata-vocabulary.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DataModel
+  url: data-model/teradata-data-model.yml
+- type: Security
+  url: https://www.teradata.com/trust-security-center/data-security/vulnerability-disclosure-policy
+- type: ErrorCatalog
+  url: errors/teradata-problem-types.yml
+- type: Conformance
+  url: conformance/teradata-conformance.yml
+- type: SecurityTxt
+  url: well-known/teradata-security.txt
+- type: WellKnown
+  url: well-known/teradata-well-known.yml
+- type: Hosts
+  url: hosts/teradata-hosts.yml
+- type: Vendors
+  url: vendors/teradata-vendors.yml
+- type: Packages
+  url: packages/teradata-packages.yml
+- type: SignUp
+  url: https://www.teradata.com/university/academics/register
+- type: Pricing
+  url: https://www.teradata.com/pricing
+- type: Newsroom
+  url: https://www.teradata.com/newsroom
+- type: Leadership
+  url: https://www.teradata.com/about-us/leadership
+- type: VulnerabilityDisclosure
+  url: security/teradata-vulnerability-disclosure.yml
+- type: Website
+  url: https://www.teradata.com/
+- type: AgenticAccess
+  url: agentic-access/teradata-agentic-access.yml
+- type: DomainSecurity
+  url: security/teradata-domain-security.yml
+- type: Authentication
+  url: authentication/teradata-authentication.yml
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/teradata/overview
+- type: Arazzo
+  url: arazzo/teradata-auto-install-node-software-workflow.yml
+  name: Teradata Auto-Install Node Software
+- type: Arazzo
+  url: arazzo/teradata-build-data-fabric-workflow.yml
+  name: Teradata Build a Data Fabric
+- type: Arazzo
+  url: arazzo/teradata-cancel-running-query-workflow.yml
+  name: Teradata Cancel a Running Query
+- type: Arazzo
+  url: arazzo/teradata-import-and-verify-system-workflow.yml
+  name: Teradata Import and Verify a Remote System
+- type: Arazzo
+  url: arazzo/teradata-poll-query-results-workflow.yml
+  name: Teradata Submit Query and Poll for Results
+- type: Arazzo
+  url: arazzo/teradata-provision-cross-system-link-workflow.yml
+  name: Teradata Provision a Cross-System Link
+- type: Arazzo
+  url: arazzo/teradata-register-system-in-datacenter-workflow.yml
+  name: Teradata Register a System in a New Data Center
+- type: Arazzo
+  url: arazzo/teradata-review-environment-health-workflow.yml
+  name: Teradata Review QueryGrid Environment Health
+- type: Arazzo
+  url: arazzo/teradata-run-connectivity-diagnostic-workflow.yml
+  name: Teradata Run a Connectivity Diagnostic
+- type: Arazzo
+  url: arazzo/teradata-run-query-session-workflow.yml
+  name: Teradata Run Query in a Session
+- type: Arazzo
+  url: arazzo/teradata-session-lifecycle-workflow.yml
+  name: Teradata Session Lifecycle
+- type: LinkedIn
+  url: https://www.linkedin.com/company/teradata
+- type: Portal
+  url: https://developer.teradata.com
+- type: Documentation
+  url: https://docs.teradata.com
+- type: GettingStarted
+  url: https://quickstarts.teradata.com
+- type: GitHubOrganization
+  url: https://github.com/Teradata
+- type: Support
+  url: https://support.teradata.com
+- type: Training
+  url: https://www.teradata.com/University
+- type: TermsOfService
+  url: https://www.teradata.com/Legal/Terms-of-Use
+- type: PrivacyPolicy
+  url: https://www.teradata.com/Legal/Privacy
+- type: SDKs
+  url: https://pypi.org/project/teradatasql/
+  title: Python SQL Driver
+- type: SDKs
+  url: https://www.npmjs.com/package/teradatasql
+  title: Node.js SQL Driver
+- type: SDKs
+  url: https://github.com/Teradata/r-driver
+  title: R SQL Driver
+- type: SDKs
+  url: https://github.com/Teradata/teradatarustapi
+  title: Rust API
+- type: SDKs
+  url: https://github.com/Teradata/gosql-driver
+  title: Go SQL Driver
+- type: SDKs
+  url: https://github.com/Teradata/jdbc-driver
+  title: JDBC Driver
+- type: CLI
+  url: https://github.com/Teradata/teradata-vscode-sql-extension
+  title: VS Code SQL Extension
+- type: Tools
+  url: https://github.com/Teradata/teradata-mcp-server
+  title: MCP Server
+- type: Tools
+  url: https://github.com/Teradata/teradata-qg-mcp-server
+  title: QueryGrid MCP Server
+- type: Integrations
+  data:
+  - name: dbt
+    description: dbt adapter for Teradata Vantage enabling data transformations using dbt workflows.
+  - name: Apache Airflow
+    description: Airflow provider for orchestrating Teradata data pipeline workflows.
+  - name: Dagster
+    description: Dagster integration for Teradata data orchestration and observability.
+  - name: Airbyte
+    description: Airbyte connector for ELT data pipelines to and from Teradata.
+  - name: Fivetran
+    description: Fivetran destination connector for automated data loading into Teradata.
+  - name: MuleSoft
+    description: MuleSoft connector for integrating Teradata with enterprise application networks.
+  - name: Dataiku
+    description: Dataiku plugin for running analytics within the Teradata Vantage environment.
+  - name: LangChain
+    description: LangChain integration for using Teradata as a vector store and data source in AI applications.
+  - name: Apache Iceberg
+    description: Teradata support for Apache Iceberg open table format for lakehouse analytics.
+- type: Features
+  data:
+  - name: VantageCloud
+    description: Cloud-native analytics platform available on AWS, Azure, and Google Cloud.
+  - name: ClearScape Analytics
+    description: Advanced analytics engine with machine learning, graph analytics, and AI capabilities built into Vantage.
+  - name: QueryGrid
+    description: Data fabric for multi-system analytics enabling queries across Teradata, Hadoop, Spark, and cloud object storage.
+  - name: ModelOps
+    description: Model lifecycle management for deploying, monitoring, and governing machine learning models.
+  - name: AI Unlimited
+    description: On-demand AI and ML engine for exploratory analytics without infrastructure management.
+  - name: Open Table Formats
+    description: Support for Apache Iceberg and open table formats for lakehouse analytics.
+- type: UseCases
+  data:
+  - name: Enterprise Data Warehousing
+    description: Centralized data warehousing with petabyte-scale analytics for enterprise reporting and BI.
+  - name: Advanced Analytics
+    description: In-database machine learning, statistical analysis, and predictive modeling at scale.
+  - name: Multi-Cloud Analytics
+    description: Connected analytics across AWS, Azure, and Google Cloud with data fabric integration.
+  - name: AI and ML Operations
+    description: End-to-end machine learning model lifecycle management with ModelOps.
+  - name: Real-Time Data Integration
+    description: Real-time data ingestion and analytics with QueryGrid cross-system query federation.
+- type: SpectralRules
+  url: rules/teradata-spectral-rules.yml
+- type: Vocabulary
+  url: vocabulary/teradata-vocabulary.yaml
+- type: Integrations
+  url: https://www.teradata.com/partners
+- name: MCP Server
+  url: https://github.com/Teradata/teradata-mcp-server
+  type: MCPServer
+
 apis:
 - aid: teradata:teradata-api-info-api
   name: Teradata API Info API
@@ -74,6 +287,18 @@ apis:
     url: https://github.com/Teradata/querygrid-apidocs
   - type: Documentation
     url: https://docs.teradata.com
+  - type: JSONSchema
+    url: json-schema/teradata-query-details-schema.json
+  - type: JSONSchema
+    url: json-schema/teradata-query-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/teradata-watchdog-heartbeat-schema.json
+  - type: JSONSchema
+    url: json-schema/teradata-post-link-schema.json
+  - type: JSONSchema
+    url: json-schema/teradata-post-datasource-schema.json
+  - type: JSONSchema
+    url: json-schema/teradata-system-schema.json
 - aid: teradata:teradata-configuration-api
   name: Teradata Configuration API
   description: The Configuration API from Teradata — 8 operation(s) for configuration.
@@ -88,6 +313,18 @@ apis:
     url: https://github.com/Teradata/querygrid-apidocs
   - type: Documentation
     url: https://docs.teradata.com
+  - type: JSONSchema
+    url: json-schema/teradata-system-schema.json
+  - type: JSONSchema
+    url: json-schema/teradata-link-schema.json
+  - type: JSONSchema
+    url: json-schema/teradata-comm-policy-schema.json
+  - type: JSONSchema
+    url: json-schema/teradata-bridge-schema.json
+  - type: JSONSchema
+    url: json-schema/teradata-connector-schema.json
+  - type: JSONSchema
+    url: json-schema/teradata-fabric-schema.json
 - aid: teradata:teradata-issues-api
   name: Teradata Issues API
   description: The Issues API from Teradata — 1 operation(s) for issues.
@@ -102,6 +339,8 @@ apis:
     url: https://github.com/Teradata/querygrid-apidocs
   - type: Documentation
     url: https://docs.teradata.com
+  - type: JSONSchema
+    url: json-schema/teradata-issue-schema.json
 - aid: teradata:teradata-managers-api
   name: Teradata Managers API
   description: The Managers API from Teradata — 1 operation(s) for managers.
@@ -116,6 +355,8 @@ apis:
     url: https://github.com/Teradata/querygrid-apidocs
   - type: Documentation
     url: https://docs.teradata.com
+  - type: JSONSchema
+    url: json-schema/teradata-manager-schema.json
 - aid: teradata:teradata-nodes-api
   name: Teradata Nodes API
   description: The Nodes API from Teradata — 1 operation(s) for nodes.
@@ -132,6 +373,8 @@ apis:
     url: https://github.com/Teradata/querygrid-apidocs
   - type: Documentation
     url: https://docs.teradata.com
+  - type: JSONSchema
+    url: json-schema/teradata-node-schema.json
 - aid: teradata:teradata-operations-api
   name: Teradata Operations API
   description: The Operations API from Teradata — 3 operation(s) for operations.
@@ -147,6 +390,18 @@ apis:
     url: https://github.com/Teradata/querygrid-apidocs
   - type: Documentation
     url: https://docs.teradata.com
+  - type: JSONSchema
+    url: json-schema/teradata-diagnostic-check-response-schema.json
+  - type: JSONSchema
+    url: json-schema/teradata-diagnostic-check-request-schema.json
+  - type: JSONSchema
+    url: json-schema/teradata-import-system-response-schema.json
+  - type: JSONSchema
+    url: json-schema/teradata-auto-install-response-schema.json
+  - type: JSONSchema
+    url: json-schema/teradata-import-system-request-schema.json
+  - type: JSONSchema
+    url: json-schema/teradata-auto-install-request-schema.json
 - aid: teradata:teradata-queries-api
   name: Teradata Queries API
   description: The Queries API from Teradata — 2 operation(s) for queries.
@@ -163,6 +418,12 @@ apis:
     url: https://github.com/Teradata/querygrid-apidocs
   - type: Documentation
     url: https://docs.teradata.com
+  - type: JSONSchema
+    url: json-schema/teradata-query-result-schema.json
+  - type: JSONSchema
+    url: json-schema/teradata-query-summary-schema.json
+  - type: JSONSchema
+    url: json-schema/teradata-query-request-schema.json
 - aid: teradata:teradata-sessions-api
   name: Teradata Sessions API
   description: The Sessions API from Teradata — 2 operation(s) for sessions.
@@ -177,6 +438,10 @@ apis:
     url: https://github.com/Teradata/querygrid-apidocs
   - type: Documentation
     url: https://docs.teradata.com
+  - type: JSONSchema
+    url: json-schema/teradata-session-schema.json
+  - type: JSONSchema
+    url: json-schema/teradata-session-request-schema.json
 - aid: teradata:teradata-software-api
   name: Teradata Software API
   description: The Software API from Teradata — 1 operation(s) for software.
@@ -191,6 +456,8 @@ apis:
     url: https://github.com/Teradata/querygrid-apidocs
   - type: Documentation
     url: https://docs.teradata.com
+  - type: JSONSchema
+    url: json-schema/teradata-software-schema.json
 - aid: teradata:teradata-systems-api
   name: Teradata Systems API
   description: The Systems API from Teradata — 1 operation(s) for systems.
@@ -205,6 +472,8 @@ apis:
     url: https://github.com/Teradata/querygrid-apidocs
   - type: Documentation
     url: https://docs.teradata.com
+  - type: JSONSchema
+    url: json-schema/teradata-query-system-schema.json
 - aid: teradata:teradata-users-api
   name: Teradata Users API
   description: The Users API from Teradata — 1 operation(s) for users.
@@ -221,157 +490,245 @@ apis:
     url: https://github.com/Teradata/querygrid-apidocs
   - type: Documentation
     url: https://docs.teradata.com
-common:
-  - type: Website
-    url: https://www.teradata.com/
-  - type: AgenticAccess
-    url: agentic-access/teradata-agentic-access.yml
-  - type: DomainSecurity
-    url: security/teradata-domain-security.yml
-  - type: Authentication
-    url: authentication/teradata-authentication.yml
-  - type: PostmanWorkspace
-    url: https://www.postman.com/kinlaneapi/teradata/overview
-  - type: Arazzo
-    url: arazzo/teradata-auto-install-node-software-workflow.yml
-    name: Teradata Auto-Install Node Software
-  - type: Arazzo
-    url: arazzo/teradata-build-data-fabric-workflow.yml
-    name: Teradata Build a Data Fabric
-  - type: Arazzo
-    url: arazzo/teradata-cancel-running-query-workflow.yml
-    name: Teradata Cancel a Running Query
-  - type: Arazzo
-    url: arazzo/teradata-import-and-verify-system-workflow.yml
-    name: Teradata Import and Verify a Remote System
-  - type: Arazzo
-    url: arazzo/teradata-poll-query-results-workflow.yml
-    name: Teradata Submit Query and Poll for Results
-  - type: Arazzo
-    url: arazzo/teradata-provision-cross-system-link-workflow.yml
-    name: Teradata Provision a Cross-System Link
-  - type: Arazzo
-    url: arazzo/teradata-register-system-in-datacenter-workflow.yml
-    name: Teradata Register a System in a New Data Center
-  - type: Arazzo
-    url: arazzo/teradata-review-environment-health-workflow.yml
-    name: Teradata Review QueryGrid Environment Health
-  - type: Arazzo
-    url: arazzo/teradata-run-connectivity-diagnostic-workflow.yml
-    name: Teradata Run a Connectivity Diagnostic
-  - type: Arazzo
-    url: arazzo/teradata-run-query-session-workflow.yml
-    name: Teradata Run Query in a Session
-  - type: Arazzo
-    url: arazzo/teradata-session-lifecycle-workflow.yml
-    name: Teradata Session Lifecycle
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/teradata
-  - type: Portal
-    url: https://developer.teradata.com
-  - type: Documentation
-    url: https://docs.teradata.com
-  - type: GettingStarted
-    url: https://quickstarts.teradata.com
-  - type: GitHubOrganization
-    url: https://github.com/Teradata
-  - type: Support
-    url: https://support.teradata.com
-  - type: Blog
-    url: https://www.teradata.com/blog
-  - type: Training
-    url: https://www.teradata.com/University
-  - type: TermsOfService
-    url: https://www.teradata.com/Legal/Terms-of-Use
-  - type: PrivacyPolicy
-    url: https://www.teradata.com/Legal/Privacy
-  - type: SDKs
-    url: https://pypi.org/project/teradatasql/
-    title: Python SQL Driver
-  - type: SDKs
-    url: https://www.npmjs.com/package/teradatasql
-    title: Node.js SQL Driver
-  - type: SDKs
-    url: https://github.com/Teradata/r-driver
-    title: R SQL Driver
-  - type: SDKs
-    url: https://github.com/Teradata/teradatarustapi
-    title: Rust API
-  - type: SDKs
-    url: https://github.com/Teradata/gosql-driver
-    title: Go SQL Driver
-  - type: SDKs
-    url: https://github.com/Teradata/jdbc-driver
-    title: JDBC Driver
-  - type: CLI
-    url: https://github.com/Teradata/teradata-vscode-sql-extension
-    title: VS Code SQL Extension
-  - type: Tools
-    url: https://github.com/Teradata/teradata-mcp-server
-    title: MCP Server
-  - type: Tools
-    url: https://github.com/Teradata/teradata-qg-mcp-server
-    title: QueryGrid MCP Server
-  - type: Integrations
-    data:
-    - name: dbt
-      description: dbt adapter for Teradata Vantage enabling data transformations using dbt workflows.
-    - name: Apache Airflow
-      description: Airflow provider for orchestrating Teradata data pipeline workflows.
-    - name: Dagster
-      description: Dagster integration for Teradata data orchestration and observability.
-    - name: Airbyte
-      description: Airbyte connector for ELT data pipelines to and from Teradata.
-    - name: Fivetran
-      description: Fivetran destination connector for automated data loading into Teradata.
-    - name: MuleSoft
-      description: MuleSoft connector for integrating Teradata with enterprise application networks.
-    - name: Dataiku
-      description: Dataiku plugin for running analytics within the Teradata Vantage environment.
-    - name: LangChain
-      description: LangChain integration for using Teradata as a vector store and data source in AI applications.
-    - name: Apache Iceberg
-      description: Teradata support for Apache Iceberg open table format for lakehouse analytics.
-  - type: Features
-    data:
-    - name: VantageCloud
-      description: Cloud-native analytics platform available on AWS, Azure, and Google Cloud.
-    - name: ClearScape Analytics
-      description: Advanced analytics engine with machine learning, graph analytics, and AI capabilities built into Vantage.
-    - name: QueryGrid
-      description: Data fabric for multi-system analytics enabling queries across Teradata, Hadoop, Spark, and cloud object
-        storage.
-    - name: ModelOps
-      description: Model lifecycle management for deploying, monitoring, and governing machine learning models.
-    - name: AI Unlimited
-      description: On-demand AI and ML engine for exploratory analytics without infrastructure management.
-    - name: Open Table Formats
-      description: Support for Apache Iceberg and open table formats for lakehouse analytics.
-  - type: UseCases
-    data:
-    - name: Enterprise Data Warehousing
-      description: Centralized data warehousing with petabyte-scale analytics for enterprise reporting and BI.
-    - name: Advanced Analytics
-      description: In-database machine learning, statistical analysis, and predictive modeling at scale.
-    - name: Multi-Cloud Analytics
-      description: Connected analytics across AWS, Azure, and Google Cloud with data fabric integration.
-    - name: AI and ML Operations
-      description: End-to-end machine learning model lifecycle management with ModelOps.
-    - name: Real-Time Data Integration
-      description: Real-time data ingestion and analytics with QueryGrid cross-system query federation.
-  - type: SpectralRules
-    url: rules/teradata-spectral-rules.yml
-  - type: Vocabulary
-    url: vocabulary/teradata-vocabulary.yaml
-  - type: Integrations
-    url: https://www.teradata.com/partners
-  - name: MCP Server
-    url: https://github.com/Teradata/teradata-mcp-server
-    type: MCPServer
-  - type: LlmsText
-    url: https://docs.teradata.com/llms.txt
+  - type: JSONSchema
+    url: json-schema/teradata-user-schema.json
+- aid: teradata:teradata-config-bridges-api
+  name: Teradata Config - Bridges API
+  description: >-
+    Manage bridges used for routing QueryGrid communication between systems without direct connectivity
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Config - Bridges
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-config-bridges-api-openapi.yml
+- aid: teradata:teradata-config-communication-policies-api
+  name: Teradata Config - Communication Policies API
+  description: Manage communication policies that define how data is transferred between systems
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Config - Communication Policies
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-config-communication-policies-api-openapi.yml
+- aid: teradata:teradata-config-connectors-api
+  name: Teradata Config - Connectors API
+  description: Manage connectors that connect data sources to the QueryGrid Fabric
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Config - Connectors
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-config-connectors-api-openapi.yml
+- aid: teradata:teradata-config-data-centers-api
+  name: Teradata Config - Data Centers API
+  description: Manage data centers (a.k.a regions) where QueryGrid software is deployed
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Config - Data Centers
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-config-data-centers-api-openapi.yml
+- aid: teradata:teradata-config-fabrics-api
+  name: Teradata Config - Fabrics API
+  description: Manage fabrics responsible for QueryGrid inter-node communication
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Config - Fabrics
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-config-fabrics-api-openapi.yml
+- aid: teradata:teradata-config-links-api
+  name: Teradata Config - Links API
+  description: Manage links that enable connectivity between connectors
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Config - Links
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-config-links-api-openapi.yml
+- aid: teradata:teradata-config-networks-api
+  name: Teradata Config - Networks API
+  description: Manage network rules that determine the network interfaces to use for communications
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Config - Networks
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-config-networks-api-openapi.yml
+- aid: teradata:teradata-config-node-virtual-ips-api
+  name: Teradata Config - Node Virtual IPs API
+  description: Manage virtual IPs associated with nodes
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Config - Node Virtual IPs
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-config-node-virtual-ips-api-openapi.yml
+- aid: teradata:teradata-config-systems-api
+  name: Teradata Config - Systems API
+  description: Manage the systems or platforms associated with QueryGrid connectors
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Config - Systems
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-config-systems-api-openapi.yml
+- aid: teradata:teradata-config-user-role-mappings-api
+  name: Teradata Config - User/Role Mappings API
+  description: Map initiator user and roles to target user and roles
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Config - User/Role Mappings
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-config-user-role-mappings-api-openapi.yml
+- aid: teradata:teradata-operations-add-data-source-api
+  name: Teradata Operations - Add Data Source API
+  description: Register a new data source to QueryGrid Manager
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Operations - Add Data Source
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-operations-add-data-source-api-openapi.yml
+- aid: teradata:teradata-operations-bulk-delete-api
+  name: Teradata Operations - Bulk Delete API
+  description: Bulk delete nodes or issues
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Operations - Bulk Delete
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-operations-bulk-delete-api-openapi.yml
+- aid: teradata:teradata-operations-create-foreign-server-api
+  name: Teradata Operations - Create Foreign Server API
+  description: Create a foreign server for a given link
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Operations - Create Foreign Server
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-operations-create-foreign-server-api-openapi.yml
+- aid: teradata:teradata-operations-data-source-registration-file-api
+  name: Teradata Operations - Data Source Registration File API
+  description: Generate node registration zip file for a given datasource
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Operations - Data Source Registration File
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-operations-data-source-registration-file-api-openapi.yml
+- aid: teradata:teradata-operations-diagnostic-checks-connector-install-api
+  name: Teradata Operations - Diagnostic Checks / Connector Install API
+  description: Start and monitor diagnostic check and connector install operations
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Operations - Diagnostic Checks / Connector Install
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-operations-diagnostic-checks-connector-install-api-openapi.yml
+- aid: teradata:teradata-operations-disable-system-alerts-api
+  name: Teradata Operations - Disable System Alerts API
+  description: Disable system alerts for a specific system and issue type
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Operations - Disable System Alerts
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-operations-disable-system-alerts-api-openapi.yml
+- aid: teradata:teradata-operations-import-system-api
+  name: Teradata Operations - Import System API
+  description: Import a system from a different QueryGrid Manager cluster
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Operations - Import System
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-operations-import-system-api-openapi.yml
+- aid: teradata:teradata-operations-nodes-auto-install-api
+  name: Teradata Operations - Nodes Auto Install API
+  description: Automate install and registration of nodes with QueryGrid Manager
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Operations - Nodes Auto Install
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-operations-nodes-auto-install-api-openapi.yml
+- aid: teradata:teradata-operations-nodes-manual-install-api
+  name: Teradata Operations - Nodes Manual Install API
+  description: >-
+    Download config file needed for manual install and registration of nodes with QueryGrid Manager
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Operations - Nodes Manual Install
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-operations-nodes-manual-install-api-openapi.yml
+- aid: teradata:teradata-operations-private-link-template-api
+  name: Teradata Operations - Private Link Template API
+  description: Generate private link template file for a given cloud platform
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Operations - Private Link Template
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-operations-private-link-template-api-openapi.yml
+- aid: teradata:teradata-operations-register-remote-lake-system-api
+  name: Teradata Operations - Register Remote Lake System API
+  description: Register current system nodes to remote lake system
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Operations - Register Remote Lake System
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-operations-register-remote-lake-system-api-openapi.yml
+- aid: teradata:teradata-operations-shared-memory-estimator-api
+  name: Teradata Operations - Shared Memory Estimator API
+  description: Estimate memory needed for QueryGrid operations
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Operations - Shared Memory Estimator
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-operations-shared-memory-estimator-api-openapi.yml
+- aid: teradata:teradata-support-archive-api
+  name: Teradata Support Archive API
+  description: Generate support archive for a Manager, System, Node, Query, or Bandwidth Tests issues
+  humanURL: https://github.com/Teradata/querygrid-apidocs
+  baseURL: https://querygrid.teradata.com/api/v1
+  tags:
+  - Support-Archive
+  properties:
+  - type: OpenAPI
+    url: openapi/teradata-support-archive-api-openapi.yml
 integrations:
-  - name: Partner with us today
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- name: Partner with us today
+x-enrichment:
+  date: '2026-10-04'
+  status: enriched
+  artifacts_added: 47
+  pass: modular-v1
+  engine: identity=local,contract=local,surfaces=local,docs=local,regulatory=local

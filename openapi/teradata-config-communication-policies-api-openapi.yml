@@ -1,0 +1,710 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Config - Communication Policies…
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Manage communication policies that define how data is transferred between systems
+  name: Config - Communication Policies
+paths:
+  /config/comm-policies:
+    get:
+      parameters:
+      - description: Flatten out the active, pending, and previous versions into array elements instead of nesting them.
+        in: query
+        name: flatten
+        schema:
+          type: boolean
+      - description: Provide extra details (in _extraInfo section) about the communication policy.
+        in: query
+        name: extraInfo
+        schema:
+          type: boolean
+      - description: Get communication policy associated with the specified name (case insensitive). Wildcard matching with '*' is supported.
+        in: query
+        name: filterByName
+        required: false
+        schema:
+          type: string
+      - description: Get communication policy associated with the specified tag. Provide ','(comma) separated list of key:value pairs.
+        in: query
+        name: filterByTag
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/comm-policy'
+                type: array
+          description: Successful operation
+      summary: Get all Communication Policies
+      tags:
+      - Config - Communication Policies
+      operationId: getConfigCommPolicies
+      x-operation-id-source: derived
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-comm-policy'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comm-policy'
+          description: Communication Policy created
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+      summary: Create a new Communication Policy
+      tags:
+      - Config - Communication Policies
+      operationId: postConfigCommPolicies
+      x-operation-id-source: derived
+  /config/comm-policies/{id}:
+    delete:
+      parameters:
+      - description: ID of the Communication Policy to delete
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+      summary: Delete a Communication Policy by ID
+      tags:
+      - Config - Communication Policies
+      operationId: deleteConfigCommPoliciesById
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the Communication Policy
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: Provide extra details (in _extraInfo section) about the communication policy.
+        in: query
+        name: extraInfo
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comm-policy'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config'
+          description: Not Found
+      summary: Get a Communication Policy by ID
+      tags:
+      - Config - Communication Policies
+      operationId: getConfigCommPoliciesById
+      x-operation-id-source: derived
+    patch:
+      parameters:
+      - description: ID of the Communication Policy to update
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_config_comm_policies__id__patch_request'
+        description: Optional description in *Markdown*
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comm-policy'
+          description: Successful Operation
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config'
+          description: Not Found
+      summary: Update Communication Policy name or description
+      tags:
+      - Config - Communication Policies
+      operationId: patchConfigCommPoliciesById
+      x-operation-id-source: derived
+  /config/comm-policies/{id}/active:
+    get:
+      parameters:
+      - description: ID of the Communication Policy
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/active-comm-policy'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Get the active version for a Communication Policy
+      tags:
+      - Config - Communication Policies
+      operationId: getConfigCommPoliciesByIdActive
+      x-operation-id-source: derived
+    patch:
+      parameters:
+      - description: ID of the Communication Policy
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example: db6f0a2e-a368-4a97-91fb-cf3f61d72704
+              type: string
+        description: The version ID of the version to activate.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/post-comm-policy'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Activate pending or previous communication policy version
+      tags:
+      - Config - Communication Policies
+      operationId: patchConfigCommPoliciesByIdActive
+      x-operation-id-source: derived
+    put:
+      parameters:
+      - description: ID of the Communication Policy
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-comm-policy'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comm-policy-version'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Update the active Communication Policy version
+      tags:
+      - Config - Communication Policies
+      operationId: putConfigCommPoliciesByIdActive
+      x-operation-id-source: derived
+  /config/comm-policies/{id}/pending:
+    delete:
+      parameters:
+      - description: ID of the Communication Policy
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Delete the pending Communication Policy version
+      tags:
+      - Config - Communication Policies
+      operationId: deleteConfigCommPoliciesByIdPending
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the Communication Policy
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pending-comm-policy'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Get the pending version for a Communication Policy
+      tags:
+      - Config - Communication Policies
+      operationId: getConfigCommPoliciesByIdPending
+      x-operation-id-source: derived
+    put:
+      parameters:
+      - description: ID of the Communication Policy
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-comm-policy'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/post-comm-policy'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Update the pending Communication Policy version
+      tags:
+      - Config - Communication Policies
+      operationId: putConfigCommPoliciesByIdPending
+      x-operation-id-source: derived
+  /config/comm-policies/{id}/previous:
+    delete:
+      parameters:
+      - description: ID of the Communication Policy
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Delete the previous Communication Policy version
+      tags:
+      - Config - Communication Policies
+      operationId: deleteConfigCommPoliciesByIdPrevious
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the Communication Policy
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/previous-comm-policy'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Get the previous version for a Communication Policy
+      tags:
+      - Config - Communication Policies
+      operationId: getConfigCommPoliciesByIdPrevious
+      x-operation-id-source: derived
+components:
+  schemas:
+    pending_comm_policy_allOf:
+      properties:
+        version:
+          description: The version of the comm-policy.
+          example: PENDING
+          type: string
+      type: object
+      example: null
+    previous_comm_policy_allOf:
+      properties:
+        version:
+          description: The version of the comm-policy.
+          example: PREVIOUS
+          type: string
+      type: object
+      example: null
+    comm_policy_allOf:
+      properties:
+        previous:
+          $ref: '#/components/schemas/comm-policy-version'
+        active:
+          $ref: '#/components/schemas/comm-policy-version'
+        pending:
+          $ref: '#/components/schemas/comm-policy-version'
+      type: object
+      example: null
+    _config_comm_policies__id__patch_request:
+      properties:
+        name:
+          description: The name of the communication policy.
+          example: WAN Policy
+          type: string
+        description:
+          description: The description of the communication policy.
+          example: Production communication policy used by production workloads.
+          type: string
+      type: object
+    active-comm-policy:
+      allOf:
+      - $ref: '#/components/schemas/comm-policy-metadata'
+      - $ref: '#/components/schemas/comm-policy-version'
+      - $ref: '#/components/schemas/active_comm_policy_allOf'
+    comm-policy:
+      allOf:
+      - $ref: '#/components/schemas/comm-policy-metadata'
+      - $ref: '#/components/schemas/comm_policy_allOf'
+    not-found-config-version:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <config type> with ID=f5d72daf-aa8f-486c-8058-4fc587c0b471 found.
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>/f5d72daf-aa8f-486c-8058-4fc587c0b471/<version>
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<config type>
+          - f5d72daf-aa8f-486c-8058-4fc587c0b471
+          items:
+            type: string
+          type: array
+      type: object
+    comm-policy-metadata:
+      properties:
+        id:
+          description: The auto-generated ID of the communication policy.
+          example: f5d72daf-aa8f-486c-8058-4fc587c0b471
+          type: string
+        lastModified:
+          description: The last time the communication policy was modified.
+          example: 2018-01-31T17:59:22.055+0000
+          type: string
+        name:
+          description: The name of the communication policy.
+          example: WAN Policy
+          type: string
+        description:
+          description: A description of the communication policy.
+          example: Production communication policy used by production workloads.
+          type: string
+        tags:
+          description: Optional string key/value pairs for associating some context with the communication policy.
+          example:
+            destinationSystem: vantage
+          type: object
+      type: object
+    pending-comm-policy:
+      allOf:
+      - $ref: '#/components/schemas/comm-policy-metadata'
+      - $ref: '#/components/schemas/comm-policy-version'
+      - $ref: '#/components/schemas/pending_comm_policy_allOf'
+    not-found-config:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <config type> with ID=f5d72daf-aa8f-486c-8058-4fc587c0b471 found.
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>/f5d72daf-aa8f-486c-8058-4fc587c0b471
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<config type>
+          - f5d72daf-aa8f-486c-8058-4fc587c0b471
+          items:
+            type: string
+          type: array
+      type: object
+    previous-comm-policy:
+      allOf:
+      - $ref: '#/components/schemas/comm-policy-metadata'
+      - $ref: '#/components/schemas/comm-policy-version'
+      - $ref: '#/components/schemas/previous_comm_policy_allOf'
+    comm-policy-version:
+      example:
+        transferConcurrency: 1
+        policyVersion: 2
+        versionId: 22995fad-13e8-42fd-82c6-31f2390fb440
+        integrityHeadersOnly: false
+        compressionAlgorithm: NONE
+        authenticationKeySize: 2048
+        lastModified: 2017-12-11T17:52:01.088+0000
+        encryptionKeySize: 128
+        securityAlgorithm: AES_GCM
+        securityOption: INTEGRITY_SECURE_ENCRYPTION_ALL
+      properties:
+        versionId:
+          description: The ID associated with the active communication policy version.
+          example: 22995fad-13e8-42fd-82c6-31f2390fb440
+        lastModified:
+          description: The last time this version was modified.
+          example: 2017-12-11T17:52:01.088+0000
+        transferConcurrency:
+          description: 'The number of streams to use for communication between node pairs for transferring data.
+
+            '
+          example: 1
+          type: number
+        securityOption:
+          description: 'The type of security mechansims to enable for communication <br>  * IP-based Authentication, no integrity check, no encryption (INTEGRITY_NONE_ENCRYPTION_NONE) <br> * IP-based authentication, checksum integrity check, no encryption (INTEGRITY_CHECKSUM_ENCRYPTION_NONE) <br> * Key-based authentication, secure Integrity checks, encrypt credentials (INTEGRITY_SECURE_ENCRYPTION_CREDENTIALS_ONLY) <br> * Key-based authentication, secure Integrity checks, encrypt all data (INTEGRITY_SECURE_ENCRYPTION_ALL) <br>
+
+            '
+          enum:
+          - INTEGRITY_NONE_ENCRYPTION_NONE
+          - INTEGRITY_CHECKSUM_ENCRYPTION_NONE
+          - INTEGRITY_SECURE_ENCRYPTION_CREDENTIALS_ONLY
+          - INTEGRITY_SECURE_ENCRYPTION_ALL
+          example: INTEGRITY_SECURE_ENCRYPTION_ALL
+          type: string
+        integrityHeadersOnly:
+          default: false
+          description: Only perform integrity checks on message headers.
+          type: boolean
+        authenticationKeySize:
+          description: The size of the authentication key.
+          example: 2048
+          type: number
+        encryptionKeySize:
+          description: The size of the encryption key.
+          example: 128
+          type: number
+        compressionAlgorithm:
+          description: The compression algorithm to use
+          enum:
+          - NONE
+          - ZSTD
+          example: NONE
+          type: string
+        securityAlgorithm:
+          description: The security algorithm to use
+          enum:
+          - AES_CRC32C
+          - AES_GCM
+          - AES_SHA256
+          - AES_SHA512
+          example: AES_GCM
+          type: string
+        policyVersion:
+          description: The version of comm-policy.
+          enum:
+          - 1
+          - 2
+          example: 2
+          type: number
+      type: object
+    bad-request:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 400
+        error:
+          description: The error description
+          example: Bad Request
+        message:
+          description: The error message
+          example: '[name must not be blank]'
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>
+      type: object
+    post-comm-policy:
+      example:
+        transferConcurrency: 1
+        policyVersion: 2
+        integrityHeadersOnly: false
+        compressionAlgorithm: NONE
+        name: WAN Policy
+        authenticationKeySize: 2048
+        description: Production communication policy used by production workloads.
+        encryptionKeySize: 128
+        securityAlgorithm: AES_CRC32C
+        securityOption: INTEGRITY_SECURE_ENCRYPTION_ALL
+        tags:
+          destinationSystem: vantage
+      properties:
+        name:
+          description: The name of the communication policy.
+          example: WAN Policy
+          type: string
+        description:
+          description: A description of the communication policy.
+          example: Production communication policy used by production workloads.
+          type: string
+        transferConcurrency:
+          description: 'The number of streams to use for communication between node pairs for transferring data.
+
+            '
+          example: 1
+          type: number
+        securityOption:
+          description: 'The type of security mechansims to enable for communication <br>  * IP-based Authentication, no integrity check, no encryption (INTEGRITY_NONE_ENCRYPTION_NONE) <br> * IP-based authentication, checksum integrity check, no encryption (INTEGRITY_CHECKSUM_ENCRYPTION_NONE) <br> * Key-based authentication, secure Integrity checks, encrypt credentials (INTEGRITY_SECURE_ENCRYPTION_CREDENTIALS_ONLY) <br> * Key-based authentication, secure Integrity checks, encrypt all data (INTEGRITY_SECURE_ENCRYPTION_ALL) <br>
+
+            '
+          enum:
+          - INTEGRITY_NONE_ENCRYPTION_NONE
+          - INTEGRITY_CHECKSUM_ENCRYPTION_NONE
+          - INTEGRITY_SECURE_ENCRYPTION_CREDENTIALS_ONLY
+          - INTEGRITY_SECURE_ENCRYPTION_ALL
+          example: INTEGRITY_SECURE_ENCRYPTION_ALL
+          type: string
+        securityAlgorithm:
+          description: The algorithm to use for integrity checks and encryption.
+          enum:
+          - AES_CRC32C
+          - AES_GCM
+          - AES_SHA256
+          - AES_SHA512
+          type: string
+        integrityHeadersOnly:
+          default: false
+          description: Only perform integrity checks on message headers.
+          type: boolean
+        authenticationKeySize:
+          description: The size of the authentication key.
+          example: 2048
+          type: number
+        encryptionKeySize:
+          description: The size of the encryption key.
+          example: 128
+          type: number
+        compressionAlgorithm:
+          description: The compression algorithm to use
+          enum:
+          - NONE
+          - ZSTD
+          example: NONE
+          type: string
+        policyVersion:
+          description: The version of comm-policy.
+          enum:
+          - 1
+          - 2
+          example: 2
+          type: number
+        tags:
+          description: Optional string key/value pairs for associating some context with the communication policy.
+          example:
+            destinationSystem: vantage
+          type: object
+      type: object
+    active_comm_policy_allOf:
+      properties:
+        version:
+          description: The version of the comm-policy.
+          example: ACTIVE
+          type: string
+      type: object
+      example: null
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

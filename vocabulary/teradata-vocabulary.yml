@@ -1,0 +1,432 @@
+generated: '2026-10-04'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/tdqg-manager-api.yml
+- openapi/teradata-api-info-api-openapi.yml
+- openapi/teradata-configuration-api-openapi.yml
+- openapi/teradata-issues-api-openapi.yml
+- openapi/teradata-managers-api-openapi.yml
+vocabulary:
+  name: Teradata Domain Vocabulary
+  description: 'Terms declared by Teradata''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-04'
+  terms:
+  - term: API Info
+    definition: Information about Manager version and features
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Issues
+    definition: Warnings about QueryGrid environment or configuration issues
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Managers
+    definition: Information about Managers belonging to this cluster
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Nodes
+    definition: Information about QueryGrid-attached nodes
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Queries
+    definition: Information about QueryGrid queries
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Software
+    definition: Information about uploaded QueryGrid Software
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Support-Archive
+    definition: Generate support archive for a Manager, System, Node, Query, or Bandwidth Tests issues
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Users
+    definition: Manage users allowed to access QueryGrid Manager APIs
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Config - Bridges
+    definition: Manage bridges used for routing QueryGrid communication between systems without direct connectivity
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Config - Communication Policies
+    definition: Manage communication policies that define how data is transferred between systems
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Config - Connectors
+    definition: Manage connectors that connect data sources to the QueryGrid Fabric
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Config - Data Centers
+    definition: Manage data centers (a.k.a regions) where QueryGrid software is deployed
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Config - Fabrics
+    definition: Manage fabrics responsible for QueryGrid inter-node communication
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Config - Links
+    definition: Manage links that enable connectivity between connectors
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Config - Networks
+    definition: Manage network rules that determine the network interfaces to use for communications
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Config - Node Virtual IPs
+    definition: Manage virtual IPs associated with nodes
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Config - Systems
+    definition: Manage the systems or platforms associated with QueryGrid connectors
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Config - User/Role Mappings
+    definition: Map initiator user and roles to target user and roles
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Operations - Bulk Delete
+    definition: Bulk delete nodes or issues
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Operations - Diagnostic Checks / Connector Install
+    definition: Start and monitor diagnostic check and connector install operations
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Operations - Import System
+    definition: Import a system from a different QueryGrid Manager cluster
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Operations - Nodes Auto Install
+    definition: Automate install and registration of nodes with QueryGrid Manager
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Operations - Nodes Manual Install
+    definition: Download config file needed for manual install and registration of nodes with QueryGrid Manager
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Operations - Shared Memory Estimator
+    definition: Estimate memory needed for QueryGrid operations
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Operations - Create Foreign Server
+    definition: Create a foreign server for a given link
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Operations - Register Remote Lake System
+    definition: Register current system nodes to remote lake system
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Operations - Add Data Source
+    definition: Register a new data source to QueryGrid Manager
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Operations - Data Source Registration File
+    definition: Generate node registration zip file for a given datasource
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Operations - Private Link Template
+    definition: Generate private link template file for a given cloud platform
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: Operations - Disable System Alerts
+    definition: Disable system alerts for a specific system and issue type
+    tags:
+    - Resource Group
+    source: openapi/tdqg-manager-api.yml
+  - term: api-info
+    definition: 'Object declared by the contract with fields: instanceId, appVersion, apiVersion, timestamp, features.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/api-info
+  - term: issue
+    definition: 'Object declared by the contract with fields: id, lastModified, createTime, componentType, componentId, componentName, dataCenterName,
+      problemType, severity, subjectLabel, subjectParams, messageLabel. (5 more)'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/issue
+  - term: post-issue
+    definition: 'Object declared by the contract with fields: problemType, componentType, messageParams.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/post-issue
+  - term: bad-request
+    definition: 'Object declared by the contract with fields: timestamp, status, error, message, path.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/bad-request
+  - term: not-found-entity
+    definition: 'Object declared by the contract with fields: timestamp, status, error, message, path, errorCode, errorParams.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/not-found-entity
+  - term: manager
+    definition: 'Object declared by the contract with fields: id, lastModified, hostname, networkInterfaces, dataCenterId, version, publicAddress,
+      clusterAddress, bindAddress, startTime, additionalPublicAddresses, _extraInfo.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/manager
+  - term: node
+    definition: 'Object declared by the contract with fields: id, lastModified, hostname, aliases, platform, attributes, systemId, networkInterfaces,
+      _extraInfo.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/node
+  - term: watchdog-heartbeat
+    definition: 'Object declared by the contract with fields: nodeId, timestamp, instanceId, lastModified, version, fabrics, connectors, managers,
+      received, systemId, systemName, hostname. (3 more)'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/watchdog-heartbeat
+  - term: fabric-status
+    definition: 'Object declared by the contract with fields: fabricName, version, softwareVersion, versionId, status, processId, errorMessage,
+      lastUnexpectedRestart, drivers.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/fabric-status
+  - term: driver-status
+    definition: 'Object declared by the contract with fields: driverName, status, processId, errorMessage, lastUnexpectedRestart.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/driver-status
+  - term: connector-status
+    definition: 'Object declared by the contract with fields: versionId, connectorName, connectorVersion, softwareName, softwareVersion, fabricName,
+      status, errorMessage.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/connector-status
+  - term: manager-status
+    definition: 'Object declared by the contract with fields: clusterId, primary, addresses, fabricPortConflicts, linkNameConflicts.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/manager-status
+  - term: fabric-port-conflict-status
+    definition: 'Object declared by the contract with fields: fabricName, port, fabricVersion.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/fabric-port-conflict-status
+  - term: link-name-conflict-status
+    definition: 'Object declared by the contract with fields: linkName, fabricName.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/link-name-conflict-status
+  - term: software
+    definition: 'Object declared by the contract with fields: id, lastModified, name, fileName, type, version, qgmVersion, platform, buildDate,
+      packageSize, queryPointSupport, driverSupportEnabled. (8 more)'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/software
+  - term: connector-properties
+    definition: 'Object declared by the contract with fields: name, i18nKey, i18nDescriptionKey, dataType, required, requiredForConnectorCheck,
+      connectorCheckOnly, defaultValue, appliesTo, enumValues, enumi18nKeyPrefix, unitsi18nKey. (7 more)'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/connector-properties
+  - term: user
+    definition: 'Object declared by the contract with fields: username, password, defaultUser, description.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/user
+  - term: user-post
+    definition: 'Object declared by the contract with fields: username, password, defaultUser, description, unlockAccountRequest.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/user-post
+  - term: data-center
+    definition: 'Object declared by the contract with fields: id, lastModified, name, description.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/data-center
+  - term: post-data-center
+    definition: 'Object declared by the contract with fields: name, description.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/post-data-center
+  - term: not-found-config
+    definition: 'Object declared by the contract with fields: timestamp, status, error, message, path, errorCode, errorParams.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/not-found-config
+  - term: system
+    definition: 'Object declared by the contract with fields: id, lastModified, name, description, dataCenterId, region, softwareVersion, maximumMemoryPerNode,
+      bridgeOnly, proxySupportType, proxyPort, proxyNetworkId. (11 more)'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/system
+  - term: system-extra-info
+    definition: 'Object declared by the contract with fields: nodesOnline, nodesOffline, dataCenterName, lastInstallOperationId, lastInstallStatus.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/system-extra-info
+  - term: post-system
+    definition: 'Object declared by the contract with fields: name, description, dataCenterId, region, softwareVersion, maximumMemoryPerNode,
+      bridgeOnly, proxySupportType, proxyPort, proxyNetworkId, proxyBridgeId, enableProxy. (8 more)'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/post-system
+  - term: bridge
+    definition: 'Object declared by the contract with fields: id, lastModified, name, description, systemId, nodeIds.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/bridge
+  - term: post-bridge
+    definition: 'Object declared by the contract with fields: name, description, systemId, nodeIds.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/post-bridge
+  - term: comm-policy-metadata
+    definition: 'Object declared by the contract with fields: id, lastModified, name, description, tags.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/comm-policy-metadata
+  - term: comm-policy-version
+    definition: 'Object declared by the contract with fields: versionId, lastModified, transferConcurrency, securityOption, integrityHeadersOnly,
+      authenticationKeySize, encryptionKeySize, compressionAlgorithm, securityAlgorithm, policyVersion.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/comm-policy-version
+  - term: post-comm-policy
+    definition: 'Object declared by the contract with fields: name, description, transferConcurrency, securityOption, securityAlgorithm, integrityHeadersOnly,
+      authenticationKeySize, encryptionKeySize, compressionAlgorithm, policyVersion, tags.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/post-comm-policy
+  - term: not-found-config-version
+    definition: 'Object declared by the contract with fields: timestamp, status, error, message, path, errorCode, errorParams.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/not-found-config-version
+  - term: network-metadata
+    definition: 'Object declared by the contract with fields: id, lastModified, name, description, tags.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/network-metadata
+  - term: network-version
+    definition: 'Object declared by the contract with fields: versionId, lastModified, matchingRules, loadBalancerAddress, connectionType.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/network-version
+  - term: matching-rule
+    definition: 'Object declared by the contract with fields: type, value.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/matching-rule
+  - term: post-network
+    definition: 'Object declared by the contract with fields: name, description, connectionType, matchingRules, loadBalancerAddress, tags.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/post-network
+  - term: user-mapping
+    definition: 'Object declared by the contract with fields: id, lastModified, name, description, userMapping, roleMapping.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/user-mapping
+  - term: post-user-mapping
+    definition: 'Object declared by the contract with fields: name, description, userMapping, roleMapping.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/post-user-mapping
+  - term: fabric-metadata
+    definition: 'Object declared by the contract with fields: id, lastModified, name, description, tags.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/fabric-metadata
+  - term: fabric-version
+    definition: 'Object declared by the contract with fields: versionId, lastModified, port, softwareVersion, authKeySize, _extraInfo.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/fabric-version
+  - term: fabric-extra-info
+    definition: 'Object declared by the contract with fields: nodesOnline, nodesOffline.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/fabric-extra-info
+  - term: post-fabric
+    definition: 'Object declared by the contract with fields: name, description, port, softwareVersion, authKeySize, tags.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/post-fabric
+  - term: connector-metadata
+    definition: 'Object declared by the contract with fields: id, lastModified, name, disabled, tags.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/connector-metadata
+  - term: connector-version
+    definition: 'Object declared by the contract with fields: versionId, lastModified, softwareName, softwareVersion, fabricId, systemId, driverName,
+      loaderConnectorName, remoteConnectorClassName, queryPointSupport, driverSupportEnabled, foreignServerRollbackSupport. (8 more)'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/connector-version
+  - term: connector-extra-info
+    definition: 'Object declared by the contract with fields: nodesOnline, nodesOffline, driversOnline, driversOffline, systemName, fabricName.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/connector-extra-info
+  - term: post-connector
+    definition: 'Object declared by the contract with fields: name, description, softwareName, softwareVersion, fabricId, systemId, driverNodes,
+      properties, overrideableProperties, allowedOSUsers, tags.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/post-connector
+  - term: link-metadata
+    definition: 'Object declared by the contract with fields: id, lastModified, name, description, tags.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/link-metadata
+  - term: link-version
+    definition: 'Object declared by the contract with fields: versionId, lastModified, fabricId, initiatorConnectorId, initiatorProperties, overridableInitiatorPropertyNames,
+      initiatorNetworkId, initiatorThreadsPerQuery, targetConnectorId, targetProperties, overridableTargetPropertyNames, targetNetworkId. (7 more)'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/link-version
+  - term: link-bridge
+    definition: 'Object declared by the contract with fields: bridgeId, initiatorNetworkId, targetNetworkId, commPolicyId, threadsPerQuery.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/link-bridge
+  - term: link-extra-info
+    definition: 'Object declared by the contract with fields: initiatingConnectorName, initiatingSystemName, targetConnectorName, targetSystemName,
+      commPolicyName, fabricName.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/link-extra-info
+  - term: post-link
+    definition: 'Object declared by the contract with fields: name, description, fabricId, initiatorConnectorId, initiatorProperties, overridableInitiatorPropertyNames,
+      initiatorNetworkId, initiatorThreadsPerQuery, targetConnectorId, targetProperties, overridableTargetPropertyNames, targetNetworkId. (7 more)'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/post-link
+  - term: node-virtual-ips-response
+    definition: 'Object declared by the contract with fields: id, lastModified, networkInterfaces.'
+    tags:
+    - Object
+    source: openapi/tdqg-manager-api.yml#/components/schemas/node-virtual-ips-response

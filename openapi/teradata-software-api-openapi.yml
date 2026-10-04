@@ -1,16 +1,20 @@
 openapi: 3.2.0
 info:
-  title: Teradata QueryGrid Manager Software API
-  description: REST API for centralized administration and monitoring of Teradata QueryGrid, the data fabric that enables seamless cross-system analytics. Manage data centers, systems, bridges, connectors, links, fabrics, networks, and node configurations.
-  version: '3.6'
-  contact:
-    name: Teradata
-    url: https://www.teradata.com
-  x-generated-from: documentation
-  x-last-validated: '2026-04-18'
+  title: Teradata Software API
+  x-refined-note:
+  - x-generated-from differs across the merged source definitions and was not carried
+  - x-last-validated differs across the merged source definitions and was not carried
+  version: '1.0'
+  description: 'Operations tagged Software across 2 of this provider''s published API definitions: teradata-querygrid-manager-api.yaml, tdqg-manager-api.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://querygrid.teradata.com/api/v1
   description: Default QueryGrid Manager endpoint
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
 security:
 - BasicAuth: []
 tags:
@@ -43,6 +47,261 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    post:
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/_software_post_request'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/software'
+                type: array
+          description: Successful Operation
+      summary: Upload software
+      tags:
+      - Software
+      operationId: postSoftware
+      x-operation-id-source: derived
+    servers:
+    - url: https://querygrid.teradata.com/api/v1
+      description: Default QueryGrid Manager endpoint
+  /software/jdbc-driver:
+    get:
+      description: Get all the JDBC driver software packages uploaded to QueryGrid Manager
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/software'
+                type: array
+          description: Successful Operation
+      summary: Find all JDBC driver software
+      tags:
+      - Software
+      operationId: getSoftwareJdbcDriver
+      x-operation-id-source: derived
+    post:
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/_software_jdbc_driver_post_request'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/software'
+                type: array
+          description: Successful Operation
+      summary: Upload software
+      tags:
+      - Software
+      operationId: postSoftwareJdbcDriver
+      x-operation-id-source: derived
+    servers:
+    - description: Default API endpoint
+      url: /api/v1
+    - description: Querygrid Prefix API endpoint
+      url: /querygrid/api/v1
+    - description: Streaming Prefix API endpoint
+      url: /querygrid-streaming/api/v1
+  /software/jdbc-driver/{jdbcDriverName}:
+    get:
+      description: Get the software using the jdbcDriverName
+      parameters:
+      - description: jdbcDriverName of software to get
+        in: path
+        name: jdbcDriverName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/software'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-entity'
+          description: No software found with the specified jdbcDriverName
+      summary: Find software by jdbcDriverName
+      tags:
+      - Software
+      operationId: getSoftwareJdbcDriverByJdbcDriverName
+      x-operation-id-source: derived
+    servers:
+    - description: Default API endpoint
+      url: /api/v1
+    - description: Querygrid Prefix API endpoint
+      url: /querygrid/api/v1
+    - description: Streaming Prefix API endpoint
+      url: /querygrid-streaming/api/v1
+  /software/jdbc-driver/{id}:
+    delete:
+      description: Delete a single Jdbc-driver software based on the Id supplied
+      parameters:
+      - description: Id of Jdbc-driver software that needs to be deleted.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Software deleted
+      summary: Delete Jdbc-driver software using Id
+      tags:
+      - Software
+      operationId: deleteSoftwareJdbcDriverById
+      x-operation-id-source: derived
+    servers:
+    - description: Default API endpoint
+      url: /api/v1
+    - description: Querygrid Prefix API endpoint
+      url: /querygrid/api/v1
+    - description: Streaming Prefix API endpoint
+      url: /querygrid-streaming/api/v1
+  /software/{id}:
+    delete:
+      description: Delete a single software based on the Id supplied
+      parameters:
+      - description: Id of software that needs to be deleted.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Software deleted
+      summary: Delete software using Id
+      tags:
+      - Software
+      operationId: deleteSoftwareById
+      x-operation-id-source: derived
+    get:
+      description: Get the software using the Id
+      parameters:
+      - description: Id of software to get
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/software'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-entity'
+          description: No software found with the specified Id
+      summary: Find software by Id
+      tags:
+      - Software
+      operationId: getSoftwareById
+      x-operation-id-source: derived
+    servers:
+    - description: Default API endpoint
+      url: /api/v1
+    - description: Querygrid Prefix API endpoint
+      url: /querygrid/api/v1
+    - description: Streaming Prefix API endpoint
+      url: /querygrid-streaming/api/v1
+  /software/{id}/package:
+    get:
+      description: Download the software using the Id
+      parameters:
+      - description: Id of software to download
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+          description: Successful response to download the software package.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-entity'
+          description: No software found with the specified Id
+      summary: Download software by Id
+      tags:
+      - Software
+      operationId: getSoftwareByIdPackage
+      x-operation-id-source: derived
+    servers:
+    - description: Default API endpoint
+      url: /api/v1
+    - description: Querygrid Prefix API endpoint
+      url: /querygrid/api/v1
+    - description: Streaming Prefix API endpoint
+      url: /querygrid-streaming/api/v1
+  /software/{id}/resource-bundle:
+    get:
+      description: Download the software resource-bundle using the Id
+      parameters:
+      - description: Id of software of the resource bundle to download
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The locale of the resource bundle to get
+        in: query
+        name: locale
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Resource bundle data in JSON format.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-entity'
+          description: No resource bundle found in the specified software package.
+      summary: Download resource-bundle by Id
+      tags:
+      - Software
+      operationId: getSoftwareByIdResourceBundle
+      x-operation-id-source: derived
+    servers:
+    - description: Default API endpoint
+      url: /api/v1
+    - description: Querygrid Prefix API endpoint
+      url: /querygrid/api/v1
+    - description: Streaming Prefix API endpoint
+      url: /querygrid-streaming/api/v1
 components:
   schemas:
     Software:
@@ -61,8 +320,321 @@ components:
           type: string
           description: Package type.
           example: plugin
+    not-found-entity:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <entity type> with id=15fd2337-980b-4d0f-951e-e6c848a81b5d found.
+        path:
+          description: The path of the API called
+          example: /api/v1/<type>/15fd2337-980b-4d0f-951e-e6c848a81b5d
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<entity type>
+          - 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          items:
+            type: string
+          type: array
+      type: object
+    connector-properties:
+      example:
+        unitsi18nKey: unitsi18nKey
+        requiredForInstall: true
+        connectorCheckOnly: true
+        defaultValue: 10000
+        installOnly: true
+        subGroup: knox
+        dataType: INTEGER
+        appliesTo: false
+        required: true
+        i18nKey: port
+        name: port
+        overridable: true
+        enumi18nKeyPrefix: enumi18nKeyPrefix
+        i18nDescriptionKey: portDescription
+        requiredForConnectorCheck: true
+        enumValues:
+        - OPTION1
+        - OPTION2
+        - OPTION3
+        confidential: true
+        group: security
+        order: 1
+      properties:
+        name:
+          description: The name of the property
+          example: port
+          type: string
+        i18nKey:
+          description: The key to use to lookup the i18n version of the property in the resouce bundle.
+          example: port
+        i18nDescriptionKey:
+          description: The key to use to lookup the i18n version of the property description in the resouce bundle.
+          example: portDescription
+        dataType:
+          description: The data type of the property value
+          enum:
+          - STRING
+          - PASSWORD
+          - INTEGER
+          - LONG
+          - FLOAT
+          - DOUBLE
+          - BOOLEAN
+          - ENUM
+          example: INTEGER
+          type: string
+        required:
+          description: Flags if the property value is required
+          type: boolean
+        requiredForConnectorCheck:
+          description: Flags if the property is required for the Connector diagnostic check.
+          type: boolean
+        connectorCheckOnly:
+          description: Flags if the property is only associated with a Connector diagnostic check
+          type: boolean
+        defaultValue:
+          description: The default value for the property
+          example: 10000
+        appliesTo:
+          description: Flags if the property applies to the initiator, target, or both
+          enum:
+          - false
+          - false
+          - false
+          example: false
+          type: boolean
+        enumValues:
+          description: The possible values if the data type is enum
+          example:
+          - OPTION1
+          - OPTION2
+          - OPTION3
+          items:
+            type: string
+          type: array
+        enumi18nKeyPrefix:
+          description: The prefix to apply to enum values when looking up i18n strings in resource bundle
+          type: string
+        unitsi18nKey:
+          description: The label used to lookup the language specific units in the resource bundle
+          type: string
+        confidential:
+          description: Flags if the property value should be kept confidential and encrypted on disk
+          type: boolean
+        overridable:
+          description: Flags if the property has the ability to be overridden by end users.
+          type: boolean
+        requiredForInstall:
+          description: Flags if the property is required for connector install
+          type: boolean
+        installOnly:
+          description: Flags if the property is only required for Connector install
+          type: boolean
+        group:
+          description: Indicates the group for this connector property
+          example: security
+          type: string
+        subGroup:
+          description: Indicates the sub-group for this connector property
+          example: knox
+          type: string
+        order:
+          description: Indicates display order within a group or subgroup
+          example: 1
+          type: integer
+      type: object
+    software:
+      example:
+        qgmVersion: 02.04.00.00
+        fileName: tdqg-hive-connector__linux_x8664.02.04.00.01-56.tar.gz
+        connectorProperties:
+        - unitsi18nKey: unitsi18nKey
+          requiredForInstall: true
+          connectorCheckOnly: true
+          defaultValue: 10000
+          installOnly: true
+          subGroup: knox
+          dataType: INTEGER
+          appliesTo: false
+          required: true
+          i18nKey: port
+          name: port
+          overridable: true
+          enumi18nKeyPrefix: enumi18nKeyPrefix
+          i18nDescriptionKey: portDescription
+          requiredForConnectorCheck: true
+          enumValues:
+          - OPTION1
+          - OPTION2
+          - OPTION3
+          confidential: true
+          group: security
+          order: 1
+        - unitsi18nKey: unitsi18nKey
+          requiredForInstall: true
+          connectorCheckOnly: true
+          defaultValue: 10000
+          installOnly: true
+          subGroup: knox
+          dataType: INTEGER
+          appliesTo: false
+          required: true
+          i18nKey: port
+          name: port
+          overridable: true
+          enumi18nKeyPrefix: enumi18nKeyPrefix
+          i18nDescriptionKey: portDescription
+          requiredForConnectorCheck: true
+          enumValues:
+          - OPTION1
+          - OPTION2
+          - OPTION3
+          confidential: true
+          group: security
+          order: 1
+        queryPointSupport: true
+        loaderConnectorName: loaderConnectorName
+        buildDate: 2000-01-23 04:56:07+00:00
+        packageSize: 234301
+        managerId: 0bfe8c3c-2d52-4818-872b-babafbd252cc
+        type: CONNECTOR
+        version: 02.04.00.01-56
+        platform: noarch
+        foreignServerRollbackSupport: true
+        installMethod: ONE_DRIVER
+        driverSupportEnabled: true
+        name: tdqg-node
+        driverName: java
+        id: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+        lastModified: 2000-01-23 04:56:07+00:00
+        remoteConnectorName: remoteConnectorName
+        remoteConnectorClassName: com.teradata.querygrid.qgc.hive.remote.HiveConnectorFactory
+      properties:
+        id:
+          description: Id of the software
+          example: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          type: string
+        lastModified:
+          description: The last time this object was modified
+          format: date-time
+          type: string
+        name:
+          description: The name of the software package.
+          example: tdqg-node
+          type: string
+        fileName:
+          description: The file name of the uploaded software package.
+          example: tdqg-hive-connector__linux_x8664.02.04.00.01-56.tar.gz
+          type: string
+        type:
+          description: The type of the software package
+          enum:
+          - NODE
+          - FABRIC
+          - CONNECTOR
+          example: CONNECTOR
+          type: string
+        version:
+          description: The version of the software pacakge
+          example: 02.04.00.01-56
+          type: string
+        qgmVersion:
+          description: The minimum supported version of the QGM the pacakge requires.
+          example: 02.04.00.00
+          type: string
+        platform:
+          description: The platform for the package.
+          example: noarch
+          type: string
+        buildDate:
+          description: The time the package was built.
+          format: date-time
+          type: string
+        packageSize:
+          description: The size of the package in bytes
+          example: 234301
+          type: number
+        queryPointSupport:
+          description: Flags if a connnector supports initiating queries (true), or just being the target of queries (false).
+          type: boolean
+        driverSupportEnabled:
+          description: Flags if a connector has driver support feature enabled
+          example: true
+          type: boolean
+        foreignServerRollbackSupport:
+          description: Flags if connector supports foreign server rollback.
+          example: true
+          type: boolean
+        driverName:
+          description: The name of the driver required by the connector.
+          example: java
+          type: string
+        loaderConnectorName:
+          description: The name of the connector loader
+          type: string
+        remoteConnectorName:
+          description: The name of the remote connector.
+          type: string
+        remoteConnectorClassName:
+          description: The class name of the remote connector
+          example: com.teradata.querygrid.qgc.hive.remote.HiveConnectorFactory
+          type: string
+        connectorProperties:
+          description: Meta data about the properties that can be supplied to a connector.
+          items:
+            $ref: '#/components/schemas/connector-properties'
+          type: array
+        managerId:
+          description: The ID of the manager the software was uploaded to.
+          example: 0bfe8c3c-2d52-4818-872b-babafbd252cc
+          type: string
+        installMethod:
+          description: The type of install method the connector supports.
+          enum:
+          - NONE
+          - ONE_DRIVER
+          - ALL_DRIVERS
+          example: ONE_DRIVER
+          type: string
+      type: object
+    _software_jdbc_driver_post_request:
+      properties:
+        jdbcDriverFile:
+          format: binary
+          type: string
+        jdbcDriverName:
+          type: string
+      type: object
+    _software_post_request:
+      properties:
+        file:
+          format: binary
+          type: string
+        jdbcDriverFile:
+          format: binary
+          type: string
+        jdbcDriverName:
+          type: string
+      type: object
   securitySchemes:
     BasicAuth:
       type: http
       scheme: basic
       description: HTTP Basic authentication with QueryGrid Manager credentials.
+x-refined-from:
+- teradata-querygrid-manager-api.yaml
+- tdqg-manager-api.yml

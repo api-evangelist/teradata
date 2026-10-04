@@ -1,0 +1,338 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Operations - Diagnostic Checks /…
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Start and monitor diagnostic check and connector install operations
+  name: Operations - Diagnostic Checks / Connector Install
+paths:
+  /operations/diagnostic-check:
+    post:
+      description: Request a diagnostic check or connector install.
+      operationId: postDiagnosticCheck
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/diagnostic-check-request'
+        description: The diagnostic check request
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/diagnostic-check-request'
+          description: Successfully able to register the diagnostic check operation.
+        '400':
+          description: Bad Request
+      summary: Perform a diagnostic check or connector install
+      tags:
+      - Operations - Diagnostic Checks / Connector Install
+  /operations/diagnostic-check/{diagnosticCheckId}:
+    delete:
+      description: Abort a diagnostic check based on the Id supplied
+      operationId: deleteDiagnosticCheckById
+      parameters:
+      - description: Id of diagnostic check that needs to be aborted. Applicable only for LINK_BANDWIDTH check.
+        in: path
+        name: diagnosticCheckId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Abort requested for the specified diagnostic check operation
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+      summary: Abort a diagnostic check or connector install
+      tags:
+      - Operations - Diagnostic Checks / Connector Install
+    get:
+      description: Get the diagostic check status using the Id.
+      operationId: getDiagnosticCheckById
+      parameters:
+      - description: Id of diagnostic check operation.
+        in: path
+        name: diagnosticCheckId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/diagnostic-check-response'
+          description: successful operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-diagnostic-check'
+          description: Diagnostic Check operation status not found
+      summary: Get the status of a diagnostic check or connector install
+      tags:
+      - Operations - Diagnostic Checks / Connector Install
+components:
+  schemas:
+    diagnostic-check-request:
+      example:
+        componentId: componentId
+        dataFlow: IMPORT
+        type: LINK
+        nodeId: nodeId
+        version: ACTIVE
+        bandwidthMBPerNode: 0
+        properties: '{}'
+      properties:
+        type:
+          description: Type of diagostic check
+          enum:
+          - LINK
+          - LINK_BANDWIDTH
+          - CONNECTOR
+          - CONNECTOR_INSTALL
+          type: string
+        componentId:
+          description: Id of the link or connector to check. Link Id should be used with LINK and LINK_BANDWITH diagnostic checks, and Connector ID with the CONNECTOR AND CONNECTOR_INSTALL operations. To find the Id of a link use the API - /api/v1/config/links. To find the Id of a connector use the API - /api/v1/config/connectors.
+          type: string
+        nodeId:
+          description: Id of the driver node used in case of CONNECTOR_INSTALL.
+          type:
+          - string
+          - 'null'
+        version:
+          description: Version of the link or connector
+          enum:
+          - ACTIVE
+          - PENDING
+          type: string
+        properties:
+          description: Connector properties to use for a CONNECTOR diagnostic check. Untar the connector package and open the \<version\>/.pkgmeta/pkginfo.yaml file to look at the supported connector properties. All properties for the connector are listed in that file under “connectorProperties”. The mapping of the properties with the names used in the UI and the user guide, along with descriptions, can be found in the \<version\>/.pkgmeta/messages.properties file.
+          type:
+          - object
+          - 'null'
+        dataFlow:
+          description: The direction data flows for LINK_BANDWIDTH checks.
+          enum:
+          - IMPORT
+          - EXPORT
+          type:
+          - string
+          - 'null'
+        bandwidthMBPerNode:
+          description: Number of MB to send from one node to each other in case of LINK_BANDWIDTH check.
+          format: int64
+          type:
+          - integer
+          - 'null'
+      type: object
+    diagnostic-check-response:
+      example:
+        totalBytesReceived: 9
+        bandwidth: 3
+        totalCount: 0
+        inProgressCount: 5
+        nodes:
+        - bytesReceived: 2
+          hostname: hostname
+          systemId: systemId
+          systemName: systemName
+          startTime: 2000-01-23 04:56:07+00:00
+          endTime: 2000-01-23 04:56:07+00:00
+          bytesSent: 5
+          error: error
+          nodeId: nodeId
+          status: IN_PROGRESS
+        - bytesReceived: 2
+          hostname: hostname
+          systemId: systemId
+          systemName: systemName
+          startTime: 2000-01-23 04:56:07+00:00
+          endTime: 2000-01-23 04:56:07+00:00
+          bytesSent: 5
+          error: error
+          nodeId: nodeId
+          status: IN_PROGRESS
+        totalBytesSent: 7
+        successCount: 6
+        startTime: 2000-01-23 04:56:07+00:00
+        id: id
+        endTime: 2000-01-23 04:56:07+00:00
+        lastModified: 2000-01-23 04:56:07+00:00
+        errorCount: 1
+        status: IN_PROGRESS
+      properties:
+        id:
+          description: A UUID representing the diagnostic operation.
+          type: string
+        status:
+          description: The overall status of the diagnostic check.
+          enum:
+          - IN_PROGRESS
+          - SUCCESS
+          - FAILURE
+          type: string
+        startTime:
+          description: The time the operation started.
+          format: date-time
+          type: string
+        endTime:
+          description: The time the operation completed.
+          format: date-time
+          type: string
+        lastModified:
+          description: The time the status was last modified.
+          format: date-time
+          type: string
+        totalCount:
+          description: The total number of nodes to check.
+          format: int64
+          type: integer
+        successCount:
+          description: The number of nodes that succeeded.
+          format: int32
+          type: integer
+        errorCount:
+          description: The number of nodes that failed.
+          format: int32
+          type: integer
+        inProgressCount:
+          description: The number of nodes that are in progress.
+          format: int32
+          type: integer
+        nodes:
+          description: The status of each of the individual nodes.
+          items:
+            $ref: '#/components/schemas/diagnostic-check-node-response'
+          type: array
+        totalBytesSent:
+          description: The total number of bytes sent in case of LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+        totalBytesReceived:
+          description: The total number of bytes received in case of LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+        bandwidth:
+          description: The measured bandwidth in bytes per second only in case of LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+      type: object
+    not-found-diagnostic-check:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No DIAGNOSTIC_CHECK with id=15fd2337-980b-4d0f-951e-e6c848a81b5d found.
+        path:
+          description: The path of the API called
+          example: /api/v1/operations/diagnostic-check/15fd2337-980b-4d0f-951e-e6c848a81b5d
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.DIAGNOSTIC_CHECK
+          - 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          items:
+            type: string
+          type: array
+      type: object
+    diagnostic-check-node-response:
+      example:
+        bytesReceived: 2
+        hostname: hostname
+        systemId: systemId
+        systemName: systemName
+        startTime: 2000-01-23 04:56:07+00:00
+        endTime: 2000-01-23 04:56:07+00:00
+        bytesSent: 5
+        error: error
+        nodeId: nodeId
+        status: IN_PROGRESS
+      properties:
+        nodeId:
+          description: The id of the node
+          type: string
+        status:
+          description: The status of the check
+          enum:
+          - IN_PROGRESS
+          - SUCCESS
+          - FAILURE
+          type: string
+        startTime:
+          description: The time the operation started.
+          format: date-time
+          type: string
+        endTime:
+          description: The time the operation ended.
+          format: date-time
+          type: string
+        bytesSent:
+          description: The number of bytes sent. Only applicable to LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+        bytesReceived:
+          description: The number of bytes received. Only applicable to LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+        error:
+          description: The error associated with the failure if not successful.
+          type: string
+        hostname:
+          description: The hostname or IP of the node.
+          type: string
+        systemId:
+          description: The UUID of the system.
+          type: string
+        systemName:
+          description: The name of the system.
+          type: string
+      type: object
+    bad-request:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 400
+        error:
+          description: The error description
+          example: Bad Request
+        message:
+          description: The error message
+          example: '[name must not be blank]'
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>
+      type: object
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

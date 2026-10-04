@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/main/json-schema/teradata-session-request-schema.json",
+  "title": "SessionRequest",
+  "description": "Request to create a query session.",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/teradata-sessions-api-openapi.yml#/components/schemas/SessionRequest",
+  "type": "object",
+  "properties": {
+    "system": {
+      "type": "string",
+      "description": "Target system name."
+    },
+    "username": {
+      "type": "string",
+      "description": "Database username."
+    },
+    "database": {
+      "type": "string",
+      "description": "Default database."
+    }
+  },
+  "required": [
+    "system",
+    "username"
+  ]
+}

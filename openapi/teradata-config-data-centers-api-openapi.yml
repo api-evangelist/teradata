@@ -1,0 +1,233 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Config - Data Centers API
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Manage data centers (a.k.a regions) where QueryGrid software is deployed
+  name: Config - Data Centers
+paths:
+  /config/datacenters:
+    get:
+      parameters:
+      - description: Get data center associated with the specified name (case insensitive). Wildcard matching with '*' is supported.
+        in: query
+        name: filterByName
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/data-center'
+                type: array
+          description: Successful operation
+      summary: Get all Data Centers
+      tags:
+      - Config - Data Centers
+      operationId: getConfigDatacenters
+      x-operation-id-source: derived
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-data-center'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/data-center'
+          description: Data Center created
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+      summary: Create a new Data Center
+      tags:
+      - Config - Data Centers
+      operationId: postConfigDatacenters
+      x-operation-id-source: derived
+  /config/datacenters/{id}:
+    delete:
+      parameters:
+      - description: ID of the DataCenter to delete
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+      summary: Delete a Data Center by ID
+      tags:
+      - Config - Data Centers
+      operationId: deleteConfigDatacentersById
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the Data Center
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/data-center'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config'
+          description: Not Found
+      summary: Get a Data Center by ID
+      tags:
+      - Config - Data Centers
+      operationId: getConfigDatacentersById
+      x-operation-id-source: derived
+    put:
+      parameters:
+      - description: ID of the DataCenter to update
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-data-center'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/data-center'
+          description: Successful Operation
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config'
+          description: Not Found
+      summary: Update a Data Center
+      tags:
+      - Config - Data Centers
+      operationId: putConfigDatacentersById
+      x-operation-id-source: derived
+components:
+  schemas:
+    post-data-center:
+      properties:
+        name:
+          description: The name of the data center.
+          example: San Diego
+          type: string
+        description:
+          description: A description of the data center.
+          example: Data center located in San Diego, CA.
+          type: string
+      type: object
+    not-found-config:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <config type> with ID=f5d72daf-aa8f-486c-8058-4fc587c0b471 found.
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>/f5d72daf-aa8f-486c-8058-4fc587c0b471
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<config type>
+          - f5d72daf-aa8f-486c-8058-4fc587c0b471
+          items:
+            type: string
+          type: array
+      type: object
+    bad-request:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 400
+        error:
+          description: The error description
+          example: Bad Request
+        message:
+          description: The error message
+          example: '[name must not be blank]'
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>
+      type: object
+    data-center:
+      example:
+        name: San Diego
+        description: Data center located in San Diego, CA.
+        id: f5d72daf-aa8f-486c-8058-4fc587c0b471
+        lastModified: 2018-01-31T17:59:22.055+0000
+      properties:
+        id:
+          description: The auto-generated ID of the data center.
+          example: f5d72daf-aa8f-486c-8058-4fc587c0b471
+          type: string
+        lastModified:
+          description: The last time this data center was modified.
+          example: 2018-01-31T17:59:22.055+0000
+          type: string
+        name:
+          description: The name of the data center.
+          example: San Diego
+          type: string
+        description:
+          description: A description of the data center.
+          example: Data center located in San Diego, CA.
+          type: string
+      type: object
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

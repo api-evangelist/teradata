@@ -1,0 +1,45 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Operations - Private Link…
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Generate private link template file for a given cloud platform
+  name: Operations - Private Link Template
+paths:
+  /operations/privatelink-template:
+    get:
+      parameters:
+      - description: Name of the cloud platform. E.g. aws, azure, gc
+        in: query
+        name: cloudPlatform
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+          description: Successful response to download the datasource registration zip file.
+      summary: Generate private link template file for a given cloud platform
+      tags:
+      - Operations - Private Link Template
+      operationId: getOperationsPrivatelinkTemplate
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

@@ -1,0 +1,499 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Config - Systems API
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Manage the systems or platforms associated with QueryGrid connectors
+  name: Config - Systems
+paths:
+  /config/systems:
+    get:
+      parameters:
+      - description: Provide extra details (in _extraInfo section) about the system.
+        in: query
+        name: extraInfo
+        schema:
+          type: boolean
+      - description: Filter systems based on proxy support type.
+        in: query
+        name: filterByProxySupport
+        required: false
+        schema:
+          enum:
+          - NO_PROXY
+          - LOCAL_PROXY
+          - BRIDGE_PROXY
+          type: string
+      - description: Get system associated with the specified name (case insensitive). Wildcard matching with '*' is supported.
+        in: query
+        name: filterByName
+        required: false
+        schema:
+          type: string
+      - description: Get system associated with the specified tag. Provide ','(comma) separated list of key:value pairs.
+        in: query
+        name: filterByTag
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/system'
+                type: array
+          description: Successful operation
+      summary: Get all Systems
+      tags:
+      - Config - Systems
+      operationId: getConfigSystems
+      x-operation-id-source: derived
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-system'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/system'
+          description: System created
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+      summary: Create a new System
+      tags:
+      - Config - Systems
+      operationId: postConfigSystems
+      x-operation-id-source: derived
+  /config/systems/{id}:
+    delete:
+      parameters:
+      - description: ID of the System to delete
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+      summary: Delete a System by ID
+      tags:
+      - Config - Systems
+      operationId: deleteConfigSystemsById
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the System
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: Provide extra details (in _extraInfo section) about the system.
+        in: query
+        name: extraInfo
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/system'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config'
+          description: Not Found
+      summary: Get a System by ID
+      tags:
+      - Config - Systems
+      operationId: getConfigSystemsById
+      x-operation-id-source: derived
+    put:
+      parameters:
+      - description: ID of the System to update
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-system'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/system'
+          description: Successful Operation
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config'
+          description: Not Found
+      summary: Update a System
+      tags:
+      - Config - Systems
+      operationId: putConfigSystemsById
+      x-operation-id-source: derived
+components:
+  schemas:
+    system:
+      example:
+        platformType: ON_PREM
+        description: Production Teradata System located in San Diego.
+        enableProxy: false
+        autoNodeDelete: false
+        bridgeOnly: false
+        proxyNetworkId: b05bcr27-4cfd-4f08-a1fa-86341f21c3ce
+        tags:
+          siteId: TD1000DEV01
+        proxyPort: 9444
+        maximumMemoryPerNode: 1073741824
+        dataCenterId: a05acd24-4cfd-4f08-a1fa-86341f21c3ce
+        name: TD1
+        autoNodeDeleteMinutes: 10
+        systemType: TERADATA
+        id: f5d72daf-aa8f-486c-8058-4fc587c0b471
+        lastModified: 2018-01-31T17:59:22.055+0000
+        systemFlavor: emr
+        region: US-WEST-2
+        proxyBridgeId: c05der27-4cfd-4f08-a1fa-86341f21c7yt
+        _extraInfo:
+          nodesOffline: 0.8008281904610115
+          lastInstallStatus: SUCCESS
+          dataCenterName: DataCenter1
+          lastInstallOperationId: c88dd660-575b-4ec5-857e-c2772b5a9794
+          nodesOnline: 104
+        softwareVersion: 02.05.00.01
+        proxySupportType: LOCAL_PROXY
+        enableOverridePort: false
+        overridePort: 5000
+      properties:
+        id:
+          description: The auto-generated ID of the system.
+          example: f5d72daf-aa8f-486c-8058-4fc587c0b471
+          type: string
+        lastModified:
+          description: The last time this system was modified.
+          example: 2018-01-31T17:59:22.055+0000
+          type: string
+        name:
+          description: The name of the system.
+          example: TD1
+          type: string
+        description:
+          description: A description of the system.
+          example: Production Teradata System located in San Diego.
+          type: string
+        dataCenterId:
+          description: The ID of the data center the system is located in.
+          example: a05acd24-4cfd-4f08-a1fa-86341f21c3ce
+          type: string
+        region:
+          description: Region the system is located in.
+          example: US-WEST-2
+          type: string
+        softwareVersion:
+          description: The version of the tdqg-node package that should be installed on all nodes of the system.
+          example: 02.05.00.01
+          type: string
+        maximumMemoryPerNode:
+          description: The maximum memory per node in bytes allowed to be used by QueryGrid queries.
+          example: 1073741824
+          type: number
+        bridgeOnly:
+          description: Flags if this system is a bridge only system (e.g. no local data source)
+          example: false
+          type: boolean
+        proxySupportType:
+          description: Flags if a proxy should be used by this system for connecting to QueryGrid Manager.
+          enum:
+          - NO_PROXY
+          - LOCAL_PROXY
+          - BRIDGE_PROXY
+          example: LOCAL_PROXY
+          type: string
+        proxyPort:
+          description: The port number to listen for proxying connections. Required with LOCAL_PROXY.
+          example: 9444
+          type: number
+        proxyNetworkId:
+          description: The UUID of a network rule to specify the network to use to enable proxy support. The default is to use the byn1 network interface automatically.
+          example: b05bcr27-4cfd-4f08-a1fa-86341f21c3ce
+          type: string
+        proxyBridgeId:
+          description: The ID of a remote bridge system (edge nodes) to use to proxy connections to QueryGrid Manager. Bridge system must have proxySupport = LOCAL_PROXY specified.
+          example: c05der27-4cfd-4f08-a1fa-86341f21c7yt
+          type: string
+        enableProxy:
+          description: Flags if this system should be directed to run a proxy
+          example: false
+          type: boolean
+        enableOverridePort:
+          description: Flags if this system is overriding the fabric TCP server socket.
+          example: false
+          type: boolean
+        overridePort:
+          description: The port number for the tdqg-node service to bind to.
+          example: 5000
+          type: number
+        autoNodeDelete:
+          description: Flag to enable auto node delete.
+          example: false
+          type: boolean
+        autoNodeDeleteMinutes:
+          description: Number of minutes a node is offline before being auto deleted when autoNodeDelete is enabled.
+          example: 10
+          type: number
+        systemType:
+          description: The type of the data source to which the system nodes belong.
+          enum:
+          - TERADATA
+          - PRESTO
+          - HADOOP
+          - OTHER
+          example: TERADATA
+          type: string
+        systemFlavor:
+          description: The flavor of the Hadoop system.
+          enum:
+          - emr
+          - cdp
+          - dataproc
+          - hdinsight
+          example: emr
+          type: string
+        platformType:
+          description: The platform on which the system is deployed.
+          enum:
+          - AWS
+          - AZURE
+          - GC
+          - PRIVATE
+          - ON_PREM
+          example: ON_PREM
+          type: string
+        tags:
+          description: Optional string key/value pairs for associating some context with the system such as cloud site ID.
+          example:
+            siteId: TD1000DEV01
+          type: object
+        _extraInfo:
+          $ref: '#/components/schemas/system-extra-info'
+      type: object
+    system-extra-info:
+      example:
+        nodesOffline: 0.8008281904610115
+        lastInstallStatus: SUCCESS
+        dataCenterName: DataCenter1
+        lastInstallOperationId: c88dd660-575b-4ec5-857e-c2772b5a9794
+        nodesOnline: 104
+      properties:
+        nodesOnline:
+          description: The number of nodes online for the system
+          example: 104
+          type: number
+        nodesOffline:
+          description: The number of nodes offline for the system
+          type: number
+        dataCenterName:
+          description: The name of the data center the system is located in.
+          example: DataCenter1
+          type: string
+        lastInstallOperationId:
+          description: The ID of the last auto-install operation performed for the system.
+          example: c88dd660-575b-4ec5-857e-c2772b5a9794
+          type: string
+        lastInstallStatus:
+          description: The status of the last auto-install operation performed for the system.
+          example: SUCCESS
+          type: string
+      type: object
+    not-found-config:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <config type> with ID=f5d72daf-aa8f-486c-8058-4fc587c0b471 found.
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>/f5d72daf-aa8f-486c-8058-4fc587c0b471
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<config type>
+          - f5d72daf-aa8f-486c-8058-4fc587c0b471
+          items:
+            type: string
+          type: array
+      type: object
+    post-system:
+      properties:
+        name:
+          description: The name of the system.
+          example: TD1
+          type: string
+        description:
+          description: A description of the system.
+          example: Production Teradata System located in San Diego.
+          type: string
+        dataCenterId:
+          description: The ID of the data center the system is located in.
+          example: a05acd24-4cfd-4f08-a1fa-86341f21c3ce
+          type: string
+        region:
+          description: Region the system is located in.
+          example: US-WEST-2
+          type: string
+        softwareVersion:
+          description: The version of the tdqg-node package that should be installed on all nodes of the system.
+          example: 02.05.00.01
+          type: string
+        maximumMemoryPerNode:
+          description: The maximum memory per node in bytes allowed to be used by QueryGrid queries.
+          example: 1073741824
+          type: number
+        bridgeOnly:
+          description: Flags if this system is a bridge only system (e.g. no local data source)
+          example: false
+          type: boolean
+        proxySupportType:
+          description: Flags if a proxy should be used by this system for connecting to QueryGrid Manager.
+          enum:
+          - NO_PROXY
+          - LOCAL_PROXY
+          - BRIDGE_PROXY
+          example: LOCAL_PROXY
+          type: string
+        proxyPort:
+          description: The port number to listen for proxying connections. Required with LOCAL_PROXY.
+          example: 9444
+          type: number
+        proxyNetworkId:
+          description: The UUID of a network rule to specify the network to use to enable proxy support. The default is to use the byn1 network interface automatically.
+          example: b05bcr27-4cfd-4f08-a1fa-86341f21c3ce
+          type: string
+        proxyBridgeId:
+          description: The ID of a remote bridge system (edge nodes) to use to proxy connections to QueryGrid Manager. Bridge system must have proxySupport = LOCAL_PROXY specified.
+          example: c05der27-4cfd-4f08-a1fa-86341f21c7yt
+          type: string
+        enableProxy:
+          description: Flags if this system should be directed to run a proxy
+          example: false
+          type: boolean
+        enableOverridePort:
+          description: Flags if this system is overriding the fabric TCP server socket.
+          example: false
+          type: boolean
+        overridePort:
+          description: The port number for the tdqg-node service to bind to.
+          example: 5000
+          type: number
+        autoNodeDelete:
+          description: Flag to enable auto node delete.
+          example: false
+          type: boolean
+        autoNodeDeleteMinutes:
+          description: Number of minutes a node is offline before being auto deleted when autoNodeDelete is enabled.
+          example: 10
+          type: number
+        systemType:
+          description: The type of the data source to which the system nodes belong.
+          enum:
+          - TERADATA
+          - PRESTO
+          - HADOOP
+          - OTHER
+          example: TERADATA
+          type: string
+        systemFlavor:
+          description: The flavor of the Hadoop system [optional field].
+          enum:
+          - emr
+          - cdp
+          - dataproc
+          - hdinsight
+          example: emr
+          type: string
+        platformType:
+          description: The platform on which the system is deployed.
+          enum:
+          - AWS
+          - AZURE
+          - GC
+          - PRIVATE
+          - ON_PREM
+          example: ON_PREM
+          type: string
+        tags:
+          description: Optional string key/value pairs for associating some context with the system. Existing tag will be updated if the tag key exists, otherwise new tag will be added. To remove a tag, set the tag value to an empty string.
+          example: {}
+          type: object
+      type: object
+    bad-request:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 400
+        error:
+          description: The error description
+          example: Bad Request
+        message:
+          description: The error message
+          example: '[name must not be blank]'
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>
+      type: object
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

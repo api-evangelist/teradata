@@ -1,0 +1,203 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Operations - Add Data Source API
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Register a new data source to QueryGrid Manager
+  name: Operations - Add Data Source
+paths:
+  /operations/datasource:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-datasource'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/datasource'
+          description: System created
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+      summary: Create Data Source
+      tags:
+      - Operations - Add Data Source
+      operationId: postOperationsDatasource
+      x-operation-id-source: derived
+components:
+  schemas:
+    datasource:
+      example:
+        connectorDetails: ''
+        systemDetails: ''
+      properties:
+        systemDetails:
+          description: The details of the system created for the Datasource
+        connectorDetails:
+          description: The details of the connector created for the Datasource
+      type: object
+    bad-request:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 400
+        error:
+          description: The error description
+          example: Bad Request
+        message:
+          description: The error message
+          example: '[name must not be blank]'
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>
+      type: object
+    post-datasource:
+      properties:
+        name:
+          description: The name of the system.
+          example: Customer-EMR
+          type: string
+        description:
+          description: The description of the system.
+          example: Customer EMR system.
+          type: string
+        region:
+          description: Region the system is deployed in.
+          example: US-WEST-2
+          type: string
+        platformType:
+          description: System platform type.[AWS]
+          example: AWS
+          type: string
+        datasourceType:
+          description: Type of datasource [TERADATA, HADOOP, OTHER].
+          example: HADOOP
+          type: string
+        systemFlavor:
+          description: Flavor of the Hadoop system [EMR, CDP, DATAPROC, HDINSIGHT] (case-insensitive). Required if datasourceType is HADOOP.
+          example: EMR
+          type: string
+        customerBridgeId:
+          description: The id of the bridge system.
+          example: 31246bad-353b-2aa3-2ude-91f2560fb412
+          type: string
+        softwareVersion:
+          description: The version of the tdqg-node package that should be installed on all nodes of the system.
+          example: 02.19.00.00-1
+          type: string
+        maximumMemoryPerNode:
+          description: The maximum memory per node in bytes allowed to be used by QueryGrid queries.
+          example: 1073741824
+          type: number
+        enableOverridePort:
+          description: Flags if this system is overriding the fabric TCP server socket.
+          example: false
+          type: boolean
+        overridePort:
+          description: The port number for the tdqg-node service to bind to.
+          example: 5000
+          type: number
+        autoNodeDelete:
+          description: Flag to enable auto node delete.
+          example: false
+          type: boolean
+        autoNodeDeleteMinutes:
+          description: Number of minutes a node is offline before being auto deleted when autoNodeDelete is enabled.
+          example: 10
+          type: number
+        clusterOption:
+          description: Node cluster option
+          example: PRIMARY
+          type: string
+        enableProxy:
+          description: Flag to enable proxy support
+          example: false
+          type: boolean
+        proxyPort:
+          description: The port number for proxy
+          example: 1055
+          type: integer
+        proxySupportType:
+          description: The type of proxy
+          example: BRIDGE_PROXY
+          type: string
+        proxyNetworkId:
+          description: The network id for proxy
+          example: b1bee789-4b90-4232-b977-0bff53d5a316
+          type: string
+        proxySystemId:
+          description: The system id for proxy
+          example: b1bee789-4b90-4232-b977-0bff53d5a316
+          type: string
+        connectorName:
+          description: The name of the connector.
+          example: hiveConn
+          type: string
+        connectorDescription:
+          description: A description of the connector.
+          example: Customer EMR connector
+          type: string
+        connectorType:
+          description: Type of connector [Teradata, Hive, Spark, GenericJDBC].
+          example: hive
+          type: string
+        connectorSoftwareVersion:
+          description: The version of connector software.
+          example: 02.19.00.00-1
+          type: string
+        connectorProperties:
+          description: The connector properties to set. Untar the connector package and open the \<version\>/.pkgmeta/pkginfo.yaml file to look at the supported connector properties.
+          example:
+            server: dummy.teradata.com
+            hiveEngine: mr
+            executionType: THRIFTSERVER
+            jdbcUrl: jdbc:redshift://dummyredshift.us-west-2.redshift.amazonaws.com:5439/testdb
+          type: object
+        overrideableProperties:
+          description: The connector properties which can be overridden by the user. Untar the connector package and open the \<version\>/.pkgmeta/pkginfo.yaml file to look at the supported connector properties. All overridable properties for the connector are listed in that file under “connectorProperties” with 'overridable' attribute set as 'True'.
+          items:
+            type: string
+          type: array
+        networkId:
+          description: The id of the network which is to be added to the system tag. Use load balancer network ID if no customer bridge(customerBridgeId) is present else use target customer network ID to use.
+          example: 33946bce-355c-2ad3-2bae-91f2390fg412
+          type: string
+        bridgeNetworkId:
+          description: The id of the network which is to be added to the bridge system tag. Use load balancer network ID if customer bridge(customerBridgeId) is present else not used.
+          example: 33946bcd-355b-2ac3-2bde-91f2390fb412
+          type: string
+        initiatorSystem:
+          description: Initiator system details
+          example:
+            userMappingId: 33946bcd-355b-2ac3-2bde-91f2390fb412
+          type: object
+        targetSystem:
+          description: Target system details
+          example:
+            userMappingId: 22995fad-13e8-42fd-82c6-31f2390fb440
+          type: object
+      type: object
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

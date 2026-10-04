@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/main/json-schema/teradata-manager-schema.json",
+  "title": "Manager",
+  "description": "A QueryGrid Manager instance.",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/teradata-managers-api-openapi.yml#/components/schemas/Manager",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique manager identifier."
+    },
+    "name": {
+      "type": "string",
+      "description": "Manager instance name."
+    },
+    "hostname": {
+      "type": "string",
+      "description": "Manager hostname."
+    },
+    "status": {
+      "type": "string",
+      "description": "Manager status."
+    },
+    "version": {
+      "type": "string",
+      "description": "Software version."
+    }
+  }
+}

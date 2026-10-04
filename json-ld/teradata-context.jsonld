@@ -1,0 +1,1236 @@
+{
+  "@context": {
+    "@vocab": "https://teradata.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "teradata": "https://teradata.com/schema#",
+    "api-info": "teradata:api-info",
+    "instanceId": {
+      "@id": "teradata:instanceId",
+      "@type": "xsd:string"
+    },
+    "appVersion": {
+      "@id": "teradata:appVersion",
+      "@type": "xsd:string"
+    },
+    "apiVersion": {
+      "@id": "teradata:apiVersion",
+      "@type": "xsd:string"
+    },
+    "timestamp": {
+      "@id": "teradata:timestamp",
+      "@type": "xsd:string"
+    },
+    "features": {
+      "@id": "teradata:features",
+      "@type": "@id"
+    },
+    "issue": "teradata:issue",
+    "id": {
+      "@id": "teradata:id",
+      "@type": "xsd:string"
+    },
+    "lastModified": {
+      "@id": "teradata:lastModified",
+      "@type": "xsd:dateTime"
+    },
+    "createTime": {
+      "@id": "teradata:createTime",
+      "@type": "xsd:dateTime"
+    },
+    "componentType": {
+      "@id": "teradata:componentType",
+      "@type": "xsd:string"
+    },
+    "componentId": {
+      "@id": "teradata:componentId",
+      "@type": "xsd:string"
+    },
+    "componentName": {
+      "@id": "teradata:componentName",
+      "@type": "xsd:string"
+    },
+    "dataCenterName": {
+      "@id": "teradata:dataCenterName",
+      "@type": "xsd:string"
+    },
+    "problemType": {
+      "@id": "teradata:problemType",
+      "@type": "xsd:string"
+    },
+    "severity": {
+      "@id": "teradata:severity",
+      "@type": "xsd:string"
+    },
+    "subjectLabel": {
+      "@id": "teradata:subjectLabel",
+      "@type": "xsd:string"
+    },
+    "subjectParams": {
+      "@id": "teradata:subjectParams",
+      "@container": "@list"
+    },
+    "messageLabel": {
+      "@id": "teradata:messageLabel",
+      "@type": "xsd:string"
+    },
+    "messageParams": {
+      "@id": "teradata:messageParams",
+      "@container": "@list"
+    },
+    "configVersion": {
+      "@id": "teradata:configVersion",
+      "@type": "xsd:string"
+    },
+    "reporterId": {
+      "@id": "teradata:reporterId",
+      "@type": "xsd:string"
+    },
+    "subcomponentId": {
+      "@id": "teradata:subcomponentId",
+      "@type": "xsd:string"
+    },
+    "nodeIds": {
+      "@id": "teradata:nodeIds",
+      "@container": "@list"
+    },
+    "post-issue": "teradata:post-issue",
+    "bad-request": "teradata:bad-request",
+    "status": {
+      "@id": "teradata:status"
+    },
+    "error": {
+      "@id": "teradata:error"
+    },
+    "message": {
+      "@id": "teradata:message"
+    },
+    "path": {
+      "@id": "teradata:path"
+    },
+    "not-found-entity": "teradata:not-found-entity",
+    "errorCode": {
+      "@id": "teradata:errorCode"
+    },
+    "errorParams": {
+      "@id": "teradata:errorParams",
+      "@container": "@list"
+    },
+    "manager": "teradata:manager",
+    "hostname": {
+      "@id": "teradata:hostname",
+      "@type": "xsd:string"
+    },
+    "networkInterfaces": {
+      "@id": "teradata:networkInterfaces",
+      "@container": "@list"
+    },
+    "dataCenterId": {
+      "@id": "teradata:dataCenterId",
+      "@type": "xsd:string"
+    },
+    "version": {
+      "@id": "teradata:version",
+      "@type": "xsd:string"
+    },
+    "publicAddress": {
+      "@id": "teradata:publicAddress"
+    },
+    "clusterAddress": {
+      "@id": "teradata:clusterAddress"
+    },
+    "bindAddress": {
+      "@id": "teradata:bindAddress"
+    },
+    "startTime": {
+      "@id": "teradata:startTime",
+      "@type": "xsd:dateTime"
+    },
+    "additionalPublicAddresses": {
+      "@id": "teradata:additionalPublicAddresses",
+      "@container": "@list"
+    },
+    "_extraInfo": {
+      "@id": "teradata:_extraInfo",
+      "@type": "@id"
+    },
+    "node": "teradata:node",
+    "aliases": {
+      "@id": "teradata:aliases",
+      "@container": "@list"
+    },
+    "platform": {
+      "@id": "teradata:platform",
+      "@type": "xsd:string"
+    },
+    "attributes": {
+      "@id": "teradata:attributes"
+    },
+    "systemId": {
+      "@id": "teradata:systemId",
+      "@type": "xsd:string"
+    },
+    "watchdog-heartbeat": "teradata:watchdog-heartbeat",
+    "nodeId": {
+      "@id": "teradata:nodeId",
+      "@type": "xsd:string"
+    },
+    "fabrics": {
+      "@id": "teradata:fabrics",
+      "@container": "@list"
+    },
+    "connectors": {
+      "@id": "teradata:connectors",
+      "@container": "@list"
+    },
+    "managers": {
+      "@id": "teradata:managers",
+      "@container": "@list"
+    },
+    "received": {
+      "@id": "teradata:received",
+      "@type": "xsd:dateTime"
+    },
+    "systemName": {
+      "@id": "teradata:systemName",
+      "@type": "xsd:string"
+    },
+    "proxyError": {
+      "@id": "teradata:proxyError",
+      "@type": "xsd:string"
+    },
+    "overridePortError": {
+      "@id": "teradata:overridePortError",
+      "@type": "xsd:string"
+    },
+    "trustedCertificates": {
+      "@id": "teradata:trustedCertificates",
+      "@container": "@list"
+    },
+    "fabric-status": "teradata:fabric-status",
+    "fabricName": {
+      "@id": "teradata:fabricName",
+      "@type": "xsd:string"
+    },
+    "softwareVersion": {
+      "@id": "teradata:softwareVersion",
+      "@type": "xsd:string"
+    },
+    "versionId": {
+      "@id": "teradata:versionId",
+      "@type": "xsd:string"
+    },
+    "processId": {
+      "@id": "teradata:processId",
+      "@type": "xsd:string"
+    },
+    "errorMessage": {
+      "@id": "teradata:errorMessage",
+      "@type": "xsd:string"
+    },
+    "lastUnexpectedRestart": {
+      "@id": "teradata:lastUnexpectedRestart",
+      "@type": "xsd:dateTime"
+    },
+    "drivers": {
+      "@id": "teradata:drivers",
+      "@container": "@list"
+    },
+    "driver-status": "teradata:driver-status",
+    "driverName": {
+      "@id": "teradata:driverName",
+      "@type": "xsd:string"
+    },
+    "connector-status": "teradata:connector-status",
+    "connectorName": {
+      "@id": "teradata:connectorName",
+      "@type": "xsd:string"
+    },
+    "connectorVersion": {
+      "@id": "teradata:connectorVersion",
+      "@type": "xsd:string"
+    },
+    "softwareName": {
+      "@id": "teradata:softwareName",
+      "@type": "xsd:string"
+    },
+    "manager-status": "teradata:manager-status",
+    "clusterId": {
+      "@id": "teradata:clusterId",
+      "@type": "xsd:string"
+    },
+    "primary": {
+      "@id": "teradata:primary",
+      "@type": "xsd:boolean"
+    },
+    "addresses": {
+      "@id": "teradata:addresses",
+      "@container": "@list"
+    },
+    "fabricPortConflicts": {
+      "@id": "teradata:fabricPortConflicts",
+      "@container": "@list"
+    },
+    "linkNameConflicts": {
+      "@id": "teradata:linkNameConflicts",
+      "@container": "@list"
+    },
+    "fabric-port-conflict-status": "teradata:fabric-port-conflict-status",
+    "port": {
+      "@id": "teradata:port",
+      "@type": "xsd:integer"
+    },
+    "fabricVersion": {
+      "@id": "teradata:fabricVersion",
+      "@type": "xsd:string"
+    },
+    "link-name-conflict-status": "teradata:link-name-conflict-status",
+    "linkName": {
+      "@id": "teradata:linkName",
+      "@type": "xsd:string"
+    },
+    "software": "teradata:software",
+    "name": {
+      "@id": "teradata:name",
+      "@type": "xsd:string"
+    },
+    "fileName": {
+      "@id": "teradata:fileName",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "teradata:type",
+      "@type": "xsd:string"
+    },
+    "qgmVersion": {
+      "@id": "teradata:qgmVersion",
+      "@type": "xsd:string"
+    },
+    "buildDate": {
+      "@id": "teradata:buildDate",
+      "@type": "xsd:dateTime"
+    },
+    "packageSize": {
+      "@id": "teradata:packageSize",
+      "@type": "xsd:decimal"
+    },
+    "queryPointSupport": {
+      "@id": "teradata:queryPointSupport",
+      "@type": "xsd:boolean"
+    },
+    "driverSupportEnabled": {
+      "@id": "teradata:driverSupportEnabled",
+      "@type": "xsd:boolean"
+    },
+    "foreignServerRollbackSupport": {
+      "@id": "teradata:foreignServerRollbackSupport",
+      "@type": "xsd:boolean"
+    },
+    "loaderConnectorName": {
+      "@id": "teradata:loaderConnectorName",
+      "@type": "xsd:string"
+    },
+    "remoteConnectorName": {
+      "@id": "teradata:remoteConnectorName",
+      "@type": "xsd:string"
+    },
+    "remoteConnectorClassName": {
+      "@id": "teradata:remoteConnectorClassName",
+      "@type": "xsd:string"
+    },
+    "connectorProperties": {
+      "@id": "teradata:connectorProperties",
+      "@container": "@list"
+    },
+    "managerId": {
+      "@id": "teradata:managerId",
+      "@type": "xsd:string"
+    },
+    "installMethod": {
+      "@id": "teradata:installMethod",
+      "@type": "xsd:string"
+    },
+    "connector-properties": "teradata:connector-properties",
+    "i18nKey": {
+      "@id": "teradata:i18nKey"
+    },
+    "i18nDescriptionKey": {
+      "@id": "teradata:i18nDescriptionKey"
+    },
+    "dataType": {
+      "@id": "teradata:dataType",
+      "@type": "xsd:string"
+    },
+    "required": {
+      "@id": "teradata:required",
+      "@type": "xsd:boolean"
+    },
+    "requiredForConnectorCheck": {
+      "@id": "teradata:requiredForConnectorCheck",
+      "@type": "xsd:boolean"
+    },
+    "connectorCheckOnly": {
+      "@id": "teradata:connectorCheckOnly",
+      "@type": "xsd:boolean"
+    },
+    "defaultValue": {
+      "@id": "teradata:defaultValue"
+    },
+    "appliesTo": {
+      "@id": "teradata:appliesTo",
+      "@type": "xsd:boolean"
+    },
+    "enumValues": {
+      "@id": "teradata:enumValues",
+      "@container": "@list"
+    },
+    "enumi18nKeyPrefix": {
+      "@id": "teradata:enumi18nKeyPrefix",
+      "@type": "xsd:string"
+    },
+    "unitsi18nKey": {
+      "@id": "teradata:unitsi18nKey",
+      "@type": "xsd:string"
+    },
+    "confidential": {
+      "@id": "teradata:confidential",
+      "@type": "xsd:boolean"
+    },
+    "overridable": {
+      "@id": "teradata:overridable",
+      "@type": "xsd:boolean"
+    },
+    "requiredForInstall": {
+      "@id": "teradata:requiredForInstall",
+      "@type": "xsd:boolean"
+    },
+    "installOnly": {
+      "@id": "teradata:installOnly",
+      "@type": "xsd:boolean"
+    },
+    "group": {
+      "@id": "teradata:group",
+      "@type": "xsd:string"
+    },
+    "subGroup": {
+      "@id": "teradata:subGroup",
+      "@type": "xsd:string"
+    },
+    "order": {
+      "@id": "teradata:order",
+      "@type": "xsd:integer"
+    },
+    "user": "teradata:user",
+    "username": {
+      "@id": "teradata:username",
+      "@type": "xsd:string"
+    },
+    "password": {
+      "@id": "teradata:password",
+      "@type": "xsd:string"
+    },
+    "defaultUser": {
+      "@id": "teradata:defaultUser",
+      "@type": "xsd:boolean"
+    },
+    "description": {
+      "@id": "teradata:description",
+      "@type": "xsd:string"
+    },
+    "user-post": "teradata:user-post",
+    "unlockAccountRequest": {
+      "@id": "teradata:unlockAccountRequest",
+      "@type": "xsd:boolean"
+    },
+    "data-center": "teradata:data-center",
+    "post-data-center": "teradata:post-data-center",
+    "not-found-config": "teradata:not-found-config",
+    "system": "teradata:system",
+    "region": {
+      "@id": "teradata:region",
+      "@type": "xsd:string"
+    },
+    "maximumMemoryPerNode": {
+      "@id": "teradata:maximumMemoryPerNode",
+      "@type": "xsd:decimal"
+    },
+    "bridgeOnly": {
+      "@id": "teradata:bridgeOnly",
+      "@type": "xsd:boolean"
+    },
+    "proxySupportType": {
+      "@id": "teradata:proxySupportType",
+      "@type": "xsd:string"
+    },
+    "proxyPort": {
+      "@id": "teradata:proxyPort",
+      "@type": "xsd:decimal"
+    },
+    "proxyNetworkId": {
+      "@id": "teradata:proxyNetworkId",
+      "@type": "xsd:string"
+    },
+    "proxyBridgeId": {
+      "@id": "teradata:proxyBridgeId",
+      "@type": "xsd:string"
+    },
+    "enableProxy": {
+      "@id": "teradata:enableProxy",
+      "@type": "xsd:boolean"
+    },
+    "enableOverridePort": {
+      "@id": "teradata:enableOverridePort",
+      "@type": "xsd:boolean"
+    },
+    "overridePort": {
+      "@id": "teradata:overridePort",
+      "@type": "xsd:decimal"
+    },
+    "autoNodeDelete": {
+      "@id": "teradata:autoNodeDelete",
+      "@type": "xsd:boolean"
+    },
+    "autoNodeDeleteMinutes": {
+      "@id": "teradata:autoNodeDeleteMinutes",
+      "@type": "xsd:decimal"
+    },
+    "systemType": {
+      "@id": "teradata:systemType",
+      "@type": "xsd:string"
+    },
+    "systemFlavor": {
+      "@id": "teradata:systemFlavor",
+      "@type": "xsd:string"
+    },
+    "platformType": {
+      "@id": "teradata:platformType",
+      "@type": "xsd:string"
+    },
+    "tags": {
+      "@id": "teradata:tags"
+    },
+    "system-extra-info": "teradata:system-extra-info",
+    "nodesOnline": {
+      "@id": "teradata:nodesOnline",
+      "@type": "xsd:decimal"
+    },
+    "nodesOffline": {
+      "@id": "teradata:nodesOffline",
+      "@type": "xsd:decimal"
+    },
+    "lastInstallOperationId": {
+      "@id": "teradata:lastInstallOperationId",
+      "@type": "xsd:string"
+    },
+    "lastInstallStatus": {
+      "@id": "teradata:lastInstallStatus",
+      "@type": "xsd:string"
+    },
+    "post-system": "teradata:post-system",
+    "bridge": "teradata:bridge",
+    "post-bridge": "teradata:post-bridge",
+    "comm-policy-metadata": "teradata:comm-policy-metadata",
+    "comm-policy-version": "teradata:comm-policy-version",
+    "transferConcurrency": {
+      "@id": "teradata:transferConcurrency",
+      "@type": "xsd:decimal"
+    },
+    "securityOption": {
+      "@id": "teradata:securityOption",
+      "@type": "xsd:string"
+    },
+    "integrityHeadersOnly": {
+      "@id": "teradata:integrityHeadersOnly",
+      "@type": "xsd:boolean"
+    },
+    "authenticationKeySize": {
+      "@id": "teradata:authenticationKeySize",
+      "@type": "xsd:decimal"
+    },
+    "encryptionKeySize": {
+      "@id": "teradata:encryptionKeySize",
+      "@type": "xsd:decimal"
+    },
+    "compressionAlgorithm": {
+      "@id": "teradata:compressionAlgorithm",
+      "@type": "xsd:string"
+    },
+    "securityAlgorithm": {
+      "@id": "teradata:securityAlgorithm",
+      "@type": "xsd:string"
+    },
+    "policyVersion": {
+      "@id": "teradata:policyVersion",
+      "@type": "xsd:decimal"
+    },
+    "post-comm-policy": "teradata:post-comm-policy",
+    "not-found-config-version": "teradata:not-found-config-version",
+    "network-metadata": "teradata:network-metadata",
+    "network-version": "teradata:network-version",
+    "matchingRules": {
+      "@id": "teradata:matchingRules",
+      "@container": "@list"
+    },
+    "loadBalancerAddress": {
+      "@id": "teradata:loadBalancerAddress"
+    },
+    "connectionType": {
+      "@id": "teradata:connectionType"
+    },
+    "matching-rule": "teradata:matching-rule",
+    "value": {
+      "@id": "teradata:value",
+      "@type": "xsd:string"
+    },
+    "post-network": "teradata:post-network",
+    "user-mapping": "teradata:user-mapping",
+    "userMapping": {
+      "@id": "teradata:userMapping"
+    },
+    "roleMapping": {
+      "@id": "teradata:roleMapping"
+    },
+    "post-user-mapping": "teradata:post-user-mapping",
+    "fabric-metadata": "teradata:fabric-metadata",
+    "fabric-version": "teradata:fabric-version",
+    "authKeySize": {
+      "@id": "teradata:authKeySize",
+      "@type": "xsd:decimal"
+    },
+    "fabric-extra-info": "teradata:fabric-extra-info",
+    "post-fabric": "teradata:post-fabric",
+    "connector-metadata": "teradata:connector-metadata",
+    "disabled": {
+      "@id": "teradata:disabled",
+      "@type": "xsd:boolean"
+    },
+    "connector-version": "teradata:connector-version",
+    "fabricId": {
+      "@id": "teradata:fabricId",
+      "@type": "xsd:string"
+    },
+    "envNameValuePairs": {
+      "@id": "teradata:envNameValuePairs",
+      "@type": "xsd:string"
+    },
+    "driverNodes": {
+      "@id": "teradata:driverNodes",
+      "@container": "@list"
+    },
+    "properties": {
+      "@id": "teradata:properties"
+    },
+    "overrideableProperties": {
+      "@id": "teradata:overrideableProperties",
+      "@container": "@list"
+    },
+    "confidentialPropertyNames": {
+      "@id": "teradata:confidentialPropertyNames",
+      "@container": "@list"
+    },
+    "allowedOSUsers": {
+      "@id": "teradata:allowedOSUsers",
+      "@container": "@list"
+    },
+    "connector-extra-info": "teradata:connector-extra-info",
+    "driversOnline": {
+      "@id": "teradata:driversOnline",
+      "@type": "xsd:decimal"
+    },
+    "driversOffline": {
+      "@id": "teradata:driversOffline",
+      "@type": "xsd:decimal"
+    },
+    "post-connector": "teradata:post-connector",
+    "link-metadata": "teradata:link-metadata",
+    "link-version": "teradata:link-version",
+    "initiatorConnectorId": {
+      "@id": "teradata:initiatorConnectorId",
+      "@type": "xsd:string"
+    },
+    "initiatorProperties": {
+      "@id": "teradata:initiatorProperties"
+    },
+    "overridableInitiatorPropertyNames": {
+      "@id": "teradata:overridableInitiatorPropertyNames",
+      "@container": "@list"
+    },
+    "initiatorNetworkId": {
+      "@id": "teradata:initiatorNetworkId",
+      "@type": "xsd:string"
+    },
+    "initiatorThreadsPerQuery": {
+      "@id": "teradata:initiatorThreadsPerQuery",
+      "@type": "xsd:decimal"
+    },
+    "targetConnectorId": {
+      "@id": "teradata:targetConnectorId",
+      "@type": "xsd:string"
+    },
+    "targetProperties": {
+      "@id": "teradata:targetProperties"
+    },
+    "overridableTargetPropertyNames": {
+      "@id": "teradata:overridableTargetPropertyNames",
+      "@container": "@list"
+    },
+    "targetNetworkId": {
+      "@id": "teradata:targetNetworkId",
+      "@type": "xsd:string"
+    },
+    "targetThreadsPerQuery": {
+      "@id": "teradata:targetThreadsPerQuery",
+      "@type": "xsd:decimal"
+    },
+    "commPolicyId": {
+      "@id": "teradata:commPolicyId",
+      "@type": "xsd:string"
+    },
+    "userMappingId": {
+      "@id": "teradata:userMappingId",
+      "@type": "xsd:string"
+    },
+    "usersToTroubleshoot": {
+      "@id": "teradata:usersToTroubleshoot"
+    },
+    "enableAcks": {
+      "@id": "teradata:enableAcks",
+      "@type": "xsd:boolean"
+    },
+    "bridges": {
+      "@id": "teradata:bridges",
+      "@container": "@list"
+    },
+    "link-bridge": "teradata:link-bridge",
+    "bridgeId": {
+      "@id": "teradata:bridgeId",
+      "@type": "xsd:string"
+    },
+    "threadsPerQuery": {
+      "@id": "teradata:threadsPerQuery",
+      "@type": "xsd:decimal"
+    },
+    "link-extra-info": "teradata:link-extra-info",
+    "initiatingConnectorName": {
+      "@id": "teradata:initiatingConnectorName",
+      "@type": "xsd:string"
+    },
+    "initiatingSystemName": {
+      "@id": "teradata:initiatingSystemName",
+      "@type": "xsd:string"
+    },
+    "targetConnectorName": {
+      "@id": "teradata:targetConnectorName",
+      "@type": "xsd:string"
+    },
+    "targetSystemName": {
+      "@id": "teradata:targetSystemName",
+      "@type": "xsd:string"
+    },
+    "commPolicyName": {
+      "@id": "teradata:commPolicyName",
+      "@type": "xsd:string"
+    },
+    "post-link": "teradata:post-link",
+    "node-virtual-ips-response": "teradata:node-virtual-ips-response",
+    "node-virtual-ips-request": "teradata:node-virtual-ips-request",
+    "shared-memory-estimator-inputs": "teradata:shared-memory-estimator-inputs",
+    "queryConcurrency": {
+      "@id": "teradata:queryConcurrency",
+      "@type": "xsd:decimal"
+    },
+    "linkBufferSize": {
+      "@id": "teradata:linkBufferSize",
+      "@type": "xsd:decimal"
+    },
+    "linkBufferCount": {
+      "@id": "teradata:linkBufferCount",
+      "@type": "xsd:decimal"
+    },
+    "workersPerNode": {
+      "@id": "teradata:workersPerNode",
+      "@type": "xsd:decimal"
+    },
+    "diagnostic-check-request": "teradata:diagnostic-check-request",
+    "dataFlow": {
+      "@id": "teradata:dataFlow",
+      "@type": "xsd:string"
+    },
+    "bandwidthMBPerNode": {
+      "@id": "teradata:bandwidthMBPerNode",
+      "@type": "xsd:integer"
+    },
+    "diagnostic-check-response": "teradata:diagnostic-check-response",
+    "endTime": {
+      "@id": "teradata:endTime",
+      "@type": "xsd:dateTime"
+    },
+    "totalCount": {
+      "@id": "teradata:totalCount",
+      "@type": "xsd:integer"
+    },
+    "successCount": {
+      "@id": "teradata:successCount",
+      "@type": "xsd:integer"
+    },
+    "errorCount": {
+      "@id": "teradata:errorCount",
+      "@type": "xsd:integer"
+    },
+    "inProgressCount": {
+      "@id": "teradata:inProgressCount",
+      "@type": "xsd:integer"
+    },
+    "nodes": {
+      "@id": "teradata:nodes",
+      "@container": "@list"
+    },
+    "totalBytesSent": {
+      "@id": "teradata:totalBytesSent",
+      "@type": "xsd:integer"
+    },
+    "totalBytesReceived": {
+      "@id": "teradata:totalBytesReceived",
+      "@type": "xsd:integer"
+    },
+    "bandwidth": {
+      "@id": "teradata:bandwidth",
+      "@type": "xsd:integer"
+    },
+    "diagnostic-check-node-response": "teradata:diagnostic-check-node-response",
+    "bytesSent": {
+      "@id": "teradata:bytesSent",
+      "@type": "xsd:integer"
+    },
+    "bytesReceived": {
+      "@id": "teradata:bytesReceived",
+      "@type": "xsd:integer"
+    },
+    "not-found-diagnostic-check": "teradata:not-found-diagnostic-check",
+    "install-config-file": "teradata:install-config-file",
+    "configId": {
+      "@id": "teradata:configId",
+      "@type": "xsd:string"
+    },
+    "systemAccessToken": {
+      "@id": "teradata:systemAccessToken",
+      "@type": "xsd:string"
+    },
+    "ports": {
+      "@id": "teradata:ports",
+      "@container": "@list"
+    },
+    "certFile": {
+      "@id": "teradata:certFile",
+      "@type": "xsd:string"
+    },
+    "manual-install-request": "teradata:manual-install-request",
+    "expirationDays": {
+      "@id": "teradata:expirationDays",
+      "@type": "xsd:integer"
+    },
+    "clusterOption": {
+      "@id": "teradata:clusterOption",
+      "@type": "xsd:string"
+    },
+    "auto-install-response": "teradata:auto-install-response",
+    "installationId": {
+      "@id": "teradata:installationId",
+      "@type": "xsd:string"
+    },
+    "pendingCount": {
+      "@id": "teradata:pendingCount",
+      "@type": "xsd:integer"
+    },
+    "abortCount": {
+      "@id": "teradata:abortCount",
+      "@type": "xsd:integer"
+    },
+    "auto-install-node-status": "teradata:auto-install-node-status",
+    "auto-install-request": "teradata:auto-install-request",
+    "sshKey": {
+      "@id": "teradata:sshKey",
+      "@type": "xsd:string"
+    },
+    "concurrency": {
+      "@id": "teradata:concurrency",
+      "@type": "xsd:integer"
+    },
+    "import-system-response": "teradata:import-system-response",
+    "diagnosticCheckId": {
+      "@id": "teradata:diagnosticCheckId",
+      "@type": "xsd:string"
+    },
+    "logs": {
+      "@id": "teradata:logs",
+      "@type": "xsd:string"
+    },
+    "connectorImportErrors": {
+      "@id": "teradata:connectorImportErrors"
+    },
+    "import-system-request": "teradata:import-system-request",
+    "managerHost": {
+      "@id": "teradata:managerHost",
+      "@type": "xsd:string"
+    },
+    "managerUser": {
+      "@id": "teradata:managerUser",
+      "@type": "xsd:string"
+    },
+    "managerPass": {
+      "@id": "teradata:managerPass",
+      "@type": "xsd:string"
+    },
+    "connectorIds": {
+      "@id": "teradata:connectorIds",
+      "@container": "@list"
+    },
+    "connectorPassMap": {
+      "@id": "teradata:connectorPassMap"
+    },
+    "manager-credentials": "teradata:manager-credentials",
+    "not-found-import-system": "teradata:not-found-import-system",
+    "create-foreign-server-response": "teradata:create-foreign-server-response",
+    "hash": {
+      "@id": "teradata:hash",
+      "@type": "xsd:string"
+    },
+    "abortTime": {
+      "@id": "teradata:abortTime",
+      "@type": "xsd:string"
+    },
+    "creationTime": {
+      "@id": "teradata:creationTime",
+      "@type": "xsd:string"
+    },
+    "seedInfo": {
+      "@id": "teradata:seedInfo",
+      "@type": "xsd:string"
+    },
+    "initiatorNodeId": {
+      "@id": "teradata:initiatorNodeId",
+      "@type": "xsd:string"
+    },
+    "targetNodeId": {
+      "@id": "teradata:targetNodeId",
+      "@type": "xsd:string"
+    },
+    "create-foreign-server-request": "teradata:create-foreign-server-request",
+    "initiatorAdminUser": {
+      "@id": "teradata:initiatorAdminUser",
+      "@type": "xsd:string"
+    },
+    "initiatorAdminPassword": {
+      "@id": "teradata:initiatorAdminPassword",
+      "@type": "xsd:string"
+    },
+    "linkId": {
+      "@id": "teradata:linkId",
+      "@type": "xsd:string"
+    },
+    "foreignServerName": {
+      "@id": "teradata:foreignServerName",
+      "@type": "xsd:string"
+    },
+    "authType": {
+      "@id": "teradata:authType",
+      "@type": "xsd:string"
+    },
+    "authObjectName": {
+      "@id": "teradata:authObjectName",
+      "@type": "xsd:string"
+    },
+    "targetAdminUser": {
+      "@id": "teradata:targetAdminUser",
+      "@type": "xsd:string"
+    },
+    "targetAdminPassword": {
+      "@id": "teradata:targetAdminPassword",
+      "@type": "xsd:string"
+    },
+    "serviceAccountName": {
+      "@id": "teradata:serviceAccountName",
+      "@type": "xsd:string"
+    },
+    "serviceAccountPassword": {
+      "@id": "teradata:serviceAccountPassword",
+      "@type": "xsd:string"
+    },
+    "serviceAccountTempSizeInMB": {
+      "@id": "teradata:serviceAccountTempSizeInMB"
+    },
+    "serviceAccountSpoolSizeInMB": {
+      "@id": "teradata:serviceAccountSpoolSizeInMB"
+    },
+    "allowedUsers": {
+      "@id": "teradata:allowedUsers",
+      "@container": "@list"
+    },
+    "bulk-delete-request": "teradata:bulk-delete-request",
+    "configType": {
+      "@id": "teradata:configType",
+      "@type": "xsd:string"
+    },
+    "ids": {
+      "@id": "teradata:ids",
+      "@container": "@list"
+    },
+    "install-config-file_1": "teradata:install-config-file_1",
+    "managersExtended": {
+      "@id": "teradata:managersExtended",
+      "@container": "@list"
+    },
+    "proxies": {
+      "@id": "teradata:proxies",
+      "@container": "@list"
+    },
+    "rpmUrlPath": {
+      "@id": "teradata:rpmUrlPath",
+      "@type": "xsd:string"
+    },
+    "debUrlPath": {
+      "@id": "teradata:debUrlPath",
+      "@type": "xsd:string"
+    },
+    "armRpmUrlPath": {
+      "@id": "teradata:armRpmUrlPath",
+      "@type": "xsd:string"
+    },
+    "armDebUrlPath": {
+      "@id": "teradata:armDebUrlPath",
+      "@type": "xsd:string"
+    },
+    "expirationTimestamp": {
+      "@id": "teradata:expirationTimestamp",
+      "@type": "xsd:dateTime"
+    },
+    "managerLBAddress": {
+      "@id": "teradata:managerLBAddress",
+      "@type": "xsd:string"
+    },
+    "system-alerts-request": "teradata:system-alerts-request",
+    "issueProblemType": {
+      "@id": "teradata:issueProblemType",
+      "@type": "xsd:string"
+    },
+    "datasource": "teradata:datasource",
+    "systemDetails": {
+      "@id": "teradata:systemDetails"
+    },
+    "connectorDetails": {
+      "@id": "teradata:connectorDetails"
+    },
+    "post-datasource": "teradata:post-datasource",
+    "datasourceType": {
+      "@id": "teradata:datasourceType",
+      "@type": "xsd:string"
+    },
+    "customerBridgeId": {
+      "@id": "teradata:customerBridgeId",
+      "@type": "xsd:string"
+    },
+    "proxySystemId": {
+      "@id": "teradata:proxySystemId",
+      "@type": "xsd:string"
+    },
+    "connectorDescription": {
+      "@id": "teradata:connectorDescription",
+      "@type": "xsd:string"
+    },
+    "connectorType": {
+      "@id": "teradata:connectorType",
+      "@type": "xsd:string"
+    },
+    "connectorSoftwareVersion": {
+      "@id": "teradata:connectorSoftwareVersion",
+      "@type": "xsd:string"
+    },
+    "networkId": {
+      "@id": "teradata:networkId",
+      "@type": "xsd:string"
+    },
+    "bridgeNetworkId": {
+      "@id": "teradata:bridgeNetworkId",
+      "@type": "xsd:string"
+    },
+    "initiatorSystem": {
+      "@id": "teradata:initiatorSystem"
+    },
+    "targetSystem": {
+      "@id": "teradata:targetSystem"
+    },
+    "_nodes_delete_request": "teradata:_nodes_delete_request",
+    "_software_post_request": "teradata:_software_post_request",
+    "file": {
+      "@id": "teradata:file",
+      "@type": "xsd:string"
+    },
+    "jdbcDriverFile": {
+      "@id": "teradata:jdbcDriverFile",
+      "@type": "xsd:string"
+    },
+    "jdbcDriverName": {
+      "@id": "teradata:jdbcDriverName",
+      "@type": "xsd:string"
+    },
+    "_software_jdbc_driver_post_request": "teradata:_software_jdbc_driver_post_request",
+    "_config_comm_policies__id__patch_request": "teradata:_config_comm_policies__id__patch_request",
+    "_config_networks__id__patch_request": "teradata:_config_networks__id__patch_request",
+    "_config_fabrics__id__patch_request": "teradata:_config_fabrics__id__patch_request",
+    "_config_connectors__id__patch_request": "teradata:_config_connectors__id__patch_request",
+    "_config_links__id__patch_request": "teradata:_config_links__id__patch_request",
+    "api_info_features": "teradata:api_info_features",
+    "bulkNodeDelete": {
+      "@id": "teradata:bulkNodeDelete",
+      "@type": "xsd:boolean"
+    },
+    "bulkDelete": {
+      "@id": "teradata:bulkDelete",
+      "@type": "xsd:boolean"
+    },
+    "memoryCalculator": {
+      "@id": "teradata:memoryCalculator",
+      "@type": "xsd:boolean"
+    },
+    "multipleClusters": {
+      "@id": "teradata:multipleClusters",
+      "@type": "xsd:boolean"
+    },
+    "proxy": {
+      "@id": "teradata:proxy",
+      "@type": "xsd:boolean"
+    },
+    "manager_networkInterfaces_inner": "teradata:manager_networkInterfaces_inner",
+    "address": {
+      "@id": "teradata:address"
+    },
+    "prefixLength": {
+      "@id": "teradata:prefixLength"
+    },
+    "manager__extraInfo": "teradata:manager__extraInfo",
+    "lastHeartbeat": {
+      "@id": "teradata:lastHeartbeat",
+      "@type": "xsd:dateTime"
+    },
+    "diskUsage": {
+      "@id": "teradata:diskUsage",
+      "@type": "xsd:decimal"
+    },
+    "freeSpace": {
+      "@id": "teradata:freeSpace",
+      "@type": "xsd:decimal"
+    },
+    "totalSpace": {
+      "@id": "teradata:totalSpace"
+    },
+    "node__extraInfo": "teradata:node__extraInfo",
+    "comm_policy_allOf": "teradata:comm_policy_allOf",
+    "previous": {
+      "@id": "teradata:previous",
+      "@type": "@id"
+    },
+    "active": {
+      "@id": "teradata:active",
+      "@type": "@id"
+    },
+    "pending": {
+      "@id": "teradata:pending",
+      "@type": "@id"
+    },
+    "active_comm_policy_allOf": "teradata:active_comm_policy_allOf",
+    "pending_comm_policy_allOf": "teradata:pending_comm_policy_allOf",
+    "previous_comm_policy_allOf": "teradata:previous_comm_policy_allOf",
+    "network_allOf": "teradata:network_allOf",
+    "active_network_allOf": "teradata:active_network_allOf",
+    "pending_network_allOf": "teradata:pending_network_allOf",
+    "previous_network_allOf": "teradata:previous_network_allOf",
+    "fabric_allOf": "teradata:fabric_allOf",
+    "active_fabric_allOf": "teradata:active_fabric_allOf",
+    "pending_fabric_allOf": "teradata:pending_fabric_allOf",
+    "previous_fabric_allOf": "teradata:previous_fabric_allOf",
+    "connector_allOf": "teradata:connector_allOf",
+    "active_connector_allOf": "teradata:active_connector_allOf",
+    "pending_connector_allOf": "teradata:pending_connector_allOf",
+    "previous_connector_allOf": "teradata:previous_connector_allOf",
+    "link_allOf": "teradata:link_allOf",
+    "active_link_allOf": "teradata:active_link_allOf",
+    "pending_link_allOf": "teradata:pending_link_allOf",
+    "previous_link_allOf": "teradata:previous_link_allOf",
+    "node_virtual_ips_response_networkInterfaces_inner": "teradata:node_virtual_ips_response_networkInterfaces_inner",
+    "create_foreign_server_response_properties": "teradata:create_foreign_server_response_properties",
+    "Network": "teradata:Network",
+    "subnet": {
+      "@id": "teradata:subnet",
+      "@type": "xsd:string"
+    },
+    "Connector": "teradata:Connector",
+    "Bridge": "teradata:Bridge",
+    "sourceSystemId": {
+      "@id": "teradata:sourceSystemId",
+      "@type": "xsd:string"
+    },
+    "targetSystemId": {
+      "@id": "teradata:targetSystemId",
+      "@type": "xsd:string"
+    },
+    "CommPolicy": "teradata:CommPolicy",
+    "encryption": {
+      "@id": "teradata:encryption",
+      "@type": "xsd:boolean"
+    },
+    "compression": {
+      "@id": "teradata:compression",
+      "@type": "xsd:boolean"
+    },
+    "maxBandwidth": {
+      "@id": "teradata:maxBandwidth",
+      "@type": "xsd:integer"
+    },
+    "Fabric": "teradata:Fabric",
+    "DataCenter": "teradata:DataCenter",
+    "location": {
+      "@id": "teradata:location",
+      "@type": "xsd:string"
+    },
+    "Link": "teradata:Link",
+    "sourceConnectorId": {
+      "@id": "teradata:sourceConnectorId",
+      "@type": "xsd:string"
+    },
+    "System": "teradata:System",
+    "Issue": "teradata:Issue",
+    "source": {
+      "@id": "teradata:source",
+      "@type": "xsd:string"
+    },
+    "Manager": "teradata:Manager",
+    "Node": "teradata:Node",
+    "AutoInstallResponse": "teradata:AutoInstallResponse",
+    "jobId": {
+      "@id": "teradata:jobId",
+      "@type": "xsd:string"
+    },
+    "nodesAffected": {
+      "@id": "teradata:nodesAffected",
+      "@type": "xsd:integer"
+    },
+    "AutoInstallRequest": "teradata:AutoInstallRequest",
+    "ImportSystemResponse": "teradata:ImportSystemResponse",
+    "importId": {
+      "@id": "teradata:importId",
+      "@type": "xsd:string"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Teradata API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Teradata's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-04) from openapi/tdqg-manager-api.yml, openapi/teradata-api-info-api-openapi.yml, openapi/teradata-configuration-api-openapi.yml.",
+  "dcterms:created": "2026-10-04",
+  "dcterms:source": [
+    "openapi/tdqg-manager-api.yml",
+    "openapi/teradata-api-info-api-openapi.yml",
+    "openapi/teradata-configuration-api-openapi.yml",
+    "openapi/teradata-issues-api-openapi.yml",
+    "openapi/teradata-managers-api-openapi.yml"
+  ]
+}

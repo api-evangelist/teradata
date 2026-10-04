@@ -1,0 +1,428 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Operations - Create Foreign…
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Create a foreign server for a given link
+  name: Operations - Create Foreign Server
+paths:
+  /operations/create-foreign-server:
+    post:
+      description: Request to create a foreign server
+      operationId: postCreateForeignServer
+      parameters:
+      - description: Only validate the create foreign server request. Do not run the actual create foreign server operation.
+        example: true
+        in: query
+        name: dryRun
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create-foreign-server-request'
+        description: Request body for creating a foreign server.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/create-foreign-server-response'
+          description: Successfully registered the CONNECTOR_CFS diagnostic check operation.
+        '400':
+          description: Bad Request
+      summary: Issue a request to create a foreign server for a link
+      tags:
+      - Operations - Create Foreign Server
+  /operations/create-foreign-server/{diagnosticCheckId}:
+    get:
+      description: Get the status of the CONNECTOR_CFS diagnostic check(s) issued as a part of create-foreign-server operation using the id.
+      operationId: getConnectorCFSDiagnosticCheckById
+      parameters:
+      - description: diagnosticCheckId of CONNECTOR_CFS diagnostic check(s).
+        in: path
+        name: diagnosticCheckId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/diagnostic-check-response'
+          description: successful operation
+        '400':
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-diagnostic-check'
+          description: CONNECTOR_CFS Diagnostic Check operation status not found
+      summary: Get the status of the CONNECTOR_CFS diagnostic check(s) issued as a part of…
+      tags:
+      - Operations - Create Foreign Server
+components:
+  schemas:
+    diagnostic-check-response:
+      example:
+        totalBytesReceived: 9
+        bandwidth: 3
+        totalCount: 0
+        inProgressCount: 5
+        nodes:
+        - bytesReceived: 2
+          hostname: hostname
+          systemId: systemId
+          systemName: systemName
+          startTime: 2000-01-23 04:56:07+00:00
+          endTime: 2000-01-23 04:56:07+00:00
+          bytesSent: 5
+          error: error
+          nodeId: nodeId
+          status: IN_PROGRESS
+        - bytesReceived: 2
+          hostname: hostname
+          systemId: systemId
+          systemName: systemName
+          startTime: 2000-01-23 04:56:07+00:00
+          endTime: 2000-01-23 04:56:07+00:00
+          bytesSent: 5
+          error: error
+          nodeId: nodeId
+          status: IN_PROGRESS
+        totalBytesSent: 7
+        successCount: 6
+        startTime: 2000-01-23 04:56:07+00:00
+        id: id
+        endTime: 2000-01-23 04:56:07+00:00
+        lastModified: 2000-01-23 04:56:07+00:00
+        errorCount: 1
+        status: IN_PROGRESS
+      properties:
+        id:
+          description: A UUID representing the diagnostic operation.
+          type: string
+        status:
+          description: The overall status of the diagnostic check.
+          enum:
+          - IN_PROGRESS
+          - SUCCESS
+          - FAILURE
+          type: string
+        startTime:
+          description: The time the operation started.
+          format: date-time
+          type: string
+        endTime:
+          description: The time the operation completed.
+          format: date-time
+          type: string
+        lastModified:
+          description: The time the status was last modified.
+          format: date-time
+          type: string
+        totalCount:
+          description: The total number of nodes to check.
+          format: int64
+          type: integer
+        successCount:
+          description: The number of nodes that succeeded.
+          format: int32
+          type: integer
+        errorCount:
+          description: The number of nodes that failed.
+          format: int32
+          type: integer
+        inProgressCount:
+          description: The number of nodes that are in progress.
+          format: int32
+          type: integer
+        nodes:
+          description: The status of each of the individual nodes.
+          items:
+            $ref: '#/components/schemas/diagnostic-check-node-response'
+          type: array
+        totalBytesSent:
+          description: The total number of bytes sent in case of LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+        totalBytesReceived:
+          description: The total number of bytes received in case of LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+        bandwidth:
+          description: The measured bandwidth in bytes per second only in case of LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+      type: object
+    create-foreign-server-request:
+      properties:
+        initiatorAdminUser:
+          description: Admin user on initiator system used to create the foreign server, create authorization objects, and grant insert/select on the foreign server
+          type: string
+        initiatorAdminPassword:
+          description: Password of the initiator's admin user
+          type: string
+        linkId:
+          description: Id of the link to create the foreign server for
+          type: string
+        version:
+          description: Version of the link
+          enum:
+          - ACTIVE
+          - PENDING
+          type: string
+        foreignServerName:
+          description: Name of the foreign server to create
+          type: string
+        authType:
+          description: Specify the authorization type used. INVOKER means that a dummy authorization object is created by the initiator admin user and then any user which is granted permission to use the foreign server must also create an authorization object with the same name in their own database. The users authorization object is passed to target connector to create the JDBC session. DEFINER means that the authorization object is created by initiator admin user (using their credentials) and passed by all other users granted access to the foreign server. If DEFINER is used then the service account will be used on target as login user before connecting through to the initiator user. For Teradata-to-BigQuery link, provide "serviceAccountName" and "serviceAccountPassword" for DEFINER authType and "targetAdminUser" and "targetAdminPassword" for INVOKER authType. This value can be left blank if an authorization object does not need to be attached to the foreign server.
+          enum:
+          - INVOKER
+          - DEFINER
+          type:
+          - string
+          - 'null'
+        authObjectName:
+          description: Name for authorization object. If authType is INVOKER or DEFINER, this value cannot be null or empty.
+          type:
+          - string
+          - 'null'
+        targetAdminUser:
+          description: Admin user on target system used to create service account (if needed) and grant connect through to all allowedUsers. For Teradata-to-BigQuery link with INVOKER authType, provide the client ID of the Google Cloud user.
+          type:
+          - string
+          - 'null'
+        targetAdminPassword:
+          description: Password of admin user on target system. For Teradata-to-BigQuery link with INVOKER authType, use credentials of the Google Cloud user to provide this value as {clientSecret}{singlespace}{refreshToken}.
+          type:
+          - string
+          - 'null'
+        serviceAccountName:
+          description: Name of service account to create on target if they don't already exist. All users listed in allowedUsers will be granted connect through this service user. For Teradata-to-BigQuery link with DEFINER authType, provide the client ID of the Google Cloud user.
+          type:
+          - string
+          - 'null'
+        serviceAccountPassword:
+          description: Password of service account. For Teradata-to-BigQuery link with DEFINER authType, use credentials of the Google Cloud user to provide this value as {clientSecret}{singlespace}{refreshToken}.
+          type:
+          - string
+          - 'null'
+        serviceAccountTempSizeInMB:
+          description: If the service account does not exist on target system then it will be created with this temp size. This field is only used for Teradata-to-Teradata link.
+          type:
+          - int
+          - 'null'
+        serviceAccountSpoolSizeInMB:
+          description: If the service account does not exist on target system then it will be created with this Spool size. This field is only used for Teradata-to-Teradata link.
+          type:
+          - int
+          - 'null'
+        allowedUsers:
+          description: Users to grant insert/select on the foreign server created on initiator system and grant connect through service account, if one was created, on target system.
+          example:
+          - user1
+          - user2
+          items:
+            type: string
+          type:
+          - array
+          - 'null'
+      type: object
+    not-found-diagnostic-check:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No DIAGNOSTIC_CHECK with id=15fd2337-980b-4d0f-951e-e6c848a81b5d found.
+        path:
+          description: The path of the API called
+          example: /api/v1/operations/diagnostic-check/15fd2337-980b-4d0f-951e-e6c848a81b5d
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.DIAGNOSTIC_CHECK
+          - 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          items:
+            type: string
+          type: array
+      type: object
+    create-foreign-server-response:
+      example:
+        componentId: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+        dataFlow: EXPORT
+        creationTime: 2018-01-31T17:59:22.055+0000
+        seedInfo: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+        type: CONNECTOR_CFS
+        version: ACTIVE
+        initiatorNodeId: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+        abortTime: '10'
+        id: f5d72daf-aa8f-486c-8058-4fc587c0b471
+        lastModified: 2018-01-31T17:59:22.055+0000
+        targetNodeId: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+        nodeId: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+        bandwidthMBPerNode: 0
+        hash: 0000111122223333444455556666777788889999aaaabbbbccccddddeeeeffff
+        properties:
+          initiatorAdminPassword: '[QGM-ENCRYPTED]aaaaaabbbbbbccccccdddddd'
+          initiatorAdminUser: dbc
+          foreignServerName: foreign-server-name
+      properties:
+        id:
+          description: The diagnosticCheckId of the CONNECTOR_CFS diagnostic check operation.
+          example: f5d72daf-aa8f-486c-8058-4fc587c0b471
+          type: string
+        lastModified:
+          description: The last time the diagnostic check operation was modified.
+          example: 2018-01-31T17:59:22.055+0000
+          type: string
+        hash:
+          description: The hash value of the diagnostic check operation
+          example: 0000111122223333444455556666777788889999aaaabbbbccccddddeeeeffff
+          type: string
+        type:
+          description: Type of diagnostic check
+          example: CONNECTOR_CFS
+          type: string
+        componentId:
+          description: Id of the link the request is associated with
+          example: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          type: string
+        nodeId:
+          description: The id of the node
+          example: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          type: string
+        version:
+          description: Version of the link
+          example: ACTIVE
+          type: string
+        properties:
+          $ref: '#/components/schemas/create_foreign_server_response_properties'
+        dataFlow:
+          description: The direction data flows for LINK_BANDWIDTH checks.
+          example: EXPORT
+          type: string
+        abortTime:
+          description: The remaining time until the operation aborts
+          example: '10'
+          type: string
+        creationTime:
+          description: The time the diagnostic check operation was created.
+          example: 2018-01-31T17:59:22.055+0000
+          type: string
+        bandwidthMBPerNode:
+          description: Number of MB to send from one node to each other in case of LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+        seedInfo:
+          description: Information about the seed associated with this diagnostic check
+          example: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          type: string
+        initiatorNodeId:
+          description: The id of the initiator node
+          example: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          type: string
+        targetNodeId:
+          description: The id of the target node
+          example: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          type: string
+      type: object
+    create_foreign_server_response_properties:
+      example:
+        initiatorAdminPassword: '[QGM-ENCRYPTED]aaaaaabbbbbbccccccdddddd'
+        initiatorAdminUser: dbc
+        foreignServerName: foreign-server-name
+      properties:
+        initiatorAdminPassword:
+          description: Password of the admin user
+          example: '[QGM-ENCRYPTED]aaaaaabbbbbbccccccdddddd'
+          type: string
+        initiatorAdminUser:
+          description: Admin user on initiator system used to create the foreign server, create authorization objects, and grant insert/select on the foreign server
+          example: dbc
+          type: string
+        foreignServerName:
+          description: Name of the foreign server to create
+          example: foreign-server-name
+          type: string
+      type: object
+    diagnostic-check-node-response:
+      example:
+        bytesReceived: 2
+        hostname: hostname
+        systemId: systemId
+        systemName: systemName
+        startTime: 2000-01-23 04:56:07+00:00
+        endTime: 2000-01-23 04:56:07+00:00
+        bytesSent: 5
+        error: error
+        nodeId: nodeId
+        status: IN_PROGRESS
+      properties:
+        nodeId:
+          description: The id of the node
+          type: string
+        status:
+          description: The status of the check
+          enum:
+          - IN_PROGRESS
+          - SUCCESS
+          - FAILURE
+          type: string
+        startTime:
+          description: The time the operation started.
+          format: date-time
+          type: string
+        endTime:
+          description: The time the operation ended.
+          format: date-time
+          type: string
+        bytesSent:
+          description: The number of bytes sent. Only applicable to LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+        bytesReceived:
+          description: The number of bytes received. Only applicable to LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+        error:
+          description: The error associated with the failure if not successful.
+          type: string
+        hostname:
+          description: The hostname or IP of the node.
+          type: string
+        systemId:
+          description: The UUID of the system.
+          type: string
+        systemName:
+          description: The name of the system.
+          type: string
+      type: object
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/main/json-schema/teradata-query-request-schema.json",
+  "title": "QueryRequest",
+  "description": "Request to execute a SQL query.",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/teradata-queries-api-openapi.yml#/components/schemas/QueryRequest",
+  "type": "object",
+  "properties": {
+    "sessionId": {
+      "type": "string",
+      "description": "Session identifier for query execution."
+    },
+    "query": {
+      "type": "string",
+      "description": "SQL query to execute."
+    },
+    "format": {
+      "type": "string",
+      "description": "Result format.",
+      "enum": [
+        "json",
+        "csv"
+      ]
+    },
+    "maxRows": {
+      "type": "integer",
+      "description": "Maximum number of rows to return."
+    }
+  },
+  "required": [
+    "sessionId",
+    "query"
+  ]
+}

@@ -1,0 +1,26 @@
+generated: "2026-10-04"
+method: probed
+source: "https://www.teradata.com/privacy"
+signals:
+  data_subject_request:
+    evidence:
+      - source: "https://www.teradata.com/privacy"
+        http_status: 200
+        fetched: "/tmp/teradata_privacy.html"
+        quote: "If you are a U.S. resident, please contact us at privacy.ca@teradata.com. Please use this email to make requests related to the CCPA/CPRA and other United States laws"
+        note: "Provides email address for CCPA/CPRA data subject requests"
+  subprocessors:
+    evidence: []
+  incident_notification:
+    evidence: []
+  data_retention:
+    evidence: []
+  global_privacy_control:
+    evidence: []
+  do_not_sell:
+    evidence:
+      - source: "https://www.teradata.com/privacy"
+        http_status: 200
+        fetched: "/tmp/teradata_privacy.html"
+        quote: "Your Do Not Sell or Share My Personal Information request has been received."
+        note: "Acknowledges Do Not Sell requests per CCPA"

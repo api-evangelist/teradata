@@ -1,16 +1,20 @@
 openapi: 3.2.0
 info:
-  title: Teradata QueryGrid Manager Users API
-  description: REST API for centralized administration and monitoring of Teradata QueryGrid, the data fabric that enables seamless cross-system analytics. Manage data centers, systems, bridges, connectors, links, fabrics, networks, and node configurations.
-  version: '3.6'
-  contact:
-    name: Teradata
-    url: https://www.teradata.com
-  x-generated-from: documentation
-  x-last-validated: '2026-04-18'
+  title: Teradata Users API
+  x-refined-note:
+  - x-generated-from differs across the merged source definitions and was not carried
+  - x-last-validated differs across the merged source definitions and was not carried
+  version: '1.0'
+  description: 'Operations tagged Users across 2 of this provider''s published API definitions: teradata-querygrid-manager-api.yaml, tdqg-manager-api.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://querygrid.teradata.com/api/v1
   description: Default QueryGrid Manager endpoint
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
 security:
 - BasicAuth: []
 tags:
@@ -35,6 +39,120 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+          description: User created
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+      summary: Create a new User
+      tags:
+      - Users
+      operationId: postUsers
+      x-operation-id-source: derived
+    servers:
+    - url: https://querygrid.teradata.com/api/v1
+      description: Default QueryGrid Manager endpoint
+  /users/{username}:
+    delete:
+      parameters:
+      - description: Username of account to delete
+        in: path
+        name: username
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+      summary: Delete a User by ID
+      tags:
+      - Users
+      operationId: deleteUsersByUsername
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: Username of account to get
+        in: path
+        name: username
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-entity'
+          description: Not Found
+      summary: Get a User by ID
+      tags:
+      - Users
+      operationId: getUsersByUsername
+      x-operation-id-source: derived
+    put:
+      parameters:
+      - description: Username of account to update
+        in: path
+        name: username
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user-post'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user-post'
+          description: Successful Operation
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-entity'
+          description: Not Found
+      summary: Update a User
+      tags:
+      - Users
+      operationId: putUsersByUsername
+      x-operation-id-source: derived
+    servers:
+    - description: Default API endpoint
+      url: /api/v1
+    - description: Querygrid Prefix API endpoint
+      url: /querygrid/api/v1
+    - description: Streaming Prefix API endpoint
+      url: /querygrid-streaming/api/v1
 components:
   schemas:
     User:
@@ -53,8 +171,107 @@ components:
           example:
           - admin
           - operator
+    user:
+      example:
+        password: password
+        defaultUser: false
+        description: description
+        username: user1
+      properties:
+        username:
+          description: The account name.
+          example: user1
+          type: string
+        password:
+          description: The account password (not returned on get).
+          type: string
+        defaultUser:
+          description: Flags if user is a default account.
+          example: false
+          type: boolean
+        description:
+          description: A description of the account.
+          type: string
+      type: object
+    not-found-entity:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <entity type> with id=15fd2337-980b-4d0f-951e-e6c848a81b5d found.
+        path:
+          description: The path of the API called
+          example: /api/v1/<type>/15fd2337-980b-4d0f-951e-e6c848a81b5d
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<entity type>
+          - 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          items:
+            type: string
+          type: array
+      type: object
+    bad-request:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 400
+        error:
+          description: The error description
+          example: Bad Request
+        message:
+          description: The error message
+          example: '[name must not be blank]'
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>
+      type: object
+    user-post:
+      example:
+        password: password
+        unlockAccountRequest: false
+        defaultUser: false
+        description: description
+        username: user1
+      properties:
+        username:
+          description: The account name.
+          example: user1
+          type: string
+        password:
+          description: The account password (not returned on get).
+          type: string
+        defaultUser:
+          description: Flags if user is a default account.
+          example: false
+          type: boolean
+        description:
+          description: A description of the account.
+          type: string
+        unlockAccountRequest:
+          description: True if the request is for unlocking the account (not returned on get).
+          example: false
+          type: boolean
+      type: object
   securitySchemes:
     BasicAuth:
       type: http
       scheme: basic
       description: HTTP Basic authentication with QueryGrid Manager credentials.
+x-refined-from:
+- teradata-querygrid-manager-api.yaml
+- tdqg-manager-api.yml

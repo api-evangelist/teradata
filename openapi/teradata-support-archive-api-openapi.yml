@@ -1,0 +1,225 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Support Archive API
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Generate support archive for a Manager, System, Node, Query, or Bandwidth Tests issues
+  name: Support-Archive
+paths:
+  /support-archive/manager:
+    get:
+      description: Generate and download manager support archive containing QGM logs and other information.
+      parameters:
+      - description: The start of the time range to collect logs in ISO8601 format.
+        in: query
+        name: start-time
+        required: false
+        schema:
+          type: string
+      - description: The end of the time range to collect logs in ISO8601 format.
+        in: query
+        name: end-time
+        required: false
+        schema:
+          type: string
+      - description: The number of days back to include log files, defaults to 7.
+        in: query
+        name: days
+        required: false
+        schema:
+          type: string
+      - description: The number of hours back to include log files.
+        in: query
+        name: hours
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+          description: Successful Operation
+        '507':
+          description: QueryGrid Manager is running low on disk space.
+      summary: Generate manager support archive
+      tags:
+      - Support-Archive
+      operationId: getSupportArchiveManager
+      x-operation-id-source: derived
+  /support-archive/query:
+    get:
+      description: Generate and download query support archive containing query summary and query details.
+      parameters:
+      - description: Generate a support archive for a specific query Id.
+        in: query
+        name: query
+        required: true
+        schema:
+          type: string
+      - description: Collect support information for all operations associated with the specified query Id.
+        in: query
+        name: all
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Unable to or skipped generation of support archive.
+        '507':
+          description: QueryGrid Manager is running low on disk space.
+      summary: Generate query support archive
+      tags:
+      - Support-Archive
+      operationId: getSupportArchiveQuery
+      x-operation-id-source: derived
+  /support-archive/config:
+    get:
+      description: Generate config support archive containing config information collected from QGM.
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+          description: Successful Operation
+        '507':
+          description: QueryGrid Manager is running low on disk space.
+      summary: Generate config support archive
+      tags:
+      - Support-Archive
+      operationId: getSupportArchiveConfig
+      x-operation-id-source: derived
+  /support-archive/node:
+    get:
+      description: Generate and download node support archive containing node logs.
+      parameters:
+      - description: The start of the time range to collect logs in ISO8601 format.
+        in: query
+        name: start-time
+        required: false
+        schema:
+          type: string
+      - description: The end of the time range to collect logs in ISO8601 format.
+        in: query
+        name: end-time
+        required: false
+        schema:
+          type: string
+      - description: The number of days back to include log files, defaults to 7.
+        in: query
+        name: days
+        required: false
+        schema:
+          type: string
+      - description: The number of hours back to include log files.
+        in: query
+        name: hours
+        required: false
+        schema:
+          type: string
+      - description: Id or the hostname of a specific node.
+        in: query
+        name: node
+        required: false
+        schema:
+          type: string
+      - description: Generate node-logs support archive for a specific system name.
+        in: query
+        name: system-name
+        required: false
+        schema:
+          type: string
+      - description: The number of threads to use for collecting node logs, defaults to 10.
+        in: query
+        name: threads
+        required: false
+        schema:
+          type: integer
+      - description: Generate node-logs support archive for a specific sender. Examples - [node, fabric, connector]
+        in: query
+        name: sender
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Unable to or skipped generation of support archive.
+        '507':
+          description: QueryGrid Manager is running low on disk space.
+      summary: Generate node support archive
+      tags:
+      - Support-Archive
+      operationId: getSupportArchiveNode
+      x-operation-id-source: derived
+  /support-archive/diagnostic-check:
+    get:
+      description: Generate and download diagnostic check support archive.
+      parameters:
+      - description: Generate a support archive for a specific diagnostic check Id.
+        in: query
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Unable to or skipped generation of support archive.
+        '507':
+          description: QueryGrid Manager is running low on disk space.
+      summary: Generate diagnostic check support archive
+      tags:
+      - Support-Archive
+      operationId: getSupportArchiveDiagnosticCheck
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http
