@@ -1,16 +1,20 @@
 openapi: 3.2.0
 info:
-  title: Teradata QueryGrid Manager Managers API
-  description: REST API for centralized administration and monitoring of Teradata QueryGrid, the data fabric that enables seamless cross-system analytics. Manage data centers, systems, bridges, connectors, links, fabrics, networks, and node configurations.
-  version: '3.6'
-  contact:
-    name: Teradata
-    url: https://www.teradata.com
-  x-generated-from: documentation
-  x-last-validated: '2026-04-18'
+  title: Teradata Managers API
+  x-refined-note:
+  - x-generated-from differs across the merged source definitions and was not carried
+  - x-last-validated differs across the merged source definitions and was not carried
+  version: '1.0'
+  description: 'Operations tagged Managers across 2 of this provider''s published API definitions: teradata-querygrid-manager-api.yaml, tdqg-manager-api.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://querygrid.teradata.com/api/v1
   description: Default QueryGrid Manager endpoint
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
 security:
 - BasicAuth: []
 tags:
@@ -45,6 +49,61 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://querygrid.teradata.com/api/v1
+      description: Default QueryGrid Manager endpoint
+  /managers/{id}:
+    delete:
+      description: Delete a single manager based on the Id supplied
+      parameters:
+      - description: Id of manager that needs to be deleted.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Manager deleted
+      summary: Delete manager using Id
+      tags:
+      - Managers
+      operationId: deleteManagersById
+      x-operation-id-source: derived
+    get:
+      description: Get the manager using the Id
+      parameters:
+      - description: Id of manager to get
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/manager'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-entity'
+          description: No manager found with the specified Id
+      summary: Find manager by Id
+      tags:
+      - Managers
+      operationId: getManagersById
+      x-operation-id-source: derived
+    servers:
+    - description: Default API endpoint
+      url: /api/v1
+    - description: Querygrid Prefix API endpoint
+      url: /querygrid/api/v1
+    - description: Streaming Prefix API endpoint
+      url: /querygrid-streaming/api/v1
 components:
   schemas:
     Manager:
@@ -71,8 +130,163 @@ components:
           type: string
           description: Software version.
           example: '03.06'
+    manager:
+      example:
+        hostname: hostname
+        networkInterfaces:
+        - prefixLength: 16
+          address: 169.254.169.254
+          name: eth0
+        - prefixLength: 16
+          address: 169.254.169.254
+          name: eth0
+        dataCenterId: c73cfabf-2db9-4054-bfbe-9c823b8797e7
+        publicAddress: 10.10.10.10
+        startTime: 2000-01-23 04:56:07+00:00
+        additionalPublicAddresses:
+        - additionalPublicAddresses
+        - additionalPublicAddresses
+        id: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+        lastModified: 2000-01-23 04:56:07+00:00
+        version: 02.04.00.02-19
+        _extraInfo:
+          lastHeartbeat: 2000-01-23 04:56:07+00:00
+          freeSpace: 149786984448
+          diskUsage: 44.2
+          dataCenterName: San Diego
+          totalSpace: 268435456000
+          status: ONLINE
+        bindAddress: 10.10.10.10
+        clusterAddress: 10.10.10.10
+      properties:
+        id:
+          description: Id of the manager
+          example: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          type: string
+        lastModified:
+          description: The last time this object was modified
+          format: date-time
+          type: string
+        hostname:
+          description: The hostname of the manager
+          type: string
+        networkInterfaces:
+          description: The network interfaces associated with the manager
+          items:
+            $ref: '#/components/schemas/manager_networkInterfaces_inner'
+          type: array
+        dataCenterId:
+          description: The ID of the data center the manager is associated with
+          example: c73cfabf-2db9-4054-bfbe-9c823b8797e7
+          type: string
+        version:
+          description: The version of the tdqg-manager software.
+          example: 02.04.00.02-19
+          type: string
+        publicAddress:
+          description: The internet address or hostname used by tdqg-node, tdqg-fabric, and viewpoint to access the QGM.
+          example: 10.10.10.10
+        clusterAddress:
+          description: The internet address other QGMs used to access this instance.
+          example: 10.10.10.10
+        bindAddress:
+          description: The internet address that certain QGM services are bound.
+          example: 10.10.10.10
+        startTime:
+          description: The time the Manager was last started
+          format: date-time
+          type: string
+        additionalPublicAddresses:
+          description: A list of additional public addresses to associate with the QueryGrid Manager instance.
+          items:
+            type: string
+          type: array
+        _extraInfo:
+          $ref: '#/components/schemas/manager__extraInfo'
+      type: object
+    manager__extraInfo:
+      description: Information not part of the saved manager schema but information that is associated and useful to know about the manager.
+      example:
+        lastHeartbeat: 2000-01-23 04:56:07+00:00
+        freeSpace: 149786984448
+        diskUsage: 44.2
+        dataCenterName: San Diego
+        totalSpace: 268435456000
+        status: ONLINE
+      properties:
+        status:
+          description: The status of the manager (e.g. ONLINE or OFFLINE).
+          example: ONLINE
+          type: string
+        lastHeartbeat:
+          description: The last time this Manager sent a heartbeat
+          format: date-time
+          type: string
+        diskUsage:
+          description: The percentage of available disk space on the disk volume containing logs and query metrics.
+          example: 44.2
+          type: number
+        freeSpace:
+          description: The free disk space in bytes.
+          example: 149786984448
+          type: number
+        totalSpace:
+          description: The total disk space in bytes.
+          example: 268435456000
+        dataCenterName:
+          description: The data center the manager is located in.
+          example: San Diego
+      type: object
+    not-found-entity:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <entity type> with id=15fd2337-980b-4d0f-951e-e6c848a81b5d found.
+        path:
+          description: The path of the API called
+          example: /api/v1/<type>/15fd2337-980b-4d0f-951e-e6c848a81b5d
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<entity type>
+          - 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          items:
+            type: string
+          type: array
+      type: object
+    manager_networkInterfaces_inner:
+      example:
+        prefixLength: 16
+        address: 169.254.169.254
+        name: eth0
+      properties:
+        name:
+          description: The name of the network interface
+          example: eth0
+        address:
+          description: The address associated with the network interface
+          example: 169.254.169.254
+        prefixLength:
+          description: The subnet prefix length
+          example: 16
+      type: object
   securitySchemes:
     BasicAuth:
       type: http
       scheme: basic
       description: HTTP Basic authentication with QueryGrid Manager credentials.
+x-refined-from:
+- teradata-querygrid-manager-api.yaml
+- tdqg-manager-api.yml

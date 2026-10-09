@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/main/json-schema/teradata-system-schema.json",
+  "title": "system",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/teradata-api-info-api-openapi.yml#/components/schemas/system",
+  "properties": {
+    "id": {
+      "description": "The auto-generated ID of the system.",
+      "type": "string"
+    },
+    "lastModified": {
+      "description": "The last time this system was modified.",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the system.",
+      "type": "string"
+    },
+    "description": {
+      "description": "A description of the system.",
+      "type": "string"
+    },
+    "dataCenterId": {
+      "description": "The ID of the data center the system is located in.",
+      "type": "string"
+    },
+    "region": {
+      "description": "Region the system is located in.",
+      "type": "string"
+    },
+    "softwareVersion": {
+      "description": "The version of the tdqg-node package that should be installed on all nodes of the system.",
+      "type": "string"
+    },
+    "maximumMemoryPerNode": {
+      "description": "The maximum memory per node in bytes allowed to be used by QueryGrid queries.",
+      "type": "number"
+    },
+    "bridgeOnly": {
+      "description": "Flags if this system is a bridge only system (e.g. no local data source)",
+      "type": "boolean"
+    },
+    "proxySupportType": {
+      "description": "Flags if a proxy should be used by this system for connecting to QueryGrid Manager.",
+      "enum": [
+        "NO_PROXY",
+        "LOCAL_PROXY",
+        "BRIDGE_PROXY"
+      ],
+      "type": "string"
+    },
+    "proxyPort": {
+      "description": "The port number to listen for proxying connections. Required with LOCAL_PROXY.",
+      "type": "number"
+    },
+    "proxyNetworkId": {
+      "description": "The UUID of a network rule to specify the network to use to enable proxy support. The default is to use the byn1 network interface automatically.",
+      "type": "string"
+    },
+    "proxyBridgeId": {
+      "description": "The ID of a remote bridge system (edge nodes) to use to proxy connections to QueryGrid Manager. Bridge system must have proxySupport = LOCAL_PROXY specified.",
+      "type": "string"
+    },
+    "enableProxy": {
+      "description": "Flags if this system should be directed to run a proxy",
+      "type": "boolean"
+    },
+    "enableOverridePort": {
+      "description": "Flags if this system is overriding the fabric TCP server socket.",
+      "type": "boolean"
+    },
+    "overridePort": {
+      "description": "The port number for the tdqg-node service to bind to.",
+      "type": "number"
+    },
+    "autoNodeDelete": {
+      "description": "Flag to enable auto node delete.",
+      "type": "boolean"
+    },
+    "autoNodeDeleteMinutes": {
+      "description": "Number of minutes a node is offline before being auto deleted when autoNodeDelete is enabled.",
+      "type": "number"
+    },
+    "systemType": {
+      "description": "The type of the data source to which the system nodes belong.",
+      "enum": [
+        "TERADATA",
+        "PRESTO",
+        "HADOOP",
+        "OTHER"
+      ],
+      "type": "string"
+    },
+    "systemFlavor": {
+      "description": "The flavor of the Hadoop system.",
+      "enum": [
+        "emr",
+        "cdp",
+        "dataproc",
+        "hdinsight"
+      ],
+      "type": "string"
+    },
+    "platformType": {
+      "description": "The platform on which the system is deployed.",
+      "enum": [
+        "AWS",
+        "AZURE",
+        "GC",
+        "PRIVATE",
+        "ON_PREM"
+      ],
+      "type": "string"
+    },
+    "tags": {
+      "description": "Optional string key/value pairs for associating some context with the system such as cloud site ID.",
+      "type": "object"
+    },
+    "_extraInfo": {
+      "$ref": "#/$defs/system-extra-info"
+    }
+  },
+  "type": "object",
+  "$defs": {
+    "system-extra-info": {
+      "properties": {
+        "nodesOnline": {
+          "description": "The number of nodes online for the system",
+          "type": "number"
+        },
+        "nodesOffline": {
+          "description": "The number of nodes offline for the system",
+          "type": "number"
+        },
+        "dataCenterName": {
+          "description": "The name of the data center the system is located in.",
+          "type": "string"
+        },
+        "lastInstallOperationId": {
+          "description": "The ID of the last auto-install operation performed for the system.",
+          "type": "string"
+        },
+        "lastInstallStatus": {
+          "description": "The status of the last auto-install operation performed for the system.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  }
+}

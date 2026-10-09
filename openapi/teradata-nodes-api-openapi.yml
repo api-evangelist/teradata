@@ -1,16 +1,20 @@
 openapi: 3.2.0
 info:
-  title: Teradata QueryGrid Manager Nodes API
-  description: REST API for centralized administration and monitoring of Teradata QueryGrid, the data fabric that enables seamless cross-system analytics. Manage data centers, systems, bridges, connectors, links, fabrics, networks, and node configurations.
-  version: '3.6'
-  contact:
-    name: Teradata
-    url: https://www.teradata.com
-  x-generated-from: documentation
-  x-last-validated: '2026-04-18'
+  title: Teradata Nodes API
+  x-refined-note:
+  - x-generated-from differs across the merged source definitions and was not carried
+  - x-last-validated differs across the merged source definitions and was not carried
+  version: '1.0'
+  description: 'Operations tagged Nodes across 2 of this provider''s published API definitions: teradata-querygrid-manager-api.yaml, tdqg-manager-api.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://querygrid.teradata.com/api/v1
   description: Default QueryGrid Manager endpoint
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
 security:
 - BasicAuth: []
 tags:
@@ -63,6 +67,109 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    delete:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_nodes_delete_request'
+        description: Optional description in *Markdown*
+        required: true
+      responses:
+        '200':
+          description: node deleted
+      summary: Bulk delete nodes
+      tags:
+      - Nodes
+      operationId: deleteNodes
+      x-operation-id-source: derived
+    servers:
+    - url: https://querygrid.teradata.com/api/v1
+      description: Default QueryGrid Manager endpoint
+  /nodes/{id}:
+    delete:
+      description: Delete a single node based on the Id supplied
+      operationId: deleteNodeById
+      parameters:
+      - description: Id of node that needs to be deleted.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Node deleted
+      summary: Delete node using Id
+      tags:
+      - Nodes
+    get:
+      description: Get the node using the Id
+      operationId: getNodeById
+      parameters:
+      - description: Id of node to get
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/node'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-entity'
+          description: No node found with the specified Id
+      summary: Find node by Id
+      tags:
+      - Nodes
+    servers:
+    - description: Default API endpoint
+      url: /api/v1
+    - description: Querygrid Prefix API endpoint
+      url: /querygrid/api/v1
+    - description: Streaming Prefix API endpoint
+      url: /querygrid-streaming/api/v1
+  /nodes/{id}/heartbeat:
+    get:
+      description: Get the last watchdog heartbeat using node Id
+      operationId: getLastWatchDogHeartbeat
+      parameters:
+      - description: Id of node
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/watchdog-heartbeat'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-entity'
+          description: No node found with the specified Id
+      summary: Get last watchdog heartbeat using node Id
+      tags:
+      - Nodes
+    servers:
+    - description: Default API endpoint
+      url: /api/v1
+    - description: Querygrid Prefix API endpoint
+      url: /querygrid/api/v1
+    - description: Streaming Prefix API endpoint
+      url: /querygrid-streaming/api/v1
 components:
   schemas:
     Node:
@@ -97,8 +204,542 @@ components:
           type: string
           description: Installed software version.
           example: 03.06.00.01
+    node__extraInfo:
+      description: Information not part of the saved node schema but information that is associated and useful to know about the node.
+      example:
+        systemName: TD1
+        startTime: 2000-01-23 04:56:07+00:00
+        dataCenterName: San Diego
+        softwareVersion: 02.04.00.02-11
+        status: ONLINE
+      properties:
+        status:
+          description: The status of the node (e.g. ONLINE or OFFLINE).
+          example: ONLINE
+          type: string
+        startTime:
+          description: The start time of the node service.
+          format: date-time
+          type: string
+        systemName:
+          description: The name of the system the node belongs to.
+          example: TD1
+        dataCenterName:
+          description: The data center the node is located in.
+          example: San Diego
+        softwareVersion:
+          description: The version of tdqg-node software the node is running
+          example: 02.04.00.02-11
+      type: object
+    not-found-entity:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <entity type> with id=15fd2337-980b-4d0f-951e-e6c848a81b5d found.
+        path:
+          description: The path of the API called
+          example: /api/v1/<type>/15fd2337-980b-4d0f-951e-e6c848a81b5d
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<entity type>
+          - 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          items:
+            type: string
+          type: array
+      type: object
+    manager_networkInterfaces_inner:
+      example:
+        prefixLength: 16
+        address: 169.254.169.254
+        name: eth0
+      properties:
+        name:
+          description: The name of the network interface
+          example: eth0
+        address:
+          description: The address associated with the network interface
+          example: 169.254.169.254
+        prefixLength:
+          description: The subnet prefix length
+          example: 16
+      type: object
+    driver-status:
+      example:
+        processId: '5508'
+        errorMessage: Driver restarted
+        driverName: driver-test-name
+        lastUnexpectedRestart: 2018-02-25T20:36:31.121+0000
+        status: running
+      properties:
+        driverName:
+          description: Name of the driver
+          example: driver-test-name
+          type: string
+        status:
+          description: Status of the driver
+          example: running
+          type: string
+        processId:
+          description: Process Id of the fabric
+          example: '5508'
+          type: string
+        errorMessage:
+          description: Error observed by the driver
+          example: Driver restarted
+          type: string
+        lastUnexpectedRestart:
+          description: The time of the last driver restart
+          example: 2018-02-25T20:36:31.121+0000
+          format: date-time
+      type: object
+    watchdog-heartbeat:
+      example:
+        connectors:
+        - versionId: 2e2ddd4d-7c30-47ed-bbf1-77806fe7e6a9
+          softwareName: tdqg-teradata-connector-02.13.00.00-1.tar.gz
+          connectorVersion: ACTIVE
+          errorMessage: Unable to install
+          connectorName: conenctor-test-name
+          softwareVersion: 02.13.00.00-1
+          fabricName: fabric-test-name
+          status: installed
+        - versionId: 2e2ddd4d-7c30-47ed-bbf1-77806fe7e6a9
+          softwareName: tdqg-teradata-connector-02.13.00.00-1.tar.gz
+          connectorVersion: ACTIVE
+          errorMessage: Unable to install
+          connectorName: conenctor-test-name
+          softwareVersion: 02.13.00.00-1
+          fabricName: fabric-test-name
+          status: installed
+        systemId: c73cfabf-2db9-4054-bfbe-9c823b8797e7
+        overridePortError: overridePortError
+        received: 2000-01-23 04:56:07+00:00
+        version: version
+        trustedCertificates:
+        - trustedCertificates
+        - trustedCertificates
+        fabrics:
+        - versionId: 2d1ddd4d-7c30-47ed-bbf1-77806fe7e6a9
+          processId: '4708'
+          errorMessage: Fabric restarted
+          lastUnexpectedRestart: 2018-02-25T20:36:31.121+0000
+          version: ACTIVE
+          drivers:
+          - processId: '5508'
+            errorMessage: Driver restarted
+            driverName: driver-test-name
+            lastUnexpectedRestart: 2018-02-25T20:36:31.121+0000
+            status: running
+          - processId: '5508'
+            errorMessage: Driver restarted
+            driverName: driver-test-name
+            lastUnexpectedRestart: 2018-02-25T20:36:31.121+0000
+            status: running
+          softwareVersion: 02.13.00.00-1
+          fabricName: fabric-test-name
+          status: running
+        - versionId: 2d1ddd4d-7c30-47ed-bbf1-77806fe7e6a9
+          processId: '4708'
+          errorMessage: Fabric restarted
+          lastUnexpectedRestart: 2018-02-25T20:36:31.121+0000
+          version: ACTIVE
+          drivers:
+          - processId: '5508'
+            errorMessage: Driver restarted
+            driverName: driver-test-name
+            lastUnexpectedRestart: 2018-02-25T20:36:31.121+0000
+            status: running
+          - processId: '5508'
+            errorMessage: Driver restarted
+            driverName: driver-test-name
+            lastUnexpectedRestart: 2018-02-25T20:36:31.121+0000
+            status: running
+          softwareVersion: 02.13.00.00-1
+          fabricName: fabric-test-name
+          status: running
+        hostname: hostname
+        instanceId: 2018-02-25T20:36:31.121+0000
+        systemName: system-test-name
+        lastModified: 2000-01-23 04:56:07+00:00
+        nodeId: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+        managers:
+        - fabricPortConflicts:
+          - port: 5000
+            fabricVersion: ACTIVE
+            fabricName: fabric-test-name
+          - port: 5000
+            fabricVersion: ACTIVE
+            fabricName: fabric-test-name
+          addresses:
+          - sdlc1111.labs.teradata.com
+          - sdlc2222.labs.teradata.com
+          linkNameConflicts:
+          - linkName: link-test-name
+            fabricName: fabric-test-name
+          - linkName: link-test-name
+            fabricName: fabric-test-name
+          clusterId: 3f3ddd4d-7c30-47ed-bbf1-77806fe7e6a9
+          primary: true
+        - fabricPortConflicts:
+          - port: 5000
+            fabricVersion: ACTIVE
+            fabricName: fabric-test-name
+          - port: 5000
+            fabricVersion: ACTIVE
+            fabricName: fabric-test-name
+          addresses:
+          - sdlc1111.labs.teradata.com
+          - sdlc2222.labs.teradata.com
+          linkNameConflicts:
+          - linkName: link-test-name
+            fabricName: fabric-test-name
+          - linkName: link-test-name
+            fabricName: fabric-test-name
+          clusterId: 3f3ddd4d-7c30-47ed-bbf1-77806fe7e6a9
+          primary: true
+        timestamp: 2018-02-25T20:36:31.121+0000
+        proxyError: proxyError
+      properties:
+        nodeId:
+          description: Id of the node
+          example: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          type: string
+        timestamp:
+          description: The time of the heartbeat generation
+          example: 2018-02-25T20:36:31.121+0000
+        instanceId:
+          description: The manager configuration instance Id
+          example: 2018-02-25T20:36:31.121+0000
+        lastModified:
+          description: The last observed configuration timestamp
+          format: date-time
+          type: string
+        version:
+          description: The watch dog version
+          type: string
+        fabrics:
+          description: Information about fabrics associated with the node
+          items:
+            $ref: '#/components/schemas/fabric-status'
+          type: array
+        connectors:
+          description: Information about connectors associated with the node
+          items:
+            $ref: '#/components/schemas/connector-status'
+          type: array
+        managers:
+          description: Information about manager clusters associated with the node
+          items:
+            $ref: '#/components/schemas/manager-status'
+          type: array
+        received:
+          description: The time when heartbeat was received by manager
+          format: date-time
+          type: string
+        systemId:
+          description: The ID of the system the node is associated with
+          example: c73cfabf-2db9-4054-bfbe-9c823b8797e7
+          type: string
+        systemName:
+          description: The name of the system the node is associated with
+          example: system-test-name
+          type: string
+        hostname:
+          description: The hostname of the node
+          type: string
+        proxyError:
+          description: The error while using proxy
+          type: string
+        overridePortError:
+          description: The error while using an override port
+          type: string
+        trustedCertificates:
+          description: List of trusted certificates used by the node
+          items:
+            type: string
+          type: array
+      type: object
+    manager-status:
+      example:
+        fabricPortConflicts:
+        - port: 5000
+          fabricVersion: ACTIVE
+          fabricName: fabric-test-name
+        - port: 5000
+          fabricVersion: ACTIVE
+          fabricName: fabric-test-name
+        addresses:
+        - sdlc1111.labs.teradata.com
+        - sdlc2222.labs.teradata.com
+        linkNameConflicts:
+        - linkName: link-test-name
+          fabricName: fabric-test-name
+        - linkName: link-test-name
+          fabricName: fabric-test-name
+        clusterId: 3f3ddd4d-7c30-47ed-bbf1-77806fe7e6a9
+        primary: true
+      properties:
+        clusterId:
+          description: Id of the manager cluster
+          example: 3f3ddd4d-7c30-47ed-bbf1-77806fe7e6a9
+          type: string
+        primary:
+          description: Flag to specify if this manager is acting as primary manager for the node
+          example: true
+          type: boolean
+        addresses:
+          description: Addresses of the managers in the cluster
+          example:
+          - sdlc1111.labs.teradata.com
+          - sdlc2222.labs.teradata.com
+          items:
+            type: string
+          type: array
+        fabricPortConflicts:
+          description: Information about fabric port conflicts
+          items:
+            $ref: '#/components/schemas/fabric-port-conflict-status'
+          type: array
+        linkNameConflicts:
+          description: Information about link name conflicts
+          items:
+            $ref: '#/components/schemas/link-name-conflict-status'
+          type: array
+      type: object
+    _nodes_delete_request:
+      properties:
+        ids:
+          example:
+          - 23b9f4a9-223d-424d-a78b-ce378be62e24
+          - 8e2ad797-60a3-4859-bc7c-bf8bed42e085
+          items:
+            type: string
+          type: array
+      type: object
+    connector-status:
+      example:
+        versionId: 2e2ddd4d-7c30-47ed-bbf1-77806fe7e6a9
+        softwareName: tdqg-teradata-connector-02.13.00.00-1.tar.gz
+        connectorVersion: ACTIVE
+        errorMessage: Unable to install
+        connectorName: conenctor-test-name
+        softwareVersion: 02.13.00.00-1
+        fabricName: fabric-test-name
+        status: installed
+      properties:
+        versionId:
+          description: Id of the versioned connector
+          example: 2e2ddd4d-7c30-47ed-bbf1-77806fe7e6a9
+          type: string
+        connectorName:
+          description: Name of the connector
+          example: conenctor-test-name
+          type: string
+        connectorVersion:
+          description: Version of the connector
+          enum:
+          - ACTIVE
+          - PENDING
+          - PREVIOUS
+          type: string
+        softwareName:
+          description: Name of the connector package
+          example: tdqg-teradata-connector-02.13.00.00-1.tar.gz
+          type: string
+        softwareVersion:
+          description: Version of the connector package
+          example: 02.13.00.00-1
+          type: string
+        fabricName:
+          description: Name of the fabric using this connector
+          example: fabric-test-name
+          type: string
+        status:
+          description: Status of the connector
+          example: installed
+          type: string
+        errorMessage:
+          description: Error observed by the connector
+          example: Unable to install
+          type: string
+      type: object
+    fabric-status:
+      example:
+        versionId: 2d1ddd4d-7c30-47ed-bbf1-77806fe7e6a9
+        processId: '4708'
+        errorMessage: Fabric restarted
+        lastUnexpectedRestart: 2018-02-25T20:36:31.121+0000
+        version: ACTIVE
+        drivers:
+        - processId: '5508'
+          errorMessage: Driver restarted
+          driverName: driver-test-name
+          lastUnexpectedRestart: 2018-02-25T20:36:31.121+0000
+          status: running
+        - processId: '5508'
+          errorMessage: Driver restarted
+          driverName: driver-test-name
+          lastUnexpectedRestart: 2018-02-25T20:36:31.121+0000
+          status: running
+        softwareVersion: 02.13.00.00-1
+        fabricName: fabric-test-name
+        status: running
+      properties:
+        fabricName:
+          description: Name of the fabric
+          example: fabric-test-name
+          type: string
+        version:
+          description: Version of the fabric
+          enum:
+          - ACTIVE
+          - PENDING
+          - PREVIOUS
+          type: string
+        softwareVersion:
+          description: Version of the fabric package
+          example: 02.13.00.00-1
+          type: string
+        versionId:
+          description: Id of the versioned fabric
+          example: 2d1ddd4d-7c30-47ed-bbf1-77806fe7e6a9
+          type: string
+        status:
+          description: Status of the fabric
+          example: running
+          type: string
+        processId:
+          description: Process Id of the fabric
+          example: '4708'
+          type: string
+        errorMessage:
+          description: Error observed by the fabric
+          example: Fabric restarted
+          type: string
+        lastUnexpectedRestart:
+          description: The time of the last fabric restart
+          example: 2018-02-25T20:36:31.121+0000
+          format: date-time
+        drivers:
+          description: The status of drivers associated with the fabric
+          items:
+            $ref: '#/components/schemas/driver-status'
+          type: array
+      type: object
+    fabric-port-conflict-status:
+      example:
+        port: 5000
+        fabricVersion: ACTIVE
+        fabricName: fabric-test-name
+      properties:
+        fabricName:
+          description: Name of the fabric
+          example: fabric-test-name
+          type: string
+        port:
+          description: Port with conflict
+          example: 5000
+          type: integer
+        fabricVersion:
+          description: Version of the fabric
+          enum:
+          - ACTIVE
+          - PENDING
+          - PREVIOUS
+          type: string
+      type: object
+    node:
+      example:
+        hostname: hostname
+        systemId: c73cfabf-2db9-4054-bfbe-9c823b8797e7
+        aliases:
+        - aliases
+        - aliases
+        networkInterfaces:
+        - prefixLength: 16
+          address: 169.254.169.254
+          name: eth0
+        - prefixLength: 16
+          address: 169.254.169.254
+          name: eth0
+        attributes: '{}'
+        id: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+        lastModified: 2000-01-23 04:56:07+00:00
+        _extraInfo:
+          systemName: TD1
+          startTime: 2000-01-23 04:56:07+00:00
+          dataCenterName: San Diego
+          softwareVersion: 02.04.00.02-11
+          status: ONLINE
+        platform: linux-x64
+      properties:
+        id:
+          description: Id of the node
+          example: 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          type: string
+        lastModified:
+          description: The last time this object was modified
+          format: date-time
+          type: string
+        hostname:
+          description: The hostname of the node
+          type: string
+        aliases:
+          description: Any aliases associated with the node
+          items:
+            type: string
+          type: array
+        platform:
+          description: The node's OS/Arch
+          example: linux-x64
+          type: string
+        attributes:
+          description: The nodes attributes as determined by the QGL
+          type: object
+        systemId:
+          description: The ID of the system the node is associated with
+          example: c73cfabf-2db9-4054-bfbe-9c823b8797e7
+          type: string
+        networkInterfaces:
+          description: The network interfaces associated with the node
+          items:
+            $ref: '#/components/schemas/manager_networkInterfaces_inner'
+          type: array
+        _extraInfo:
+          $ref: '#/components/schemas/node__extraInfo'
+      type: object
+    link-name-conflict-status:
+      example:
+        linkName: link-test-name
+        fabricName: fabric-test-name
+      properties:
+        linkName:
+          description: Name of the link
+          example: link-test-name
+          type: string
+        fabricName:
+          description: Name of the fabric
+          example: fabric-test-name
+          type: string
+      type: object
   securitySchemes:
     BasicAuth:
       type: http
       scheme: basic
       description: HTTP Basic authentication with QueryGrid Manager credentials.
+x-refined-from:
+- teradata-querygrid-manager-api.yaml
+- tdqg-manager-api.yml

@@ -1,0 +1,48 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Operations - Disable System…
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Disable system alerts for a specific system and issue type
+  name: Operations - Disable System Alerts
+paths:
+  /operations/system-alerts/disable:
+    post:
+      description: Disable alerts for a non-lake system (VCE, OnPrem, etc.) for a specific issue type. Note - Currently, this is only supported for the "NODES_OFFLINE" issue type.
+      operationId: postDisableSystemAlerts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/system-alerts-request'
+      responses:
+        '200':
+          description: Successful Operation
+        '400':
+          description: Bad Request
+      summary: Disable system alerts for a specific issue type
+      tags:
+      - Operations - Disable System Alerts
+components:
+  schemas:
+    system-alerts-request:
+      properties:
+        systemId:
+          type: string
+        issueProblemType:
+          type: string
+      type: object
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

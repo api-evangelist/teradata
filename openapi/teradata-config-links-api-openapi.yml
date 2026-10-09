@@ -1,0 +1,837 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Config - Links API
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Manage links that enable connectivity between connectors
+  name: Config - Links
+paths:
+  /config/links:
+    get:
+      parameters:
+      - description: Flatten out the active, pending, and previous versions into array elements instead of nesting them.
+        in: query
+        name: flatten
+        schema:
+          type: boolean
+      - description: Provide extra details (in _extraInfo section) about the link.
+        in: query
+        name: extraInfo
+        schema:
+          type: boolean
+      - description: Get link associated with the specified name (case insensitive). Wildcard matching with '*' is supported.
+        in: query
+        name: filterByName
+        required: false
+        schema:
+          type: string
+      - description: Get link associated with the specified tag. Provide ','(comma) separated list of key:value pairs.
+        in: query
+        name: filterByTag
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/link'
+                type: array
+          description: Successful operation
+      summary: Get all Links
+      tags:
+      - Config - Links
+      operationId: getConfigLinks
+      x-operation-id-source: derived
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-link'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/link'
+          description: Link created
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+      summary: Create a new Link
+      tags:
+      - Config - Links
+      operationId: postConfigLinks
+      x-operation-id-source: derived
+  /config/links/{id}:
+    delete:
+      parameters:
+      - description: ID of the Link to delete
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+      summary: Delete a Link by ID
+      tags:
+      - Config - Links
+      operationId: deleteConfigLinksById
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the Link
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: Provide extra details (in _extraInfo section) about the link.
+        in: query
+        name: extraInfo
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/link'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config'
+          description: Not Found
+      summary: Get a Link by ID
+      tags:
+      - Config - Links
+      operationId: getConfigLinksById
+      x-operation-id-source: derived
+    patch:
+      parameters:
+      - description: ID of the Link to update
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_config_links__id__patch_request'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/link'
+          description: Successful Operation
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config'
+          description: Not Found
+      summary: Update Link name or description
+      tags:
+      - Config - Links
+      operationId: patchConfigLinksById
+      x-operation-id-source: derived
+  /config/links/{id}/active:
+    get:
+      parameters:
+      - description: ID of the Link
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/active-link'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Get the active version for a Link
+      tags:
+      - Config - Links
+      operationId: getConfigLinksByIdActive
+      x-operation-id-source: derived
+    patch:
+      parameters:
+      - description: ID of the Link
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example: db6f0a2e-a368-4a97-91fb-cf3f61d72704
+              type: string
+        description: The version ID of the version to activate.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/post-link'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Activate pending or previous link version
+      tags:
+      - Config - Links
+      operationId: patchConfigLinksByIdActive
+      x-operation-id-source: derived
+    put:
+      parameters:
+      - description: ID of the Link
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-link'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/post-link'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Update the active Link version
+      tags:
+      - Config - Links
+      operationId: putConfigLinksByIdActive
+      x-operation-id-source: derived
+  /config/links/{id}/pending:
+    delete:
+      parameters:
+      - description: ID of the Link
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Delete the pending Link version
+      tags:
+      - Config - Links
+      operationId: deleteConfigLinksByIdPending
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the Link
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pending-link'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Get the pending version for a Link
+      tags:
+      - Config - Links
+      operationId: getConfigLinksByIdPending
+      x-operation-id-source: derived
+    put:
+      parameters:
+      - description: ID of the Link
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-link'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/post-link'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Update the pending Link version
+      tags:
+      - Config - Links
+      operationId: putConfigLinksByIdPending
+      x-operation-id-source: derived
+  /config/links/{id}/previous:
+    delete:
+      parameters:
+      - description: ID of the Link
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Delete the previous Link version
+      tags:
+      - Config - Links
+      operationId: deleteConfigLinksByIdPrevious
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the Link
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/previous-link'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Get the previous version for a Link
+      tags:
+      - Config - Links
+      operationId: getConfigLinksByIdPrevious
+      x-operation-id-source: derived
+components:
+  schemas:
+    active_link_allOf:
+      properties:
+        version:
+          description: The version of the link.
+          example: ACTIVE
+          type: string
+      type: object
+      example: null
+    link-extra-info:
+      properties:
+        initiatingConnectorName:
+          description: The name of the initiating connector
+          type: string
+        initiatingSystemName:
+          description: The name of the initiating system
+          type: string
+        targetConnectorName:
+          description: The name of the target connector
+          type: string
+        targetSystemName:
+          description: The name of the target system
+          type: string
+        commPolicyName:
+          description: The name of the comm policy
+          type: string
+        fabricName:
+          description: The name of the fabric.
+          type: string
+      type: object
+    active-link:
+      allOf:
+      - $ref: '#/components/schemas/link-metadata'
+      - $ref: '#/components/schemas/link-version'
+      - $ref: '#/components/schemas/active_link_allOf'
+    link-bridge:
+      example:
+        commPolicyId: 707f34d6-08b7-4030-962e-94e3fa98a6c2
+        bridgeId: 070658e5-a8f6-496c-870c-84e55c04880f
+        targetNetworkId: e68b5277-d385-4763-bcf5-e68a96aa57ef
+        threadsPerQuery: 1
+        initiatorNetworkId: a8f8b09a-512c-4bf3-8a90-26a4c46c65da
+      properties:
+        bridgeId:
+          description: The ID of the bridge.
+          example: 070658e5-a8f6-496c-870c-84e55c04880f
+          type: string
+        initiatorNetworkId:
+          description: The ID of the network for the initiating side of bridge, else NULL for Any.
+          example: a8f8b09a-512c-4bf3-8a90-26a4c46c65da
+          type: string
+        targetNetworkId:
+          description: The ID of the network for the target side of bridge 1, else NULL for Any.
+          example: e68b5277-d385-4763-bcf5-e68a96aa57ef
+          type: string
+        commPolicyId:
+          description: The ID of the communication policy to use between the next bridge or target.
+          example: 707f34d6-08b7-4030-962e-94e3fa98a6c2
+          type: string
+        threadsPerQuery:
+          description: The number of threads to use per query by the bridge
+          example: 1
+          type: number
+      type: object
+    post-link:
+      example:
+        targetConnectorId: 33946bcd-355b-2ac3-2bde-91f2390fb412
+        commPolicyId: 707f34d6-08b7-4030-962e-94e3fa98a6c2
+        overridableInitiatorPropertyNames:
+        - overridableProperty1
+        - overridableProperty2
+        enableAcks: true
+        overridableTargetPropertyNames:
+        - overridableProperty1
+        - overridableProperty2
+        fabricId: 22995fad-13e8-42fd-82c6-31f2390fb440
+        initiatorConnectorId: 33946bcd-355b-2ac3-2bde-91f2390fb412
+        userMappingId: 94ce9883-4910-4914-97cb-931439309958
+        initiatorNetworkId: 23b9f4a9-223d-424d-a78b-ce378be62e24
+        description: Production link used by production workloads.
+        targetProperties:
+          property1: value1
+          property2: value2
+        bridges:
+        - commPolicyId: 707f34d6-08b7-4030-962e-94e3fa98a6c2
+          bridgeId: 070658e5-a8f6-496c-870c-84e55c04880f
+          targetNetworkId: e68b5277-d385-4763-bcf5-e68a96aa57ef
+          threadsPerQuery: 1
+          initiatorNetworkId: a8f8b09a-512c-4bf3-8a90-26a4c46c65da
+        - commPolicyId: 707f34d6-08b7-4030-962e-94e3fa98a6c2
+          bridgeId: 070658e5-a8f6-496c-870c-84e55c04880f
+          targetNetworkId: e68b5277-d385-4763-bcf5-e68a96aa57ef
+          threadsPerQuery: 1
+          initiatorNetworkId: a8f8b09a-512c-4bf3-8a90-26a4c46c65da
+        initiatorThreadsPerQuery: 1
+        tags:
+          destinationSystem: vantage
+        usersToTroubleshoot:
+          user1: INFO
+          user2: DEBUG
+          user3: VERBOSE
+        targetThreadsPerQuery: 1
+        targetNetworkId: 23b9f4a9-223d-424d-a78b-ce378be62e24
+        name: Link1
+        initiatorProperties:
+          property1: value1
+          property2: value2
+      properties:
+        name:
+          description: The name of the link.
+          example: Link1
+          type: string
+        description:
+          description: A description of the link.
+          example: Production link used by production workloads.
+          type: string
+        fabricId:
+          description: The ID of the fabric the link belongs to.
+          example: 22995fad-13e8-42fd-82c6-31f2390fb440
+          type: string
+        initiatorConnectorId:
+          description: The ID of the initiating connector.
+          example: 33946bcd-355b-2ac3-2bde-91f2390fb412
+          type: string
+        initiatorProperties:
+          description: The initiating connector properties to set or override.
+          example:
+            property1: value1
+            property2: value2
+          type: object
+        overridableInitiatorPropertyNames:
+          description: The initiator connector properties which can be overridden by the user.
+          example:
+          - overridableProperty1
+          - overridableProperty2
+          items:
+            type: string
+          type: array
+        initiatorNetworkId:
+          description: The network to use on the initiating system. null value implies use any available route.
+          example: 23b9f4a9-223d-424d-a78b-ce378be62e24
+          type: string
+        initiatorThreadsPerQuery:
+          description: The number of threads to use per query by the initiator
+          example: 1
+          type: number
+        targetConnectorId:
+          description: The ID of the initiating connector.
+          example: 33946bcd-355b-2ac3-2bde-91f2390fb412
+          type: string
+        targetProperties:
+          description: The target connector properties to set or override.
+          example:
+            property1: value1
+            property2: value2
+          type: object
+        overridableTargetPropertyNames:
+          description: The target connector properties which can be overridden by the user.
+          example:
+          - overridableProperty1
+          - overridableProperty2
+          items:
+            type: string
+          type: array
+        targetNetworkId:
+          description: The network to use on the target system. null value implies use any available route.
+          example: 23b9f4a9-223d-424d-a78b-ce378be62e24
+          type: string
+        targetThreadsPerQuery:
+          description: The number of threads to use per query by the initiator
+          example: 1
+          type: number
+        commPolicyId:
+          description: The ID of the communication policy to use for communication with first bridge or target.
+          example: 707f34d6-08b7-4030-962e-94e3fa98a6c2
+          type: string
+        userMappingId:
+          description: The user mapping to apply. null value implies no user mapping.
+          example: 94ce9883-4910-4914-97cb-931439309958
+          type: string
+        usersToTroubleshoot:
+          description: The database users to set specific log levels on.
+          example:
+            user1: INFO
+            user2: DEBUG
+            user3: VERBOSE
+          type: object
+        enableAcks:
+          description: Enable sending acknowledgments for data blocks to enable ability to recover from transient network failures.
+          example: true
+          type:
+          - boolean
+          - 'null'
+        bridges:
+          items:
+            $ref: '#/components/schemas/link-bridge'
+          type: array
+        tags:
+          description: Optional string key/value pairs for associating some context with the link.
+          example:
+            destinationSystem: vantage
+          type: object
+      type: object
+    link-version:
+      properties:
+        versionId:
+          description: The ID associated with the active link version.
+          example: 22995fad-13e8-42fd-82c6-31f2390fb440
+        lastModified:
+          description: The last time this version was modified.
+          example: 2017-12-11T17:52:01.088+0000
+        fabricId:
+          description: The ID of the fabric the link belongs to.
+          example: 22995fad-13e8-42fd-82c6-31f2390fb440
+          type: string
+        initiatorConnectorId:
+          description: The ID of the initiating connector.
+          example: 33946bcd-355b-2ac3-2bde-91f2390fb412
+          type: string
+        initiatorProperties:
+          description: The initiating connector properties to set or override.
+          example:
+            property1: value1
+            property2: value2
+          type: object
+        overridableInitiatorPropertyNames:
+          description: The initiator connector properties which can be overridden by the user.
+          example:
+          - overridableProperty1
+          - overridableProperty2
+          items:
+            type: string
+          type: array
+        initiatorNetworkId:
+          description: The network to use on the initiating system. null value implies use any available route.
+          example: 23b9f4a9-223d-424d-a78b-ce378be62e24
+          type: string
+        initiatorThreadsPerQuery:
+          description: The number of threads to use per query by the initiator
+          example: 1
+          type: number
+        targetConnectorId:
+          description: The ID of the initiating connector.
+          example: 33946bcd-355b-2ac3-2bde-91f2390fb412
+          type: string
+        targetProperties:
+          description: The target connector properties to set or override.
+          example:
+            property1: value1
+            property2: value2
+          type: object
+        overridableTargetPropertyNames:
+          description: The target connector properties which can be overridden by the user.
+          example:
+          - overridableProperty1
+          - overridableProperty2
+          items:
+            type: string
+          type: array
+        targetNetworkId:
+          description: The network to use on the target system. null value implies use any available route.
+          example: 23b9f4a9-223d-424d-a78b-ce378be62e24
+          type: string
+        targetThreadsPerQuery:
+          description: The number of threads to use per query by the initiator
+          example: 1
+          type: number
+        commPolicyId:
+          description: The ID of the communication policy to use for communication with first bridge or target.
+          example: 707f34d6-08b7-4030-962e-94e3fa98a6c2
+          type: string
+        userMappingId:
+          description: The user mapping to apply. null value implies no user mapping.
+          example: 94ce9883-4910-4914-97cb-931439309958
+          type: string
+        usersToTroubleshoot:
+          description: The database users to set specific log levels on.
+          example:
+            user1: INFO
+            user2: DEBUG
+            user3: VERBOSE
+          type: object
+        enableAcks:
+          description: Enable sending acknowledgments for data blocks to enable ability to recover from transient network failures.
+          example: true
+          type:
+          - boolean
+          - 'null'
+        bridges:
+          items:
+            $ref: '#/components/schemas/link-bridge'
+          type: array
+        _extraInfo:
+          $ref: '#/components/schemas/link-extra-info'
+      type: object
+    pending_link_allOf:
+      properties:
+        version:
+          description: The version of the link.
+          example: PENDING
+          type: string
+      type: object
+      example: null
+    previous-link:
+      allOf:
+      - $ref: '#/components/schemas/link-metadata'
+      - $ref: '#/components/schemas/link-version'
+      - $ref: '#/components/schemas/previous_link_allOf'
+    not-found-config-version:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <config type> with ID=f5d72daf-aa8f-486c-8058-4fc587c0b471 found.
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>/f5d72daf-aa8f-486c-8058-4fc587c0b471/<version>
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<config type>
+          - f5d72daf-aa8f-486c-8058-4fc587c0b471
+          items:
+            type: string
+          type: array
+      type: object
+    link_allOf:
+      properties:
+        previous:
+          $ref: '#/components/schemas/link-version'
+        active:
+          $ref: '#/components/schemas/link-version'
+        pending:
+          $ref: '#/components/schemas/link-version'
+      type: object
+      example: null
+    not-found-config:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <config type> with ID=f5d72daf-aa8f-486c-8058-4fc587c0b471 found.
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>/f5d72daf-aa8f-486c-8058-4fc587c0b471
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<config type>
+          - f5d72daf-aa8f-486c-8058-4fc587c0b471
+          items:
+            type: string
+          type: array
+      type: object
+    link-metadata:
+      properties:
+        id:
+          description: The auto-generated ID of the link.
+          example: f5d72daf-aa8f-486c-8058-4fc587c0b471
+          type: string
+        lastModified:
+          description: The last time the link was modified.
+          example: 2018-01-31T17:59:22.055+0000
+          type: string
+        name:
+          description: The name of the link.
+          example: Link1
+          type: string
+        description:
+          description: A description of the link.
+          example: Production link used by production workloads.
+          type: string
+        tags:
+          description: Optional string key/value pairs for associating some context with the link.
+          example:
+            destinationSystem: vantage
+          type: object
+      type: object
+    _config_links__id__patch_request:
+      properties:
+        name:
+          description: The name of the link.
+          example: Link1
+          type: string
+        description:
+          description: The description of the link.
+          example: Production link used by production workloads.
+          type: string
+      type: object
+    previous_link_allOf:
+      properties:
+        version:
+          description: The version of the link.
+          example: PREVIOUS
+          type: string
+      type: object
+      example: null
+    link:
+      allOf:
+      - $ref: '#/components/schemas/link-metadata'
+      - $ref: '#/components/schemas/link_allOf'
+    bad-request:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 400
+        error:
+          description: The error description
+          example: Bad Request
+        message:
+          description: The error message
+          example: '[name must not be blank]'
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>
+      type: object
+    pending-link:
+      allOf:
+      - $ref: '#/components/schemas/link-metadata'
+      - $ref: '#/components/schemas/link-version'
+      - $ref: '#/components/schemas/pending_link_allOf'
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

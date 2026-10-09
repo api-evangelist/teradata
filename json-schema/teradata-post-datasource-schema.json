@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/main/json-schema/teradata-post-datasource-schema.json",
+  "title": "post-datasource",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/teradata-api-info-api-openapi.yml#/components/schemas/post-datasource",
+  "properties": {
+    "name": {
+      "description": "The name of the system.",
+      "type": "string"
+    },
+    "description": {
+      "description": "The description of the system.",
+      "type": "string"
+    },
+    "region": {
+      "description": "Region the system is deployed in.",
+      "type": "string"
+    },
+    "platformType": {
+      "description": "System platform type.[AWS]",
+      "type": "string"
+    },
+    "datasourceType": {
+      "description": "Type of datasource [TERADATA, HADOOP, OTHER].",
+      "type": "string"
+    },
+    "systemFlavor": {
+      "description": "Flavor of the Hadoop system [EMR, CDP, DATAPROC, HDINSIGHT] (case-insensitive). Required if datasourceType is HADOOP.",
+      "type": "string"
+    },
+    "customerBridgeId": {
+      "description": "The id of the bridge system.",
+      "type": "string"
+    },
+    "softwareVersion": {
+      "description": "The version of the tdqg-node package that should be installed on all nodes of the system.",
+      "type": "string"
+    },
+    "maximumMemoryPerNode": {
+      "description": "The maximum memory per node in bytes allowed to be used by QueryGrid queries.",
+      "type": "number"
+    },
+    "enableOverridePort": {
+      "description": "Flags if this system is overriding the fabric TCP server socket.",
+      "type": "boolean"
+    },
+    "overridePort": {
+      "description": "The port number for the tdqg-node service to bind to.",
+      "type": "number"
+    },
+    "autoNodeDelete": {
+      "description": "Flag to enable auto node delete.",
+      "type": "boolean"
+    },
+    "autoNodeDeleteMinutes": {
+      "description": "Number of minutes a node is offline before being auto deleted when autoNodeDelete is enabled.",
+      "type": "number"
+    },
+    "clusterOption": {
+      "description": "Node cluster option",
+      "type": "string"
+    },
+    "enableProxy": {
+      "description": "Flag to enable proxy support",
+      "type": "boolean"
+    },
+    "proxyPort": {
+      "description": "The port number for proxy",
+      "type": "integer"
+    },
+    "proxySupportType": {
+      "description": "The type of proxy",
+      "type": "string"
+    },
+    "proxyNetworkId": {
+      "description": "The network id for proxy",
+      "type": "string"
+    },
+    "proxySystemId": {
+      "description": "The system id for proxy",
+      "type": "string"
+    },
+    "connectorName": {
+      "description": "The name of the connector.",
+      "type": "string"
+    },
+    "connectorDescription": {
+      "description": "A description of the connector.",
+      "type": "string"
+    },
+    "connectorType": {
+      "description": "Type of connector [Teradata, Hive, Spark, GenericJDBC].",
+      "type": "string"
+    },
+    "connectorSoftwareVersion": {
+      "description": "The version of connector software.",
+      "type": "string"
+    },
+    "connectorProperties": {
+      "description": "The connector properties to set. Untar the connector package and open the \\<version\\>/.pkgmeta/pkginfo.yaml file to look at the supported connector properties.",
+      "type": "object"
+    },
+    "overrideableProperties": {
+      "description": "The connector properties which can be overridden by the user. Untar the connector package and open the \\<version\\>/.pkgmeta/pkginfo.yaml file to look at the supported connector properties. All overridable properties for the connector are listed in that file under “connectorProperties” with 'overridable' attribute set as 'True'.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "networkId": {
+      "description": "The id of the network which is to be added to the system tag. Use load balancer network ID if no customer bridge(customerBridgeId) is present else use target customer network ID to use.",
+      "type": "string"
+    },
+    "bridgeNetworkId": {
+      "description": "The id of the network which is to be added to the bridge system tag. Use load balancer network ID if customer bridge(customerBridgeId) is present else not used.",
+      "type": "string"
+    },
+    "initiatorSystem": {
+      "description": "Initiator system details",
+      "type": "object"
+    },
+    "targetSystem": {
+      "description": "Target system details",
+      "type": "object"
+    }
+  },
+  "type": "object"
+}

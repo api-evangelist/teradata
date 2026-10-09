@@ -1,0 +1,234 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Operations - Register Remote…
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Register current system nodes to remote lake system
+  name: Operations - Register Remote Lake System
+paths:
+  /operations/register-remote-lake-system:
+    post:
+      description: Register current system nodes to remote lake system using ADD_CLUSTER diagnostic check
+      operationId: postRegisterRemoteLakeSystem
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/install-config-file_1'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/diagnostic-check-response'
+          description: Successful Operation
+      summary: Register current system nodes to remote lake system
+      tags:
+      - Operations - Register Remote Lake System
+components:
+  schemas:
+    diagnostic-check-response:
+      example:
+        totalBytesReceived: 9
+        bandwidth: 3
+        totalCount: 0
+        inProgressCount: 5
+        nodes:
+        - bytesReceived: 2
+          hostname: hostname
+          systemId: systemId
+          systemName: systemName
+          startTime: 2000-01-23 04:56:07+00:00
+          endTime: 2000-01-23 04:56:07+00:00
+          bytesSent: 5
+          error: error
+          nodeId: nodeId
+          status: IN_PROGRESS
+        - bytesReceived: 2
+          hostname: hostname
+          systemId: systemId
+          systemName: systemName
+          startTime: 2000-01-23 04:56:07+00:00
+          endTime: 2000-01-23 04:56:07+00:00
+          bytesSent: 5
+          error: error
+          nodeId: nodeId
+          status: IN_PROGRESS
+        totalBytesSent: 7
+        successCount: 6
+        startTime: 2000-01-23 04:56:07+00:00
+        id: id
+        endTime: 2000-01-23 04:56:07+00:00
+        lastModified: 2000-01-23 04:56:07+00:00
+        errorCount: 1
+        status: IN_PROGRESS
+      properties:
+        id:
+          description: A UUID representing the diagnostic operation.
+          type: string
+        status:
+          description: The overall status of the diagnostic check.
+          enum:
+          - IN_PROGRESS
+          - SUCCESS
+          - FAILURE
+          type: string
+        startTime:
+          description: The time the operation started.
+          format: date-time
+          type: string
+        endTime:
+          description: The time the operation completed.
+          format: date-time
+          type: string
+        lastModified:
+          description: The time the status was last modified.
+          format: date-time
+          type: string
+        totalCount:
+          description: The total number of nodes to check.
+          format: int64
+          type: integer
+        successCount:
+          description: The number of nodes that succeeded.
+          format: int32
+          type: integer
+        errorCount:
+          description: The number of nodes that failed.
+          format: int32
+          type: integer
+        inProgressCount:
+          description: The number of nodes that are in progress.
+          format: int32
+          type: integer
+        nodes:
+          description: The status of each of the individual nodes.
+          items:
+            $ref: '#/components/schemas/diagnostic-check-node-response'
+          type: array
+        totalBytesSent:
+          description: The total number of bytes sent in case of LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+        totalBytesReceived:
+          description: The total number of bytes received in case of LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+        bandwidth:
+          description: The measured bandwidth in bytes per second only in case of LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+      type: object
+    install-config-file_1:
+      properties:
+        systemId:
+          type: string
+        clusterId:
+          type: string
+        configId:
+          type: string
+        systemAccessToken:
+          type: string
+        managers:
+          items:
+            type: string
+          type: array
+        ports:
+          items:
+            format: int32
+            type: integer
+          type: array
+        certFile:
+          type: string
+        managersExtended:
+          items:
+            items:
+              type: string
+            type: array
+          type: array
+        proxies:
+          items:
+            type: string
+          type: array
+        rpmUrlPath:
+          type: string
+        debUrlPath:
+          type: string
+        armRpmUrlPath:
+          type: string
+        armDebUrlPath:
+          type: string
+        clusterOption:
+          type: string
+        expirationTimestamp:
+          format: date-time
+          type: string
+        managerLBAddress:
+          type: string
+      type: object
+    diagnostic-check-node-response:
+      example:
+        bytesReceived: 2
+        hostname: hostname
+        systemId: systemId
+        systemName: systemName
+        startTime: 2000-01-23 04:56:07+00:00
+        endTime: 2000-01-23 04:56:07+00:00
+        bytesSent: 5
+        error: error
+        nodeId: nodeId
+        status: IN_PROGRESS
+      properties:
+        nodeId:
+          description: The id of the node
+          type: string
+        status:
+          description: The status of the check
+          enum:
+          - IN_PROGRESS
+          - SUCCESS
+          - FAILURE
+          type: string
+        startTime:
+          description: The time the operation started.
+          format: date-time
+          type: string
+        endTime:
+          description: The time the operation ended.
+          format: date-time
+          type: string
+        bytesSent:
+          description: The number of bytes sent. Only applicable to LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+        bytesReceived:
+          description: The number of bytes received. Only applicable to LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+        error:
+          description: The error associated with the failure if not successful.
+          type: string
+        hostname:
+          description: The hostname or IP of the node.
+          type: string
+        systemId:
+          description: The UUID of the system.
+          type: string
+        systemName:
+          description: The name of the system.
+          type: string
+      type: object
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

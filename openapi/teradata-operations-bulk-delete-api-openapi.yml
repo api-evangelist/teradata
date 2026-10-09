@@ -1,0 +1,57 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Operations - Bulk Delete API
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Bulk delete nodes or issues
+  name: Operations - Bulk Delete
+paths:
+  /operations/bulk-delete:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bulk-delete-request'
+      responses:
+        '200':
+          description: Configuration objects were deleted successfully.
+        '400':
+          description: Bad Request
+      summary: Bulk delete configuration objects
+      tags:
+      - Operations - Bulk Delete
+      operationId: postOperationsBulkDelete
+      x-operation-id-source: derived
+components:
+  schemas:
+    bulk-delete-request:
+      properties:
+        configType:
+          description: Type of the configuration object.
+          enum:
+          - NODE
+          - ISSUE
+          type: string
+        ids:
+          example:
+          - 23b9f4a9-223d-424d-a78b-ce378be62e24
+          - 8e2ad797-60a3-4859-bc7c-bf8bed42e085
+          items:
+            type: string
+          type: array
+      type: object
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

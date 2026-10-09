@@ -1,0 +1,814 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Config - Connectors API
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Manage connectors that connect data sources to the QueryGrid Fabric
+  name: Config - Connectors
+paths:
+  /config/connectors:
+    get:
+      parameters:
+      - description: Flatten out the active, pending, and previous versions into array elements instead of nesting them.
+        in: query
+        name: flatten
+        schema:
+          type: boolean
+      - description: Provide extra details (in _extraInfo section) about the connector.
+        in: query
+        name: extraInfo
+        schema:
+          type: boolean
+      - description: The fabric versionId to use when providing _extraInfo.
+        in: query
+        name: fabricVersion
+        schema:
+          type: string
+      - description: Get connector associated with the specified name (case insensitive). Wildcard matching with '*' is supported.
+        in: query
+        name: filterByName
+        required: false
+        schema:
+          type: string
+      - description: Get connector associated with the specified tag. Provide ','(comma) separated list of key:value pairs.
+        in: query
+        name: filterByTag
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/connector'
+                type: array
+          description: Successful operation
+      summary: Get all Connectors
+      tags:
+      - Config - Connectors
+      operationId: getConfigConnectors
+      x-operation-id-source: derived
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-connector'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connector'
+          description: Connector created
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+      summary: Create a new Connector
+      tags:
+      - Config - Connectors
+      operationId: postConfigConnectors
+      x-operation-id-source: derived
+  /config/connectors/{id}:
+    delete:
+      parameters:
+      - description: ID of the Connector to delete
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+      summary: Delete a Connector by ID
+      tags:
+      - Config - Connectors
+      operationId: deleteConfigConnectorsById
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the Connector
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: Provide extra details (in _extraInfo section) about the connector.
+        in: query
+        name: extraInfo
+        schema:
+          type: boolean
+      - description: The fabric versionId to use when providing _extraInfo.
+        in: query
+        name: fabricVersion
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connector'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config'
+          description: Not Found
+      summary: Get a Connector by ID
+      tags:
+      - Config - Connectors
+      operationId: getConfigConnectorsById
+      x-operation-id-source: derived
+    patch:
+      parameters:
+      - description: ID of the Connector to update
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_config_connectors__id__patch_request'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connector'
+          description: Successful Operation
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config'
+          description: Not Found
+      summary: Update Connector name or description
+      tags:
+      - Config - Connectors
+      operationId: patchConfigConnectorsById
+      x-operation-id-source: derived
+  /config/connectors/{id}/active:
+    get:
+      parameters:
+      - description: ID of the Connector
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/active-connector'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Get the active version for a Connector
+      tags:
+      - Config - Connectors
+      operationId: getConfigConnectorsByIdActive
+      x-operation-id-source: derived
+    patch:
+      parameters:
+      - description: ID of the Connector
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example: db6f0a2e-a368-4a97-91fb-cf3f61d72704
+              type: string
+        description: The version ID of the version to activate.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/post-connector'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Activate pending or previous connector version
+      tags:
+      - Config - Connectors
+      operationId: patchConfigConnectorsByIdActive
+      x-operation-id-source: derived
+    put:
+      parameters:
+      - description: ID of the Connector
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-connector'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/post-connector'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Update the active Connector version
+      tags:
+      - Config - Connectors
+      operationId: putConfigConnectorsByIdActive
+      x-operation-id-source: derived
+  /config/connectors/{id}/pending:
+    delete:
+      parameters:
+      - description: ID of the Connector
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Delete the pending Connector version
+      tags:
+      - Config - Connectors
+      operationId: deleteConfigConnectorsByIdPending
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the Connector
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pending-connector'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Get the pending version for a Connector
+      tags:
+      - Config - Connectors
+      operationId: getConfigConnectorsByIdPending
+      x-operation-id-source: derived
+    put:
+      parameters:
+      - description: ID of the Connector
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-connector'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/post-connector'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Update the pending Connector version
+      tags:
+      - Config - Connectors
+      operationId: putConfigConnectorsByIdPending
+      x-operation-id-source: derived
+  /config/connectors/{id}/previous:
+    delete:
+      parameters:
+      - description: ID of the Connector
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Delete the previous Connector version
+      tags:
+      - Config - Connectors
+      operationId: deleteConfigConnectorsByIdPrevious
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the Connector
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/previous-connector'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Get the previous version for a Connector
+      tags:
+      - Config - Connectors
+      operationId: getConfigConnectorsByIdPrevious
+      x-operation-id-source: derived
+  /config/connectors/{id}/versions/{versionId}/drivers:
+    get:
+      parameters:
+      - description: ID of the Connector
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: ID of the versioned Connector
+        in: path
+        name: versionId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                example:
+                - 1asfadsf-4afd-7erf-dfbb-rt3jhnd6ghv
+                - 15fd2337-980b-4d0f-951e-e6c848a81b5d
+                items:
+                  type: string
+                type: array
+          description: Successful Operation
+        '404':
+          description: Not Found
+      summary: Get active drivers of a Connector
+      tags:
+      - Config - Connectors
+      operationId: getConfigConnectorsByIdVersionsByVersionIdDrivers
+      x-operation-id-source: derived
+components:
+  schemas:
+    previous-connector:
+      allOf:
+      - $ref: '#/components/schemas/connector-metadata'
+      - $ref: '#/components/schemas/connector-version'
+      - $ref: '#/components/schemas/previous_connector_allOf'
+    pending_connector_allOf:
+      properties:
+        version:
+          description: The version of the connector.
+          example: PENDING
+          type: string
+      type: object
+      example: null
+    pending-connector:
+      allOf:
+      - $ref: '#/components/schemas/connector-metadata'
+      - $ref: '#/components/schemas/connector-version'
+      - $ref: '#/components/schemas/pending_connector_allOf'
+    _config_connectors__id__patch_request:
+      properties:
+        name:
+          description: The name of the connector.
+          example: Connector1
+          type: string
+        description:
+          description: The description of the connector.
+          example: Production connector used by production workloads.
+          type: string
+      type: object
+    connector-metadata:
+      properties:
+        id:
+          description: The auto-generated ID of the connector.
+          example: f5d72daf-aa8f-486c-8058-4fc587c0b471
+          type: string
+        lastModified:
+          description: The last time the connector was modified.
+          example: 2018-01-31T17:59:22.055+0000
+          type: string
+        name:
+          description: The name of the connector.
+          example: Connector1
+          type: string
+        disabled:
+          description: Is the connector disabled.
+          example: true
+          type: boolean
+        tags:
+          description: Optional string key/value pairs for associating some context with the connector.
+          example:
+            destinationSystem: vantage
+          type: object
+      type: object
+    active-connector:
+      allOf:
+      - $ref: '#/components/schemas/connector-metadata'
+      - $ref: '#/components/schemas/connector-version'
+      - $ref: '#/components/schemas/active_connector_allOf'
+    post-connector:
+      example:
+        systemId: 33946bcd-355b-2ac3-2bde-91f2390fb412
+        softwareName: tdqg-teradata-connector
+        fabricId: 22995fad-13e8-42fd-82c6-31f2390fb440
+        name: TD1
+        description: Production connector for TD1.
+        driverNodes:
+        - 75588f31-b5d0-45a5-8843-481150f0e4f8
+        - b2edba06-119e-4200-a482-8d7cf5392663
+        - e5fd8358-db3c-425f-80df-d24c41a03a3c
+        allowedOSUsers:
+        - teradata
+        - hive
+        - presto
+        overrideableProperties:
+        - overridableProperty1
+        - overridableProperty2
+        softwareVersion: 02.04.00.01-24
+        properties:
+          server: TD1.teradata.com
+          port: 5000
+        tags:
+          destinationSystem: vantage
+      properties:
+        name:
+          description: The name of the connector.
+          example: TD1
+          type: string
+        description:
+          description: A description of the connector.
+          example: Production connector for TD1.
+          type: string
+        softwareName:
+          description: The name of the connector software
+          example: tdqg-teradata-connector
+          type: string
+        softwareVersion:
+          description: The version of the connector software to deploy.
+          example: 02.04.00.01-24
+          type: string
+        fabricId:
+          description: The ID of fabric to connect to
+          example: 22995fad-13e8-42fd-82c6-31f2390fb440
+          type: string
+        systemId:
+          description: The ID of the system to connect to.
+          example: 33946bcd-355b-2ac3-2bde-91f2390fb412
+          type: string
+        driverNodes:
+          description: An array of node IDs on which to run the connector driver.
+          example:
+          - 75588f31-b5d0-45a5-8843-481150f0e4f8
+          - b2edba06-119e-4200-a482-8d7cf5392663
+          - e5fd8358-db3c-425f-80df-d24c41a03a3c
+          items:
+            type: string
+          type: array
+        properties:
+          description: The connector properties to set. Untar the connector package and open the \<version\>/.pkgmeta/pkginfo.yaml file to look at the supported connector properties. All properties for the connector are listed in that file under “connectorProperties”. The mapping of the properties with the names used in the UI and the user guide, along with descriptions, can be found in the \<version\>/.pkgmeta/messages.properties file.
+          example:
+            server: TD1.teradata.com
+            port: 5000
+          type: object
+        overrideableProperties:
+          description: The connector properties which can be overridden by the user. Untar the connector package and open the \<version\>/.pkgmeta/pkginfo.yaml file to look at the supported connector properties. All overridable properties for the connector are listed in that file under “connectorProperties” with 'overridable' attribute set as 'True'.
+          example:
+          - overridableProperty1
+          - overridableProperty2
+          items:
+            type: string
+          type: array
+        allowedOSUsers:
+          description: The list of OS users that are allowed to access shared memory interfaces of the Fabric
+          example:
+          - teradata
+          - hive
+          - presto
+          items:
+            type: string
+          type: array
+        tags:
+          description: Optional string key/value pairs for associating some context with the connector.
+          example:
+            destinationSystem: vantage
+          type: object
+      type: object
+    connector:
+      allOf:
+      - $ref: '#/components/schemas/connector-metadata'
+      - $ref: '#/components/schemas/connector_allOf'
+    not-found-config-version:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <config type> with ID=f5d72daf-aa8f-486c-8058-4fc587c0b471 found.
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>/f5d72daf-aa8f-486c-8058-4fc587c0b471/<version>
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<config type>
+          - f5d72daf-aa8f-486c-8058-4fc587c0b471
+          items:
+            type: string
+          type: array
+      type: object
+    not-found-config:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <config type> with ID=f5d72daf-aa8f-486c-8058-4fc587c0b471 found.
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>/f5d72daf-aa8f-486c-8058-4fc587c0b471
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<config type>
+          - f5d72daf-aa8f-486c-8058-4fc587c0b471
+          items:
+            type: string
+          type: array
+      type: object
+    connector-extra-info:
+      properties:
+        nodesOnline:
+          description: The number of nodes online for the connector
+          example: 104
+          type: number
+        nodesOffline:
+          description: The number of nodes offline for the connector
+          type: number
+        driversOnline:
+          description: The number of driver nodes online for the connector
+          example: 2
+          type: number
+        driversOffline:
+          description: The number of driver nodes offline for the connector
+          type: number
+        systemName:
+          description: The name of the system the connector is associated with
+          type: string
+        fabricName:
+          description: The name of the fabric the connector is associated with
+          type: string
+      type: object
+    active_connector_allOf:
+      properties:
+        version:
+          description: The version of the connector.
+          example: ACTIVE
+          type: string
+      type: object
+      example: null
+    connector_allOf:
+      properties:
+        previous:
+          $ref: '#/components/schemas/connector-version'
+        active:
+          $ref: '#/components/schemas/connector-version'
+        pending:
+          $ref: '#/components/schemas/connector-version'
+      type: object
+      example: null
+    previous_connector_allOf:
+      properties:
+        version:
+          description: The version of the connector.
+          example: PREVIOUS
+          type: string
+      type: object
+      example: null
+    bad-request:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 400
+        error:
+          description: The error description
+          example: Bad Request
+        message:
+          description: The error message
+          example: '[name must not be blank]'
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>
+      type: object
+    connector-version:
+      properties:
+        versionId:
+          description: The ID associated with the active connector version.
+          example: 22995fad-13e8-42fd-82c6-31f2390fb440
+          type: string
+        lastModified:
+          description: The last time the connector was modified.
+          example: 2018-01-31T17:59:22.055+0000
+          type: string
+        softwareName:
+          description: The name of the connector software
+          example: tdqg-teradata-connector
+          type: string
+        softwareVersion:
+          description: The version of the connector software to deploy.
+          example: 02.04.00.01-24
+          type: string
+        fabricId:
+          description: The ID of fabric to connect to
+          example: 22995fad-13e8-42fd-82c6-31f2390fb440
+          type: string
+        systemId:
+          description: The ID of the system to connect to.
+          example: 33946bcd-355b-2ac3-2bde-91f2390fb412
+          type: string
+        driverName:
+          description: Name of the connector driver.
+          example: TDdriver
+          type: string
+        loaderConnectorName:
+          description: The connector that is dynamically loaded by the data source, relative to the directory where the connector is installed.
+          example: libtdqgc.so
+          type: string
+        remoteConnectorClassName:
+          description: The name of the class that is loaded by the driver.
+          example: com.teradata.querygrid.qgc.td.TeradataConnectorFactory
+          type: string
+        queryPointSupport:
+          description: Flags if connector is capable of initiating queries.
+          example: true
+          type: boolean
+        driverSupportEnabled:
+          description: Flags if connector has driver support feature enabled.
+          example: true
+          type: boolean
+        foreignServerRollbackSupport:
+          description: Flags if connector supports foreign server rollback.
+          example: true
+          type: boolean
+        envNameValuePairs:
+          description: The environment variables that need to be set in driver process
+          example: env1=value1;env2=value2
+          type: string
+        driverNodes:
+          description: An array of node IDs on which to run the connector driver.
+          example:
+          - 75588f31-b5d0-45a5-8843-481150f0e4f8
+          - b2edba06-119e-4200-a482-8d7cf5392663
+          - e5fd8358-db3c-425f-80df-d24c41a03a3c
+          items:
+            type: string
+          type: array
+        properties:
+          description: The connector properties to set. Untar the connector package and open the \<version\>/.pkgmeta/pkginfo.yaml file to look at the supported connector properties. All properties for the connector are listed in that file under “connectorProperties”. The mapping of the properties with the names used in the UI and the user guide, along with descriptions, can be found in the \<version\>/.pkgmeta/messages.properties file.
+          example:
+            server: TD1.teradata.com
+            port: 5000
+          type: object
+        overrideableProperties:
+          description: The connector properties which can be overridden by the user. Untar the connector package and open the \<version\>/.pkgmeta/pkginfo.yaml file to look at the supported connector properties. All overridable properties for the connector are listed in that file under “connectorProperties” with 'overridable' attribute set as 'True'.
+          example:
+          - overridableProperty1
+          - overridableProperty2
+          items:
+            type: string
+          type: array
+        confidentialPropertyNames:
+          description: The connector properties which are confidential. Untar the connector package and open the \<version\>/.pkgmeta/pkginfo.yaml file to look at the supported connector properties. All confidential properties for the connector are listed in that file under “connectorProperties” with 'dataType' attribute set as 'PASSWORD'.
+          example:
+          - authPassword
+          items:
+            type: string
+          type: array
+        allowedOSUsers:
+          description: The list of OS users that are allowed to access shared memory interfaces of the Fabric
+          example:
+          - teradata
+          - hive
+          - presto
+          items:
+            type: string
+          type: array
+        installMethod:
+          description: The type of install method used to install the connector.
+          enum:
+          - NONE
+          - ONE_DRIVER
+          - ALL_NODES
+          example: ONE_DRIVER
+          type: string
+        _extraInfo:
+          $ref: '#/components/schemas/connector-extra-info'
+      type: object
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

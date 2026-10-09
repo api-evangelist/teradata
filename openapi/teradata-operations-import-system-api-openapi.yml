@@ -1,0 +1,346 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Operations - Import System API
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Import a system from a different QueryGrid Manager cluster
+  name: Operations - Import System
+paths:
+  /operations/import-system:
+    post:
+      description: Request to import a system.
+      operationId: postImportSystem
+      parameters:
+      - description: Only validate the import system request. Do not run the actual import operation.
+        example: true
+        in: query
+        name: dryRun
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/import-system-request'
+        description: Request body for importing a system.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/import-system-response'
+          description: Successfully able to register the ADD_CLUSTER diagnostic check operation.
+        '400':
+          description: Bad Request
+      summary: Issue a request to import a system from a remote QGM cluster
+      tags:
+      - Operations - Import System
+  /operations/import-system/{diagnosticCheckId}:
+    post:
+      description: Get the ADD_CLUSTER diagostic check status using the Id.
+      operationId: getImportSystemDiagnosticCheckById
+      parameters:
+      - description: Id of diagnostic check operation.
+        in: path
+        name: diagnosticCheckId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/manager-credentials'
+        description: Credentials of the remote manager to fetch the status of the diagnostic check.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/diagnostic-check-response'
+          description: successful operation
+        '400':
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-import-system'
+          description: ADD_CLUSTER Diagnostic Check operation status not found
+      summary: Get the status of the ADD_CLUSTER diagnostic check issues as a part of import…
+      tags:
+      - Operations - Import System
+components:
+  schemas:
+    diagnostic-check-response:
+      example:
+        totalBytesReceived: 9
+        bandwidth: 3
+        totalCount: 0
+        inProgressCount: 5
+        nodes:
+        - bytesReceived: 2
+          hostname: hostname
+          systemId: systemId
+          systemName: systemName
+          startTime: 2000-01-23 04:56:07+00:00
+          endTime: 2000-01-23 04:56:07+00:00
+          bytesSent: 5
+          error: error
+          nodeId: nodeId
+          status: IN_PROGRESS
+        - bytesReceived: 2
+          hostname: hostname
+          systemId: systemId
+          systemName: systemName
+          startTime: 2000-01-23 04:56:07+00:00
+          endTime: 2000-01-23 04:56:07+00:00
+          bytesSent: 5
+          error: error
+          nodeId: nodeId
+          status: IN_PROGRESS
+        totalBytesSent: 7
+        successCount: 6
+        startTime: 2000-01-23 04:56:07+00:00
+        id: id
+        endTime: 2000-01-23 04:56:07+00:00
+        lastModified: 2000-01-23 04:56:07+00:00
+        errorCount: 1
+        status: IN_PROGRESS
+      properties:
+        id:
+          description: A UUID representing the diagnostic operation.
+          type: string
+        status:
+          description: The overall status of the diagnostic check.
+          enum:
+          - IN_PROGRESS
+          - SUCCESS
+          - FAILURE
+          type: string
+        startTime:
+          description: The time the operation started.
+          format: date-time
+          type: string
+        endTime:
+          description: The time the operation completed.
+          format: date-time
+          type: string
+        lastModified:
+          description: The time the status was last modified.
+          format: date-time
+          type: string
+        totalCount:
+          description: The total number of nodes to check.
+          format: int64
+          type: integer
+        successCount:
+          description: The number of nodes that succeeded.
+          format: int32
+          type: integer
+        errorCount:
+          description: The number of nodes that failed.
+          format: int32
+          type: integer
+        inProgressCount:
+          description: The number of nodes that are in progress.
+          format: int32
+          type: integer
+        nodes:
+          description: The status of each of the individual nodes.
+          items:
+            $ref: '#/components/schemas/diagnostic-check-node-response'
+          type: array
+        totalBytesSent:
+          description: The total number of bytes sent in case of LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+        totalBytesReceived:
+          description: The total number of bytes received in case of LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+        bandwidth:
+          description: The measured bandwidth in bytes per second only in case of LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+      type: object
+    import-system-request:
+      properties:
+        managerHost:
+          description: Hostname/IP of the remote QGM cluster
+          type: string
+        managerUser:
+          description: Username to access remote QGM cluster's REST API
+          type: string
+        managerPass:
+          description: managerPass to access remote QGM cluster's REST API
+          type: string
+        systemName:
+          description: Name of the system in case user wants to rename
+          type:
+          - string
+          - 'null'
+        systemId:
+          description: Id of the system to import
+          type: string
+        connectorIds:
+          description: List of ids of the connectors to import. If this value is provided, a fabricId must also be provided
+          items:
+            type:
+            - string
+            - 'null'
+          type:
+          - array
+          - 'null'
+        fabricId:
+          description: Id of the destination fabric in the local QGM cluster for importing connectors.  If this value is provided, a value for connectorIds must also be provided
+          type:
+          - string
+          - 'null'
+        connectorPassMap:
+          additionalProperties:
+            additionalProperties:
+              type: string
+            type: object
+          description: Map of connector IDs to password map
+          example:
+            Connector1Id:
+              user1: pass1
+              user2: pass2
+          type:
+          - object
+          - 'null'
+        dataCenterId:
+          description: Id of the data center into which to import the system
+          type: string
+        clusterOption:
+          description: Cluster option for the host QGM cluster. Applicable for QueryGrid version 02.11+. The primary QGM cluster determines the version of the tdqg-node software to run on the data nodes and can run pre-02.09 versions of the QueryGrid fabric. It is always the first QGM cluster the tdqg-node service is configured to serve. The Secondary QGM clusters are always added after the tdqg-node service has been configured with a Primary QGM cluster. The tdqg-node software version selected by the secondary QueryGrid Manager cluster has no effect. The secondary QGM cluster cannot run pre-02.09 versions of the QueryGrid fabric.
+          enum:
+          - PRIMARY
+          - SECONDARY
+          - EXCLUSIVE_PRIMARY
+          type: string
+      type: object
+    diagnostic-check-node-response:
+      example:
+        bytesReceived: 2
+        hostname: hostname
+        systemId: systemId
+        systemName: systemName
+        startTime: 2000-01-23 04:56:07+00:00
+        endTime: 2000-01-23 04:56:07+00:00
+        bytesSent: 5
+        error: error
+        nodeId: nodeId
+        status: IN_PROGRESS
+      properties:
+        nodeId:
+          description: The id of the node
+          type: string
+        status:
+          description: The status of the check
+          enum:
+          - IN_PROGRESS
+          - SUCCESS
+          - FAILURE
+          type: string
+        startTime:
+          description: The time the operation started.
+          format: date-time
+          type: string
+        endTime:
+          description: The time the operation ended.
+          format: date-time
+          type: string
+        bytesSent:
+          description: The number of bytes sent. Only applicable to LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+        bytesReceived:
+          description: The number of bytes received. Only applicable to LINK_BANDWIDTH check.
+          format: int64
+          type: integer
+        error:
+          description: The error associated with the failure if not successful.
+          type: string
+        hostname:
+          description: The hostname or IP of the node.
+          type: string
+        systemId:
+          description: The UUID of the system.
+          type: string
+        systemName:
+          description: The name of the system.
+          type: string
+      type: object
+    manager-credentials:
+      properties:
+        managerHost:
+          description: Hostname/IP of the remote QGM cluster
+          type: string
+        managerUser:
+          description: Username to access remote QGM cluster's REST API
+          type: string
+        managerPass:
+          description: managerPass to access remote QGM cluster's REST API
+          type: string
+      type: object
+    import-system-response:
+      example:
+        connectorImportErrors: '{}'
+        logs: logs
+        diagnosticCheckId: diagnosticCheckId
+      properties:
+        diagnosticCheckId:
+          description: The id of the ADD_CLUSTER diagnostic check operation.
+          type: string
+        logs:
+          description: The logs for the import system operation.
+          type: string
+        connectorImportErrors:
+          description: Map of connector IDs to connector import errors
+          type: object
+      type: object
+    not-found-import-system:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: 'No diagnostic check operation found with the id: f5d72daf-aa8f-486c-8058-4fc587c0b471 found.'
+        path:
+          description: The path of the API called
+          example: /api/v1/operations/import-system/f5d72daf-aa8f-486c-8058-4fc587c0b471
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.null
+          - null
+          items:
+            type: string
+          type: array
+      type: object
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

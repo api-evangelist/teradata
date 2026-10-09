@@ -1,0 +1,31 @@
+generated: '2026-10-04'
+method: generated
+generator: extract-docs-artifacts.py skills (local)
+source: openapi/teradata-operations-api-openapi.yml
+skills:
+- file: skills/teradata-run-query.md
+  name: teradata-run-query
+  api: openapi/teradata-queries-api-openapi.yml
+  operations:
+  - executeQuery
+  - getQueryStatus
+  - cancelQuery
+- file: skills/teradata-session-lifecycle.md
+  name: teradata-session-lifecycle
+  api: openapi/teradata-sessions-api-openapi.yml
+  operations:
+  - createSession
+  - getSession
+  - deleteSession
+- file: skills/teradata-issues-manage.md
+  name: teradata-issues-manage
+  api: openapi/tdqg-manager-api.yml
+  operations:
+  - createOrUpdateIssue
+  - listIssues
+- file: skills/teradata-import-system.md
+  name: teradata-import-system
+  api: openapi/tdqg-manager-api.yml
+  operations:
+  - postImportSystem
+  - getImportSystemDiagnosticCheckById

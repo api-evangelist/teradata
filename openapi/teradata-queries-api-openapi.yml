@@ -1,18 +1,22 @@
 openapi: 3.2.0
 info:
   title: Teradata Queries API
-  contact:
-    name: Teradata
-    url: https://www.teradata.com
-  x-generated-from: documentation
-  x-last-validated: '2026-04-18'
+  x-refined-note:
+  - x-generated-from differs across the merged source definitions and was not carried
+  - x-last-validated differs across the merged source definitions and was not carried
   version: '1.0'
-  description: 'Operations tagged Queries across 2 of this provider''s published API definitions: teradata-query-service-api.yaml, teradata-querygrid-manager-api.yaml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Queries across 3 of this provider''s published API definitions: teradata-query-service-api.yaml, teradata-querygrid-manager-api.yaml, tdqg-manager-api.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://vantage.teradata.com/api/query/v1
   description: Teradata Query Service endpoint
 - url: https://querygrid.teradata.com/api/v1
   description: Default QueryGrid Manager endpoint
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
 security:
 - BasicAuth: []
 tags:
@@ -157,6 +161,70 @@ paths:
     servers:
     - url: https://vantage.teradata.com/api/query/v1
       description: Teradata Query Service endpoint
+  /queries/{id}:
+    get:
+      description: Get the query summary using the query Id
+      parameters:
+      - description: Id of query to get
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/query-summary'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-entity'
+          description: No query found with the specified Id
+      summary: Find query summary by Id
+      tags:
+      - Queries
+      operationId: getQueriesById
+      x-operation-id-source: derived
+    servers:
+    - description: Default API endpoint
+      url: /api/v1
+    - description: Querygrid Prefix API endpoint
+      url: /querygrid/api/v1
+    - description: Streaming Prefix API endpoint
+      url: /querygrid-streaming/api/v1
+  /queries/{id}/details:
+    get:
+      description: Get the query using the Id
+      parameters:
+      - description: Id of query to get details on
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/query-details'
+          description: Collection of query details. Empty array in case Id not found.
+      summary: Find query details by Id
+      tags:
+      - Queries
+      operationId: getQueriesByIdDetails
+      x-operation-id-source: derived
+    servers:
+    - description: Default API endpoint
+      url: /api/v1
+    - description: Querygrid Prefix API endpoint
+      url: /querygrid/api/v1
+    - description: Streaming Prefix API endpoint
+      url: /querygrid-streaming/api/v1
 components:
   schemas:
     QueryRequest:
@@ -262,6 +330,584 @@ components:
           type: string
           description: Target system name.
           example: hadoop-lake
+    query-details:
+      example:
+      - received: 2022-08-16T06:27:38.019+0000
+        queryId: 3823b87b-e215-4196-a8d9-f42916472446
+        nodeId: 362c97e5-b4ad-4a7c-be9e-06399aeb058d
+        systemId: 983b37cb-8fe6-491d-8df0-6cd180764e6e
+        managerId: 5280b9b6-0096-4640-beb1-2efd2fb4b177
+        phase: META_PHASE
+        mode: QGC_MODE_METADATA
+        startTime: 2022-08-16T06:27:32.619+0000
+        endTime: 2022-08-16T06:27:33.024+0000
+        source: TARGET
+        errors: null
+        warnings: null
+        queryText: HELP COLUMN * FROM "TESTUSER"."remote_tab";SELECT session
+        sessionInfo:
+          user: TESTUSER
+          role: null
+          hostId: null
+          queryId: null
+          requestId: null
+          sessionId: '2688'
+          transactionId: null
+        configInfo:
+          linkVersionId: 1e8e3d6b-1b38-473b-99c0-9b5811686220
+          fabricVersionId: 5b0ebf98-1084-40cb-a0f8-90826a29a630
+          initiatorConnectorVersionId: 4e9a4775-3e45-4a13-bab2-a266a17c762a
+          targetConnectorVersionId: d9f942c4-9d41-4d88-bc4c-2ede1fe43e74
+          hopConfig:
+          - initiatorNetworkVersionId: a5ab1592-c146-4733-9f56-96cf099c7db6
+            targetNetworkVersionId: a5ab1592-c146-4733-9f56-96cf099c7db6
+            commPolicyVersionId: 3d0214c3-5643-4539-ab0d-45fc9bd74933
+        transferInfo: null
+        controlInfo:
+          requestSize: 928
+          responseSize: 2740
+      - received: 2022-08-16T06:27:38.019+0000
+        queryId: 3823b87b-e215-4196-a8d9-f42916472446
+        nodeId: 362c97e5-b4ad-4a7c-be9e-06399aeb058d
+        systemId: 983b37cb-8fe6-491d-8df0-6cd180764e6e
+        managerId: 5280b9b6-0096-4640-beb1-2efd2fb4b177
+        phase: DATA_EXE_PHASE
+        mode: QGC_MODE_IMPORT
+        startTime: 2022-08-16T06:27:33.087+0000
+        endTime: 2022-08-16T06:27:33.243+0000
+        source: TARGET
+        errors: null
+        warnings: null
+        queryText: SELECT * FROM TD_SYSFNLIB.QGRemoteExport(ON(SELECT c_ID ,c_G_Array_0 ,c_G_Boolean_0 ,c_G_Date_0  FROM TESTUSER.remote_tab ) USING uuid('3823b87b-e215-4196-a8d9-f42916472446') QGLVersionId('362c97e5-b4ad-4a7c-be9e-06399aeb058d;1e8e3d6b-1b38-473b-99c0-9b5811686220;4e9a4775-3e45-4a13-bab2-a266a17c762a;d9f942c4-9d41-4d88-bc4c-2ede1fe43e74;3d0214c3-5643-4539-ab0d-45fc9bd74933;a5ab1592-c146-4733-9f56-96cf099c7db6;a5ab1592-c146-4733-9f56-96cf099c7db6') connectionMaxIdleTime('86400') defaultPushProfile('NONE') tlsPort('443') replaceUnsupportedUC('false') logfilePath('/var/opt/teradata/tdqg/connector/tdqg-teradata-connector/02.19.00.00-2/logs/5001/') connectionPoolSize('100') loaderConnectorName('libtdqgc.so') linkBufferCount('4') connectorPath('/opt/teradata/tdqg/connector/tdqg-teradata-connector/02.19.00.00-2/lib/') linkBufferSize('1048576') validateUnsupportedUC('false') enableAsyncAbort('false') unsupportedDataType('Cast to Varchar') gssJar('/usr/tdbms/bin/tdgssconfig.jar') disablePushdown('false') fabricPath('/opt/teradata/tdqg/fabric/02.19.00.00-1/driver/') remoteConnectorName('') byteCountReportFrequency('640000') responseTimeout('86400000') transactionMode('TERA') roleSupport('false') jdbcJar('/usr/tdbms/bin/terajdbc4.jar') useTrusted('false') shmPath('/dev/shm/td_qg_ipc/5001/uds') connectorName('teradata') evictPeriodMin('30') enableJdbcTLS('false') enableLogging('DEBUG') ifs('[{"t":1,"l":4,"p":4},{"t":20,"l":60,"p":60},{"t":3,"l":1,"p":1},{"t":13,"l":4,"p":4}]')) AS dt;SELECT session
+        sessionInfo:
+          user: TESTUSER
+          role: null
+          hostId: null
+          queryId: null
+          requestId: null
+          sessionId: '2688'
+          transactionId: null
+        configInfo:
+          linkVersionId: 1e8e3d6b-1b38-473b-99c0-9b5811686220
+          fabricVersionId: 5b0ebf98-1084-40cb-a0f8-90826a29a630
+          initiatorConnectorVersionId: 4e9a4775-3e45-4a13-bab2-a266a17c762a
+          targetConnectorVersionId: d9f942c4-9d41-4d88-bc4c-2ede1fe43e74
+          hopConfig:
+          - initiatorNetworkVersionId: a5ab1592-c146-4733-9f56-96cf099c7db6
+            targetNetworkVersionId: a5ab1592-c146-4733-9f56-96cf099c7db6
+            commPolicyVersionId: 3d0214c3-5643-4539-ab0d-45fc9bd74933
+        transferInfo: null
+        controlInfo:
+          requestSize: 970
+          responseSize: 1568
+      - received: 2022-08-16T06:27:37.036+0000
+        queryId: 3823b87b-e215-4196-a8d9-f42916472446
+        nodeId: 740b4af8-9c9f-42be-a5d4-d68726041d14
+        systemId: 140d868e-e00d-4da9-9492-95447458ab67
+        managerId: 5280b9b6-0096-4640-beb1-2efd2fb4b177
+        phase: META_PHASE
+        mode: QGC_MODE_METADATA
+        startTime: 2022-08-16T06:27:32.402+0000
+        endTime: 2022-08-16T06:27:32.816+0000
+        source: INITIATOR
+        errors: null
+        warnings: null
+        queryText: select c_ID, c_G_Boolean_0, c_G_Date_0, c_G_Array_0 from TESTUSER.remote_tab@T2T;
+        sessionInfo:
+          user: TESTUSER
+          role: null
+          hostId: '1'
+          queryId: '307191888041164409'
+          requestId: '7'
+          sessionId: '2554'
+          transactionId: null
+        configInfo:
+          linkVersionId: 1e8e3d6b-1b38-473b-99c0-9b5811686220
+          fabricVersionId: 5b0ebf98-1084-40cb-a0f8-90826a29a630
+          initiatorConnectorVersionId: 4e9a4775-3e45-4a13-bab2-a266a17c762a
+          targetConnectorVersionId: d9f942c4-9d41-4d88-bc4c-2ede1fe43e74
+          hopConfig:
+          - initiatorNetworkVersionId: a5ab1592-c146-4733-9f56-96cf099c7db6
+            targetNetworkVersionId: a5ab1592-c146-4733-9f56-96cf099c7db6
+            commPolicyVersionId: 3d0214c3-5643-4539-ab0d-45fc9bd74933
+        transferInfo: null
+        controlInfo:
+          requestSize: 928
+          responseSize: 2740
+      - received: 2022-08-16T06:27:37.036+0000
+        queryId: 3823b87b-e215-4196-a8d9-f42916472446
+        nodeId: 740b4af8-9c9f-42be-a5d4-d68726041d14
+        systemId: 140d868e-e00d-4da9-9492-95447458ab67
+        managerId: 5280b9b6-0096-4640-beb1-2efd2fb4b177
+        phase: DATA_IMPORT
+        mode: null
+        startTime: 2022-08-16T06:27:32.868+0000
+        endTime: 2022-08-16T06:27:33.036+0000
+        source: INITIATOR
+        errors: null
+        warnings: null
+        queryText: null
+        sessionInfo:
+          user: null
+          role: null
+          hostId: '1'
+          queryId: '307191888041164409'
+          requestId: '7'
+          sessionId: '2554'
+          transactionId: null
+        configInfo:
+          linkVersionId: 1e8e3d6b-1b38-473b-99c0-9b5811686220
+          fabricVersionId: 5b0ebf98-1084-40cb-a0f8-90826a29a630
+          initiatorConnectorVersionId: 4e9a4775-3e45-4a13-bab2-a266a17c762a
+          targetConnectorVersionId: d9f942c4-9d41-4d88-bc4c-2ede1fe43e74
+          hopConfig:
+          - initiatorNetworkVersionId: a5ab1592-c146-4733-9f56-96cf099c7db6
+            targetNetworkVersionId: a5ab1592-c146-4733-9f56-96cf099c7db6
+            commPolicyVersionId: 3d0214c3-5643-4539-ab0d-45fc9bd74933
+        transferInfo:
+          bridgeId: null
+          connector:
+            bytesTransferred: 280
+            rowsTransferred: 10
+            blocksTransferred: 2
+            continuedBlocks: 0
+            bufferWaitTimeMillis: 239
+            channelCount: 2
+            channels:
+            - name: AMP_0_DATA
+              taskId: AMP_0
+              startTime: 2022-08-16T06:27:32.869+0000
+              endTime: 2022-08-16T06:27:33.034+0000
+              bytesTransferred: 56
+              rowsTransferred: 2
+              blocksTransferred: 1
+              continuedBlocks: 0
+              bufferWaitTimeMillis: 119
+            - name: AMP_1_DATA
+              taskId: AMP_1
+              startTime: 2022-08-16T06:27:32.868+0000
+              endTime: 2022-08-16T06:27:33.035+0000
+              bytesTransferred: 224
+              rowsTransferred: 8
+              blocksTransferred: 1
+              continuedBlocks: 0
+              bufferWaitTimeMillis: 120
+          approximateCpu: 0
+          export:
+            bytesTransferred: 0
+            rowsTransferred: 0
+            blocksTransferred: 0
+            continuedBlocks: 0
+            uncompressedSize: 0
+            connectionCount: 0
+            connections: null
+            connectionsWaiting: 0
+            connectionsBlocked: 0
+            buffersAvailable: 0
+            slowNode: ''
+            bufferConsumed: 0
+          import:
+            bytesTransferred: 203
+            rowsTransferred: 10
+            blocksTransferred: 2
+            continuedBlocks: 0
+            uncompressedSize: 280
+            connectionCount: 1
+            connections:
+            - hostname: sdt34793
+              nodeId: 362c97e5-b4ad-4a7c-be9e-06399aeb058d
+              connectionId: a2fae499-f0e3-44e1-9e6a-82924c50ddf3
+              number: 1
+              fromPool: true
+              localAddress: 10.27.80.65:5001
+              remoteAddress: 10.27.80.79:33062
+              startTime: 2022-08-16T06:27:32.987+0000
+              endTime: 2022-08-16T06:27:33.033+0000
+              bytesTransferred: 203
+              rowsTransferred: 10
+              blocksTransferred: 2
+              continuedBlocks: 0
+              uncompressedSize: 280
+              reconnects: 0
+            connectionsWaiting: 0
+            connectionsBlocked: 0
+            buffersAvailable: 0
+            slowNode: ''
+            bufferConsumed: 0
+      - received: 2022-08-16T06:27:38.019+0000
+        queryId: 3823b87b-e215-4196-a8d9-f42916472446
+        nodeId: 362c97e5-b4ad-4a7c-be9e-06399aeb058d
+        systemId: 983b37cb-8fe6-491d-8df0-6cd180764e6e
+        managerId: 5280b9b6-0096-4640-beb1-2efd2fb4b177
+        phase: DATA_EXPORT
+        mode: null
+        startTime: 2022-08-16T06:27:33.197+0000
+        endTime: 2022-08-16T06:27:33.244+0000
+        source: TARGET
+        errors: null
+        warnings: null
+        queryText: null
+        sessionInfo:
+          user: null
+          role: null
+          hostId: '1'
+          queryId: '307191388101572517'
+          requestId: '19'
+          sessionId: '2688'
+          transactionId: null
+        configInfo:
+          linkVersionId: 1e8e3d6b-1b38-473b-99c0-9b5811686220
+          fabricVersionId: 5b0ebf98-1084-40cb-a0f8-90826a29a630
+          initiatorConnectorVersionId: 4e9a4775-3e45-4a13-bab2-a266a17c762a
+          targetConnectorVersionId: d9f942c4-9d41-4d88-bc4c-2ede1fe43e74
+          hopConfig:
+          - initiatorNetworkVersionId: a5ab1592-c146-4733-9f56-96cf099c7db6
+            targetNetworkVersionId: a5ab1592-c146-4733-9f56-96cf099c7db6
+            commPolicyVersionId: 3d0214c3-5643-4539-ab0d-45fc9bd74933
+        transferInfo:
+          bridgeId: null
+          connector:
+            bytesTransferred: 280
+            rowsTransferred: 10
+            blocksTransferred: 2
+            continuedBlocks: 0
+            bufferWaitTimeMillis: 0
+            channelCount: 2
+            channels:
+            - name: AMP_1_DATA
+              taskId: AMP_1
+              startTime: 2022-08-16T06:27:33.197+0000
+              endTime: 2022-08-16T06:27:33.198+0000
+              bytesTransferred: 56
+              rowsTransferred: 2
+              blocksTransferred: 1
+              continuedBlocks: 0
+              bufferWaitTimeMillis: 0
+            - name: AMP_0_DATA
+              taskId: AMP_0
+              startTime: 2022-08-16T06:27:33.197+0000
+              endTime: 2022-08-16T06:27:33.198+0000
+              bytesTransferred: 224
+              rowsTransferred: 8
+              blocksTransferred: 1
+              continuedBlocks: 0
+              bufferWaitTimeMillis: 0
+          approximateCpu: 0.020004272
+          export:
+            bytesTransferred: 203
+            rowsTransferred: 10
+            blocksTransferred: 2
+            continuedBlocks: 0
+            uncompressedSize: 280
+            connectionCount: 1
+            connections:
+            - hostname: sdt34770
+              nodeId: 740b4af8-9c9f-42be-a5d4-d68726041d14
+              connectionId: a2fae499-f0e3-44e1-9e6a-82924c50ddf3
+              number: 1
+              fromPool: true
+              localAddress: 10.27.80.79:33062
+              remoteAddress: 10.27.80.65:5001
+              startTime: 2022-08-16T06:27:33.197+0000
+              endTime: 2022-08-16T06:27:33.244+0000
+              bytesTransferred: 203
+              rowsTransferred: 10
+              blocksTransferred: 2
+              continuedBlocks: 0
+              uncompressedSize: 280
+              reconnects: 0
+            connectionsWaiting: 0
+            connectionsBlocked: 0
+            buffersAvailable: 0
+            slowNode: ''
+            bufferConsumed: 0
+          import:
+            bytesTransferred: 0
+            rowsTransferred: 0
+            blocksTransferred: 0
+            continuedBlocks: 0
+            uncompressedSize: 0
+            connectionCount: 0
+            connections: null
+            connectionsWaiting: 0
+            connectionsBlocked: 0
+            buffersAvailable: 0
+            slowNode: ''
+            bufferConsumed: 0
+      - received: 2022-08-16T06:27:37.036+0000
+        queryId: 3823b87b-e215-4196-a8d9-f42916472446
+        nodeId: 740b4af8-9c9f-42be-a5d4-d68726041d14
+        systemId: 140d868e-e00d-4da9-9492-95447458ab67
+        managerId: 5280b9b6-0096-4640-beb1-2efd2fb4b177
+        phase: DATA_EXE_PHASE
+        mode: QGC_MODE_IMPORT
+        startTime: 2022-08-16T06:27:32.868+0000
+        endTime: 2022-08-16T06:27:33.033+0000
+        source: INITIATOR
+        errors: null
+        warnings: null
+        queryText: null
+        sessionInfo:
+          user: TESTUSER
+          role: null
+          hostId: '1'
+          queryId: '307191888041164409'
+          requestId: '7'
+          sessionId: '2554'
+          transactionId: null
+        configInfo:
+          linkVersionId: 1e8e3d6b-1b38-473b-99c0-9b5811686220
+          fabricVersionId: 5b0ebf98-1084-40cb-a0f8-90826a29a630
+          initiatorConnectorVersionId: 4e9a4775-3e45-4a13-bab2-a266a17c762a
+          targetConnectorVersionId: d9f942c4-9d41-4d88-bc4c-2ede1fe43e74
+          hopConfig:
+          - initiatorNetworkVersionId: a5ab1592-c146-4733-9f56-96cf099c7db6
+            targetNetworkVersionId: a5ab1592-c146-4733-9f56-96cf099c7db6
+            commPolicyVersionId: 3d0214c3-5643-4539-ab0d-45fc9bd74933
+        transferInfo: null
+        controlInfo:
+          requestSize: 970
+          responseSize: 1568
+      type: object
+    not-found-entity:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <entity type> with id=15fd2337-980b-4d0f-951e-e6c848a81b5d found.
+        path:
+          description: The path of the API called
+          example: /api/v1/<type>/15fd2337-980b-4d0f-951e-e6c848a81b5d
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<entity type>
+          - 15fd2337-980b-4d0f-951e-e6c848a81b5d
+          items:
+            type: string
+          type: array
+      type: object
+    query-summary:
+      example:
+        queryId: 3823b87b-e215-4196-a8d9-f42916472446
+        parentId: null
+        siblingId: 3823b87b-e215-4196-a8d9-f42916472446
+        childrenId: null
+        lastModified: 2022-08-16T06:28:23.498+0000
+        phase: SUCCESS
+        startTime: 2022-08-16T06:27:32.402+0000
+        endTime: 2022-08-16T06:27:33.033+0000
+        duration: 631
+        transferType: IMPORT
+        rowsTransferred: 10
+        bytesTransferred: 203
+        compressionRatio: 1.3793104
+        transferRate: 4319
+        bottleneck:
+          location: null
+          node: null
+        configVersion: ACTIVE
+        link:
+          id: b5531ad0-3788-48fe-b250-dca66a49245b
+          name: sdt34770_sdt34793
+          version: ACTIVE
+          versionId: 1e8e3d6b-1b38-473b-99c0-9b5811686220
+        fabric:
+          id: 723a7d93-7168-4c58-8c61-0583e0273857
+          name: test_fabric_01
+          version: ACTIVE
+          versionId: 5b0ebf98-1084-40cb-a0f8-90826a29a630
+          port: 5001
+          softwareVersion: 02.19.00.00-1
+        commPolicy:
+          id: 29315420-d1ef-4352-ae6e-9da5927a1296
+          name: test_comm_policies_01
+          version: ACTIVE
+          versionId: 3d0214c3-5643-4539-ab0d-45fc9bd74933
+          compression: true
+          encryption: true
+        initiator:
+          system:
+            id: 140d868e-e00d-4da9-9492-95447458ab67
+            name: sdt34770
+          connector:
+            id: 9a49b2f4-7dd8-42c0-ac6b-bb0663d38b4c
+            name: sdt34770
+            version: ACTIVE
+            versionId: 4e9a4775-3e45-4a13-bab2-a266a17c762a
+            softwareName: tdqg-teradata-connector
+            softwareVersion: 02.19.00.00-2
+          network:
+            id: 72fe8964-f48b-4958-8158-521a0b7d2279
+            name: test_network_td_vm
+            version: ACTIVE
+            versionId: a5ab1592-c146-4733-9f56-96cf099c7db6
+          queryText:
+          - select c_ID, c_G_Boolean_0, c_G_Date_0, c_G_Array_0 from TESTUSER.remote_tab@T2T;
+          username: TESTUSER
+          userRole: null
+          hostId: '1'
+          requestId: '7'
+          sessionId: '2554'
+          queryId: '307191888041164409'
+          totalCpu: 0
+          metadataPhase:
+            startTime: 2022-08-16T06:27:32.402+0000
+            endTime: 2022-08-16T06:27:32.816+0000
+            duration: 414
+            totalCpu: null
+            bytesTransferred: null
+            node:
+              id: 740b4af8-9c9f-42be-a5d4-d68726041d14
+              name: sdt34770
+            instances:
+            - startTime: 2022-08-16T06:27:32.402+0000
+              endTime: 2022-08-16T06:27:32.816+0000
+              duration: 414
+              totalCpu: null
+              bytesTransferred: null
+              node:
+                id: 740b4af8-9c9f-42be-a5d4-d68726041d14
+                name: sdt34770
+          executionPhase:
+            startTime: 2022-08-16T06:27:32.868+0000
+            endTime: 2022-08-16T06:27:33.033+0000
+            duration: 165
+            totalCpu: null
+            node:
+              id: 740b4af8-9c9f-42be-a5d4-d68726041d14
+              name: sdt34770
+            instances:
+            - startTime: 2022-08-16T06:27:32.868+0000
+              endTime: 2022-08-16T06:27:33.033+0000
+              duration: 165
+              totalCpu: null
+              node:
+                id: 740b4af8-9c9f-42be-a5d4-d68726041d14
+                name: sdt34770
+              type: QGC_MODE_IMPORT
+          dataTransferPhase:
+            startTime: 2022-08-16T06:27:32.868+0000
+            endTime: 2022-08-16T06:27:33.036+0000
+            duration: 168
+            totalCpu: 0
+            totalNodes: 1
+            cpuSkew: 1
+            highestCpuNode:
+              id: 740b4af8-9c9f-42be-a5d4-d68726041d14
+              name: sdt34770
+            dataSkew: 1
+            highestDataNode:
+              id: 740b4af8-9c9f-42be-a5d4-d68726041d14
+              name: sdt34770
+            bytesTransferred: 203
+            compressedSize: 203
+            decompressedSize: 280
+          errors: null
+          warnings: null
+        target:
+          system:
+            id: 983b37cb-8fe6-491d-8df0-6cd180764e6e
+            name: sdt34793
+          connector:
+            id: ad99f859-9d99-4338-bd35-10dc3308229e
+            name: sdt34793
+            version: ACTIVE
+            versionId: d9f942c4-9d41-4d88-bc4c-2ede1fe43e74
+            softwareName: tdqg-teradata-connector
+            softwareVersion: 02.19.00.00-2
+          network:
+            id: 72fe8964-f48b-4958-8158-521a0b7d2279
+            name: test_network_td_vm
+            version: ACTIVE
+            versionId: a5ab1592-c146-4733-9f56-96cf099c7db6
+          queryText:
+          - HELP COLUMN * FROM "TESTUSER"."remote_tab";SELECT session
+          - SELECT * FROM TD_SYSFNLIB.QGRemoteExport(ON(SELECT c_ID ,c_G_Array_0 ,c_G_Boolean_0 ,c_G_Date_0  FROM TESTUSER.remote_tab ) USING uuid('3823b87b-e215-4196-a8d9-f42916472446') QGLVersionId('362c97e5-b4ad-4a7c-be9e-06399aeb058d;1e8e3d6b-1b38-473b-99c0-9b5811686220;4e9a4775-3e45-4a13-bab2-a266a17c762a;d9f942c4-9d41-4d88-bc4c-2ede1fe43e74;3d0214c3-5643-4539-ab0d-45fc9bd74933;a5ab1592-c146-4733-9f56-96cf099c7db6;a5ab1592-c146-4733-9f56-96cf099c7db6') connectionMaxIdleTime('86400') defaultPushProfile('NONE') tlsPort('443') replaceUnsupportedUC('false') logfilePath('/var/opt/teradata/tdqg/connector/tdqg-teradata-connector/02.19.00.00-2/logs/5001/') connectionPoolSize('100') loaderConnectorName('libtdqgc.so') linkBufferCount('4') connectorPath('/opt/teradata/tdqg/connector/tdqg-teradata-connector/02.19.00.00-2/lib/') linkBufferSize('1048576') validateUnsupportedUC('false') enableAsyncAbort('false') unsupportedDataType('Cast to Varchar') gssJar('/usr/tdbms/bin/tdgssconfig.jar') disablePushdown('false') fabricPath('/opt/teradata/tdqg/fabric/02.19.00.00-1/driver/') remoteConnectorName('') byteCountReportFrequency('640000') responseTimeout('86400000') transactionMode('TERA') roleSupport('false') jdbcJar('/usr/tdbms/bin/terajdbc4.jar') useTrusted('false') shmPath('/dev/shm/td_qg_ipc/5001/uds') connectorName('teradata') evictPeriodMin('30') enableJdbcTLS('false') enableLogging('DEBUG') ifs('[{"t":1,"l":4,"p":4},{"t":20,"l":60,"p":60},{"t":3,"l":1,"p":1},{"t":13,"l":4,"p":4}]')) AS dt;SELECT session
+          username: TESTUSER
+          userRole: null
+          hostId: '1'
+          requestId: '19'
+          sessionId: '2688'
+          queryId: '307191388101572517'
+          totalCpu: 20
+          metadataPhase:
+            startTime: 2022-08-16T06:27:32.619+0000
+            endTime: 2022-08-16T06:27:33.024+0000
+            duration: 405
+            totalCpu: null
+            bytesTransferred: null
+            node:
+              id: 362c97e5-b4ad-4a7c-be9e-06399aeb058d
+              name: sdt34793
+            instances:
+            - startTime: 2022-08-16T06:27:32.619+0000
+              endTime: 2022-08-16T06:27:33.024+0000
+              duration: 405
+              totalCpu: null
+              bytesTransferred: null
+              node:
+                id: 362c97e5-b4ad-4a7c-be9e-06399aeb058d
+                name: sdt34793
+          executionPhase:
+            startTime: 2022-08-16T06:27:33.087+0000
+            endTime: 2022-08-16T06:27:33.243+0000
+            duration: 156
+            totalCpu: null
+            node:
+              id: 362c97e5-b4ad-4a7c-be9e-06399aeb058d
+              name: sdt34793
+            instances:
+            - startTime: 2022-08-16T06:27:33.087+0000
+              endTime: 2022-08-16T06:27:33.243+0000
+              duration: 156
+              totalCpu: null
+              node:
+                id: 362c97e5-b4ad-4a7c-be9e-06399aeb058d
+                name: sdt34793
+              type: QGC_MODE_IMPORT
+          dataTransferPhase:
+            startTime: 2022-08-16T06:27:33.197+0000
+            endTime: 2022-08-16T06:27:33.244+0000
+            duration: 47
+            totalCpu: 20
+            totalNodes: 1
+            cpuSkew: 1
+            highestCpuNode:
+              id: 362c97e5-b4ad-4a7c-be9e-06399aeb058d
+              name: sdt34793
+            dataSkew: 1
+            highestDataNode:
+              id: 362c97e5-b4ad-4a7c-be9e-06399aeb058d
+              name: sdt34793
+            bytesTransferred: 203
+            compressedSize: 203
+            decompressedSize: 280
+          errors: null
+          warnings: null
+        bridges: []
+        summaryInfo:
+          managerId: 5280b9b6-0096-4640-beb1-2efd2fb4b177
+          indexTime: 2022-08-16T06:27:32.868+0000
+          summaryDurationSecs: 0.011
+          summarized: true
+          complete: true
+          error: null
+          lastReceived:
+            5280b9b6-0096-4640-beb1-2efd2fb4b177: 2022-08-16T06:27:38.019+0000
+          metricVersion: 2
+      type: object
   securitySchemes:
     BasicAuth:
       type: http
@@ -270,3 +916,4 @@ components:
 x-refined-from:
 - teradata-query-service-api.yaml
 - teradata-querygrid-manager-api.yaml
+- tdqg-manager-api.yml

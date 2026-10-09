@@ -1,0 +1,28 @@
+generated: '2026-10-04'
+method: probed
+generator: harvest-packages.py
+source: registry metadata endpoints (registry.npmjs.org, pypi.org, rubygems.org, api.nuget.org, packagist.org, crates.io)
+ownership_rule: 'official: true only when the registry metadata (homepage, repository, author, URLs) names the provider''s domain (agentic-access/teradata-agentic-access.yml,
+  arazzo/teradata-auto-install-node-software-workflow.yml, arazzo/teradata-build-data-fabric-workflow.yml, arazzo/teradata-cancel-running-query-workflow.yml,
+  arazzo/teradata-import-and-verify-system-workflow.yml, arazzo/teradata-poll-query-results-workflow.yml, arazzo/teradata-provision-cross-system-link-workflow.yml,
+  arazzo/teradata-register-system-in-datacenter-workflow.yml, arazzo/teradata-review-environment-health-workflow.yml, arazzo/teradata-run-connectivity-diagnostic-workflow.yml,
+  arazzo/teradata-run-query-session-workflow.yml, arazzo/teradata-session-lifecycle-workflow.yml, authentication/teradata-authentication.yml,
+  linkedin.com, npmjs.com, postman.com, pypi.org, rules/teradata-spectral-rules.yml, security/teradata-domain-security.yml, security/teradata-vulnerability-disclosure.yml,
+  teradata.com, vocabulary/teradata-vocabulary.yaml) or its accepted GitHub org.'
+packages:
+- name: teradata
+  registry: npm
+  url: https://www.npmjs.com/package/teradata
+  language: JavaScript
+  official: true
+  version: 0.1.1
+  published: '2016-05-18'
+  evidence: metadata names npmjs.com
+- name: teradata
+  registry: pypi
+  url: https://pypi.org/project/teradata/
+  language: Python
+  official: true
+  version: 15.10.0.21
+  published: '2017-04-29'
+  evidence: metadata names teradata.com

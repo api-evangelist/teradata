@@ -1,16 +1,20 @@
 openapi: 3.2.0
 info:
-  title: Teradata QueryGrid Manager API Info API
-  description: REST API for centralized administration and monitoring of Teradata QueryGrid, the data fabric that enables seamless cross-system analytics. Manage data centers, systems, bridges, connectors, links, fabrics, networks, and node configurations.
-  version: '3.6'
-  contact:
-    name: Teradata
-    url: https://www.teradata.com
-  x-generated-from: documentation
-  x-last-validated: '2026-04-18'
+  title: Teradata API Info API
+  x-refined-note:
+  - x-generated-from differs across the merged source definitions and was not carried
+  - x-last-validated differs across the merged source definitions and was not carried
+  version: '1.0'
+  description: 'Operations tagged API Info across 2 of this provider''s published API definitions: teradata-querygrid-manager-api.yaml, tdqg-manager-api.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://querygrid.teradata.com/api/v1
   description: Default QueryGrid Manager endpoint
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
 security:
 - BasicAuth: []
 tags:
@@ -41,6 +45,9 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://querygrid.teradata.com/api/v1
+      description: Default QueryGrid Manager endpoint
 components:
   schemas:
     ApiInfo:
@@ -59,8 +66,90 @@ components:
           type: string
           description: Current API status.
           example: running
+    api-info:
+      example:
+        features:
+          roleMapping: true
+          proxy: true
+          multipleClusters: true
+          bulkDelete: true
+          memoryCalculator: true
+          autoNodeDelete: true
+          bridge: true
+          bulkNodeDelete: true
+        appVersion: 02.04.00.01
+        instanceId: cfd5724f-31bf-4296-98b4-2a1fc8ab9a6f
+        apiVersion: '1'
+        timestamp: 2018-01-12T00:09:53.635+0000
+      properties:
+        instanceId:
+          description: The unique identifer assigned to this QueryGrid Manager instance
+          example: cfd5724f-31bf-4296-98b4-2a1fc8ab9a6f
+          type: string
+        appVersion:
+          description: The QueryGrid Manager software version
+          example: 02.04.00.01
+          type: string
+        apiVersion:
+          description: The latest API version supported by this QueryGrid Manager instance
+          example: '1'
+          type: string
+        timestamp:
+          description: The current timestamp of the QueryGrid Manager at the time of the response in ISO-8601 format.
+          example: 2018-01-12T00:09:53.635+0000
+          type: string
+        features:
+          $ref: '#/components/schemas/api_info_features'
+      type: object
+    api_info_features:
+      example:
+        roleMapping: true
+        proxy: true
+        multipleClusters: true
+        bulkDelete: true
+        memoryCalculator: true
+        autoNodeDelete: true
+        bridge: true
+        bulkNodeDelete: true
+      properties:
+        bridge:
+          description: Flags if bridge support is available.
+          example: true
+          type: boolean
+        roleMapping:
+          description: Flags if role mapping support is available.
+          example: true
+          type: boolean
+        bulkNodeDelete:
+          description: Flags if bulk delete of nodes is available.
+          example: true
+          type: boolean
+        bulkDelete:
+          description: Flags if bulk delete feature is available.
+          example: true
+          type: boolean
+        memoryCalculator:
+          description: Flags if shared memory calculation is supported.
+          example: true
+          type: boolean
+        multipleClusters:
+          description: Flags if multiple cluster feature is available.
+          example: true
+          type: boolean
+        proxy:
+          description: Flags if proxy feature is available.
+          example: true
+          type: boolean
+        autoNodeDelete:
+          description: Flags if auto-node delete feature is available
+          example: true
+          type: boolean
+      type: object
   securitySchemes:
     BasicAuth:
       type: http
       scheme: basic
       description: HTTP Basic authentication with QueryGrid Manager credentials.
+x-refined-from:
+- teradata-querygrid-manager-api.yaml
+- tdqg-manager-api.yml

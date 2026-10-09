@@ -1,0 +1,281 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Operations - Nodes Auto Install…
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Automate install and registration of nodes with QueryGrid Manager
+  name: Operations - Nodes Auto Install
+paths:
+  /operations/nodes-auto-install:
+    post:
+      description: Install the node package automatically.
+      operationId: postNodeAutoInstall
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/auto-install-request'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/auto-install-response'
+          description: Successful Operation
+      summary: Automatic node installation
+      tags:
+      - Operations - Nodes Auto Install
+  /operations/nodes-auto-install/{installationId}:
+    delete:
+      description: Abort the auto-install operation using installationId
+      operationId: deleteNodeAutoInstallById
+      parameters:
+      - description: Id of the auto-install operation.
+        in: path
+        name: installationId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Auto-install operation aborted.
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+      summary: Abort automatic node installation operation
+      tags:
+      - Operations - Nodes Auto Install
+    get:
+      description: Get the status of the automatic node installation status using installationId
+      operationId: postNodeAutoInstallById
+      parameters:
+      - description: Id of the auto-install operation.
+        in: path
+        name: installationId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/auto-install-response'
+          description: Successful Operation
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Specified installationId not found
+      summary: Automatic node installation status
+      tags:
+      - Operations - Nodes Auto Install
+components:
+  schemas:
+    auto-install-response:
+      example:
+        clusterOption: PRIMARY
+        systemId: systemId
+        managerId: managerId
+        totalCount: 0
+        inProgressCount: 6
+        nodes:
+        - hostname: hostname
+          startTime: 2000-01-23
+          endTime: 2000-01-23
+          error: error
+          status: PENDING
+        - hostname: hostname
+          startTime: 2000-01-23
+          endTime: 2000-01-23
+          error: error
+          status: PENDING
+        pendingCount: 5
+        successCount: 1
+        startTime: 2000-01-23
+        abortCount: 2
+        installationId: installationId
+        endTime: 2000-01-23
+        lastModified: 2000-01-23
+        errorCount: 5
+        status: status
+      properties:
+        installationId:
+          description: UUID representing the installation operation
+          type: string
+        managerId:
+          description: The ID of the QGM handling the installation operation
+          type: string
+        clusterOption:
+          description: Cluster option for the host QGM cluster. Applicable for QueryGrid version 02.11+. The primary QGM cluster determines the version of the tdqg-node software to run on the data nodes and can run pre-02.09 versions of the QueryGrid fabric. It is always the first QGM cluster the tdqg-node service is configured to serve. The Secondary QGM clusters are always added after the tdqg-node service has been configured with a Primary QGM cluster. The tdqg-node software version selected by the secondary QueryGrid Manager cluster has no effect. The secondary QGM cluster cannot run pre-02.09 versions of the QueryGrid fabric.
+          enum:
+          - PRIMARY
+          - SECONDARY
+          - EXCLUSIVE_PRIMARY
+          type:
+          - string
+          - 'null'
+        systemId:
+          description: The ID of the system that is being installed.
+          type: string
+        status:
+          description: The overall status of the install
+          type: string
+        startTime:
+          description: The start time of the installation
+          format: date
+          type: string
+        endTime:
+          description: The finish time of the installation
+          format: date
+          type: string
+        lastModified:
+          description: The last modification time of the status
+          format: date
+          type: string
+        totalCount:
+          description: The number of installations performed
+          format: int32
+          type: integer
+        inProgressCount:
+          description: The number of installations currently in progress
+          format: int32
+          type: integer
+        successCount:
+          description: The number of successful installations
+          format: int32
+          type: integer
+        errorCount:
+          description: The number of failed installations
+          format: int32
+          type: integer
+        pendingCount:
+          description: The number of pending installations
+          format: int32
+          type: integer
+        abortCount:
+          description: The number of failed installations
+          format: int32
+          type: integer
+        nodes:
+          description: A List that contains the status information for each of the nodes
+          items:
+            $ref: '#/components/schemas/auto-install-node-status'
+          type: array
+      type: object
+    auto-install-node-status:
+      example:
+        hostname: hostname
+        startTime: 2000-01-23
+        endTime: 2000-01-23
+        error: error
+        status: PENDING
+      properties:
+        hostname:
+          description: The hostName or IP of the node
+          type: string
+        status:
+          description: The Status of the installation
+          enum:
+          - PENDING
+          - SUCCESS
+          - FAILURE
+          - ABORTED
+          - IN_PROGRESS
+          - UNKNOWN
+          type: string
+        startTime:
+          description: The start time of the installation operation
+          format: date
+          type: string
+        endTime:
+          description: The finish time of the installation operation
+          format: date
+          type: string
+        error:
+          description: The error associated with the failure if the installation failed
+          type: string
+      type: object
+    auto-install-request:
+      properties:
+        systemId:
+          description: The system to which nodes will be added.
+          type:
+          - string
+          - 'null'
+        nodes:
+          description: This list of node hostNames or IPs to install
+          items:
+            type:
+            - string
+            - 'null'
+          type:
+          - array
+          - 'null'
+        username:
+          description: The SSH username
+          type:
+          - string
+          - 'null'
+        password:
+          description: The SSH password
+          type:
+          - string
+          - 'null'
+        sshKey:
+          description: The SSH key
+          type:
+          - string
+          - 'null'
+        concurrency:
+          description: The number of installs that can be performed at the same time.
+          format: int32
+          type:
+          - integer
+          - 'null'
+        clusterOption:
+          description: Cluster option for the host QGM cluster. Applicable for QueryGrid version 02.11+. The primary QGM cluster determines the version of the tdqg-node software to run on the data nodes and can run pre-02.09 versions of the QueryGrid fabric. It is always the first QGM cluster the tdqg-node service is configured to serve. The Secondary QGM clusters are always added after the tdqg-node service has been configured with a Primary QGM cluster. The tdqg-node software version selected by the secondary QueryGrid Manager cluster has no effect. The secondary QGM cluster cannot run pre-02.09 versions of the QueryGrid fabric.
+          enum:
+          - PRIMARY
+          - SECONDARY
+          - EXCLUSIVE_PRIMARY
+          type:
+          - string
+          - 'null'
+      type: object
+    bad-request:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 400
+        error:
+          description: The error description
+          example: Bad Request
+        message:
+          description: The error message
+          example: '[name must not be blank]'
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>
+      type: object
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

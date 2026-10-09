@@ -1,0 +1,267 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Config - Bridges API
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Manage bridges used for routing QueryGrid communication between systems without direct connectivity
+  name: Config - Bridges
+paths:
+  /config/bridges:
+    get:
+      parameters:
+      - description: Get bridges associated with the specified system.
+        in: query
+        name: filterBySystemId
+        required: false
+        schema:
+          type: string
+      - description: Get bridge associated with the specified name (case insensitive). Wildcard matching with '*' is supported.
+        in: query
+        name: filterByName
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/bridge'
+                type: array
+          description: Successful operation
+      summary: Get all Bridges
+      tags:
+      - Config - Bridges
+      operationId: getConfigBridges
+      x-operation-id-source: derived
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-bridge'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bridge'
+          description: Bridge created
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+      summary: Create a new Bridge
+      tags:
+      - Config - Bridges
+      operationId: postConfigBridges
+      x-operation-id-source: derived
+  /config/bridges/{id}:
+    delete:
+      parameters:
+      - description: ID of the Bridge to delete
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+      summary: Delete a Bridge by ID
+      tags:
+      - Config - Bridges
+      operationId: deleteConfigBridgesById
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the Bridge
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bridge'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config'
+          description: Not Found
+      summary: Get a Bridges by ID
+      tags:
+      - Config - Bridges
+      operationId: getConfigBridgesById
+      x-operation-id-source: derived
+    put:
+      parameters:
+      - description: ID of the Bridge to update
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-bridge'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bridge'
+          description: Successful Operation
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config'
+          description: Not Found
+      summary: Update a Bridge
+      tags:
+      - Config - Bridges
+      operationId: putConfigBridgesById
+      x-operation-id-source: derived
+components:
+  schemas:
+    post-bridge:
+      properties:
+        name:
+          description: The name of the bridge.
+          example: Bridge1
+          type: string
+        description:
+          description: A description of the bridge.
+          example: Bridge nodes located in San Diego.
+          type: string
+        systemId:
+          description: The ID of the system the bridge is associated with.
+          example: a05acd24-4cfd-4f08-a1fa-86341f21c3ce
+          type: string
+        nodeIds:
+          description: The subset of the system's nodes to use for bridge.  Null indicates all nodes.
+          example:
+          - 3606af65-29f7-4d36-84f5-3a97e5822be1
+          - 997b6864-99a0-4084-b984-b739825b098a
+          items:
+            type: string
+          type: array
+      type: object
+    not-found-config:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <config type> with ID=f5d72daf-aa8f-486c-8058-4fc587c0b471 found.
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>/f5d72daf-aa8f-486c-8058-4fc587c0b471
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<config type>
+          - f5d72daf-aa8f-486c-8058-4fc587c0b471
+          items:
+            type: string
+          type: array
+      type: object
+    bad-request:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 400
+        error:
+          description: The error description
+          example: Bad Request
+        message:
+          description: The error message
+          example: '[name must not be blank]'
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>
+      type: object
+    bridge:
+      example:
+        nodeIds:
+        - 3606af65-29f7-4d36-84f5-3a97e5822be1
+        - 997b6864-99a0-4084-b984-b739825b098a
+        systemId: a05acd24-4cfd-4f08-a1fa-86341f21c3ce
+        name: Bridge1
+        description: Bridge nodes located in San Diego.
+        id: f5d72daf-aa8f-486c-8058-4fc587c0b471
+        lastModified: 2018-01-31T17:59:22.055+0000
+      properties:
+        id:
+          description: The auto-generated ID of the bridge.
+          example: f5d72daf-aa8f-486c-8058-4fc587c0b471
+          type: string
+        lastModified:
+          description: The last time this bridge was modified.
+          example: 2018-01-31T17:59:22.055+0000
+          type: string
+        name:
+          description: The name of the bridge.
+          example: Bridge1
+          type: string
+        description:
+          description: A description of the bridge.
+          example: Bridge nodes located in San Diego.
+          type: string
+        systemId:
+          description: The ID of the system the bridge is associated with.
+          example: a05acd24-4cfd-4f08-a1fa-86341f21c3ce
+          type: string
+        nodeIds:
+          description: The subset of the system's nodes to use for bridge.  Null indicates all nodes.
+          example:
+          - 3606af65-29f7-4d36-84f5-3a97e5822be1
+          - 997b6864-99a0-4084-b984-b739825b098a
+          items:
+            type: string
+          type: array
+      type: object
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

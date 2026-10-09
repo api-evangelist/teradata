@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/main/json-schema/teradata-bridge-schema.json",
+  "title": "Bridge",
+  "description": "A bridge connecting two systems.",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/teradata-configuration-api-openapi.yml#/components/schemas/Bridge",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique bridge identifier."
+    },
+    "name": {
+      "type": "string",
+      "description": "Bridge name."
+    },
+    "sourceSystemId": {
+      "type": "string",
+      "description": "Source system identifier."
+    },
+    "targetSystemId": {
+      "type": "string",
+      "description": "Target system identifier."
+    },
+    "status": {
+      "type": "string",
+      "description": "Bridge status."
+    }
+  }
+}

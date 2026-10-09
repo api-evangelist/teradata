@@ -1,0 +1,635 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Config - Fabrics API
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Manage fabrics responsible for QueryGrid inter-node communication
+  name: Config - Fabrics
+paths:
+  /config/fabrics:
+    get:
+      parameters:
+      - description: Flatten out the active, pending, and previous versions into array elements instead of nesting them.
+        in: query
+        name: flatten
+        schema:
+          type: boolean
+      - description: Provide extra details (in _extraInfo section) about the fabric.
+        in: query
+        name: extraInfo
+        schema:
+          type: boolean
+      - description: Get fabric associated with the specified name (case insensitive). Wildcard matching with '*' is supported.
+        in: query
+        name: filterByName
+        required: false
+        schema:
+          type: string
+      - description: Get fabric associated with the specified tag. Provide ','(comma) separated list of key:value pairs.
+        in: query
+        name: filterByTag
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/fabric'
+                type: array
+          description: Successful operation
+      summary: Get all Fabrics
+      tags:
+      - Config - Fabrics
+      operationId: getConfigFabrics
+      x-operation-id-source: derived
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-fabric'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fabric'
+          description: Fabric created
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+      summary: Create a new Fabric
+      tags:
+      - Config - Fabrics
+      operationId: postConfigFabrics
+      x-operation-id-source: derived
+  /config/fabrics/{id}:
+    delete:
+      parameters:
+      - description: ID of the Fabric to delete
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+      summary: Delete a Fabric by ID
+      tags:
+      - Config - Fabrics
+      operationId: deleteConfigFabricsById
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the Fabric
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: Provide extra details (in _extraInfo section) about the fabric.
+        in: query
+        name: extraInfo
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fabric'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config'
+          description: Not Found
+      summary: Get a Fabric by ID
+      tags:
+      - Config - Fabrics
+      operationId: getConfigFabricsById
+      x-operation-id-source: derived
+    patch:
+      parameters:
+      - description: ID of the Fabric to update
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_config_fabrics__id__patch_request'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fabric'
+          description: Successful Operation
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config'
+          description: Not Found
+      summary: Update Fabric name or description
+      tags:
+      - Config - Fabrics
+      operationId: patchConfigFabricsById
+      x-operation-id-source: derived
+  /config/fabrics/{id}/active:
+    get:
+      parameters:
+      - description: ID of the Fabric
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/active-fabric'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Get the active version for a Fabric
+      tags:
+      - Config - Fabrics
+      operationId: getConfigFabricsByIdActive
+      x-operation-id-source: derived
+    patch:
+      parameters:
+      - description: ID of the Fabric
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example: db6f0a2e-a368-4a97-91fb-cf3f61d72704
+              type: string
+        description: The version ID of the version to activate.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/post-fabric'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Activate pending or previous fabric version
+      tags:
+      - Config - Fabrics
+      operationId: patchConfigFabricsByIdActive
+      x-operation-id-source: derived
+    put:
+      parameters:
+      - description: ID of the Fabric
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-fabric'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/post-fabric'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Update the active Fabric version
+      tags:
+      - Config - Fabrics
+      operationId: putConfigFabricsByIdActive
+      x-operation-id-source: derived
+  /config/fabrics/{id}/pending:
+    delete:
+      parameters:
+      - description: ID of the Fabric
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Delete the pending Fabric version
+      tags:
+      - Config - Fabrics
+      operationId: deleteConfigFabricsByIdPending
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the Fabric
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pending-fabric'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Get the pending version for a Fabric
+      tags:
+      - Config - Fabrics
+      operationId: getConfigFabricsByIdPending
+      x-operation-id-source: derived
+    put:
+      parameters:
+      - description: ID of the Fabric
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-fabric'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/post-fabric'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Update the pending Fabric version
+      tags:
+      - Config - Fabrics
+      operationId: putConfigFabricsByIdPending
+      x-operation-id-source: derived
+  /config/fabrics/{id}/previous:
+    delete:
+      parameters:
+      - description: ID of the Fabric
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Delete the previous Fabric version
+      tags:
+      - Config - Fabrics
+      operationId: deleteConfigFabricsByIdPrevious
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the Fabric
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/previous-fabric'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Get the previous version for a Fabric
+      tags:
+      - Config - Fabrics
+      operationId: getConfigFabricsByIdPrevious
+      x-operation-id-source: derived
+components:
+  schemas:
+    pending_fabric_allOf:
+      properties:
+        version:
+          description: The version of the fabric.
+          example: PENDING
+          type: string
+      type: object
+      example: null
+    fabric-version:
+      properties:
+        versionId:
+          description: The ID associated with the active fabric version.
+          example: 22995fad-13e8-42fd-82c6-31f2390fb440
+        lastModified:
+          description: The last time this version was modified.
+          example: 2017-12-11T17:52:01.088+0000
+        port:
+          description: The port to use for communication between systems
+          example: 5000
+          type: number
+        softwareVersion:
+          description: The version of the fabric software to deploy.
+          example: 02.04.00.01-24
+          type: string
+        authKeySize:
+          description: The authentication key size to secure fabric communications.
+          enum:
+          - 1536
+          - 2048
+          - 3072
+          - 4096
+          example: 1536
+          type: number
+        _extraInfo:
+          $ref: '#/components/schemas/fabric-extra-info'
+      type: object
+    _config_fabrics__id__patch_request:
+      properties:
+        name:
+          description: The name of the fabric.
+          example: Fabric1
+          type: string
+        description:
+          description: The description of the fabric.
+          example: Production fabric used by production workloads.
+          type: string
+      type: object
+    previous_fabric_allOf:
+      properties:
+        version:
+          description: The version of the fabric.
+          example: PREVIOUS
+          type: string
+      type: object
+      example: null
+    active-fabric:
+      allOf:
+      - $ref: '#/components/schemas/fabric-metadata'
+      - $ref: '#/components/schemas/fabric-version'
+      - $ref: '#/components/schemas/active_fabric_allOf'
+    fabric_allOf:
+      properties:
+        previous:
+          $ref: '#/components/schemas/fabric-version'
+        active:
+          $ref: '#/components/schemas/fabric-version'
+        pending:
+          $ref: '#/components/schemas/fabric-version'
+      type: object
+      example: null
+    previous-fabric:
+      allOf:
+      - $ref: '#/components/schemas/fabric-metadata'
+      - $ref: '#/components/schemas/fabric-version'
+      - $ref: '#/components/schemas/previous_fabric_allOf'
+    fabric:
+      allOf:
+      - $ref: '#/components/schemas/fabric-metadata'
+      - $ref: '#/components/schemas/fabric_allOf'
+    post-fabric:
+      example:
+        port: 5000
+        name: Fabric1
+        description: Production fabric used by production workloads.
+        authKeySize: 1536
+        softwareVersion: 02.04.00.01-24
+        tags:
+          destinationSystem: vantage
+      properties:
+        name:
+          description: The name of the fabric.
+          example: Fabric1
+          type: string
+        description:
+          description: A description of the fabric.
+          example: Production fabric used by production workloads.
+          type: string
+        port:
+          description: The port to use for communication between systems
+          example: 5000
+          type: number
+        softwareVersion:
+          description: The version of the fabric software to deploy.
+          example: 02.04.00.01-24
+          type: string
+        authKeySize:
+          description: The authentication key size to secure fabric communications.
+          enum:
+          - 1536
+          - 2048
+          - 3072
+          - 4096
+          example: 1536
+          type: number
+        tags:
+          description: Optional string key/value pairs for associating some context with the fabric.
+          example:
+            destinationSystem: vantage
+          type: object
+      type: object
+    not-found-config-version:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <config type> with ID=f5d72daf-aa8f-486c-8058-4fc587c0b471 found.
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>/f5d72daf-aa8f-486c-8058-4fc587c0b471/<version>
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<config type>
+          - f5d72daf-aa8f-486c-8058-4fc587c0b471
+          items:
+            type: string
+          type: array
+      type: object
+    fabric-metadata:
+      properties:
+        id:
+          description: The auto-generated ID of the fabric.
+          example: f5d72daf-aa8f-486c-8058-4fc587c0b471
+          type: string
+        lastModified:
+          description: The last time the fabric was modified.
+          example: 2018-01-31T17:59:22.055+0000
+          type: string
+        name:
+          description: The name of the fabric.
+          example: Fabric1
+          type: string
+        description:
+          description: A description of the fabric.
+          example: Production fabric used by production workloads.
+          type: string
+        tags:
+          description: Optional string key/value pairs for associating some context with the fabric.
+          example:
+            destinationSystem: vantage
+          type: object
+      type: object
+    not-found-config:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <config type> with ID=f5d72daf-aa8f-486c-8058-4fc587c0b471 found.
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>/f5d72daf-aa8f-486c-8058-4fc587c0b471
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<config type>
+          - f5d72daf-aa8f-486c-8058-4fc587c0b471
+          items:
+            type: string
+          type: array
+      type: object
+    pending-fabric:
+      allOf:
+      - $ref: '#/components/schemas/fabric-metadata'
+      - $ref: '#/components/schemas/fabric-version'
+      - $ref: '#/components/schemas/pending_fabric_allOf'
+    active_fabric_allOf:
+      properties:
+        version:
+          description: The version of the fabric.
+          example: ACTIVE
+          type: string
+      type: object
+      example: null
+    fabric-extra-info:
+      properties:
+        nodesOnline:
+          description: The number of nodes online for the fabric
+          example: 104
+          type: number
+        nodesOffline:
+          description: The number of nodes offline for the fabric
+          type: number
+      type: object
+    bad-request:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 400
+        error:
+          description: The error description
+          example: Bad Request
+        message:
+          description: The error message
+          example: '[name must not be blank]'
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>
+      type: object
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

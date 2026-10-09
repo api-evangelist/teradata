@@ -1,0 +1,91 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Operations - Shared Memory…
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Estimate memory needed for QueryGrid operations
+  name: Operations - Shared Memory Estimator
+paths:
+  /shared-memory-estimator:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/shared-memory-estimator-inputs'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                description: The estimated shared memory required in bytes.
+                type: number
+          description: Estimate Returned
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+      summary: Get an estimate of how much shared memory is required
+      tags:
+      - Operations - Shared Memory Estimator
+      operationId: postSharedMemoryEstimator
+      x-operation-id-source: derived
+components:
+  schemas:
+    bad-request:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 400
+        error:
+          description: The error description
+          example: Bad Request
+        message:
+          description: The error message
+          example: '[name must not be blank]'
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>
+      type: object
+    shared-memory-estimator-inputs:
+      properties:
+        queryConcurrency:
+          description: 'Expected maximum number of QueryGrid queries the user expects to run at the same time for all connectors on that system
+
+            '
+          type: number
+        linkBufferSize:
+          description: 'The maximum buffer size that any link or connector will be configured to use involving this system. Size in bytes.
+
+            '
+          type: number
+        linkBufferCount:
+          description: 'The maximum number of buffers that any link or connector will be configured to use involving this system.
+
+            '
+          type: number
+        workersPerNode:
+          description: 'Number of threads that participate in a query on a given node (e.g. the number of AMPs per node in Teradata)
+
+            '
+          type: number
+      type: object
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

@@ -1,0 +1,641 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Config - Networks API
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Manage network rules that determine the network interfaces to use for communications
+  name: Config - Networks
+paths:
+  /config/networks:
+    get:
+      parameters:
+      - description: Flatten out the active, pending, and previous versions into array elements instead of nesting them.
+        in: query
+        name: flatten
+        schema:
+          type: boolean
+      - description: Provide extra details (in _extraInfo section) about the network.
+        in: query
+        name: extraInfo
+        schema:
+          type: boolean
+      - description: Get network associated with the specified name (case insensitive). Wildcard matching with '*' is supported.
+        in: query
+        name: filterByName
+        required: false
+        schema:
+          type: string
+      - description: Get network associated with the specified tag. Provide ','(comma) separated list of key:value pairs.
+        in: query
+        name: filterByTag
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/network'
+                type: array
+          description: Successful operation
+      summary: Get all Networks
+      tags:
+      - Config - Networks
+      operationId: getConfigNetworks
+      x-operation-id-source: derived
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-network'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/network'
+          description: Network created
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+      summary: Create a new Network
+      tags:
+      - Config - Networks
+      operationId: postConfigNetworks
+      x-operation-id-source: derived
+  /config/networks/{id}:
+    delete:
+      parameters:
+      - description: ID of the Network to delete
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+      summary: Delete a Network by ID
+      tags:
+      - Config - Networks
+      operationId: deleteConfigNetworksById
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the Network
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: Provide extra details (in _extraInfo section) about the network.
+        in: query
+        name: extraInfo
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/network'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config'
+          description: Not Found
+      summary: Get a Network by ID
+      tags:
+      - Config - Networks
+      operationId: getConfigNetworksById
+      x-operation-id-source: derived
+    patch:
+      parameters:
+      - description: ID of the Network to update
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_config_networks__id__patch_request'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/network'
+          description: Successful Operation
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config'
+          description: Not Found
+      summary: Update Network name or description
+      tags:
+      - Config - Networks
+      operationId: patchConfigNetworksById
+      x-operation-id-source: derived
+  /config/networks/{id}/active:
+    get:
+      parameters:
+      - description: ID of the Network
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/active-network'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Get the active version for a Network
+      tags:
+      - Config - Networks
+      operationId: getConfigNetworksByIdActive
+      x-operation-id-source: derived
+    patch:
+      parameters:
+      - description: ID of the Network
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example: db6f0a2e-a368-4a97-91fb-cf3f61d72704
+              type: string
+        description: The version ID of the version to activate.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/post-network'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Activate pending or previous network version
+      tags:
+      - Config - Networks
+      operationId: patchConfigNetworksByIdActive
+      x-operation-id-source: derived
+    put:
+      parameters:
+      - description: ID of the Network
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-network'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/post-network'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Update the active Network version
+      tags:
+      - Config - Networks
+      operationId: putConfigNetworksByIdActive
+      x-operation-id-source: derived
+  /config/networks/{id}/pending:
+    delete:
+      parameters:
+      - description: ID of the Network
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Delete the pending Network version
+      tags:
+      - Config - Networks
+      operationId: deleteConfigNetworksByIdPending
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the Network
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pending-network'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Get the pending version for a Network
+      tags:
+      - Config - Networks
+      operationId: getConfigNetworksByIdPending
+      x-operation-id-source: derived
+    put:
+      parameters:
+      - description: ID of the Network
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-network'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/post-network'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Update the pending Network version
+      tags:
+      - Config - Networks
+      operationId: putConfigNetworksByIdPending
+      x-operation-id-source: derived
+  /config/networks/{id}/previous:
+    delete:
+      parameters:
+      - description: ID of the Network
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Delete the previous Network version
+      tags:
+      - Config - Networks
+      operationId: deleteConfigNetworksByIdPrevious
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the Network
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/previous-network'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config-version'
+          description: Not Found
+      summary: Get the previous version for a Network
+      tags:
+      - Config - Networks
+      operationId: getConfigNetworksByIdPrevious
+      x-operation-id-source: derived
+components:
+  schemas:
+    previous_network_allOf:
+      properties:
+        version:
+          description: The version of the network.
+          example: PREVIOUS
+          type: string
+      type: object
+      example: null
+    matching-rule:
+      example:
+        type: INTERFACE_NAME
+        value: eth0
+      properties:
+        type:
+          description: The type of rule (e.g. INTERFACE_NAME or CIDR_NOTATION).
+          enum:
+          - INTERFACE_NAME
+          - CIDR_NOTATION
+          example: INTERFACE_NAME
+          type: string
+        value:
+          description: The value used to perform the match  (e.g. eth0 or 169.154.0.0/16)
+          example: eth0
+          type: string
+      type: object
+    network_allOf:
+      properties:
+        previous:
+          $ref: '#/components/schemas/network-version'
+        active:
+          $ref: '#/components/schemas/network-version'
+        pending:
+          $ref: '#/components/schemas/network-version'
+      type: object
+      example: null
+    _config_networks__id__patch_request:
+      properties:
+        name:
+          description: The name of the network.
+          example: Network1
+          type: string
+        description:
+          description: The description of the network.
+          example: Production network used by production workloads.
+          type: string
+        matchingRules:
+          description: The rules that define how to identity network interfaces associated with the network.
+          type: object
+      type: object
+    pending_network_allOf:
+      properties:
+        version:
+          description: The version of the network.
+          example: PENDING
+          type: string
+      type: object
+      example: null
+    pending-network:
+      allOf:
+      - $ref: '#/components/schemas/network-metadata'
+      - $ref: '#/components/schemas/network-version'
+      - $ref: '#/components/schemas/pending_network_allOf'
+    network-version:
+      properties:
+        versionId:
+          description: The ID associated with the active network version.
+          example: 22995fad-13e8-42fd-82c6-31f2390fb440
+        lastModified:
+          description: The last time this version was modified.
+          example: 2017-12-11T17:52:01.088+0000
+        matchingRules:
+          description: The rules that define how to identity network interfaces associated with the network.
+          items:
+            $ref: '#/components/schemas/matching-rule'
+          type: array
+        loadBalancerAddress:
+          description: The load balancer address
+          example: abc.com
+        connectionType:
+          description: The type of connection (e.g. STANDARD or LOAD_BALANCER).
+          example: STANDARD
+      type: object
+    active-network:
+      allOf:
+      - $ref: '#/components/schemas/network-metadata'
+      - $ref: '#/components/schemas/network-version'
+      - $ref: '#/components/schemas/active_network_allOf'
+    post-network:
+      example:
+        loadBalancerAddress: abc.com
+        name: Bynet
+        description: High throughput infiniband network
+        connectionType: STANDARD
+        matchingRules:
+        - type: INTERFACE_NAME
+          value: eth0
+        - type: INTERFACE_NAME
+          value: eth0
+        tags:
+          destinationSystem: vantage
+      properties:
+        name:
+          description: The name of the network.
+          example: Bynet
+          type: string
+        description:
+          description: A description of the network.
+          example: High throughput infiniband network
+          type: string
+        connectionType:
+          description: The type of connection (e.g. STANDARD or LOAD_BALANCER).
+          enum:
+          - STANDARD
+          - LOAD_BALANCER
+          - NO_INGRESS
+          example: STANDARD
+          type: string
+        matchingRules:
+          description: The rules that define how to identity network interfaces associated with the network. Required only if connection type is STANDARD.
+          items:
+            $ref: '#/components/schemas/matching-rule'
+          type: array
+        loadBalancerAddress:
+          description: The load balancer address that's required only if connection type is LOAD_BALANCER.
+          example: abc.com
+          type: string
+        tags:
+          description: Optional string key/value pairs for associating some context with the network.
+          example:
+            destinationSystem: vantage
+          type: object
+      type: object
+    network:
+      allOf:
+      - $ref: '#/components/schemas/network-metadata'
+      - $ref: '#/components/schemas/network_allOf'
+    not-found-config-version:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <config type> with ID=f5d72daf-aa8f-486c-8058-4fc587c0b471 found.
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>/f5d72daf-aa8f-486c-8058-4fc587c0b471/<version>
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<config type>
+          - f5d72daf-aa8f-486c-8058-4fc587c0b471
+          items:
+            type: string
+          type: array
+      type: object
+    previous-network:
+      allOf:
+      - $ref: '#/components/schemas/network-metadata'
+      - $ref: '#/components/schemas/network-version'
+      - $ref: '#/components/schemas/previous_network_allOf'
+    not-found-config:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <config type> with ID=f5d72daf-aa8f-486c-8058-4fc587c0b471 found.
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>/f5d72daf-aa8f-486c-8058-4fc587c0b471
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<config type>
+          - f5d72daf-aa8f-486c-8058-4fc587c0b471
+          items:
+            type: string
+          type: array
+      type: object
+    network-metadata:
+      properties:
+        id:
+          description: The auto-generated ID of the network.
+          example: f5d72daf-aa8f-486c-8058-4fc587c0b471
+          type: string
+        lastModified:
+          description: The last time the network was modified.
+          example: 2018-01-31T17:59:22.055+0000
+          type: string
+        name:
+          description: The name of the network.
+          example: Bynet
+          type: string
+        description:
+          description: A description of the network.
+          example: High throughput infiniband network
+          type: string
+        tags:
+          description: Optional string key/value pairs for associating some context with the network.
+          example:
+            destinationSystem: vantage
+          type: object
+      type: object
+    bad-request:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 400
+        error:
+          description: The error description
+          example: Bad Request
+        message:
+          description: The error message
+          example: '[name must not be blank]'
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>
+      type: object
+    active_network_allOf:
+      properties:
+        version:
+          description: The version of the network.
+          example: ACTIVE
+          type: string
+      type: object
+      example: null
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

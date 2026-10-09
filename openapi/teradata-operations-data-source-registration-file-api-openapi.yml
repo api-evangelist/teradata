@@ -1,0 +1,52 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Operations - Data Source…
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Generate node registration zip file for a given datasource
+  name: Operations - Data Source Registration File
+paths:
+  /operations/datasource-registration:
+    get:
+      description: Generate node registration zip file for a given data source
+      parameters:
+      - description: Name of the data source type. E.g. emr, dataproc, hdinsight, genericjdbc, cdp, bigquery, onpremtd
+        in: query
+        name: datasourceType
+        required: true
+        schema:
+          type: string
+      - description: ID of the system
+        in: query
+        name: systemId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+          description: Successful response to download the datasource registration zip file.
+      summary: Generate node registration zip file for a datasource
+      tags:
+      - Operations - Data Source Registration File
+      operationId: getOperationsDatasourceRegistration
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

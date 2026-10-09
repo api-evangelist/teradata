@@ -1,0 +1,4 @@
+Contact: information.security@teradata.com
+Policy: https://www.teradata.com/trust-security-center/data-security/vulnerability-disclosure-policy
+Hiring: https://careers.teradata.com
+Expires: 2029-09-01T00:00:00z

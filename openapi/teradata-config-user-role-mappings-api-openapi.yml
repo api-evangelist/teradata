@@ -1,0 +1,257 @@
+openapi: 3.2.0
+info:
+  description: Teradata QueryGrid™ Manager provides APIs for centralized administration and monitoring of Teradata QueryGrid.
+  title: Teradata QueryGrid Manager Config - User/Role Mappings API
+  version: '03.08'
+servers:
+- description: Default API endpoint
+  url: /api/v1
+- description: Querygrid Prefix API endpoint
+  url: /querygrid/api/v1
+- description: Streaming Prefix API endpoint
+  url: /querygrid-streaming/api/v1
+security:
+- BasicAuth: []
+tags:
+- description: Map initiator user and roles to target user and roles
+  name: Config - User/Role Mappings
+paths:
+  /config/user-mappings:
+    get:
+      parameters:
+      - description: Get user mapping associated with the specified name (case insensitive). Wildcard matching with '*' is supported.
+        in: query
+        name: filterByName
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/user-mapping'
+                type: array
+          description: Successful operation
+      summary: Get all User Mappings
+      tags:
+      - Config - User/Role Mappings
+      operationId: getConfigUserMappings
+      x-operation-id-source: derived
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-user-mapping'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user-mapping'
+          description: User Mapping created
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+      summary: Create a new User Mapping
+      tags:
+      - Config - User/Role Mappings
+      operationId: postConfigUserMappings
+      x-operation-id-source: derived
+  /config/user-mappings/{id}:
+    delete:
+      parameters:
+      - description: ID of the User Mapping to delete
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+      summary: Delete a User Mapping by ID
+      tags:
+      - Config - User/Role Mappings
+      operationId: deleteConfigUserMappingsById
+      x-operation-id-source: derived
+    get:
+      parameters:
+      - description: ID of the User Mapping
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user-mapping'
+          description: Successful Operation
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not-found-config'
+          description: Not Found
+      summary: Get a User Mapping by ID
+      tags:
+      - Config - User/Role Mappings
+      operationId: getConfigUserMappingsById
+      x-operation-id-source: derived
+    put:
+      parameters:
+      - description: ID of the DataCenter to update
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post-user-mapping'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user-mapping'
+          description: Successful Operation
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bad-request'
+          description: Bad Request
+      summary: Update a User Mapping
+      tags:
+      - Config - User/Role Mappings
+      operationId: putConfigUserMappingsById
+      x-operation-id-source: derived
+components:
+  schemas:
+    not-found-config:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 404
+        error:
+          description: The error description
+          example: Not Found
+        message:
+          description: The error message
+          example: No <config type> with ID=f5d72daf-aa8f-486c-8058-4fc587c0b471 found.
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>/f5d72daf-aa8f-486c-8058-4fc587c0b471
+        errorCode:
+          description: The error code for localization
+          example: api.error.entity.not.found
+        errorParams:
+          description: Parameters for localization
+          example:
+          - api.error.param.entity.type.<config type>
+          - f5d72daf-aa8f-486c-8058-4fc587c0b471
+          items:
+            type: string
+          type: array
+      type: object
+    post-user-mapping:
+      properties:
+        name:
+          description: The name of the user mapping.
+          example: San Diego
+          type: string
+        description:
+          description: A description of the user mapping.
+          example: Data center located in San Diego, CA.
+          type: string
+        userMapping:
+          description: A map of local users to remote users.
+          example:
+            localUser1: remoteUser1
+            localUser2: remoteUser2
+          type: object
+        roleMapping:
+          description: A map of local roles to remote roles.
+          example:
+            localRole1: remoteRole1
+            localRole2: remoteRole2
+          type: object
+      type: object
+    bad-request:
+      properties:
+        timestamp:
+          description: The time of the error
+          example: 2018-02-25T20:36:31.121+0000
+        status:
+          description: The http status code
+          example: 400
+        error:
+          description: The error description
+          example: Bad Request
+        message:
+          description: The error message
+          example: '[name must not be blank]'
+        path:
+          description: The path of the API called
+          example: /api/v1/config/<type>
+      type: object
+    user-mapping:
+      example:
+        roleMapping:
+          localRole1: remoteRole1
+          localRole2: remoteRole2
+        name: San Diego
+        description: Data center located in San Diego, CA.
+        id: f5d72daf-aa8f-486c-8058-4fc587c0b471
+        lastModified: 2018-01-31T17:59:22.055+0000
+        userMapping:
+          localUser1: remoteUser1
+          localUser2: remoteUser2
+      properties:
+        id:
+          description: The auto-generated ID of the user mapping.
+          example: f5d72daf-aa8f-486c-8058-4fc587c0b471
+          type: string
+        lastModified:
+          description: The last time this user mapping was modified.
+          example: 2018-01-31T17:59:22.055+0000
+          type: string
+        name:
+          description: The name of the user mapping.
+          example: San Diego
+          type: string
+        description:
+          description: A description of the user mapping.
+          example: Data center located in San Diego, CA.
+          type: string
+        userMapping:
+          description: A map of local users to remote users.
+          example:
+            localUser1: remoteUser1
+            localUser2: remoteUser2
+          type: object
+        roleMapping:
+          description: A map of local roles to remote roles.
+          example:
+            localRole1: remoteRole1
+            localRole2: remoteRole2
+          type: object
+      type: object
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http

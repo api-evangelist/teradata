@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/teradata/main/json-schema/teradata-fabric-schema.json",
+  "title": "Fabric",
+  "description": "A data fabric configuration.",
+  "x-generated": "2026-10-04",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/teradata-configuration-api-openapi.yml#/components/schemas/Fabric",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique fabric identifier."
+    },
+    "name": {
+      "type": "string",
+      "description": "Fabric name."
+    },
+    "description": {
+      "type": "string",
+      "description": "Fabric description."
+    },
+    "status": {
+      "type": "string",
+      "description": "Fabric status."
+    }
+  }
+}
