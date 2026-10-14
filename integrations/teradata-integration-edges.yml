@@ -3,6 +3,7 @@ method: searched
 checked:
 - https://aws.amazon.com/marketplace/
 - https://azuremarketplace.microsoft.com/
+- https://hightouch.com/docs/sources/teradata-vantage
 marketplace_apps: []
 edges:
 - partner_name: AWS Marketplace
@@ -57,3 +58,68 @@ edges:
   seller_name: Teradata
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
+- partner_name: Open Geospatial Consortium
+  partner: ogc
+  detected_by: sweep-geospatial.py
+  first_seen: '2026-10-14'
+  partner_match: register
+  type: register
+  direction: partner-built
+  channel: standard-directory
+  relationship: standard-participant
+  evidence: https://portal.ogc.org/public_ogc/compliance/implementing.php?org_match=Teradata%20Corporation
+  conformance:
+    organization: Teradata Corporation
+    domain: teradata.com
+    products: 3
+    compliant_specs: []
+    implementing_specs: []
+    products_list:
+    - name: Teradata Database
+      version: '12.0'
+      type: Server
+      pid: '897'
+      valid_until: null
+      compliant: []
+    - name: Teradata Database
+      version: '13.0'
+      type: Server
+      pid: '898'
+      valid_until: null
+      compliant: []
+    - name: Teradata Database
+      version: '13.10'
+      type: Server
+      pid: '899'
+      valid_until: null
+      compliant: []
+  match:
+    method: domain
+    domain: teradata.com
+  contract_reference:
+    register: portal.ogc.org/public_ogc/compliance
+    spec_file: null
+    role: implementation-registration
+    registered_name: Teradata Corporation
+    register_id: Teradata Corporation
+    detected_by: sweep-geospatial.py
+    detected: '2026-10-14'
+- partner_name: Hightouch
+  partner: hightouch
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://hightouch.com/docs/sources/teradata-vantage
+  coverage_role:
+  - source
+  cdp_signals:
+    source:
+      catalog_entries:
+      - teradata-vantage
+      status: released
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+source: https://hightouch.com/docs/sources/teradata-vantage

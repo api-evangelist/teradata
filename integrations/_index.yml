@@ -27,3 +27,34 @@
   relationship: distribution-channel
   status: not-a-workflow
   arazzo: null
+- slug: teradata-open-geospatial-consortium
+  label: Open Geospatial Consortium
+  partner: ogc
+  partner_name: Open Geospatial Consortium
+  type: register
+  channel: standard-directory
+  evidence: https://portal.ogc.org/public_ogc/compliance/implementing.php?org_match=Teradata%20Corporation
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: portal.ogc.org/public_ogc/compliance
+    spec_file: null
+    role: implementation-registration
+    registered_name: Teradata Corporation
+    register_id: Teradata Corporation
+    detected_by: sweep-geospatial.py
+    detected: '2026-10-14'
+  status: not-a-workflow
+  arazzo: null
+- slug: teradata-hightouch
+  label: Hightouch
+  partner: hightouch
+  partner_name: Hightouch
+  type: coverage
+  marketplace: coverage
+  channel: partner-built
+  evidence: https://hightouch.com/docs/sources/teradata-vantage
+  source: edge
+  relationship: connector-coverage
+  status: not-a-workflow
+  arazzo: null
