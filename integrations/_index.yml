@@ -86,7 +86,7 @@
     - alpha
     in_cloud: false
     builder: unknown (community connector; contributor not in the record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: teradata-meltano
   label: Meltano
@@ -115,7 +115,7 @@
     quality:
     - silver
     builder: 'community (Meltano Hub variant maintainers: crudelis-rgb)'
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
 - slug: teradata-dbt-dbt-package-hub
   label: dbt (dbt-package-hub)
