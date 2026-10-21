@@ -16,6 +16,7 @@ checked:
 - https://registry.npmjs.org
 - https://repo1.maven.org/maven2
 - https://rubygems.org/api/v1
+- vs-code-marketplace/integrations/vs-code-marketplace-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: AWS Marketplace
@@ -70,52 +71,36 @@ edges:
   seller_name: Teradata
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
-- partner_name: Open Geospatial Consortium
-  partner: ogc
-  detected_by: sweep-geospatial.py
-  first_seen: '2026-10-14'
+- partner_name: PyPI
+  partner: pypi
   partner_match: register
   type: register
-  direction: partner-built
-  channel: standard-directory
-  relationship: standard-participant
-  evidence: https://portal.ogc.org/public_ogc/compliance/implementing.php?org_match=Teradata%20Corporation
-  conformance:
-    organization: Teradata Corporation
-    domain: teradata.com
-    products: 3
-    compliant_specs: []
-    implementing_specs: []
-    products_list:
-    - name: Teradata Database
-      version: '12.0'
-      type: Server
-      pid: '897'
-      valid_until: null
-      compliant: []
-    - name: Teradata Database
-      version: '13.0'
-      type: Server
-      pid: '898'
-      valid_until: null
-      compliant: []
-    - name: Teradata Database
-      version: '13.10'
-      type: Server
-      pid: '899'
-      valid_until: null
-      compliant: []
-  match:
-    method: domain
-    domain: teradata.com
+  direction: provider-built
+  category: official SDK (Python)
+  evidence: https://pypi.org/project/teradata/
+  channel: package-registry
+  relationship: distribution-channel
   contract_reference:
-    register: portal.ogc.org/public_ogc/compliance
+    register: PyPI (public registry JSON)
     spec_file: null
-    role: implementation-registration
-    registered_name: Teradata Corporation
-    register_id: Teradata Corporation
-    detected_by: sweep-geospatial.py
-    detected: '2026-10-14'
+    language: Python
+    packages:
+    - name: teradata
+      version: 15.10.0.21
+      released: '2017-04-29'
+      released_field: upload_time
+      lapsed: true
+      page: https://pypi.org/project/teradata/
+      repo_leg: github-org:teradata
+      publisher_leg: email:teradata.com
+      matched_by: domain
+    current: false
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
 - partner_name: Hightouch
   partner: hightouch
   partner_match: aggregator
@@ -193,6 +178,52 @@ edges:
     builder: 'community (Meltano Hub variant maintainers: crudelis-rgb)'
   detected_by: sweep-data-integration.py
   first_seen: '2026-10-18'
+- partner_name: Open Geospatial Consortium
+  partner: ogc
+  detected_by: sweep-geospatial.py
+  first_seen: '2026-10-14'
+  partner_match: register
+  type: register
+  direction: partner-built
+  channel: standard-directory
+  relationship: standard-participant
+  evidence: https://portal.ogc.org/public_ogc/compliance/implementing.php?org_match=Teradata%20Corporation
+  conformance:
+    organization: Teradata Corporation
+    domain: teradata.com
+    products: 3
+    compliant_specs: []
+    implementing_specs: []
+    products_list:
+    - name: Teradata Database
+      version: '12.0'
+      type: Server
+      pid: '897'
+      valid_until: null
+      compliant: []
+    - name: Teradata Database
+      version: '13.0'
+      type: Server
+      pid: '898'
+      valid_until: null
+      compliant: []
+    - name: Teradata Database
+      version: '13.10'
+      type: Server
+      pid: '899'
+      valid_until: null
+      compliant: []
+  match:
+    method: domain
+    domain: teradata.com
+  contract_reference:
+    register: portal.ogc.org/public_ogc/compliance
+    spec_file: null
+    role: implementation-registration
+    registered_name: Teradata Corporation
+    register_id: Teradata Corporation
+    detected_by: sweep-geospatial.py
+    detected: '2026-10-19'
 - partner_name: dbt (dbt-package-hub)
   partner: dbt
   partner_match: mirror
@@ -227,34 +258,25 @@ edges:
   detected: '2026-10-18'
   detected_by: mirror-platform-listings.py
   category: data integration
-- partner_name: PyPI
-  partner: pypi
-  partner_match: register
-  type: register
-  direction: provider-built
-  category: official SDK (Python)
-  evidence: https://pypi.org/project/teradata/
-  channel: package-registry
-  relationship: distribution-channel
-  contract_reference:
-    register: PyPI (public registry JSON)
-    spec_file: null
-    language: Python
-    packages:
-    - name: teradata
-      version: 15.10.0.21
-      released: '2017-04-29'
-      released_field: upload_time
-      lapsed: true
-      page: https://pypi.org/project/teradata/
-      repo_leg: github-org:teradata
-      publisher_leg: email:teradata.com
-      matched_by: domain
-    current: false
-    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
-      24 months'
-    detected_by: sweep-official-sdks.py
-    detected: '2026-10-18'
-  detected_by: sweep-official-sdks.py
-  first_seen: '2026-10-18'
+- partner_name: VS Code Marketplace (vs-code-marketplace)
+  partner: vs-code-marketplace
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: vs-code-marketplace
+  evidence: https://marketplace.visualstudio.com/publishers/TeradataCorporation
+  mirror_of: vs-code-marketplace/integrations/vs-code-marketplace-integration-edges.yml
+  apps:
+  - Teradata SQL
+  - Teradata ETL MCP Extension
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: IDE / developer extension marketplace listing
+  badges:
+  - Verified publisher
+  - Verified domain
 source: https://hightouch.com/docs/sources/teradata-vantage

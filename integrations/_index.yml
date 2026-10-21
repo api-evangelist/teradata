@@ -27,23 +27,35 @@
   relationship: distribution-channel
   status: not-a-workflow
   arazzo: null
-- slug: teradata-open-geospatial-consortium
-  label: Open Geospatial Consortium
-  partner: ogc
-  partner_name: Open Geospatial Consortium
+- slug: teradata-pypi
+  label: PyPI
+  partner: pypi
+  partner_name: PyPI
+  category: official SDK (Python)
   type: register
-  channel: standard-directory
-  evidence: https://portal.ogc.org/public_ogc/compliance/implementing.php?org_match=Teradata%20Corporation
+  channel: package-registry
+  evidence: https://pypi.org/project/teradata/
   source: edge
-  relationship: standard-participant
+  relationship: distribution-channel
   contract_reference:
-    register: portal.ogc.org/public_ogc/compliance
+    register: PyPI (public registry JSON)
     spec_file: null
-    role: implementation-registration
-    registered_name: Teradata Corporation
-    register_id: Teradata Corporation
-    detected_by: sweep-geospatial.py
-    detected: '2026-10-14'
+    language: Python
+    packages:
+    - name: teradata
+      version: 15.10.0.21
+      released: '2017-04-29'
+      released_field: upload_time
+      lapsed: true
+      page: https://pypi.org/project/teradata/
+      repo_leg: github-org:teradata
+      publisher_leg: email:teradata.com
+      matched_by: domain
+    current: false
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
   status: not-a-workflow
   arazzo: null
 - slug: teradata-hightouch
@@ -117,6 +129,25 @@
     builder: 'community (Meltano Hub variant maintainers: crudelis-rgb)'
   status: not-a-workflow
   arazzo: null
+- slug: teradata-open-geospatial-consortium
+  label: Open Geospatial Consortium
+  partner: ogc
+  partner_name: Open Geospatial Consortium
+  type: register
+  channel: standard-directory
+  evidence: https://portal.ogc.org/public_ogc/compliance/implementing.php?org_match=Teradata%20Corporation
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: portal.ogc.org/public_ogc/compliance
+    spec_file: null
+    role: implementation-registration
+    registered_name: Teradata Corporation
+    register_id: Teradata Corporation
+    detected_by: sweep-geospatial.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
 - slug: teradata-dbt-dbt-package-hub
   label: dbt (dbt-package-hub)
   partner: dbt
@@ -143,34 +174,16 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
-- slug: teradata-pypi
-  label: PyPI
-  partner: pypi
-  partner_name: PyPI
-  category: official SDK (Python)
-  type: register
-  channel: package-registry
-  evidence: https://pypi.org/project/teradata/
+- slug: teradata-vs-code-marketplace-vs-code-marketplace
+  label: VS Code Marketplace (vs-code-marketplace)
+  partner: vs-code-marketplace
+  partner_name: VS Code Marketplace (vs-code-marketplace)
+  category: IDE / developer extension marketplace listing
+  type: marketplace
+  marketplace: vs-code-marketplace
+  channel: partner-built
+  evidence: https://marketplace.visualstudio.com/publishers/TeradataCorporation
   source: edge
-  relationship: distribution-channel
-  contract_reference:
-    register: PyPI (public registry JSON)
-    spec_file: null
-    language: Python
-    packages:
-    - name: teradata
-      version: 15.10.0.21
-      released: '2017-04-29'
-      released_field: upload_time
-      lapsed: true
-      page: https://pypi.org/project/teradata/
-      repo_leg: github-org:teradata
-      publisher_leg: email:teradata.com
-      matched_by: domain
-    current: false
-    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
-      24 months'
-    detected_by: sweep-official-sdks.py
-    detected: '2026-10-18'
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null
