@@ -21,6 +21,7 @@ checked:
 - https://www.commoncriteriaportal.org/products/certified_products.csv
 - https://www.niap-ccevs.org/Product/PCL.cfm
 - https://dir.texas.gov/resource-library-item/tx-ramp-certified-cloud-products
+- hugging-face/integrations/hugging-face-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: AWS Marketplace
@@ -228,61 +229,6 @@ edges:
     register_id: Teradata Corporation
     detected_by: sweep-geospatial.py
     detected: '2026-10-19'
-- partner_name: dbt (dbt-package-hub)
-  partner: dbt
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: dbt-package-hub
-  evidence: https://hub.getdbt.com/Teradata/teradata_utils/latest/
-  mirror_of: dbt/integrations/dbt-integration-edges.yml
-  apps:
-  - Teradata Corporation
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: dbt package
-- partner_name: Fivetran (fivetran-connectors)
-  partner: fivetran
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: fivetran-connectors
-  evidence: https://fivetran.com/docs/destinations/teradata
-  mirror_of: fivetran/integrations/fivetran-integration-edges.yml
-  apps:
-  - Teradata Vantage
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: data integration
-- partner_name: VS Code Marketplace (vs-code-marketplace)
-  partner: vs-code-marketplace
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: vs-code-marketplace
-  evidence: https://marketplace.visualstudio.com/publishers/TeradataCorporation
-  mirror_of: vs-code-marketplace/integrations/vs-code-marketplace-integration-edges.yml
-  apps:
-  - Teradata SQL
-  - Teradata ETL MCP Extension
-  listing_count: 1
-  detected: '2026-10-20'
-  detected_by: mirror-platform-listings.py
-  category: IDE / developer extension marketplace listing
-  badges:
-  - Verified publisher
-  - Verified domain
 - partner_name: Common Criteria Portal (CCRA certified products)
   partner: null
   partner_match: register
@@ -414,4 +360,85 @@ edges:
     detected: '2026-10-22'
   detected_by: sweep-tx-ramp-certified-cloud.py
   first_seen: '2026-10-22'
+- partner_name: dbt (dbt-package-hub)
+  partner: dbt
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: dbt-package-hub
+  evidence: https://hub.getdbt.com/Teradata/teradata_utils/latest/
+  mirror_of: dbt/integrations/dbt-integration-edges.yml
+  apps:
+  - Teradata Corporation
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: dbt package
+- partner_name: Fivetran (fivetran-connectors)
+  partner: fivetran
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: fivetran-connectors
+  evidence: https://fivetran.com/docs/destinations/teradata
+  mirror_of: fivetran/integrations/fivetran-integration-edges.yml
+  apps:
+  - Teradata Vantage
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: data integration
+- partner_name: VS Code Marketplace (vs-code-marketplace)
+  partner: vs-code-marketplace
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: vs-code-marketplace
+  evidence: https://marketplace.visualstudio.com/publishers/TeradataCorporation
+  mirror_of: vs-code-marketplace/integrations/vs-code-marketplace-integration-edges.yml
+  apps:
+  - Teradata SQL
+  - Teradata ETL MCP Extension
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: IDE / developer extension marketplace listing
+  badges:
+  - Verified publisher
+  - Verified domain
+- partner_name: Hugging Face (hugging-face-hub)
+  partner: hugging-face
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: hugging-face-hub
+  evidence: https://huggingface.co/Teradata
+  mirror_of: hugging-face/integrations/hugging-face-integration-edges.yml
+  apps:
+  - Teradata/multilingual-e5-large
+  - Teradata/gte-multilingual-base
+  - Teradata/multilingual-e5-base
+  - Teradata/multilingual-e5-small
+  - Teradata/snowflake-arctic-embed-m-v2.0
+  - Teradata/jina-embeddings-v2-small-en
+  - Teradata/jina-embeddings-v2-base-en
+  - Teradata/snowflake-arctic-embed-l-v2.0
+  listing_count: 1
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Hugging Face Hub models
+  badges:
+  - Verified publisher (Hugging Face verified organisation)
 source: https://hightouch.com/docs/sources/teradata-vantage

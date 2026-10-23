@@ -148,45 +148,6 @@
     detected: '2026-10-19'
   status: not-a-workflow
   arazzo: null
-- slug: teradata-dbt-dbt-package-hub
-  label: dbt (dbt-package-hub)
-  partner: dbt
-  partner_name: dbt (dbt-package-hub)
-  category: dbt package
-  type: marketplace
-  marketplace: dbt-package-hub
-  channel: partner-built
-  evidence: https://hub.getdbt.com/Teradata/teradata_utils/latest/
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: teradata-fivetran-fivetran-connectors
-  label: Fivetran (fivetran-connectors)
-  partner: fivetran
-  partner_name: Fivetran (fivetran-connectors)
-  category: data integration
-  type: marketplace
-  marketplace: fivetran-connectors
-  channel: partner-built
-  evidence: https://fivetran.com/docs/destinations/teradata
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: teradata-vs-code-marketplace-vs-code-marketplace
-  label: VS Code Marketplace (vs-code-marketplace)
-  partner: vs-code-marketplace
-  partner_name: VS Code Marketplace (vs-code-marketplace)
-  category: IDE / developer extension marketplace listing
-  type: marketplace
-  marketplace: vs-code-marketplace
-  channel: partner-built
-  evidence: https://marketplace.visualstudio.com/publishers/TeradataCorporation
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: teradata-common-criteria-portal-ccra-certified-products
   label: Common Criteria Portal (CCRA certified products)
   partner_name: Common Criteria Portal (CCRA certified products)
@@ -315,5 +276,57 @@
       lapsed: false
     detected_by: sweep-tx-ramp-certified-cloud.py
     detected: '2026-10-22'
+  status: not-a-workflow
+  arazzo: null
+- slug: teradata-dbt-dbt-package-hub
+  label: dbt (dbt-package-hub)
+  partner: dbt
+  partner_name: dbt (dbt-package-hub)
+  category: dbt package
+  type: marketplace
+  marketplace: dbt-package-hub
+  channel: partner-built
+  evidence: https://hub.getdbt.com/Teradata/teradata_utils/latest/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: teradata-fivetran-fivetran-connectors
+  label: Fivetran (fivetran-connectors)
+  partner: fivetran
+  partner_name: Fivetran (fivetran-connectors)
+  category: data integration
+  type: marketplace
+  marketplace: fivetran-connectors
+  channel: partner-built
+  evidence: https://fivetran.com/docs/destinations/teradata
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: teradata-vs-code-marketplace-vs-code-marketplace
+  label: VS Code Marketplace (vs-code-marketplace)
+  partner: vs-code-marketplace
+  partner_name: VS Code Marketplace (vs-code-marketplace)
+  category: IDE / developer extension marketplace listing
+  type: marketplace
+  marketplace: vs-code-marketplace
+  channel: partner-built
+  evidence: https://marketplace.visualstudio.com/publishers/TeradataCorporation
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: teradata-hugging-face-hugging-face-hub
+  label: Hugging Face (hugging-face-hub)
+  partner: hugging-face
+  partner_name: Hugging Face (hugging-face-hub)
+  category: Hugging Face Hub models
+  type: marketplace
+  marketplace: hugging-face-hub
+  channel: partner-built
+  evidence: https://huggingface.co/Teradata
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null
